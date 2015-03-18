@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--手机大全ks-->
+	<tlib_list_index>
+		<reference name="meta" type="Tlib_ListView">
+			<action method="setTemplate">page/head/meta/tlib/list.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">tlib/list.css</action>
+			<action method="addJs">tlib.js</action>
+		</reference>
+		<reference name="content" type="Tlib_ListView">
+			<action method="setTemplate">tlib/list.phtml</action>
+			<block name="condition" type="Tlib_ListView" template="tlib/list/condition.phtml"/>
+			<block name="choise" type="Tlib_ListView" template="tlib/list/choise.phtml"/>
+		</reference>
+	</tlib_list_index>
+	<!--手机大全end-->
+	<!--手机搜索ks-->
+	<tlib_list_search>
+		<reference name="meta" type="Tlib_ListView">
+			<action method="setTemplate">page/head/meta/tlib/list.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">tlib/list.css</action>
+			<action method="addJs">tlib.js</action>
+		</reference>
+		<reference name="content" type="Tlib_ListView">
+			<action method="setTemplate">tlib/search.phtml</action>
+		</reference>
+	</tlib_list_search>
+	<!--手机搜索end-->
+	<!--手机详情ks-->
+	<tlib_item_index>
+		<reference name="meta" type="Tlib_ItemView">
+			<action method="setTemplate">page/head/meta/tlib/item.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">tlib/item.css</action>
+			<action method="addJs">tlib.js</action>
+		</reference>
+		<reference name="content" type="Tlib_ItemView">
+			<action method="setTemplate">tlib/item.phtml</action>
+			<block name="sales" type="Tlib_ItemView" template="tlib/item/sales.phtml"/>
+			<block name="data" type="Tlib_ItemView" template="tlib/item/data.phtml"/>
+			<block name="gallery" type="Tlib_ItemView" template="tlib/item/gallery.phtml"/>
+		</reference>
+	</tlib_item_index>
+	<!--手机详情end-->
+</layouts>

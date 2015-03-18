@@ -1,0 +1,103 @@
+/* CSS Document */
+html,body,h1,h2,h3,h4,h5,h6,hr,p,iframe,dl,dt,dd,ul,ol,li,pre,form,button,input,textarea,th,td{margin:0;padding:0;}
+body,button,input,select,textarea{font:12px/1.5 Verdana,Arial,Helvetica,Tahoma,sans-serif;}
+body{background-color:#fff;color:#333;}
+button{cursor:pointer;}
+div{border-color:#d4d4d4;}
+h1,h2,h3,h4{font-size:100%;}
+/*h1{font-size:18px;}
+h2{font-size:16px;}
+h3{font-size:14px;}*/
+h1,h2,h3,h4,h5,h6{font-weight:bold;}
+ul,ol{list-style:none;}
+img{border:0;display:block;}
+table{border-collapse:collapse;border-spacing:0;}
+/*a标签样式ks*/
+a{color:#333;text-decoration:none;}
+a:hover{color:#0D61A8;text-decoration:none;}
+/*a标签样式end*/
+
+/*按钮样式ks*/
+.btn_22{
+	padding:0px 8px;
+	height:22px;
+	line-height:18px;
+	color:#333;}
+.btn_26{
+	padding:0px 20px;
+	height:26px;
+	line-height:22px;
+	font-weight:bold;
+	color:#333;}
+.btn_red,.btn_grey{
+	width:80px;
+	height:28px;
+	line-height:24px;
+	color:white;
+	border:none;
+	font-size:14px;
+	font-weight:bold;}
+.btn_red{
+	background:url(../img/bt_red.png);}
+.btn_grey{
+	background:url(../img/bt_grey.png);}
+/*按钮样式end*/
+/*字体颜色样式ks*/
+.red{
+	color:#E61A3C !important;}
+.blue{
+	color:#0D61A8 !important;}
+.black{
+	color:black !important;}
+.orange{
+	color:#FCAE28 !important;}
+.yellow{
+	color:#FFCC00 !important;}
+.green{
+	color:#85B420 !important;}
+.grey{
+	color:#666;}
+/*字体颜色样式end*/
+
+.clear{
+	clear:both;
+	height:0px !important;
+	line-height:0px !important;}
+	
+/*字体大小ks*/
+.fs14{
+	font-size:14px !important;}
+.fs16{
+	font-size:16px !important;}
+.fs18{
+	font-size:18px !important;}
+/*字体大小end*/
+
+.hidden{display:none !important;}
+.lh20{
+	line-height:20px !important}
+.lh30{
+	line-height:30px !important;}
+.price{
+	color:#E61A3C !important;
+	font-weight:bold;}
+	
+/*文本对齐ks*/
+.tal{
+	text-align:left !important;}
+.tac{
+	text-align:center !important;}
+.tar{
+	text-align:right !important;}
+/*文本对齐end*/
+
+.underline:hover{
+	text-decoration:underline;}
+.yahei{
+	font-family:Microsoft,Arial !important;}
+/*标题样式ks*/
+h1{
+	height:25px;
+	line-height:25px;
+	font-size:12px !important;}
+/*标题样式end*/

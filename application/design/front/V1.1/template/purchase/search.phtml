@@ -1,0 +1,169 @@
+<?php $current = Factory::getRequest()->getParam('page', 1)?>
+<?php $q = Factory::getRequest()->getParam('q', '')?>
+<?php $purchases = $q ? $this->loadSearchPurchase($q, $current) : array()?>
+<?php $total = $q ? $this->getSearchPurchaseTotal($q) : 0?>
+<?php $last = ceil($total / 10)?>
+<?php $last = $last ? $last : 1;?>
+<?php $purl = '/purchase/list/search?cfrom=manual_paginator&q=' . $q . '&page='?>
+<?php global $CStatic?>
+<?php $brands = Factory::getView('system/mlib')->loadBrandList()?>
+<?php $options = $this->loadAvailableFilterOption()?>
+<!--面包屑ks-->
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+        <span class="jiantou">></span>
+		<a href="/purchase/list?cfrom=breadcrumb&filter=all">个人求购</a>
+        <span class="jiantou">></span>
+		<a href="javascript:void(0);"><?php echo $q?></a>
+    </div>
+</div>
+<!--面包屑end-->
+<!--您的选择ks-->
+<div class="y_choices">
+	<div class="l grey"><span>共有<strong class="red"><?php echo $q?></strong>条信息</span></div>
+    <div class="r">
+    	<ul>
+        	<li>
+            	<a href="/purchase/list?cfrom=search">您的搜索：<?php echo $q?><i></i></a>
+            </li>
+			<div class="clear"></div>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!--您的选择end-->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.brand_box li a').mouseover(function(){
+		if (jQuery(this).find('img').length > 0) {
+			jQuery(this).find('img').hide();
+			jQuery(this).find('span').show();
+		}
+	});
+	jQuery('.brand_box li a').mouseout(function(){
+		if (jQuery(this).find('img').length > 0) {
+			jQuery(this).find('img').show();
+			jQuery(this).find('span').hide();
+		}
+	});
+});
+//缺少品牌图片时处理方式
+function loadBrandLogoError(obj)
+{
+	jQuery(obj).parent().find('span').show();
+	jQuery(obj).remove();
+}
+//显示更多品牌
+function showMoreBrand(obj)
+{
+	if (jQuery('.brand_box').css('height') == '50px') {
+		jQuery(obj).addClass('more_brand_c');
+		jQuery('.brand_box').css('height', 'auto');
+	} else {
+		jQuery(obj).removeClass('more_brand_c');
+		jQuery('.brand_box').css('height', '50px');
+	}
+}
+</script>
+<!--属性筛选框ks-->
+<div class="attrs">
+	<dl class="attrs_brand">
+    	<dt>手机品牌：</dt>
+    	<dd>
+        	<div class="brand_box">
+            	<ul>
+					<?php foreach ($options['1'] as $value):?>
+					<?php 
+					if ($value == '15') {
+						$tmp = '15';
+						continue;
+					}
+					?>
+                	<li>
+						<a href="/purchase/list?cfrom=brand&filter[1]=<?php echo $value?>">
+                        	<img src="<?php echo $this->getImg('brand2/' . $value . '.jpg')?>" onerror="loadBrandLogoError(this);" />
+							<span style="display:none;"><?php echo $brands[$value]?></span>
+                        </a>
+                    </li>
+					<?php endforeach?>
+					<?php if (isset($tmp)):?>
+                	<li>
+						<a href="/purchase/list?cfrom=brand&filter[1]=15">
+							<span><?php echo $brands['15']?></span>
+                        </a>
+                    </li>
+					<?php endif?>
+                </ul>
+				<div class="clear"></div>
+            </div>
+			<span class="more_brand" onclick="showMoreBrand(this);">更多<i></i></span><!--点击更多时在此添加类more_brand_c-->
+            <div class="clear"></div>
+        </dd>
+    	<div class="clear"></div>
+    </dl>
+	<dl class="attrs_item">
+    	<dt>交易地区：</dt>
+    	<dd>
+            <a href="/purchase/list?cfrom=who&filter[2]=all">全部</a>
+			<?php ksort($options['2'])?>
+			<?php foreach ($options['2'] as $value):?>
+			<a href="/purchase/list?cfrom=who&filter[2]=<?php echo $value?>"><?php echo $CStatic['region'][$value]?></a>
+			<?php endforeach?>
+        </dd>
+    	<div class="clear"></div>
+    </dl>
+</div>
+<!--属性筛选框end-->
+<!--求购列表ks-->
+<div id="buying_list" class="buying_list" page="<?php echo $current?>">
+	<ul>
+    	<?php if ($purchases):?>
+		<?php global $static?>
+    	<?php foreach ($purchases as $purchase):?>
+    	<li>
+        	<p><?php echo $purchase['created_at']?></p>
+            <a target="_blank" class="fs14 blue" href="<?php echo '/purchase/item?cfrom=list&id=' . $purchase['id']?>">
+				<?php echo $purchase['title']?>
+            </a>
+            <strong class="red"><?php echo $purchase['price']?>元</strong>
+        	<span class="area_xingzhi grey1">
+				<?php echo $purchase['region']?>
+            	<i>/</i>
+                [<?php echo $purchase['group']?>]
+            </span>
+            <div class="clear"></div>
+        </li>
+        <?php endforeach;?>
+        <?php endif;?>
+    </ul>
+    <div class="clear"></div>
+	<div class="loading" style="width:220px;margin:5px auto;display:none;">
+		<img alt="正在加载中..." src="<?php echo $this->getImg('loading.gif')?>" />
+	</div>
+</div>
+<!--求购列表end-->
+<div class="list_buttom" style="<?php if (!$purchases):?>display:block;<?php endif;?>"></div>
+<div class="list_bt_tis" style="<?php if (!$mobiles || $total <= 10):?>display:block;position:static;<?php endif;?>">
+    <span>没有找到关于您手机型号的求购信息么？发布一个手机吧！</span>
+	<?php if (Factory::getSession('customer/id')):?>
+	<a href="/customer/mobile/publish">发布手机</a>
+    <a href="/customer/purchase/publish" style="background:grey;">发布求购</a>
+	<?php else:?>
+	<a href="javascript:void(0);" onclick="popOpen('login');">发布手机</a>
+    <a href="javascript:void(0);" onclick="popOpen('login');" style="background:grey;">发布求购</a>
+	<?php endif?>
+</div>
+<?php if ($total > 10):?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery(window).scroll(function () {
+		/*判断窗体高度与竖向滚动位移大小相加 是否 超过内容页高度*/
+		if ((jQuery(window).height() + jQuery(window).scrollTop()) >= jQuery('body').height()) {
+			loadSearchPurchase('<?php echo $q?>');
+		}
+	});
+});
+</script>
+<?php endif;?>

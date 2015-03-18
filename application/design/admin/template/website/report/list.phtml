@@ -1,0 +1,69 @@
+<?php $cid = Factory::getRequest()->getParam('cid', null)?>
+<?php $page = Factory::getRequest()->getParam('p', '1')?>
+<?php $per = 20?>
+<?php $categories = $this->getReportCategory()?>
+<?php $reports = $this->loadAdminReportList($cid, $page, $per)?>
+<!--筛选框ks-->
+<div class="search_div">
+	<form action="/monitor/website_report/list" method="get">
+		<div class="sx search_div_item">
+			<strong>信息类型：</strong>
+			<select name="cid">
+				<option value="0">所有信息</option>
+				<?php foreach ($categories as $k => $v):?>
+				<option value="<?php echo $k?>" <?php echo $cid == $k ? 'selected="selected"' : ''?>>
+					<?php echo $v?>
+				</option>
+				<?php endforeach;?>
+			</select>
+		</div>
+		<div class="search_div_item">
+			<button type="submit">筛选</button>
+		</div>
+		<div class="clear"></div>
+	</form>
+</div>
+<!--筛选框end-->
+<div class="table1" entity="report">
+	<table width="990">
+		<thead>
+			<tr>
+				<th width="330">信息标题</th>
+				<th width="100">点阅量</th>
+				<th width="100">创建时间</th>
+				<th width="100">状态</th>
+				<th class="tac" width="100">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if ($reports):?>
+			<?php foreach ($reports as $item):?>
+			<tr entity="<?php echo $item['id']?>">
+				<td><?php echo $item['title']?></td>
+				<td><?php echo $item['clicks']?></td>
+				<td><?php echo timeforcustomer($item['created_at'])?></td>
+				<td class="green"><?php echo $item['status'] ? '有效' : '冻结'?></td>
+				<td class="table_cz tac">
+					<?php if ($item['status']):?>
+					<a href="javascript:void(0);" onclick="itemInActive(this, '<?php echo $item['id']?>', 'report');">禁用</a>
+					<?php else:?>
+					<a href="javascript:void(0);" onclick="itemActive(this, '<?php echo $item['id']?>', 'report');">启用</a>
+					<?php endif;?>
+				</td>
+			</tr>
+			<?php endforeach?>
+			<?php else:?>
+			<tr>
+				<td colspan="5" style="text-align:center;">暂无相关举报信息</td>
+			</tr>
+			<?php endif?>
+		</tbody>
+	</table>
+</div>
+<!--分页ks-->
+<?php $amount = $this->getAdminReportTotal($cid)?>
+<?php if ($amount > $per):?>
+<?php $url = '/monitor/website_report/list?cid=' . $cid . '&'?>
+<?php echo Factory::getView('page/paginator')->init($amount, $page, $per, $url, 'admin')->render();?>
+<?php endif;?>
+<!--分页end-->

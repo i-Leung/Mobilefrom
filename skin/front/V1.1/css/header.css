@@ -1,0 +1,233 @@
+/* CSS Document */
+.header{
+	background:#157AD4;}
+.top_nav_wp,.header_wp,.menu_wp{
+	width:1000px;
+	margin:0 auto;}
+.top_nav{
+	height:26px;
+	line-height:26px;
+	padding:2px 0px;
+	border-bottom:1px #156DCF solid;
+	color:#C2D9F8;}
+.top_nav a{
+	color:#C2D9F8;}
+.top_nav a:hover{
+	color:#fff;}
+.top_nav em{
+	margin:0px 7px;
+	color:#1369C0;}
+.top_nav_l{
+	float:left;
+}
+.top_nav_r{
+	float:right;
+	text-align:right;
+}
+/*头部ks*/
+.toplink a, .toplink span{
+	margin-left:0 !important;
+	color:#fff;
+	font-size:14px;
+	font-family:'微软雅黑';
+}
+.header_wp{
+	height:40px;
+	padding:19px 0px;}
+.mf_logo{
+	float:left;}
+.searchbar{
+	height:36px;
+	float:right;
+	margin-top:2px;}
+.search_cate{
+	z-index:1;
+	width:60px;
+	height:36px;
+	float:left;
+	background:#f2f2f2;}
+.search_cate p{
+	height:36px;
+	line-height:36px;
+	text-align:left;
+	padding-left:10px;
+	background:url(../img/header/arrow_down.png) no-repeat 50px 10px;
+	cursor:pointer;}
+.search_cate:hover p{
+	background:url(../img/header/arrow_up.png) no-repeat 50px 10px;}
+.search_cate ul{
+	display:none;
+	position:relative;
+	left:0px;
+	top:0px;}
+.search_cate ul li{
+	width:55px;
+	height:36px;
+	line-height:36px;
+	padding-left:10px;
+	background:#f2f2f2;
+	cursor:pointer;}
+.search_cate ul li:hover{
+	background:#ddd;}
+.search_text{
+	outline:none;
+	float:left;
+	width:294px;
+	height:20px;
+	line-height:20px;
+	padding:8px;
+	border:none;
+	background:#f2f2f2;
+	border-radius:0px;}
+.searchbar .search_btn{
+	display:block;
+	width:36px;
+	height:36px;
+	border:none;
+	float:left;
+	cursor:pointer;
+	margin-left:15px;
+	background:url(../img/header/search_icon.png) no-repeat 10px 10px #f2f2f2;}
+.search_cate:hover ul{
+	z-index:99;}
+/*头部end*/
+/*菜单ks*/
+.menu{
+	background:#1369C0;
+	height:40px;
+	border-top:1px #135DBC solid;}
+.menu_wp .menu_box{
+	float:left;}
+.menu_wp .menu_box li{
+	float:left;
+	position:relative;}
+.menu_wp .menu_box li a{
+	display:block;
+	width:100px;
+	height:40px;
+	line-height:40px;
+	font-size:14px;
+	font-family:'微软雅黑';
+	color:#fff;
+	text-align:center;}
+.menu_wp .menu_box li a:hover{
+	text-decoration:none;
+	background:#135dbc;}
+.menu_wp .menu_box .selected{
+	background:#135dbc;
+}
+.menu_shop_info{
+	float:right;}
+.menu_wp .menu_box .onclick a{
+	position:relative;
+	z-index:999;
+	background:#4593fd !important;
+	box-shadow:2px -1px 3px rgba(55,55,55,.5);
+	font-weight:bold;}
+.menu_wp .menu_box li em{
+	display: block;
+	width: 29px;
+	height: 17px;
+	position:absolute;
+	top:-10px;
+	left:46px;}
+.menu_wp .menu_box li .ihot{
+	background: url(../img/header/hot_icon.png);}
+.menu_wp .menu_box li .inew{
+	background: url(../img/header/new_icon.png);}
+.menu_wp .publish_btn{
+	float:right;
+	display:block;
+	height:40px;
+	padding-left:20px;
+	line-height:40px;
+	color:#fff;
+	font-size:14px;
+	background:url(../img/header/edit.png) no-repeat 0px 13px;
+	font-family:'微软雅黑';}
+.menu_wp .publish_btn:hover{
+	text-decoration:none;}
+/*菜单end*/
+/*快速选机通道ks*/
+.menu_cate{
+	position:relative;
+	z-index:99;
+	float:left;
+	background:#4593FD;
+	box-shadow: 2px -1px 3px rgba(55,55,55,.5);}
+.menu_cate_hd{
+	display:block;
+	padding:0px 15px;
+	width:170px;
+	height:40px;
+	line-height:40px;
+	color:#fff;
+	font-size:16px;
+	font-family:'微软雅黑';}
+.menu_cate_hd:hover{
+	text-decoration:none;
+	color:#fff;}
+.menu_cate_hd_arrow{
+	display:block;
+	width:11px;
+	height:7px;
+	background:url(../img/header/arrow_down_blue.png);
+	position:absolute;
+	right:15px;
+	top:17px;}
+.menu_cate_bd{
+	display:none;
+	width:196px;
+	height:478px;
+	position:absolute;
+	background:#F4F4F4;
+	border:2px #4593FD solid;
+	border-top:none;
+	box-shadow:3px 0 3px -2px rgba(55,55,55,0.4)}
+.sub_cate_item{
+	border-top:1px #d4d4d4 solid;
+	padding-bottom: 15px;
+	*padding-bottom: 10px;}
+.sub_cate_item h3{
+	margin-top:13px;
+	margin-left:13px;}
+.sub_cate_box{
+	width:183px;
+	margin-left:13px;}
+.sub_cate_box a{
+	display:block;
+	white-space:nowrap;
+	margin:10px 10px 0 0;
+	line-height:20px;
+	float:left;
+	color:#666;}
+.cate_os_list{
+	margin-top:10px;}
+.cate_os_list a{
+	display:block;
+	width:48px;
+	height:48px;
+	float:left;}
+.cate_os_list .android{
+	background:url(../img/header/android.png);}
+.cate_os_list .ios{
+	background:url(../img/header/ios.png);}
+.cate_os_list .wp{
+	background:url(../img/header/windows8.png);}
+.cate_os_list .blackberry{
+	background:url(../img/header/blackberry.png);}
+/*快速选机通道end*/
+/*面包屑ks*/
+.bread_crumb{
+	background-color:white;}
+.bread_crumb_wrap{
+	height:30px;
+	line-height:30px;
+	color:#666;}
+.bread_crumb_wrap span{
+	font-family:宋体 !important;}
+.bread_crumb_wrap a,.bread_crumb_wrap span{
+	color:#666;}
+.bread_crumb_wrap a:hover{
+	color:#0D61A8;}
+/*面包屑end*/

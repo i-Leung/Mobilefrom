@@ -1,0 +1,354 @@
+<?php $id = Factory::getRequest()->getParam('id', null)?>
+<?php $detail = $this->getReportDetail($id)?>
+<?php $groups = Factory::getView('customer/info')->getGroupName()?>
+<div class="content">
+	<h1><?php echo $detail['title']?></h1>
+    <div class="tit_info">
+    	<span style="margin-left:0px;">发布人：<?php echo $detail['reporter']?></span>
+		<span class="report-time">时间：<?php echo timeforcustomer($detail['created_at'])?></span>
+        <span>点阅量：<?php echo $detail['clicks']?></span>
+        <span>评论数：<?php echo $detail['comments']?></span>
+        <span><a class="grey1" href="http://wpa.qq.com/msgrd?v=3&uin=2824673297&site=www.mobilefrom.com&menu=yes" target="_blank">举报此信息</a></span>
+    </div>
+    <div class="miaoshu"><h3>事件过程描述</h3></div>
+	<div class="miaoshu_box"><?php echo $detail['content']?></div>
+    <!--相册ks-->
+	<?php if ($detail['gallery']):?>
+	<?php $amount = count($detail['gallery'])?>
+    <div class="miaoshu"><h3>有图有真相</h3></div>
+    <div class="album">
+    	<div class="img_b">
+        	<a href="http://mobilefrom-upload.stor.sinaapp.com/report/<?php echo $detail['gallery'][0]?>" target="_blank">
+            	<img src="http://mobilefrom-upload.stor.sinaapp.com/report/<?php echo $detail['gallery'][0]?>" onload="loadBigImg(this);" />
+            </a>
+            <div class="img_b_btn">
+                <a class="img_l" href="javascript:void(0);" onclick="switchBigImg(this);"></a>
+				<a class="img_r" href="javascript:void(0);" onclick="switchBigImg(this);" limit="<?php echo $amount?>"></a>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="img_s_wp">
+			<div class="img_s_wp_box">
+				<ul>
+					<?php foreach ($detail['gallery'] as $key => $item):?>
+					<li class="img_s <?php if ($key == 0):?>img_s_c<?php endif?>">
+						<a href="javascript:void(0);" onclick="showBigImg(this);"><img src="<?php echo $this->getThumbPicture($item)?>" /></a>
+					</li>
+					<?php endforeach?>
+				</ul>
+			</div>
+			<a class="img_btn img_up_none" href="javascript:void(0);" onclick="switchThumb(this);"><i></i></a>
+			<a class="img_btn <?php echo $key > 5 ? 'img_down' : 'img_down_none'?>" href="javascript:void(0);" onclick="switchThumb(this);" limit="<?php echo ($amount + 1 - 5) * 110?>"><i></i></a>
+        </div>
+        <div class="clear"></div>
+    </div>
+	<?php endif?>
+    <!--相册end-->
+    <!--辩论区域ks-->
+    <div class="bianlun">
+    	<div class="bianlun_bd">
+			<?php $rcomments = $this->hasTargetComment($detail['id'], $detail['reporter_id'])?>
+            <div class="l box">
+                <div class="item_tit"><strong>举报人</strong></div>
+                <div class="bianlun_box_user">
+                	<div class="img">
+						<img src="http://mobilefrom-upload.stor.sinaapp.com/thumbnail/<?php echo $detail['reporter_id']?>.jpg" onerror="loadErrorThumbnail(this);" />
+                    </div>
+                    <div class="account">
+						<p>
+							<a class="blue" href="/space/mobile/list?cfrom=report&id=<?php echo $detail['reporter_id']?>" target="_blank">
+								<?php echo $detail['reporter']?>
+							</a>
+							<span class="grey1">[<?php echo $groups[$detail['greporter']]?>]</span>
+							<?php if ($rcomments):?>
+							<a class="blue" href="javascript:void(0);" onclick="showTargetCommentList('reporter');">查看相关言论</a>
+							<?php else:?>
+							<a href="javascript:void(0);">暂未发表相关言论</a>
+							<?php endif?>
+						</p>
+						<p class="grey1">
+							<span>注册时间：<?php echo date('Y-m-d', $detail['reg_reporter'])?></span>
+							<span style="padding-left: 5px;">登录次数：<?php echo $detail['lg_reporter']?></span>
+						</p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+				<div class="bianlun_list"></div>
+            </div>
+			<?php $icomments = $this->hasTargetComment($detail['id'], $detail['informer_id'])?>
+            <div class="r box">
+                <div class="item_tit"><strong>被举报人</strong></div>
+                <div class="bianlun_box_user">
+                	<div class="img">
+						<img src="http://mobilefrom-upload.stor.sinaapp.com/thumbnail/<?php echo $detail['informer_id']?>.jpg" onerror="loadErrorThumbnail(this);" />
+                    </div>
+                    <div class="account">
+						<?php if ($detail['informer']):?>
+						<p>
+							<a class="blue" href="/space/mobile/list?cfrom=report&id=<?php echo $detail['informer_id']?>" target="_blank">
+								<?php echo $detail['informer']?>
+							</a>
+							<span class="grey1">[<?php echo $groups[$detail['ginformer']]?>]</span>
+							<?php if ($icomments):?>
+							<a class="blue" href="javascript:void(0);" onclick="showTargetCommentList('informer');">查看相关言论</a>
+							<?php else:?>
+							<a href="javascript:void(0);">暂未发表相关言论</a>
+							<?php endif?>
+						</p>
+						<p class="grey1">
+							<span>注册时间：<?php echo date('Y-m-d', $detail['reg_informer'])?></span>
+							<span style="padding-left: 5px;">登录次数：<?php echo $detail['lg_informer']?></span>
+						</p>
+						<?php else:?>
+                        <p>
+                        	<span class="grey1">[非网站用户]</span>
+                            <span style="margin-left:10px;">我是被举报人，</span>
+                            <a class="blue" href="http://wpa.qq.com/msgrd?v=3&uin=2824673297&site=www.mobilefrom.com&menu=yes" target="_blank">我有话说</a>
+                        </p>
+						<?php endif?>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+				<div class="bianlun_list"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!--辩论区域end-->
+    <!--分界线ks-->
+    <div class="fjx"></div>
+    <!--分界线end-->
+    <!--用户支持率ks-->
+	<?php $customer = Factory::getSession('customer/id')?>
+	<?php $isInner = $customer && in_array($customer, array($detail['reporter_id'], $detail['reporter_id']))?>
+	<?php $voted = Factory::getCookie('vote-report' . $id)?>
+	<?php $voted = $voted ? ((time() - $voted) / 86400) > 1 : 1?>
+    <div class="user_support">
+    	<h3>酱油用户支持率</h3>
+        <div class="pk_progress">
+        	<div class="btn_support add_blue"><!--当点击之后，加入类disabled-->
+				<?php if ($voted && !$isInner):?>
+				<a href="javascript:void(0);" onclick="voteReport(this, '<?php echo $detail['id']?>', 'reporter');">支持<br />举报人</a>
+				<?php else:?>
+				<a class="disabled" href="javascript:void(0);">支持<br />举报人</a>
+				<?php endif?>
+            </div>
+        	<div class="progress_bar">
+            	<span class="bg_grey" style="display:none;"><strong>投票支持后才能看到当前票数</strong></span>
+				<div class="pk_result">
+					<?php $ptotal = $detail['reporter_point'] + $detail['informer_point']?>
+					<?php if ($ptotal):?>
+					<?php $percent = ceil($detail['reporter_point'] / $ptotal * 100)?>
+					<span class="bg_blue" style="width:<?php echo $percent?>%;"><strong><?php echo $detail['reporter_point']?></strong></span>
+                    <span class="bg_red" style="width:<?php echo $percent == 100 ? 0 : 100 - $percent - 1?>%;"><strong><?php echo $detail['informer_point']?></strong></span>
+					<?php else:?>
+					<span class="bg_blue" style="width:50%;"><strong>0</strong></span>
+                    <span class="bg_red" style="width:50%;"><strong>0</strong></span>
+					<?php endif?>
+                </div>
+            </div>
+        	<div class="btn_support add_red"><!--当点击之后，加入类disabled-->
+				<?php if ($voted && !$isInner):?>
+				<a href="javascript:void(0);" onclick="voteReport(this, '<?php echo $detail['id']?>', 'informer');">支持<br />被举报人</a>
+				<?php else:?>
+				<a class="disabled" href="javascript:void(0);">支持<br />被举报人</a>
+				<?php endif?>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <p>投票说明：举报双方不能投票，其他用户每24小时可以投票1次，投票结果只代表旁观用户观点，对判定不产生直接影响。</p>
+    </div>
+    <!--用户支持率end-->
+    <!--驳回举报ks-->
+    <div class="barbox_green"></div>
+    <!--驳回举报end-->
+    <!--站方判定ks-->
+    <div class="barbox_green"></div>
+    <!--站方判定end-->
+    <!--评论ks-->
+	<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery('.post_box').click(function(){
+			if(jQuery(this).find('textarea').attr('disabled') == 'disabled'){
+				popOpen('login');
+			}
+		});
+		jQuery('.post_box textarea').keydown(function(){
+			if (jQuery(this).val() != '') {
+				jQuery('.post_box button').addClass('comment_btn');
+			} else {
+				jQuery('.post_box button').removeClass('comment_btn');
+			}
+			var free = 140 - parseInt(jQuery(this).val().length);
+			jQuery('.post_box .l strong').html(free);
+		});
+		jQuery('.post_box textarea').blur(function(){
+			if (jQuery(this).val() == '') {
+				jQuery('.post_box button').removeClass('comment_btn');
+			}
+		});
+	});
+	</script>
+    <div class="comment">
+    	<div class="tit">酱油用户，欢迎对本举报发表观点</div>
+        <div class="post_box">
+			<p class="comment_num">已有<span class="red" style="font-weight:bold;"><?php echo $detail['comments']?></span>条评论，快来参与吧！</p>
+        	<div class="post_box_cont">
+				<textarea placeholder="请输入评论内容" <?php echo !$customer ? 'disabled="disabled"' : ''?>></textarea>
+            </div>
+            <div class="bottom">
+            	<p class="l grey1">您还可以输入<strong>140</strong>个字</p>
+                <div class="r">
+					<?php if ($customer):?>
+					<button type="button" onclick="commentReport(this, '<?php echo $detail['id']?>', '0', '<?php echo $detail['reporter_id']?>', '1');"></button>
+					<span class="grey1">
+						您好，<a href="/customer?id=<?php echo $customer?>" target="_blank"><?php echo Factory::getSession('customer/username')?></a>
+					</span>
+					<?php else:?>
+                    <button type="button" onclick="javascript:void(0);"></button>
+					<?php endif?>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="com_lsit">
+        	<div class="com_list_tit">
+            	<span><strong>最新评论</strong></span>
+                <a style="display:none;" href="javascript:void(0);"></a>
+                <div class="clear"></div>
+            </div>
+            <ul>
+				<?php if ($detail['comments']):?>
+				<?php $comments = $this->loadReportCommentList($detail['id'])?>
+				<?php foreach ($comments as $comment):?>
+            	<li>
+                	<div class="l">
+						<img src="http://mobilefrom-upload.stor.sinaapp.com/thumbnail/<?php echo $comment['customer_id']?>.jpg" onerror="loadErrorThumbnail(this);" />
+                    </div>
+                    <div class="r">
+						<div class="com_text">
+							<a class="blue" href="/space/mobile/list?id=<?php echo $comment['customer_id']?>" target="_blank"><?php echo $comment['username']?></a>
+							<span>：<?php echo $comment['content']?></span>
+						</div>
+                        <div class="reply_op">
+                            <span class="grey1"><?php echo $comment['created_at']?></span>
+							<a class="blue reply_js" href="javascript:void(0);" onclick="showCommentField(this, '<?php echo $id?>', '<?php echo $comment['id']?>', '<?php echo $comment['customer_id']?>', '1');">
+								回复
+								<?php if ($comment['children']):?>
+								<span class="grey1">（<?php echo $comment['children']?>）</span>
+								<?php endif?>
+							</a>
+							<?php if ($comment['children']):?>
+							<a class="hide_reply_list grey" style="display:none;" href="javascript:void(0);" onclick="hideCommentReply(this);">收起回复</a>
+							<?php endif?>
+                        </div>
+                        <!--回复区域ks-->
+						<div class="reply_box" style="display:none;">
+							<i></i>
+							<div class="reply_list"></div>
+							<div class="reply"></div>
+						</div>
+                        <!--回复区域end-->
+                    </div>
+                    <div class="clear"></div>
+                </li>
+				<?php endforeach?>
+				<?php endif?>
+            </ul>
+			<?php if ($detail['comments'] > 10):?>
+			<a class="load_more" href="javascript:void(0);" onclick="loadCommentList(this, '<?php echo $id?>');" p="1">点击加载更多</a>
+			<?php endif?>
+			<?php if (!$detail['comments']):?>
+            <!--暂无评论ks-->
+            <p class="no_comment">还没有人评论过，赶快抢沙发吧！</p>
+            <!--暂无评论end-->
+			<?php endif?>
+        </div>
+    </div>
+    <!--评论end-->
+</div>
+<!--右侧栏ks-->
+<div class="sidebar">
+	<div style="height:1px;"></div>
+	<div class="sidebar-content">
+		<div class="sidebar_item">
+			<?php if (Factory::getSession('customer/id')):?>
+			<a class="report_btn" href="/website/report/publish?cfrom=item"><i></i>我要举报</a>
+			<?php else:?>
+			<a class="report_btn" href="javascript:popOpen('login');"><i></i>我要举报</a>
+			<?php endif?>
+			<div class="search_report">
+				<p><strong>搜索被举报人</strong></p>
+				<div class="search_report_box">
+					<input name="q" value="机荒网帐号名/联系电话/QQ" type="text" style="color:#999" />
+					<button type="button"></button>
+				</div>
+			</div>
+		</div>
+		<div class="sidebar_item knowledge">
+			<h3><a href="/website/helper/what-to-buy">手机交易知多D</a></h3>
+			<ul>
+				<li><a href="/website/helper/what-to-buy#faq1">什么是翻新机？</a></li>
+				<li><a href="/website/helper/what-to-buy#faq2">什么是组装机、改装机？</a></li>
+				<li><a href="/website/helper/what-to-buy#faq6">如何鉴别翻新机组装机？</a></li>
+				<li><a href="/website/helper/what-to-buy#faq7">如何识别高仿机？</a></li>
+				<li><a href="/website/helper/what-to-buy#faq8">如何鉴别水货手机？</a></li>
+			</ul>
+			<h3 style="margin-top:10px;"><a href="/website/helper/what-to-buy">手机交易防骗攻略</a></h3>
+			<ul>
+				<li><a href="/website/helper/how-to-buy#faq1">线下手机交易流程指南</a></li>
+				<li><a href="/website/helper/how-to-buy#faq2">骗子一般长啥样？</a></li>
+				<li><a href="/website/helper/how-to-buy#faq3">哪种交易方式容易中招？</a></li>
+				<li><a href="/website/helper/how-to-buy#faq4">如何测试手机？</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!--右侧栏end-->
+<div class="clear"></div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.search_report_box input[name=q]').focus(function(){
+		var q = jQuery(this).val();
+		if (q == '机荒网帐号名/联系电话/QQ') {
+			jQuery(this).val('');
+			jQuery(this).css('color', '');
+		}
+	});
+	jQuery('.search_report_box input[name=q]').blur(function(){
+		var q = jQuery(this).val();
+		if (q == '') {
+			jQuery(this).val('机荒网帐号名/联系电话/QQ');
+			jQuery(this).css('color', '#999');
+		}
+	});
+	jQuery('.search_report_box input[name=q]').keydown(function(e){
+		if(e.keyCode == 13){
+			var q = jQuery('.search_report_box input[name=q]').val();
+			if (q != '' && q != '机荒网帐号名/联系电话/QQ') {
+				window.location.href = '/website/report/list?q=' + q;
+			}
+		}
+	});
+	jQuery('.search_report_box button').click(function(){
+		var q = jQuery('.search_report_box input[name=q]').val();
+		if (q != '' && q != '输入机荒网帐号名/联系电话/QQ号码') {
+			window.location.href = '/website/report/list?q=' + q;
+		}
+	});
+	jQuery(window).scroll(function () {
+		if (jQuery(window).scrollTop() >= 168) {
+			jQuery('.sidebar-content').css('position', 'fixed').css('top', '0').css('margin-top', '10px');
+		}else{
+			jQuery('.sidebar-content').css('position', 'static').css('margin-top', '0');
+		}
+	});
+	<?php if ($rcomments):?>
+	loadTargetCommentList('<?php echo $detail['id']?>', '<?php echo $detail['reporter_id']?>', 'reporter');
+	<?php endif?>
+	<?php if ($icomments):?>
+	loadTargetCommentList('<?php echo $detail['id']?>', '<?php echo $detail['informer_id']?>', 'informer');
+	<?php endif?>
+});
+</script>

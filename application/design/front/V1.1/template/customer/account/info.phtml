@@ -1,0 +1,77 @@
+<?php $customer_id = Factory::getSession('customer/id')?>
+<?php $info = $this->getInfo($customer_id)?>
+<?php $contact = $this->getContact($customer_id)?>
+<h3>基本信息</h3>
+<table>
+	<tr>
+    	<th width="65">账号：</th>
+    	<td>
+        	<input type="text" name="info-username" placeholder="<?php echo $info['username']?>" value="<?php echo $info['username']?>" />
+        </td>
+    </tr>
+	<tr>
+    	<th>性质：</th>
+    	<td><?php echo $this->getGroupName($info['group'])?></td>
+    </tr>
+	<tr>
+    	<th>邮箱：</th>
+    	<td>
+    		<span><?php echo $info['email']?></span>
+        	<span style="margin-left:20px;"><span class="red">*</span>如需修改请联系管理人员</span>
+        </td>
+    </tr>
+    <tr>
+    	<td></td>
+    	<td>
+        	<button class="btn_orange" type="button" onclick="rename(this);" style="height:26px; line-height:22px; padding:0px 15px; border-radius:4px 14px;">保存基本信息</button>
+        </td>
+    </tr>
+</table>
+<h3 style="margin-top:30px;">联系信息</h3>
+<table>
+	<tr>
+    	<th width="65">联系人：</th>
+    	<td>
+        	<input type="text" name="contact-name" <?php echo isset($contact['name']) ? 'value="' . $contact['name'] . '"' : 'placeholder="如李先生"'?>/>
+        </td>
+    </tr>
+	<tr>
+    	<th>QQ：</th>
+    	<td>
+        	<input type="text" name="contact-qq" <?php echo isset($contact['qq']) ? 'value="' . $contact['qq'] . '"' : 'placeholder="请输入联系人的QQ号码"'?>/>
+        </td>
+    </tr>
+	<tr>
+    	<th>联系电话：</th>
+    	<td>
+        	<input type="text" name="contact-tel" <?php echo isset($contact['tel']) ? 'value="' . $contact['tel'] . '"' : 'placeholder="如13888888888/11111111"'?>/>
+        </td>
+    </tr>
+    <?php global $static?>
+    <?php $region = isset($contact['region']) ? $contact['region'] : 0?>
+	<tr>
+    	<th>交易地区：</th>
+    	<td>
+        	<select name="contact-region">
+            	<option value="0">-请选择交易地区-</option>
+            	<?php foreach ($static['mobile'][7] as $key => $value):?>
+            	<option value="<?php echo $key?>" <?php echo $region == $key ? 'selected="selected"' : ''?>>
+            		-<?php echo $value?>-
+            	</option>
+            	<?php endforeach;?>
+            </select>
+        </td>
+    </tr>
+	<tr>
+    	<th>交易地点：</th>
+    	<td>
+        	<input type="text" name="contact-location" style="width:286px;" <?php echo isset($contact['location']) ? 'value="' . $contact['location'] . '"' : 'placeholder="如容桂天佑城"'?> />
+        </td>
+    </tr>
+    <tr>
+    	<td></td>
+    	<td>
+        	<button class="btn_orange" type="button" onclick="editContact(this);" style="height:26px; line-height:22px; padding:0px 15px; border-radius:4px 14px;">保存联系信息</button>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,138 @@
+<?php $customer_id = Factory::getSession('customer/id')?>
+<?php $isnew = $this->getNewReportMsgTotal($customer_id)?>
+<?php $page = Factory::getRequest()->getParam('p', '1')?>
+<?php $msgs = $this->loadReportMsgList($customer_id, $page)?>
+<?php $isnew ? Factory::getLogic('msg')->readReportMsg($customer_id) : ''?>
+<div class="tabs1">
+	<ul>
+    	<li>
+    		<a href="/customer/message/notice?cfrom=uc_tab">站内信</a>
+    	</li>
+    	<li class="tabs1_c">
+    		<a href="javascript:void(0);">举报相关</a>
+    	</li>
+    </ul>
+</div>
+<div class="message_list">
+	<!--信息框ks-->
+	<?php if ($msgs):?>
+	<?php foreach ($msgs as $msg):?>
+	<div class="message_item">
+    	<div class="l">
+			<a href="/space/mobile/list?cfrom=msg_report&id=<?php echo $msg['customer_id']?>">
+				<img src="/upload/thumbnail/<?php echo $msg['customer_id']?>.jpg" onerror="loadErrorThumbnail(this);"/>
+            </a>
+        </div>
+        <div class="r">
+        	<i></i>
+            <p class="detail">
+			<a class="blue" target="_blank" href="/space/mobile/list?cfrom=msg_report&id=<?php echo $msg['customer_id']?>"><?php echo $msg['username']?></a>
+				<?php echo $msg['content']?>
+            </p>
+            <p class="url" style="margin-top:5px;">
+            	<span class="grey1">关于举报：</span>
+				<a class="orange" target="_blank" href="/website/report/item?cfrom=msg_report&id=<?php echo $msg['rid']?>">"<?php echo $msg['title']?>"</a>
+            </p>
+            <p class="op">
+				<span class="grey1"><?php echo timeforcustomer($msg['created_at'])?></span>
+				<?php if ($msg['pid'] != '0'):?>
+                <span style="padding:0px 5px;">|</span>
+				<a href="javascript:void(0);" onclick="showCommentDialog('<?php echo $msg['rid']?>', '<?php echo $msg['pid']?>');">查看对话</a>
+				<?php endif?>
+                <span style="padding:0px 5px;">|</span>
+				<a class="quick_handler" href="javascript:void(0);">回复</a>
+            </p>
+			<div class="quick_reply">
+				<div class="quick_input">
+					<textarea></textarea>
+				</div>
+				<div class="quick_btn">
+					<button type="button" onclick="quickComment(this, '<?php echo $msg['rid']?>', '<?php echo $msg['pid'] ? $msg['pid'] : $msg['id']?>', '<?php echo $msg['customer_id']?>');">回复</button>
+				</div>
+			</div>
+        </div>
+        <div class="clear"></div>
+    </div>
+	<?php endforeach?>
+	<?php else:?>
+	<p style="text-align:center;margin:10px 0;">您暂时还没有相关信息</p>
+    <?php endif?>
+	<!--信息框end-->
+	<?php if ($total = $this->getReportMsgTotal($customer_id)):?>
+	<?php $last = ceil($total / 10)?>
+    <!--分页ks-->
+    <div class="fenye_wp">
+    	<span>共<?php echo $total?>条举报</span>
+		<?php if ($page != '1'):?>
+		<a href="/customer/message/report?cfrom=uc_paginator&p=<?php echo $page - 1?>" title="上一页">&lt;</a>
+		<?php endif?>
+		<span><?php echo $page . '/' . $last?></span>
+		<?php if ($page != $last):?>
+        <a href="/customer/message/report?cfrom=uc_paginator&p=<?php echo $page + 1?>" title="下一页">&gt;</a>
+		<?php endif?>
+    </div>
+    <!--分页end-->
+	<?php endif?>
+</div>
+
+<!--查看对话ks-->
+<div class="pop_window">
+	<div class="dialogue_pop">
+		<div class="title">
+			<h1>查看对话</h1>
+			<a class="close" href="javascript:void(0);" onclick="hideCommentDialog();"></a>
+		</div>
+		<div class="body">
+			<div class="comment_wp"></div>
+		</div>
+	</div>
+</div>
+<!--查看对话end-->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.quick_handler').click(function(){
+		var parent = jQuery(this).parent().parent().find('.quick_reply');
+		if (parent.css('display') == 'none') {
+			parent.show();
+		} else {
+			parent.hide();
+		}
+	});
+});
+//快速回复
+function quickComment(obj, rid, id, to)
+{
+	var content = jQuery(obj).parent().parent().find('textarea').val();
+	if (content == '') {
+		alert('回复内容不能为空');
+		return;
+	}
+	var params = {
+		comment:{
+			rid:rid,
+			id:id,
+			to:to,
+			content:content		
+		}
+	};
+	jQuery.ajax({
+		type:'get',
+		dataType:'json',
+		data:jQuery.param(params),
+		url:'/website/report/comment',
+		success:function(data){
+			if (data == '1') {
+				alert('回复成功');
+				jQuery(obj).parent().parent().hide();
+			} else if (data == '-1') {
+				alert('每30秒只能评论一次喔！');
+			} else {
+				alert('回复失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			alert('回复失败，请稍候尝试');	  
+		}
+	});
+}
+</script>

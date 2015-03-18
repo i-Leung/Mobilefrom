@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--网站首页ks-->
+	<default_index_index>
+		<reference name="skin">
+			<action method="addCss">index.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">home/index.phtml</action>
+		</reference>
+	</default_index_index>
+	<!--网站首页end-->
+	
+	<!--关于我们ks-->
+	<default_website_about>
+		<reference name="skin">
+			<action method="addCss">website/common.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">website/about.phtml</action>
+		</reference>
+	</default_website_about>
+	<!--关于我们end-->
+	
+	<!--联系我们ks-->
+	<default_website_contact>
+		<reference name="skin">
+			<action method="addCss">website/common.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">website/contact.phtml</action>
+		</reference>
+	</default_website_contact>
+	<!--联系我们end-->
+	
+	<!--广告合作ks-->
+	<default_website_cooperation>
+		<reference name="skin">
+			<action method="addCss">website/common.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">website/cooperation.phtml</action>
+		</reference>
+	</default_website_cooperation>
+	<!--广告合作end-->
+	
+	<!--机荒公告ks-->
+	<default_website_announcement>
+		<reference name="skin">
+			<action method="addCss">website/common.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">website/announcement.phtml</action>
+		</reference>
+	</default_website_announcement>
+	<!--机荒公告end-->
+	
+	<!--问卷调查ks-->
+	<default_website_survey>
+		<reference name="skin">
+			<action method="addCss">website/common.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">website/survey.phtml</action>
+		</reference>
+	</default_website_survey>
+	<!--问卷调查end-->
+	
+	<!--404页面ks-->
+	<default_website_notfound>
+		<reference name="meta" type="Mobile_ListView">
+			<action method="setTemplate">page/head/meta/404.phtml</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">website/404.phtml</action>
+		</reference>
+	</default_website_notfound>
+	<!--404页面end-->
+	
+	<!--机荒网使用协议ks-->
+	<default_website_contract>
+		<reference name="skin">
+			<action method="addCss">website/contract.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">website/contract.phtml</action>
+		</reference>
+	</default_website_contract>
+	<!--机荒网使用协议end-->
+</layouts>

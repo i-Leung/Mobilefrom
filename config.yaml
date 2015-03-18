@@ -1,0 +1,9 @@
+---
+name: mobilefrom
+version: 3
+handle:
+- compress: if(out_header["Content-Type"] ~ "text") compress
+- compress: if(out_header["Content-Type"] ~ "javascript") compress
+- compress:  if (out_header["Content-Length"] >= 0) compress
+- rewrite: if( !\.(js|ico|gif|jpg|png|GIF|JPG|PNG|css|swf|txt)$) goto "index.php"
+- rewrite: if( !is_file() && !is_dir()) goto "index.php"

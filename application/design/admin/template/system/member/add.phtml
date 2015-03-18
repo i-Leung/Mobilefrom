@@ -1,0 +1,141 @@
+<?php $id = Factory::getRequest()->getParam('id')?>
+<?php if ($id):?>
+<?php $member = $this->getMember($id)?>
+<?php $gid = $member['group_id']?>
+<?php else:?>
+<?php $gid = Factory::getRequest()->getParam('gid')?>
+<?php endif?>
+<h1>添加管理员</h1>
+<table class="table2">
+	<tbody>
+		<tr>
+			<th>用户名：</th>
+			<td>
+				<input type="text" name="username" value="<?php echo $member['member']?>" onblur="checkUsername(this);" />
+			</td>
+		</tr>
+		<tr>
+			<th>群组：</th>
+			<td>
+				<?php $groups = $this->loadGroupList()?>
+				<?php if ($groups):?>
+				<select name="group">
+					<?php foreach ($groups as $group):?>
+					<option value="<?php echo $group['id']?>" <?php echo $group['id'] == $gid ? 'selected="selected"' : ''?>><?php echo $group['label']?></option>
+					<?php endforeach?>
+				</select>
+				<?php else:?>
+				<label>暂无可选择群组</label>
+				<?php endif?>
+			</td>
+		</tr>
+		<tr>
+			<th>密码：</th>
+			<td>
+				<input type="password" name="pwd" />
+			</td>
+		</tr>
+		<tr>
+			<th>确认密码：</th>
+			<td>
+				<input type="password" name="repwd" />
+			</td>
+		</tr>
+	</tbody>
+</table>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('input[name=username]').focus();
+});
+
+//检测用户名是否存在
+function checkUsername(obj){
+	var username = jQuery(obj).val();
+	if (username == ''){
+		return;
+	}
+	jQuery.ajax({
+		type:'get',
+		data:{username:username},
+		dataType:'json',
+		url:'/monitor/system_member/check-username',
+		success:function(data){
+			if(data == '1'){
+				var html = '<tr>\
+						<th></th>\
+						<td>\
+							<button class="btn_red" type="button" onclick="authorizeMember(this);">保存</button>\
+						</td>\
+					</tr>';
+				jQuery('.table2 tbody').append(html); 
+			}else{
+				alert('此用户名不存在，请确保输入无误');
+				if (jQuery('.table2 tbody tr').length == 5){
+					jQuery('.table2 tbody tr:last-child').remove();
+				}
+			}
+		},
+		error:function(){
+			alert('检测用户名失败，请稍候尝试');
+		}
+	});
+}
+
+//提交用户授权信息
+function authorizeMember(obj)
+{
+	var username = jQuery('input[name=username]').val();
+	if(username == ''){
+		alert('请填写用户账号名');
+		return;
+	}
+	var pwd = jQuery('input[name=pwd]').val();
+	if(pwd == ''){
+		alert('请填写网站后台登陆密码');
+		return;
+	}
+	var repwd = jQuery('input[name=repwd]').val();
+	if(repwd == ''){
+		alert('请填写确认密码');
+		return;
+	}
+	if(pwd != repwd){
+		alert('请确保两次输入密码一致');
+		return;
+	}
+	var params = {
+		<?php if ($id):?>
+		id:'<?php echo $id?>',
+		<?php endif?>
+		member:{
+			username:username,
+			group_id:jQuery('select[name=group]').val(),
+			pwd:pwd
+		}
+	};
+	jQuery.ajax({
+		type:'get',
+		data:jQuery.param(params),
+		dataType:'json',
+		<?php if ($id):?>
+		url:'/monitor/system_member/modify-member',
+		<?php else:?>
+		url:'/monitor/system_member/authorize',
+		<?php endif?>
+		beforeSend:function(XMLHttpRequest){
+			jQuery(obj).html('正在提交...')
+				.attr('disabled', 'disabled');	
+		},
+		success:function(data){
+			if(data == '1'){
+				history.go(-1);
+			}else{
+				alert('授权失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			alert('授权失败，请稍候尝试');
+		}
+	});
+}	
+</script>

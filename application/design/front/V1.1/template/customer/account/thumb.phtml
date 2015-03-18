@@ -1,0 +1,115 @@
+<script type="text/javascript" src="<?php echo $this->getPlugin('imgareaselect.pack.js')?>"></script>
+<script type="text/javascript" src="<?php echo $this->getPlugin('jquery.form.js')?>"></script>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.select_img').wrap('<form id="upload_form" name="upload_form" method="post" action="/customer/account/upload-thumb" enctype="multipart/form-data"></form>');
+	jQuery('#upload').change(function(){
+		if (jQuery(this).val() != '') {
+			jQuery("#upload_form").ajaxSubmit({
+				dataType:'json',
+				beforeSend: function() {
+					jQuery('.btn span').html("上传中...");
+				},
+				success: function(data) {
+					jQuery('.btn span').html("上传图片");
+					if (data != '0') {
+						jQuery(".thumb img").attr('src', data + '?' + Math.random());
+						jQuery("#upload").val('');
+						jQuery('.thumb img').imgAreaSelect({
+							aspectRatio: '1:1',
+							x1: 0,
+							y1: 0, 
+							x2: 200, 
+							y2: 200,
+							maxWidth:200,
+							maxHeight:200,
+							onSelectEnd: function (img, selection) {
+								jQuery('input[name="x1"]').val(selection.x1);
+								jQuery('input[name="y1"]').val(selection.y1);
+								jQuery('input[name="x2"]').val(selection.x2);
+								jQuery('input[name="y2"]').val(selection.y2);            
+							}
+						});
+					} else {
+						alert('上传图片失败，请参考页面右侧上传标准重新尝试');
+					}
+				},
+				error:function(){
+					jQuery('.btn span').html("上传图片");
+					alert('上传图片失败，请按照右侧操作方式重新尝试');
+				}
+			});
+		}
+	});
+	jQuery('.save_img').click(function(){
+		var v1 = jQuery('input[name="x1"]').val();
+		var v2 = jQuery('input[name="y1"]').val();
+		var v3 = jQuery('input[name="x2"]').val();
+		var v4 = jQuery('input[name="y2"]').val();
+		if (v1 == '' || v2 == '' || v3 == '' || v4 == '') {
+			v1 = v2 = '0';
+			v3 = v4 = '200';
+		}
+		var params = {
+			target:{
+				x1:v1,
+				y1:v2,
+				x2:v3,
+				y2:v4
+			}
+		};
+		jQuery.ajax({
+			type:'get',
+			data:jQuery.param(params),
+			dataType:'json',
+			url:'/customer/account/save-thumb',
+			beforeSend: function() {
+				jQuery('.save_img').html("真正提交...").attr('disabled', 'disabled');
+			},
+			success:function(data){
+				if (data) {
+					window.location.reload();	
+				} else {
+					jQuery('.save_img').html("保存头像").removeAttr('disabled');
+					alert('头像保存失败，请稍侯尝试');
+				}
+			},
+			error:function(){
+				jQuery('.save_img').html("保存头像").removeAttr('disabled');
+				alert('头像保存失败，请稍侯尝试');
+			}
+		});
+	});
+});
+</script>
+<h3 class="content_title">上传头像</h3>
+<div class="select_img">
+	<div class="btn">
+		<span>上传图片</span>
+		<input id="upload" class="upload_img_btn" name="upload" type="file" />
+	</div>
+    <p>为方便您的操作，请尽量选择正方形的图片上传</p>
+    <div class="clear"></div>
+</div>
+<div class="img_edit_area">
+	<div class="thumb">
+		<?php if (Factory::getSession('customer/group')):?>
+    	<img src="/upload/thumbnail/<?php echo Factory::getSession('customer/id')?>.jpg" onerror="loadErrorStoreThumbnail(this);" />
+		<?php else:?>
+    	<img src="/upload/thumbnail/<?php echo Factory::getSession('customer/id')?>.jpg" onerror="loadErrorThumbnail(this);" />
+		<?php endif?>
+    </div>
+    <ul class="img_upload_tis">
+    	<li>商家请上传您的个人真实头像或者店铺Logo</li>
+    	<li>请勿在形象标示上留有任何联系方式的信息</li>
+    	<li>只支持jpg格式，图片大小不超过5MB</li>
+    	<li>请保证图片质量，分辨率至少为200*200</li>
+    	<li class="grey1">上传遇到问题，请联系客服：qq在线咨询</li>
+    </ul>
+    <div class="clear"></div>
+</div>
+<button class="save_img" type="button">保存头像</button>
+<input type="hidden" name="x1" />
+<input type="hidden" name="y1" />
+<input type="hidden" name="x2" />
+<input type="hidden" name="y2" />

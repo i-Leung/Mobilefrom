@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--TA发布的手机ks-->
+	<space_mobile_list>
+		<reference name="meta" type="Customer_InfoView">
+			<action method="setTemplate">page/head/meta/space/mobile.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">space/publish.css</action>
+		</reference>
+		<reference name="content" type="Mobile_ListView">
+			<action method="setTemplate">space/list/mobile.phtml</action>
+			<block name="sidebar" type="Customer_InfoView" template="space/list/sidebar.phtml" />
+		</reference>
+	</space_mobile_list>
+	<!--TA发布的手机end-->
+	
+	<!--TA发布的平板ks-->
+	<space_tablet_list>
+		<reference name="meta" type="Customer_InfoView">
+			<action method="setTemplate">page/head/meta/space/tablet.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">space/publish.css</action>
+		</reference>
+		<reference name="content" type="Tablet_ListView">
+			<action method="setTemplate">space/list/tablet.phtml</action>
+			<block name="sidebar" type="Customer_InfoView" template="space/list/sidebar.phtml" />
+		</reference>
+	</space_tablet_list>
+	<!--TA发布的平板end-->
+	
+	<!--TA发布的手机ks-->
+	<space_purchase_list>
+		<reference name="meta" type="Customer_InfoView">
+			<action method="setTemplate">page/head/meta/space/purchase.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">space/publish.css</action>
+		</reference>
+		<reference name="content" type="Purchase_ListView">
+			<action method="setTemplate">space/list/purchase.phtml</action>
+			<block name="sidebar" type="Customer_InfoView" template="space/list/sidebar.phtml" />
+		</reference>
+	</space_purchase_list>
+	<!--TA发布的手机end-->
+</layouts>

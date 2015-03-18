@@ -1,0 +1,219 @@
+/* CSS Document */
+/*商家介绍整体样式ks*/
+.bread_crumb{
+	display:none;
+}
+body{
+	background: url(../../../img/index_bg.jpg) no-repeat center 125px #C1DEEE !important;
+}
+.shop_top{
+	width:1000px;
+	height:80px;
+	background:#FAFAFA;
+	-webkit-box-shadow: 1px 1px 2px #959595;
+	-moz-box-shadow: 1px 1px 2px #959595;
+	box-shadow: 1px 1px 2px #959595;
+	margin:20px 0;}
+.shop_top h1{
+	text-align:center;
+	color:red;
+	font-size:28px;
+	line-height:80px;
+	float:left;
+	width:540px;
+}
+.shop_top a{
+	float:left;
+	display:block;
+	background:url(../../../img/store/btn_small.png) no-repeat;
+	width:190px;
+	height:41px;
+	color:white;
+	line-height:40px;
+	font-size:18px;
+	margin:20px;
+	text-align:center;
+	font-family:\5FAE\8F6F\96C5\9ED1;
+}
+.shop_top a:hover{
+	text-decoration:none;
+}
+.shop_fliter{
+	-webkit-box-shadow: 1px 1px 2px #959595;
+	-moz-box-shadow: 1px 1px 2px #959595;
+	box-shadow: 1px 1px 2px #959595;
+	width:1000px;
+	height:50px;
+	background-color:#FAFAFA;
+}
+.shop_fliter dl{
+	float:left;
+	border-bottom: 1px solid #EAEAEA;
+}
+.shop_fliter dt, .shop_fliter dd{
+	float:left;
+	height:49px;
+	line-height:49px;
+	border-right:1px solid #d4d4d4;
+}
+.shop_fliter dt{
+	font-weight:bold;
+	text-align:center;
+	width:120px;
+	font-size:20px;
+}
+.shop_fliter dd{
+	text-align:center;
+	width:100px;
+}
+.shop_fliter dd a{
+	font-size:14px;
+}
+.s_f_selected{
+	border-top:2px solid #CC0000;
+	font-weight:bold;
+	height:47px !important;
+	line-height:47px !important;
+}
+.service_selected{
+	font-size: 14px;
+	padding: 10px 20px;
+	*padding-top:5px;
+	line-height:25px;
+}
+.service_selected h3, .service_selected p{
+	float:left;
+}
+.service_selected p{
+	width: 890px;
+}
+.s_f_region{
+	margin:10px;
+	float:right;	
+	width:90px;
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	border:1px solid #d4d4d4;
+	background:url(../../../img/store/list_open.png) no-repeat 90% 50%;
+	cursor:pointer;
+	background-color:#fff;
+	position:relative;
+}
+.s_f_region a:hover{
+	text-decoration:none;
+}
+.s_f_region ul{
+	top:0px;
+	left:0px;
+	z-index:99;
+	position:absolute;
+}
+.s_f_region ul li{
+	border:1px solid #d4d4d4;
+	background-color:#fff;
+	width: 90px;
+	border-top: none;
+}
+.shop_list ul li{
+	width:490px;
+	/*height:200px;*/
+	background:#fafafa;
+	float:left;
+	margin-top:20px;}
+/*定位ks*/
+.shop_item{
+	-webkit-box-shadow: 1px 1px 2px #959595;
+	-moz-box-shadow: 1px 1px 2px #959595;
+	box-shadow: 1px 1px 2px #959595;
+	width:490px;
+	/*height:200px;*/
+	cursor:pointer;
+	overflow:hidden;
+	background:white;}
+.shop_info{
+	padding: 30px 30px 20px;
+	*padding: 20px 30px 0;
+}
+.shop_item .shop_img{
+	display:block;
+	float:left;
+	border-radius:35px;
+	overflow:hidden;}
+.shop_item .shop_img img{
+	width:70px;
+	height:70px;
+	border-radius:35px;}
+.shop_item .labels{
+	float:left;
+	margin: 10px 20px;
+	width:200px;
+	height:50px;}
+.shop_item .labels .shop_name{
+	display:block;
+	width:180px;
+	height:20px;
+	overflow:hidden;
+	line-height:20px;
+	font-size:16px;
+	border-bottom:1px #d4d4d4 solid;
+	padding-bottom:4px;}
+.shop_item .labels p{
+	height:20px;
+	font-size:14px;
+	line-height:20px;
+	margin-top:5px;}
+.shop_item .labels p a{
+	font-size:14px;
+	margin-left:15px;}
+.shop_item .more{
+	display:none;
+	float: right;
+	margin: 10px 30px;
+	width:46px;
+	height:46px;
+	background:url(../../../img/store/shop_more_info_btn.png) white no-repeat;
+	cursor:pointer;}
+.shop_item .more:hover{
+	background:url(../../../img/store/shop_more_info_btn.png) white 0px -70px;}
+.shop_item .description{
+	height: 50px;
+	overflow: hidden;
+	width:430px;
+	line-height:25px;
+	font-size:14px;
+	border-top:2px #ededed solid;
+	margin-left: 30px;
+	margin-bottom: 10px;
+	padding-top:10px;}
+.shop_item .services{
+	border-top:2px #ededed solid;
+	font-size:14px;
+	padding-top:10px;
+	margin-left:30px;
+	height:50px;
+	*height:60px;
+	overflow:hidden;
+	width:430px;}
+.shop_item .services h3, .shop_item .services p{
+	float:left;
+}
+.shop_item .services p{
+	width:350px;
+}
+.shop_item .open{
+	display:none;
+	width:490px;
+	height:20px;
+	background:url(../../../img/store/list_open.png) no-repeat center #FAFAFA !important;
+	cursor:pointer;}
+.shop_item .close{
+	display:none;
+	width:490px;
+	height:20px;
+	background:url(../../../img/store/list_close.png) no-repeat center #FAFAFA !important;
+	cursor:pointer;}
+.shop_item .description{
+	display:none;
+}
+/*定位end*/

@@ -1,0 +1,23 @@
+<?php $controller = Factory::getRequest()->getControllerName()?>
+<?php $action = Factory::getRequest()->getActionName()?>
+<?php $path = $controller . '/' . $action?>
+<ul>
+    <li>
+        <a <?php if ($path == 'website/about'):?>class="sidebar_c"<?php endif;?> href="/default/website/about">关于我们/<span>About Us</span></a>
+    </li>
+    <li>
+        <a <?php if ($path == 'website/contact'):?>class="sidebar_c"<?php endif;?> href="/default/website/contact">联系我们/<span>Contact Us</span></a>
+    </li>
+    <li style="display: none;">
+        <a <?php if ($path == 'website/cooperation'):?>class="sidebar_c"<?php endif;?> href="/default/website/cooperation">广告合作/<span>Cooperation</span></a>
+    </li>
+    <li style="display: none;">
+        <a <?php if ($path == 'website/announcement'):?>class="sidebar_c"<?php endif;?> href="/default/website/announcement">机荒公告/<span>Announcement</span></a>
+    </li>
+    <li style="display: none;">
+        <a <?php if ($path == 'website/survey'):?>class="sidebar_c"<?php endif;?> href="/default/website/survey">用户体验/<span>User Experience</span></a>
+    </li>
+    <li style="display: none;">
+        <a <?php if ($path == 'website/report'):?>class="sidebar_c"<?php endif;?> href="/default/website/report">举报、维权/<span>Report Activist</span></a>
+    </li>
+</ul>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--商家列表ks-->
+	<customer_store_list>
+		<reference name="content" type="Customer_StoreView">
+			<action method="setTemplate">customer/store/list.phtml</action>
+		</reference>
+	</customer_store_list>
+	<!--商家列表end-->
+</layouts>

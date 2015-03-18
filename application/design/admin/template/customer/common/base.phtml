@@ -1,0 +1,24 @@
+<?php $action = Factory::getRequest()->getActionName()?>
+<?php $id = Factory::getRequest()->getParam('id', null)?>
+<ul class="tabs1">
+	<li <?php echo $action == 'base' ? 'class="tabs1_c"' : ''?>>
+		<a href="/monitor/customer_common/base?id=<?php echo $id?>">基本信息</a>
+	</li>
+	<li <?php echo $action == 'pwd' ? 'class="tabs1_c"' : ''?>>
+		<a href="/monitor/customer_common/pwd?id=<?php echo $id?>">设置密码</a>
+	</li>
+</ul>
+<div class="clear"></div>
+<div class="tabs1_bd">
+    <div class="tabs1_item"><?php echo $this->getChildHtml($action)?></div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.tabs1 li').click(function(){
+		window.location.href = jQuery(this).find('a').attr('href');
+	});
+});
+<?php if (!$id):?>
+window.location.href = '/monitor/customer_common/list';
+<?php endif;?>
+</script>

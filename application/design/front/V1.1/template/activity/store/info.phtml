@@ -1,0 +1,108 @@
+<?php $id = Factory::getRequest()->getParam('id', null)?>
+<?php $activity = $this->getStoreActivityInfo($id)?>
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+		<span class="jiantou">></span>
+		<a href="/activity/list/store?cfrom=breadcrumb">优惠活动</a>
+		<span class="jiantou">></span>
+		<a href="javascript:void(0);"><?php echo $activity['title']?></a>
+    </div>
+</div>
+<div class="act-item-info">
+	<h1 class="a-i-title"><?php echo $activity['title']?></h1>
+	<div class="a-i-i-other">
+		<p class="a-i-date fl">距离活动结束还有：<span class="red" style="font-weight:bold;"><?php echo $activity['limit']?></span></p>
+		<p class="a-i-clicks fr">共有<span class="red" style="font-weight:bold;"><?php echo $activity['clicks']?></span>个用户查阅该活动信息</p>
+		<div class="clear"></div>
+	</div>
+	<div class="a-i-i-middle">
+		<div class="a-i-description"><?php echo $activity['description']?></div>
+		<ul class="a-i-gallery">
+			<?php foreach ($activity['gallery'] as $item):?>
+			<li>
+				<img src="http://mobilefrom-upload.stor.sinaapp.com/store/<?php echo $item?>" onerror="loadErrorImg(this);" />
+			</li>
+			<?php endforeach?>
+		</ul>
+	</div>
+	<div class="a-i-i-bottom">
+		<div class="a-i-share fl">
+			<!-- Baidu Button BEGIN -->
+			<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+			<a class="bds_qzone"></a>
+			<a class="bds_tsina"></a>
+			<a class="bds_tqq"></a>
+			<a class="bds_renren"></a>
+			<a class="bds_t163"></a>
+			<span class="bds_more"></span>
+			<a class="shareCount"></a>
+			</div>
+			<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6852080" ></script>
+			<script type="text/javascript" id="bdshell_js"></script>
+			<script type="text/javascript">
+			document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+			</script>
+			<!-- Baidu Button END -->
+			<div class="clear"></div>
+		</div>
+		<?php $next = $this->getNextStoreActivity($activity['id'])?>
+		<div class="a-i-next fr">
+			<?php if ($next):?>
+			<a href="/activity/item/store?cfrom=act-next&id=<?php echo $next['id']?>">下一条：<?php echo $next['title']?></a>
+			<?php else:?>
+			<a href="javascript:void(0);">暂无下一条活动记录</a>
+			<?php endif?>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="act-item-store">
+	<div class="a-i-s-info fl">
+		<div class="a-i-s-title">
+			<span>活动主办方</span>
+		</div>
+		<div class="a-i-s-table">
+			<table>
+				<tr>
+					<th>店铺：</th>
+					<td><a class="blue" href="/store/item?store=<?php echo $activity['store_id']?>&cfrom=activity"><?php echo $activity['store']?></a></td>
+					<th>地址：</th>
+					<td><?php echo $activity['addr']?></td>
+				</tr>
+				<tr>
+					<th>电话：</th>
+					<td>
+						<?php foreach ($activity['tel'] as $item):?>
+						<p><?php echo $item['num'] . '（' . $item['name'] . '）'?></a>
+						<?php endforeach?>
+					</td>
+					<th>QQ：</th>
+					<td>
+						<?php foreach ($activity['qq'] as $item):?>
+						<a rel="external nofollow" href="/default/analysis/qq?uin=<?php echo $item['num']?>&detail=store&store=<?php echo $activity['store_id']?>" target="_blank">
+							<?php echo $item['num'] . '（' . $item['name'] . '）'?>
+						</a>
+						<br />
+						<?php endforeach?>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="a-i-s-join fr">
+		<a href="/website/store/business?cfrom=activity-list"></a>
+	</div>
+	<div class="clear"></div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery.ajax({
+		type:'get',
+		data:{id:'<?php echo $id?>'},
+		dataType:'json',
+		url:'/activity/item/store-activity-click'
+	});
+});
+</script>

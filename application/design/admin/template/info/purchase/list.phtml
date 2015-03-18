@@ -1,0 +1,48 @@
+<?php $params['search'] = Factory::getRequest()->getParam('search', null)?>
+<?php $current = Factory::getRequest()->getParam('p', 1)?>
+<?php $per = 20?>
+<!--筛选框-->
+<div class="search_div">
+	<div class="search_div_item">
+		<form action="/monitor/info_purchase/list" method="get">
+			<strong>标题内容：</strong>
+			<input name="search" type="text" value="<?php echo $params['search'] ? $params['search'] : ''?>" />
+			<button type="submit">操作</button>
+		</form>
+	</div>
+	<div class="clear"></div>
+</div>
+<!--筛选框end-->
+<div class="table1" entity="purchase">
+	<table width="990">
+		<thead>
+			<tr>
+				<th width="550">信息名称</th>
+				<th width="100">浏览次数</th>
+				<th width="180">发布时间</th>
+				<th class="tac" width="100">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $purchases = $this->loadAdminCustomerPurchase(null, $params, $current, $per)?>
+			<?php if ($purchases):?>
+			<?php foreach ($purchases as $purchase):?>
+			<tr entity="<?php echo $purchase['id']?>">
+				<td><?php echo $purchase['title']?></td>
+				<td><?php echo $purchase['clicks']?></td>
+				<td><?php echo date('Y-m-d H:i:s', $purchase['created_at'])?></td>
+				<td class="table_cz tac">
+					<a href="javascript:void(0);" onclick="itemInActive(this, '<?php echo $purchase['id']?>', 'purchase');">禁用</a>
+				</td>
+			</tr>
+			<?php endforeach?>
+			<?php else:?>
+			<?php endif;?>
+		</tbody>
+	</table>
+</div>
+<?php $amount = $this->getAdminCustomerPurchaseTotal(null, $params)?>
+<?php if ($amount > $per):?>
+<?php $url = '/monitor/customer_common/purchase?search=' . $params['search'] . '&'?> 
+<?php echo Factory::getView('page/paginator')->init($amount, $current, $per, $url, 'admin')->render();?>
+<?php endif?>

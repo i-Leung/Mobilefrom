@@ -1,0 +1,220 @@
+<?php $isLoged = Factory::isLoged()?>
+<?php $request = Factory::getRequest()?>
+<?php $module = $request->getModuleName()?>
+<?php $controller = $request->getControllerName()?>
+<?php $action = $request->getActionName()?>
+<!--顶部ks-->
+<div class="top_nav">
+    <div class="top_nav_wp">
+        <div class="top_nav_l">
+        	<a href="/?cfrom=top">机荒首页</a>
+            <em>|</em>
+            <a href="/mlib/list?cfrom=top">手机导购</a>
+            <em>|</em>
+            <a href="/tlib/list?cfrom=top">平板导购</a>
+            <em>|</em>
+            <a href="/activity/list/store?cfrom=top">优惠活动</a>
+        </div>
+        <div class="top_nav_r"> 
+            <?php if ($isLoged):?>
+            <span>Hi，</span>
+            <a href="/customer?cfrom=store-top"><?php echo Factory::getSession('customer/username')?>！</a>
+            <a href="/customer?cfrom=store-top">
+                <?php $news = Factory::getView('customer/msg')->getNewMsgTotal(Factory::getSession('customer/id'))?>
+                消息<?php echo $news ? '<strong class="yellow">' . $news . '</strong>' : '<strong>0</strong>'?>
+            </a>
+            <a style="margin-left:8px;" href="/customer/account/logout">退出</a>
+            <?php else:?>
+            <span>Hi，欢迎来到机荒网！</span>
+            <a href="javascript:popOpen('login');">请登录</a>
+            <a style="margin-left:8px;" href="/customer/account/register?cfrom=topheader">免费注册</a>
+            <?php endif?>
+            <em>|</em>
+            <a href="/customer?cfrom=store-top">个人中心</a>
+            <a style="margin-left:8px;" href="/website/store/business?cfrom=store_top">商家入驻</a>
+            <a style="margin-left:8px;" href="javascript:addFavorite();">收藏本站</a>
+            <a style="margin-left:8px;" href="http://weibo.com/mobilefrom" rel="nofollow">关注机荒</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--顶部end-->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.searchbar .search_cate ul li').click(function(){
+		var index = jQuery('.searchbar .search_cate ul li').index(jQuery(this));
+		jQuery('.searchbar .search_cate p').html(jQuery(this).html());
+		switch (index) {
+			case 0:
+				jQuery('.searchbar .search_text').attr('value', '请输入你想搜索的型号').css('color', '#999');
+				jQuery('.searchbar .search_btn').attr('url', '/mlib/list/search?cfrom=top_search&q=');
+				break;
+			case 1:
+				jQuery('.searchbar .search_text').attr('value', '请输入你想搜索的型号').css('color', '#999');
+				jQuery('.searchbar .search_btn').attr('url', '/tlib/list/search?cfrom=top_search&q=');
+				break;
+			case 2:
+				jQuery('.searchbar .search_text').attr('value', '请输入要查询的机荒网帐号/联系电话/QQ号码').css('color', '#999');
+				jQuery('.searchbar .search_btn').attr('url', '/website/report/list?cfrom=top_search&q=');
+				break;
+		}
+		jQuery(this).parent().hide();
+	});
+	jQuery('.searchbar .search_text').focus(function(){
+		var value = jQuery(this).val();
+		switch (value) {
+			case '请输入你想搜索的型号':
+			case '请输入要查询的机荒网帐号/联系电话/QQ号码':
+				jQuery(this).val('');
+				break;
+			default:
+				break;
+		}
+	});
+	jQuery('.searchbar .search_text').blur(function(){
+		var value = jQuery(this).val();
+		if (value == '') {
+			var s = jQuery('.searchbar .search_cate p').html();
+			switch (s) {
+				case '手机':
+				case '平板':
+					jQuery(this).val('请输入你想搜索的型号').css('color', '#999');
+					break;
+				case '举报':
+					jQuery(this).val('请输入要查询的机荒网帐号/联系电话/QQ号码').css('color', '#999');
+					break;
+			}
+		}
+	});
+	jQuery('.searchbar .search_text').keydown(function(e){
+		jQuery(this).css('color', '#333');
+		var q = jQuery(this).val();
+		if(e.keyCode == 13 && q != ''){
+			var url = jQuery('.searchbar .search_btn').attr('url');
+			window.location.href = url + q;
+		}
+	});
+	jQuery('.searchbar .search_btn').click(function(e){
+		var q = jQuery('.searchbar .search_text').val();
+		if(q != '' && q != '请输入你想搜索的型号' && q != '请输入你想搜索的型号' && q != '请输入要查询的机荒网帐号/联系电话/QQ号码'){
+			var url = jQuery(this).attr('url');
+			window.location.href = url + q;
+		}
+	});
+	jQuery('.searchbar .search_cate').mouseover(function(e){
+		jQuery(this).find('ul').show();
+	});
+	jQuery('.searchbar .search_cate').mouseleave(function(e){
+		jQuery(this).find('ul').hide();
+	});
+});
+</script>
+<div class="header_wp">
+	<div class="mf_logo">
+    	<a href="/?cfrom=logo">
+        	<img src="<?php echo $this->getImg('header/logo.png')?>" />
+        </a>
+    </div>
+	<div class="searchbar">
+    	<div class="search_cate">
+        	<p>手机</p>
+            <ul>
+            	<li>手机</li>
+            	<li>平板</li>
+            	<li>举报</li>
+            </ul>
+        </div>
+        <input class="search_text" type="text" value="请输入你想搜索的型号" style="color:#999;" />
+        <input class="search_btn" type="button" url="/mlib/list/search?cfrom=top_search&q=" />
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<?php $moptions = Factory::getView('mlib/list')->loadFilterOptionList()?>
+<?php $toptions = Factory::getView('tlib/list')->loadFilterOptionList()?>
+<div class="menu">
+	<div class="menu_wp">
+		<?php if ($module == 'default' && $controller == 'index' && $action == 'index'):?>
+    	<div class="menu_cate">
+        	<a class="menu_cate_hd" href="javascript:void(0);">快速查找通道</a>
+            <em class="menu_cate_hd_arrow"></em>
+            <div class="menu_cate_bd">
+            	<div class="sub_cate_item">
+                	<h3 class="yahei">手机选购</h3>
+                    <div class="sub_cate_box">
+						<?php foreach ($moptions['brand'] as $k => $v):?>
+						<a href="/mlib/list?cfrom=index_brand&filter[brand]=<?php echo $k?>"><?php echo $v?></a>
+						<?php endforeach?>
+						<div class="clear"></div>
+                    </div>
+                </div>
+            	<div class="sub_cate_item">
+                	<h3 class="yahei">平板选购</h3>
+                    <div class="sub_cate_box">
+						<?php foreach ($toptions['brand'] as $k => $v):?>
+						<a href="/tlib/list?cfrom=index_brand&filter[brand]=<?php echo $k?>"><?php echo $v?></a>
+						<?php endforeach?>
+						<div class="clear"></div>
+                    </div>
+                </div>
+            	<div class="sub_cate_item">
+                	<h3 class="yahei blue">本地服务</h3>
+                    <div class="sub_cate_box">
+						<a href="/store/list?cfrom=index_brand&service=1">手机维修</a>
+						<a href="/store/list?cfrom=index_brand&service=4">旧机换新</a>
+						<a href="/store/list?cfrom=index_brand&service=6">数码回收</a>
+						<a href="/store/list?cfrom=index_brand&service=5">分期购机</a>
+						<a href="/store/list?cfrom=index_brand&service=2">刷机/解锁</a>
+						<div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<?php endif?>
+    	<ul class="menu_box">
+			<?php if ($module != 'default'):?>
+			<li>
+				<a href="/?cfrom=nav">首页</a>
+            </li>
+			<?php endif?>
+			<li <?php echo $module == 'activity' ? 'class="selected"' : ''?>>
+				<a href="/activity/list/store?cfrom=nav">优惠活动</a>
+                <em class="ihot"></em>
+			</li>
+			<li <?php echo in_array($module, array('mlib', 'mobile')) ? 'class="selected"' : ''?>>
+				<a href="/mlib/list?cfrom=nav">手机导购</a>
+            </li>
+			<li <?php echo in_array($module, array('tlib', 'tablet')) ? 'class="selected"' : ''?>>
+				<a href="/tlib/list?cfrom=nav">平板导购</a>
+                <em class="inew"></em>
+            </li>
+        	<li <?php echo $module == 'store' ? 'class="selected"' : ''?>>
+            	<a href="/store/list?cfrom=nav">本地商家</a>
+			</li>
+        	<li <?php echo $module == 'website' && $controller == 'report' ? 'class="selected"' : ''?>>
+            	<a href="/website/report/list?cfrom=nav">举报中心</a>
+            </li>
+			<div class="clear"></div>
+        </ul>
+		<a class="publish_btn" href="<?php echo $isLoged ? '/customer/mobile/publish?cfrom=nav' : 'javascript:popOpen(\'login\');'?>">发布转让信息</a>
+        <div class="clear"></div>
+    </div>
+</div>
+<script type="text/javascript">
+<?php if ($news):?>
+setTimeout('newMsgTitle()',1000); //2秒之后调用一次
+//消息提示
+var flag = true;
+function newMsgTitle()
+{
+    if(flag){
+        flag = false;
+        document.title = "【新消息】机荒网:顺德二手手机交易平台";
+    }else{
+        flag = true;
+        document.title = "【　　　】机荒网:顺德二手手机交易平台";
+    }
+    window.setTimeout('newMsgTitle()', 500); 
+}
+<?php endif?>
+</script>

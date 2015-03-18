@@ -1,0 +1,21 @@
+<!--面包屑ks-->
+<?php $id = Factory::getRequest()->getParam('id')?>
+<?php $purchase = Factory::getView('purchase/item')->showInfo($id)?>
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breakcrumb">机荒网</a>
+        <span class="jiantou">></span>
+		<a href="/purchase/list?cfrom=breakcrumb">求购信息</a>
+		<span class="jiantou">></span>
+		<a href="javascript:void(0);"><?php echo $purchase['title']?></a>
+    </div>
+</div>
+<!--面包屑end-->
+<div class="item_left">
+    <?php echo $this->getChildHtml('item_left')?>
+</div>
+<div class="item_right">
+    <?php echo $this->getChildHtml('item_right')?>
+</div>
+<div class="clear"></div>

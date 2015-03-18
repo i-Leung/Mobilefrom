@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--平板天地ks-->
+	<tablet_list_index>
+		<reference name="meta" type="Tablet_ListView">
+			<action method="setTemplate">page/head/meta/tablet/list.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">tablet/list.css</action>
+			<action method="addJs">tablet.js</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">tablet/list.phtml</action>
+			<block name="list_condition" type="Tablet_ListView" template="tablet/list_condition.phtml"/>
+			<block name="list_choices" type="Tablet_ListView" template="tablet/list_choices.phtml">
+				<block name="list_compare" type="Tablet_ListView" template="tablet/list_compare.phtml"/>
+			</block>
+		</reference>
+	</tablet_list_index>
+	<!--平板天地end-->
+	
+	<!--平板对比ks-->
+	<tablet_list_compare>
+		<reference name="skin">
+			<action method="addCss">tablet/compare.css</action>
+			<action method="addJs">tablet.js</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">tablet/compare.phtml</action>
+		</reference>
+	</tablet_list_compare>
+	<!--平板对比end-->
+	
+	<!--平板详情ks-->
+	<tablet_item_index>
+		<reference name="meta" type="Tablet_ItemView">
+			<action method="setTemplate">page/head/meta/tablet/item.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">tablet/item.css</action>
+			<action method="addJs">tablet.js</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">tablet/item/layout.phtml</action>
+			<block name="base" type="Tablet_ItemView" template="tablet/item/base.phtml"/>
+			<block name="detail_l" type="Tablet_ItemView" template="tablet/item/detail_l.phtml"/>
+			<block name="detail_r" type="Tablet_ItemView" template="tablet/item/detail_r.phtml"/>
+			<block name="list_compare" type="Tablet_ListView" template="tablet/list_compare.phtml"/>
+		</reference>
+	</tablet_item_index>
+	<!--平板详情end-->
+	
+	<!--平板搜索ks-->
+	<tablet_list_search>
+		<reference name="skin">
+			<action method="addCss">tablet/list.css</action>
+			<action method="addJs">tablet.js</action>
+		</reference>
+		<reference name="content" type="Tablet_ListView">
+			<action method="setTemplate">tablet/search.phtml</action>
+			<block name="list_compare" type="Tablet_ListView" template="tablet/list_compare.phtml"/>
+		</reference>
+	</tablet_list_search>
+	<!--平板搜索end-->
+</layouts>

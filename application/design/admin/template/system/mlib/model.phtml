@@ -1,0 +1,416 @@
+<?php $id = Factory::getRequest()->getParam('id')?>
+<?php $release = $this->getReleasedDate()?>
+<?php $model = $this->getAdminModel($id)?>
+<?php $major = $model['gallery'] ? explode(';', substr($model['gallery'], 0, -1)) : array()?>
+<ul class="tabs1">
+	<li class="tabs1_c">基本信息</li>
+	<li>重要参数</li>
+	<li>相关图片</li>
+</ul>
+<div class="clear"></div>
+<div class="tabs1_bd">
+	<div class="tabs1_item">
+		<table class="table2">
+			<tbody>
+				<tr>
+					<th width="85">品牌名称：</th>
+					<td><?php echo $model['brand']?></td>
+				</tr>
+				<tr>
+					<th width="85">型号名称：</th>
+					<td><?php echo $model['label']?></td>
+				</tr>
+				<tr>
+					<th>上市时间：</th>
+					<td>
+						<select name="released_at">
+							<option value="">选择上市时间</option>
+							<?php foreach ($release as $key => $item):?>
+							<option value="<?php echo $key?>" <?php echo $model['released_at'] == $key ? 'selected="selected"' : ''?>><?php echo $item?></option>
+							<?php endforeach?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td colspan="2"><button class="btn_red" type="button" onclick="saveBaseInfo();">保存</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<?php $values = $this->loadAttributeValue()?>
+	<div class="tabs1_item" style="display:none;">
+		<table class="table2">
+			<tbody>
+				<tr>
+					<th>操作系统：</th>
+					<td>
+						<select name="os">
+							<option value="">请选择操作系统</option>
+							<?php foreach ($values['6'] as $key => $value):?>
+							<option value="<?php echo $key?>" <?php echo $model['params']['os'] == $key ? 'selected="selected"' : ''?>><?php echo $value?></option>
+							<?php endforeach?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>CPU型号：</th>
+					<td>
+						<input name="cpu_type" type="text" value="<?php echo $model['params']['cpu_type']?>" />
+					</td>
+				</tr>
+				<tr>
+					<th>CPU频率：</th>
+					<td>
+						<input name="cpu_frequency" type="text" value="<?php echo $model['params']['cpu_frequency']?>" />
+					</td>
+				</tr>
+				<tr>
+					<th>核心数：</th>
+					<td>
+						<select name="core_number">
+							<option value="">请选择CPU核心数</option>
+							<?php foreach ($values['9'] as $key => $value):?>
+							<option value="<?php echo $key?>" <?php echo $model['params']['core_number'] == $key ? 'selected="selected"' : ''?>><?php echo $value?></option>
+							<?php endforeach?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>屏幕分辨率：</th>
+					<td>
+						<select name="screen_resolution">
+							<option value="">请选择屏幕分辨率</option>
+							<?php foreach ($values['1'] as $key => $value):?>
+							<option value="<?php echo $key?>" <?php echo $model['params']['screen_resolution'] == $key ? 'selected="selected"' : ''?>><?php echo $value?>像素</option>
+							<?php endforeach?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>屏幕尺寸：</th>
+					<td>
+						<select name="screen_size">
+							<option value="">请选择屏幕尺寸</option>
+							<?php foreach ($values['2'] as $key => $value):?>
+							<option value="<?php echo $key?>" <?php echo $model['params']['screen_size'] == $key ? 'selected="selected"' : ''?>><?php echo $value?>英寸</option>
+							<?php endforeach?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>前置摄像头：</th>
+					<td>
+						<select name="front_camera">
+							<option value="">请选择摄像头像素</option>
+							<?php foreach ($values['3'] as $key => $value):?>
+							<option value="<?php echo $key?>" <?php echo $model['params']['front_camera'] == $key ? 'selected="selected"' : ''?>><?php echo $value?>万像素</option>
+							<?php endforeach?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>后置摄像头：</th>
+					<td>
+						<select name="back_camera">
+							<option value="">请选择摄像头像素</option>
+							<?php foreach ($values['4'] as $key => $value):?>
+							<option value="<?php echo $key?>" <?php echo $model['params']['back_camera'] == $key ? 'selected="selected"' : ''?>><?php echo $value?>万像素</option>
+							<?php endforeach?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>RAM容量：</th>
+					<td>
+						<select name="ram">
+							<option value="">请选择RAM容量</option>
+							<?php foreach ($values['10'] as $key => $value):?>
+							<option value="<?php echo $key?>" <?php echo $model['params']['ram'] == $key ? 'selected="selected"' : ''?>><?php echo $value?></option>
+							<?php endforeach?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>可扩容：</th>
+					<td>
+						<select name="expansion">
+							<option value="">请选择扩容类型</option>
+							<?php foreach ($values['11'] as $key => $value):?>
+							<option value="<?php echo $key?>" <?php echo $model['params']['expansion'] == $key ? 'selected="selected"' : ''?>><?php echo $value?></option>
+							<?php endforeach?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>电池容量：</th>
+					<td>
+						<select name="cell_capacity">
+							<option value="">请选择电池容量</option>
+							<?php foreach ($values['5'] as $key => $value):?>
+							<option value="<?php echo $key?>" <?php echo $model['params']['cell_capacity'] == $key ? 'selected="selected"' : ''?>><?php echo $value?>mAh</option>
+							<?php endforeach?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th width="85"></th>
+					<td colspan="2"><button class="btn_red" type="button" onclick="saveModelParams();">保存</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="tabs1_item" style="display:none;">
+		<table class="table2">
+			<tbody>
+				<tr>
+					<th></th>
+					<td>
+						<div id="upload-process"></div>
+					</td>
+				</tr>
+				<tr>
+					<th>推荐图片：</th>
+					<td>
+						<input type="hidden" name="thumb" value="<?php echo $model['thumb']?>" />
+						<input type="hidden" name="gallery" value="<?php echo $major ? implode(';', $major) . ';' : ''?>" />
+						<script type="text/javascript" src="<?php echo $this->getPlugin('swfupload/js/swfupload.js')?>"></script>
+						<script type="text/javascript" src="<?php echo $this->getPlugin('swfupload/js/mlib.js')?>"></script>
+						<script type="text/javascript">
+							var majorswfu;
+							var minorswfu;
+							window.onload = function () {
+								majorswfu = new SWFUpload({
+									upload_url: "<?php echo $this->getMajorImgUrl()?>",
+									post_params: {"PHPSESSID": "<?php echo session_id()?>", "id": "<?php echo $id?>"},
+									file_size_limit : "5MB",	// 5MB
+									file_types : "*.jpg;*.png;*.gif",
+									file_types_description : "JPG/PNG/GIF Images",
+									file_upload_limit : "0",
+									file_queue_error_handler : fileQueueError,
+									file_dialog_complete_handler : fileDialogComplete,
+									upload_progress_handler : uploadMajorProgress,
+									upload_error_handler : uploadError,
+									upload_success_handler : uploadMajorSuccess,
+									upload_complete_handler : uploadComplete,
+									button_image_url : "",
+									button_placeholder_id : "majorHolder",
+									button_width: 67,
+									button_height: 26,
+									button_text : '<div class="button"></div>',
+									button_text_style : '.button {font-size: 12px;}',
+									button_text_top_padding: 0,
+									button_text_left_padding: 0,
+									button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+									button_cursor: SWFUpload.CURSOR.HAND,
+									flash_url : "<?php echo Factory::getBaseUrl()?>/plugin/swfupload/js/swfupload.swf",
+									custom_settings : {
+										upload_target : "upload-process"
+									},
+									debug: false
+								});
+							};
+						</script>
+						<div class="upload_img">
+							<form>
+								<div class="upload_img_btn">
+									<div id="majorHolder"></div>
+								</div>
+								<div style="float:left; line-height:30px; margin-left:10px;">每张图片大小不能大于5M</div>
+								<div class="clear"></div>
+							</form>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td>
+						<div class="upload_img">
+							<ul id="major-thumbnails" style="margin-top:5px;">
+								<?php foreach ($major as $img):?>
+								<li class="pack">
+									<div class="pack-img" onmousedown="tarselect(this, event);" onmousemove="tarmove(event);" onmouseup="tarlocate();">
+										<img style="margin:5px;border:solid 1px #ddd;" src="/upload/mlib/thumb/<?php echo $img?>" ondragstart="return false"/>
+									</div>
+									<div class="pack-link" style="text-align:center;">
+										<a href="javascript:void(0);" onclick="removeImg(this);">删除</a>
+									</div>
+								</li>
+								<?php endforeach?>
+							</ul>
+							<div class="clear"></div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th width="85"></th>
+					<td colspan="2"><button class="btn_red" type="button" onclick="saveModelImg(this);">保存</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.tabs1 li').click(function(){
+		var index = jQuery('.tabs1 li').index(jQuery(this));
+		jQuery('.tabs1_c').removeClass();
+		jQuery(this).addClass('tabs1_c');
+		jQuery('.tabs1_item').hide();
+		jQuery('.tabs1_item:eq(' + index + ')').show();
+	});
+});
+
+//保存基本信息
+function saveBaseInfo()
+{
+	var msg = '';
+	var release = jQuery('select[name=released_at]').val();
+	if (release == '') {
+		msg += '请选择上市时间;\n';
+	}
+	if (msg != '') {
+		alert(msg);
+		return;
+	}
+	var params = {
+		id:'<?php echo $id?>',
+		model:{
+			released_at:release
+		}
+	};
+	jQuery.ajax({
+		type:'get',
+		data:jQuery.param(params),
+		dataType:'json',
+		url:'/monitor/system_mlib/save-model-base-info',
+		success:function(data){
+			if (data == '1') {
+				alert('保存成功');
+			} else {
+				alert('保存失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			alert('保存失败，请稍候尝试');
+		}
+	});
+}
+
+//保存手机参数
+function saveModelParams()
+{
+	var msg = '';
+	var os = jQuery('select[name=os]').val();
+	if (os == '') {
+		msg += '请选择操作系统;\n';
+	}
+	var cpu_type = jQuery('input[name=cpu_type]').val();
+	if (cpu_type == '') {
+		msg += '请填写CPU型号;\n';
+	}
+	var cpu_frequency = jQuery('input[name=cpu_frequency]').val();
+	if (cpu_frequency == '') {
+		msg += '请填写CPU频率;\n';
+	}
+	var core_number = jQuery('select[name=core_number]').val();
+	if (core_number == '') {
+		msg += '请选择核心数;\n';
+	}
+	var screen_resolution = jQuery('select[name=screen_resolution]').val();
+	if (screen_resolution == '') {
+		msg += '请选择屏幕分辨率;\n';
+	}
+	var screen_size = jQuery('select[name=screen_size]').val();
+	if (screen_size == '') {
+		msg += '请选择屏幕尺寸;\n';
+	}
+	var front_camera = jQuery('select[name=front_camera]').val();
+	if (front_camera == '') {
+		msg += '请选择前置摄像头像素;\n';
+	}
+	var back_camera = jQuery('select[name=back_camera]').val();
+	if (back_camera == '') {
+		msg += '请选择后置摄像头像素;\n';
+	}
+	var ram = jQuery('select[name=ram]').val();
+	if (ram == '') {
+		msg += '请选择RAM容量;\n';
+	}
+	var expansion = jQuery('select[name=expansion]').val();
+	if (expansion == '') {
+		msg += '请选择扩容模式;\n';
+	}
+	var cell_capacity = jQuery('select[name=cell_capacity]').val();
+	if (cell_capacity == '') {
+		msg += '请选择电池容量';
+	}
+	if (msg != '') {
+		alert(msg);
+		return;
+	}
+	var params = {
+		id:'<?php echo $id?>',
+		params:{
+			os:os,
+			cpu_type:cpu_type,
+			cpu_frequency:cpu_frequency,
+			core_number:core_number,
+			screen_resolution:screen_resolution,
+			screen_size:screen_size,
+			front_camera:front_camera,
+			back_camera:back_camera,
+			ram:ram,
+			expansion:expansion,
+			cell_capacity:cell_capacity
+		}
+	};
+	jQuery.ajax({
+		type:'get',
+		data:jQuery.param(params),
+		dataType:'json',
+		url:'/monitor/system_mlib/saveModelParams',
+		success:function(data){
+			if (data == '1') {
+				alert('保存成功');
+			} else {
+				alert('保存失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			alert('保存失败，请稍候尝试');
+		}
+	});
+}
+//保存上传图片
+function saveModelImg(obj)
+{
+	var thumb = jQuery('input[name=thumb]').val();
+	var gallery = jQuery('input[name=gallery]').val();
+	if (thumb == '' || gallery == '') {
+		alert('请上传图片');
+		return;
+	}
+	jQuery.ajax({
+		type:'get',
+		data:{id:'<?php echo $id?>', thumb:thumb, gallery:gallery},
+		dataType:'json',
+		url:'/monitor/system_mlib/save-model-img',
+		beforeSend:function(){
+			jQuery(obj).html('正在保存...').attr('disabled', 'disabled');
+		},
+		success:function(data){
+			jQuery(obj).html('保存').removeAttr('disabled');
+			if (data == '1') {
+				alert('保存成功');
+			} else {
+				alert('保存失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			jQuery(obj).html('保存').removeAttr('disabled');
+			alert('保存失败，请稍候尝试');
+		}
+	});
+}
+</script>

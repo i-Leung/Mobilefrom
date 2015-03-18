@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--个人用户列表ks-->
+	<customer_personal_list>
+		<reference name="content" type="Customer_InfoView">
+			<action method="setTemplate">customer/personal/list.phtml</action>
+		</reference>
+	</customer_personal_list>
+	<!--个人用户列表end-->
+	<!--手机信息列表ks-->
+	<customer_personal_mobile>
+		<reference name="content" type="Mobile_ListView">
+			<action method="setTemplate">customer/personal/mobile.phtml</action>
+		</reference>
+	</customer_personal_mobile>
+	<!--手机信息列表end-->
+	<!--求购信息列表ks-->
+	<customer_personal_purchase>
+		<reference name="content" type="Purchase_ListView">
+			<action method="setTemplate">customer/personal/purchase.phtml</action>
+		</reference>
+	</customer_personal_purchase>
+	<!--求购信息列表end--> 
+</layouts>

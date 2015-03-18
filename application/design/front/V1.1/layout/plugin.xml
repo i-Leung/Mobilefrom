@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<plugin_swfupload_index>
+		<reference name="content" type="Plugin_SwfuploadView">
+			<action method="setTemplate" template="plugin/swfupload.phtml" />
+		</reference>
+	</plugin_swfupload_index>
+</layouts>

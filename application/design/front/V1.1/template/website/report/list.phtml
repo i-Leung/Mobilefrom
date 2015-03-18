@@ -1,0 +1,161 @@
+<?php $id = Factory::getRequest()->getParam('id', null)?>
+<?php $q = Factory::getRequest()->getParam('q', null)?>
+<?php $current = Factory::getRequest()->getParam('p', '1')?>
+<?php $reports = $q ? $this->loadReportListBySearch($q) : $this->loadReportList($id, $current)?>
+<div class="search_report">
+	<div class="search_rep">
+		<?php if ($q):?>
+		<input name="q" type="text" value="<?php echo $q?>" />
+		<?php else:?>
+    	<input name="q" type="text" value="输入被举报人的帐号/联系电话/QQ号码" style="color:#999" />
+		<?php endif?>
+		<button type="button" title="点击搜索"></button>
+    </div>
+	<?php if (Factory::getSession('customer/id')):?>
+    <a href="/website/report/publish?cfrom=list">我要举报</a>
+	<?php else:?>
+    <a href="javascript:popOpen('login');">我要举报</a>
+	<?php endif?>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.search_rep input[name=q]').focus(function(){
+		var q = jQuery(this).val();
+		if (q == '输入被举报人的帐号/联系电话/QQ号码') {
+			jQuery(this).val('');
+			jQuery(this).css('color', '');
+		}
+	});
+	jQuery('.search_rep input[name=q]').blur(function(){
+		var q = jQuery(this).val();
+		if (q == '') {
+			jQuery(this).val('输入被举报人的帐号/联系电话/QQ号码');
+			jQuery(this).css('color', '#999');
+		}
+	});
+	jQuery('.search_rep input[name=q]').keydown(function(e){
+		if(e.keyCode == 13){
+			var q = jQuery('.search_rep input[name=q]').val();
+			if (q != '' && q != '输入被举报人的帐号/联系电话/QQ号码') {
+				window.location.href = '/website/report/list?q=' + q;
+			}
+		}
+	});
+	jQuery('.search_rep button').click(function(){
+		var q = jQuery('.search_rep input[name=q]').val();
+		if (q != '' && q != '输入被举报人的帐号/联系电话/QQ号码') {
+			window.location.href = '/website/report/list?q=' + q;
+		}
+	});
+});
+</script>
+<div class="report_list" style="min-height:445px;">
+	<?php if ($reports):?>
+	<?php foreach ($reports as $item):?>
+	<div class="report_item">
+		<a class="l" target="_blank" href="/website/report/item?cfrom=list&id=<?php echo $item['id']?>">
+			<img src="<?php echo $this->getThumbPicture($item['thumb'])?>"/>
+        </a>
+        <div class="r">
+            <h3>
+                <a target="_blank" href="/website/report/item?cfrom=list&id=<?php echo $item['id']?>"><?php echo $item['title']?></a>
+            </h3>
+            <div class="desc">
+                <p><?php echo $item['summary']?></p>
+            </div>
+            <div class="other_info">
+                <p class="other_info_l">
+					<span>举报人：<?php echo $item['reporter']?></span>
+                    <i>/</i>
+					<span><?php echo timeforcustomer($item['created_at'])?></span>
+                </p>
+                <p class="other_info_r">
+                    <a class="blue" target="_blank" href="/website/report/item?cfrom=list&id=<?php echo $item['id']?>">详情点击>></a>
+                </p>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+	<?php endforeach?>
+	<?php else:?>
+    <div class="no_report">
+    	<p class="grey">机荒网站内暂时没有相关举报信息！</p>
+    </div>
+	<!-- 第三方搜索结果ks -->
+	<?php if ($q && $outer = $this->loadReportSearchByThirdParty($q)):?>
+	<h3 class="red">以下结果为 "<a class="blue" target="_blank" href="http://www.soso.com" rel="nofollow">搜搜</a>" 搜索推荐结果:</h3>
+	<?php foreach ($outer as $item):?>
+	<div class="report_item" style="height:auto;">
+		<h3>
+			<a target="_blank" href="<?php echo $item['url']?>" rel="nofollow"><?php echo $item['title']?></a>
+		</h3>
+		<div class="desc" style="width:auto;">
+			<p><?php echo $item['content']?></p>
+		</div>
+		<div class="other_info" style="width:auto;">
+			<p class="other_info_l">
+				<span>举报人：来自"搜搜"搜索结果</span>
+				<i>/</i>
+				<span><?php echo $item['created_at']?></span>
+			</p>
+			<p class="other_info_r">
+				<a class="blue" target="_blank" href="<?php echo $item['url']?>" rel="nofollow">详情点击>></a>
+			</p>
+			<div class="clear"></div>
+		</div>
+    </div>
+	<?php endforeach?>
+	<?php endif?>
+	<!-- 第三方搜索结果end -->
+	<?php endif?>
+    <!--分页ks-->
+	<?php $total = $this->getReportTotal($id)?>
+	<?php if ($total && !$q):?>
+	<?php $last = ceil($total / 10)?>
+    <div class="fenye_wp">
+    	<span>共<?php echo $total?>条举报</span>
+		<?php if ($current != '1'):?>
+        <a href="/website/report/list?id=<?php echo $id?>&p=<?php echo $current - 1?>"><</a>
+		<?php endif?>
+		<span><?php echo $current . '/' . $last?></span>
+		<?php if ($current != $last):?>
+		<a href="/website/report/list?id=<?php echo $id?>&p=<?php echo $current + 1?>">></a>
+		<?php endif?>
+	</div>
+	<?php else:?>
+    <div class="fenye_wp" style="padding:0;"></div>
+	<?php endif?>
+    <!--分页end-->
+</div>
+<div class="knowledge">
+	<div class="tit">
+    	<h2>手机交易知多D</h2>
+        <a class="blue" href="/website/helper/what-to-buy">更多>></a>
+    </div>
+    <div class="bd">
+    	<ul>
+        	<li><a href="/website/helper/what-to-buy#faq1">什么是翻新机？</a></li>
+        	<li><a href="/website/helper/what-to-buy#faq3">什么是高仿机？</a></li>
+        	<li><a href="/website/helper/what-to-buy#faq4">什么是水货手机？</a></li>
+        	<li><a href="/website/helper/what-to-buy#faq5">什么是14天机？</a></li>
+        	<li><a href="/website/helper/what-to-buy#faq2">什么是组装机、改装机？</a></li>
+        </ul>
+    	<ul>
+        	<li><a href="/website/helper/what-to-buy#faq7">如何鉴别高仿机？</a></li>
+        	<li><a href="/website/helper/what-to-buy#faq6">如何鉴别翻新机组装机？</a></li>
+			<li><a class="red" href="/website/helper/how-to-buy#faq1">线下手机交易流程指南</a></li>
+        	<li><a class="red" href="/website/helper/how-to-buy#faq2">骗子一般长啥样？</a></li>
+        	<li><a class="red" href="/website/helper/how-to-buy#faq3">哪种交易方式容易中招？</a></li>
+        </ul>
+    	<ul>
+        	<li><a class="red" href="/website/helper/how-to-buy#faq4">如何测试手机？</a></li>
+        	<li><a href="/website/helper/what-to-buy#faq11">如何选购三星手机？</a></li>
+        	<li><a href="/website/helper/what-to-buy#faq12">如何选购国产手机？</a></li>
+        	<li><a href="/website/helper/what-to-buy#faq9">如何选购二手苹果手机？</a></li>
+        	<li><a href="/website/helper/what-to-buy#faq10">如何选购二手安卓手机？</a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+</div>

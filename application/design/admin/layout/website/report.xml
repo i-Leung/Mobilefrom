@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--举报列表ks-->
+	<website_report_list>
+		<reference name="content" type="Website_ReportView">
+			<action method="setTemplate">website/report/list.phtml</action>
+		</reference>
+	</website_report_list>
+	<!--举报列表end-->
+	<!--举报详情ks-->
+	<website_report_detail>
+		<reference name="content">
+			<action method="setTemplate">website/report/detail.phtml</action>
+		</reference>
+	</website_report_detail>
+	<!--举报详情end-->
+</layouts>

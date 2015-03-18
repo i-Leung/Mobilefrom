@@ -1,0 +1,59 @@
+<?php $search = Factory::getRequest()->getParam('search', '')?>
+<?php $sequence = Factory::getRequest()->getParam('sequence', '')?>
+<?php $params = array('group' => '1', 'search' => $search, 'sequence' => $sequence)?>
+<?php $current = Factory::getRequest()->getParam('p', 1)?>
+<?php $per = 20?>
+<?php $list = $this->loadCustomerList($params, $current, $per)?>
+<!--筛选框ks-->
+<div class="search_div">
+	<form action="/monitor/customer_personal/list" method="get">
+	    <div class="sx search_div_item">
+	    	<strong style="padding-left:0;">排序：</strong>
+		<select name="sequence">
+			<option value="">注册顺序</option>
+	        	<option value="id" <?php echo $sequence == 'id' ? 'selected="selected"' : ''?>>注册时间</option>
+	        	<option value="logon_latest" <?php echo $sequence == 'logon_latest' ? 'selected="selected"' : ''?>>最后登录时间</option>
+	        	<option value="logon_times" <?php echo $sequence == 'logon_times' ? 'selected="selected"' : ''?>>登录次数</option>
+	        </select>
+	    </div>
+		<div class="search_div_item">
+			<input name="search" placeholder="用户名/邮箱" value="<?php echo $search ? $search : ''?>" />
+	    </div>
+	    <div class="search_div_item">
+	    	<button type="submit">提交</button>
+	    </div>
+		<div class="clear"></div>
+	</form>
+</div>
+<!--筛选框end-->
+<div class="table1" entity="personal">
+	<table width="990">
+    	<thead>
+        	<tr>
+            	<th width="160">用户名称</th>
+            	<th width="320">用户邮箱</th>
+            	<th width="180">注册时间</th>
+            	<th width="100">登录次数</th>
+            	<th width="180">最后登录时间</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<?php foreach ($list as $item):?>
+        	<tr entity="<?php echo $item['id']?>">
+            	<td><?php echo $item['username']?></td>
+            	<td><?php echo $item['email']?></td>
+            	<td><?php echo date('Y-m-d H:i:s', $item['registered_at'])?></td>
+                <td><?php echo $item['logon_times']?></td>
+            	<td><?php echo date('Y-m-d H:i:s', $item['logon_latest'])?></td>
+            </tr>
+            <?php endforeach;?>
+        </tbody>
+    </table>
+</div>
+<!--分页ks-->
+<?php $amount = $this->getCustomerTotal($params)?>
+<?php if ($amount > $per):?>
+<?php $url = '/monitor/customer_personal/list?search=' . $search . '&group=1&sequence=' . $sequence . '&'?>
+<?php echo Factory::getView('page/paginator')->init($amount, $current, $per, $url, 'admin')->render();?>
+<?php endif;?>
+<!--分页end-->

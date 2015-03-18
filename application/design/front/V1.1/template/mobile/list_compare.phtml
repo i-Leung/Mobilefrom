@@ -1,0 +1,18 @@
+<div class="compare" style="display:none;">
+	<div class="compare_title">
+    	<b>手机比较</b>
+        <i title="清空列表"></i>
+    </div>
+    <div class="compare_bd">
+    	<ul></ul>
+        <a class="compare_btn" href="/mobile/list/compare?cfrom=sidebox">对比所选手机</a>
+    </div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	loadCompare();
+	jQuery('.compare_title i').click(function(){
+		jQuery('.compare').hide();
+	});
+});
+</script>

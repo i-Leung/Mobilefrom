@@ -1,0 +1,21 @@
+<?php $c_path = $this->getCssPath();?>
+<?php if ($css = $this->loadCss()):?>
+<?php foreach ($css as $item):?>
+<link href="<?php echo $c_path . $item?>" rel="stylesheet" type="text/css" />
+<?php endforeach;?>
+<?php endif;?>
+<script type="text/javascript" src="<?php echo $this->getPlugin('jquery-1.8.3.js')?>"></script>
+<script type="text/javascript">
+var base = '<?php echo Factory::getBaseUrl()?>';
+var baseSrc = 'http://mobilefrom-upload.stor.sinaapp.com/mobile/';
+var reportSrc = 'http://mobilefrom-upload.stor.sinaapp.com/report/';
+var tabletSrc = 'http://mobilefrom-upload.stor.sinaapp.com/tablet/';
+</script>
+<?php $j_path = $this->getJsPath();?>
+<script type="text/javascript" src="<?php echo $j_path?>common.js"></script>
+<?php if ($js = $this->loadJs()):?>
+<?php foreach ($js as $item):?>
+<script type="text/javascript" src="<?php echo $j_path . $item?>"></script>
+<?php endforeach;?>
+<?php endif;?>
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>

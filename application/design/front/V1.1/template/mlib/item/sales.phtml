@@ -1,0 +1,156 @@
+<?php $model_id = Factory::getRequest()->getParam('id', null)?>
+<?php $records = $this->loadModelStoreSales($model_id)?>
+<?php global $CStatic?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.sregion').mouseover(function(){
+		jQuery('.m_i_s_o_region').show();
+	});
+	jQuery('.sregion').mouseleave(function(){
+		jQuery('.m_i_s_o_region').hide();
+	});
+});
+//显示店铺地址
+function showAddr(obj)
+{
+	var amount = 0;
+	jQuery(obj).parent().find('a').each(function(){
+		if (jQuery(this).css('display') == 'none') {
+			amount += 1;
+		}
+	});
+	if (amount > 0) {
+		jQuery(obj).parent().find('a').show();
+		jQuery(obj).html('[' + jQuery(obj).attr('t') + '分店]');
+	} else {
+		jQuery(obj).parent().find('a').hide();
+		jQuery(obj).html('[<span class="blue">' + jQuery(obj).attr('t') + '</span>]' + jQuery(obj).attr('v')).show();
+	}
+}
+</script>
+<div class="m_i_store">
+	<div class="m_i_s_order">
+		<ul style="float:left;">
+			<li class="blue"><span>默认排序</span></li>
+			<li style="width: 245px;line-height: 15px;">
+				<!-- Baidu Button BEGIN -->
+				<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style="margin-left: 10px;">
+					<span class="bds_more">分享到：</span>
+					<a class="bds_qzone"></a>
+					<a class="bds_tsina"></a>
+					<a class="bds_tqq"></a>
+					<a class="bds_renren"></a>
+					<a class="bds_t163"></a>
+					<a class="shareCount"></a>
+				</div>
+				<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6852080" ></script>
+				<script type="text/javascript" id="bdshell_js"></script>
+				<script type="text/javascript">
+				document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+				</script>
+				<!-- Baidu Button END -->
+			</li>
+			<li class="sregion" style="display:none;">
+				<span>所在地区</span>
+				<ul class="m_i_s_o_region">
+					<li>不限</li>
+					<?php foreach ($CStatic['region'] as $key => $value):?>
+					<li v="<?php echo $key?>"><?php echo $value?></li>
+					<?php endforeach?>
+				</ul>
+			</li>
+			<div class="clear"></div>
+		</ul>
+		<p style="margin-right:10px;float:right;height:30px;line-height:30px;">
+			<a class="red" href="/website/store/customer?cfrom=mlib-item" title="了解详情请点击" target="_blank">“零翻新、零组装、零假货”</a>优质商家专区
+		</p>
+		<div class="clear"></div>
+	</div>
+	<?php if ($records):?>
+	<?php foreach ($records['store'] as $key => $store):?>
+	<div class="m_i_s_item">
+		<div class="m_i_s_i_thumb">
+			<a href="/store/item/?store=<?php echo $key?>&cfrom=mlib" target="_blank">
+				<img src="http://mobilefrom-upload.stor.sinaapp.com/thumbnail/<?php echo $store['customer_id']?>.jpg" onerror="loadErrorStoreThumbnail(this);" />
+			</a>
+		</div>
+		<div class="m_i_s_i_info">
+			<div class="m_i_s_i_name">
+				<a href="/store/item/?store=<?php echo $key?>&cfrom=mlib" target="_blank"><?php echo $store['name']?></a>
+			</div>
+			<div class="m_i_s_i_bottom">
+				<?php if (count($records['addr'][$key]) >1):?>
+				<?php foreach ($records['addr'][$key] as $addr):?>
+				<a href="javascript:void(0);" onclick="showAddr(this);" t="<?php echo $addr['region']?>" v="<?php echo $addr['addr']?>">[<?php echo $addr['region']?>分店]</a>
+				<?php endforeach?>
+				<?php else:?>
+				<span>[<span class="blue"><?php echo $records['addr'][$key][0]['region']?></span>]<?php echo $records['addr'][$key][0]['addr']?></span>
+				<?php endif?>
+			</div>
+		</div>
+		<div class="m_i_s_i_sale">
+			<table>
+				<?php foreach ($store['children'] as $isnew => $mobile):?>
+				<tr>
+					<td width="80">[<?php echo $isnew ? '新机底价' : '二手底价'?>]</td>
+					<td width="50"><span class="red"><?php echo $mobile['price']?>元</span></td>
+					<td width="50"><?php echo $mobile['color']?></td>
+					<td width="50"><?php echo $mobile['storage']?>G</td>
+					<td width="50"><?php echo $mobile['newly']?></td>
+					<td width="170"><?php echo $mobile['version']?></td>
+				</tr>
+				<?php endforeach?>
+				<tr>
+					<td colspan="6">
+						<a href="/store/item/mobile-info?store=<?php echo $key?>&model=<?php echo $store['store_model_id']?>&cfrom=mlib" target="_blank" style="color:#999999;">更多报价>></a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<?php endforeach?>
+	<?php else:?>
+	<div class="m_i_s_item" style="text-align:center;font-size:14px;*padding-bottom:10px;">
+	<span>暂无商家出售该手机，我是商家，<a class="red" href="<?php echo Factory::getSession('customer/group') == '2' ? '/customer' : '/website/store/business?cfrom=mlib-item'?>">我要出售！</a></span>
+	</div>
+	<?php endif?>
+</div>
+<div class="m_i_s_personal">
+	<div class="m_i_s_p_top">
+		<div class="m_i_s_p_title">
+			<span>个人转让</span>
+		</div>
+		<div class="m_i_s_p_more">
+			<a href="/mobile/list?cfrom=mlib">更多个人转让信息</a>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<?php $personal = Factory::getView('mobile/list')->loadModelMobileList($model_id)?>
+	<?php if ($personal):?>
+	<div class="m_i_s_p_bottom">
+		<ul>
+			<?php foreach ($personal as $item):?>
+			<li>
+				<div class="m_i_s_p_thumb" title="<?php echo $item['title']?>">
+					<a href="/mobile/item?id=<?php echo $item['id']?>&cfrom=mlib" target="_blank">
+						<img src="http://mobilefrom-upload.stor.sinaapp.com/mobile/thumb/<?php echo $item['thumb']?>" onerror="loadErrorImg(this);" />
+					</a>
+				</div>
+				<div class="m_i_s_p_name" title="<?php echo $item['title']?>">
+					<a href="/mobile/item?id=<?php echo $item['id']?>&cfrom=mlib" target="_blank">[<span class="red"><?php echo $item['region']?></span>]<?php echo $item['title']?></a>
+				</div>
+				<div>
+					<div class="m_i_s_p_price"><?php echo $item['price']?>元</div>
+					<div class="m_i_s_p_date"><?php echo timeforcustomer($item['created_at'])?></div>
+					<div class="clear"></div>
+				</div>
+			</li>
+			<?php endforeach?>
+			<div class="clear"></div>
+		</ul>
+	</div>
+	<?php else:?>
+	<p style="text-align:center;font-size:14px;margin:10px 0;">暂无相关个人闲置手机出售信息，<a class="red" href="javascript:void(0);">我要出售！</a></p>
+	<?php endif?>
+</div>

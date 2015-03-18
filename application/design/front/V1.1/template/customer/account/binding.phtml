@@ -1,0 +1,291 @@
+<?php $third = Factory::getRequest()->getParam('third')?>
+<?php $binding = Factory::getRequest()->getParam('binding')?>
+<!-- 面包屑ks -->
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+		<span class="jiantou">></span>
+		<a href="javascript:void(0);">绑定账号</a>
+    </div>
+</div>
+<!-- 面包屑end -->
+<div class="bind_wp">
+	<div class="bind_l">
+		<p class="bind_tis">
+			加油！还差一步，您就可以使用
+			<?php if ($third == 'tencent'):?>
+			<span class="red" style="font-weight:bold;">&nbsp;QQ&nbsp;</span>登录机荒网了！
+			<?php endif?>
+			<?php if ($third == 'sina'):?>
+			<span class="red" style="font-weight:bold;">&nbsp;新浪微博&nbsp;</span>登录机荒网了！
+			<?php endif?>
+		</p>
+        <div class="bind_hd">
+        	<label>
+            	<input name="reg_or_not" checked="checked" type="radio" value="0" />
+                <span><strong>还没有注册过机荒网</strong></span>
+            </label>
+        	<label style="margin-left:30px;">
+            	<input name="reg_or_not" type="radio" value="1" />
+                <span><strong>已经注册过机荒网</strong></span>
+            </label>
+        </div>
+        <!--登录ks-->
+        <div class="log_box bind_bd" style="display:none;">
+            <p class="green" style="display:none;">请输入您的机荒网用户名和密码，绑定<span>QQ账号</span>和机荒网。</p>
+            <p class="log_error_tis" style="display:none;">用户名或密码错误，请重新输入</p>
+            <table id="login">
+                <tr>
+                    <td class="input_name">用户名/邮箱：</td>
+                    <td>
+                    	<input class="input_area" id="ls_customer" name="customer" placeholder="输入您的用户名或邮箱" type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="input_name">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</td>
+                    <td>
+                    	<input class="input_area" id="ls_password" name="password" placeholder="输入你的密码" type="password">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button class="btn_blue bind_btn" onclick="ajaxBindingLogin(this);">绑定账号</button>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <!--登录end-->
+        <!--注册ks-->
+        <div class="reg_box bind_bd" style="display:block;">
+            <p class="green" style="display:none;">将为您创建一个新账户，与<span>QQ账户</span>绑定</p>
+            <table id="register">
+                <tr>
+                    <td width="70" class="input_name">用&nbsp;&nbsp;户&nbsp;&nbsp;名：</td>
+                    <td width="235" style="vertical-align:top;">
+                        <input class="input_area" type="text" name="username" onblur="checkUsername();"/>
+                    </td>
+                    <td>
+                        <div class="msg_box msg_tips">
+                            <i></i>
+                            <div class="msg_cnt grey">
+                                <span class="msg_cnt_tips">2-16个字符，推荐使用中文会员名。</span>
+                                <span class="msg_cnt_empty">账号不能为空</span>
+                                <span class="msg_cnt_error">2-16个字符</span>
+                                <span class="msg_cnt_used">该账户已被使用</span>
+                                <span class="msg_cnt_right">校验通过</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="input_name">电子邮箱：</td>
+                    <td>
+                        <input class="input_area" type="text" name="email" onblur="checkEmail();"/>
+                    </td>
+                    <td>
+                        <div class="msg_box msg_tips">
+                            <i></i>
+                            <div class="msg_cnt grey">
+                                <span class="msg_cnt_tips">输入您的常用邮箱</span>
+                                <span class="msg_cnt_empty">邮箱不能为空</span>
+                                <span class="msg_cnt_error">邮箱格式错误</span>
+                                <span class="msg_cnt_used">该邮箱已被注册</span>
+                                <span class="msg_cnt_right">校验通过</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="input_name">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</td>
+                    <td>
+                        <input class="input_area" type="password" name="pwd" onblur="checkPwd();"/>
+                    </td>
+                    <td>
+                        <div class="msg_box msg_tips">
+                            <i></i>
+                            <div class="msg_cnt grey">
+                                <span class="msg_cnt_tips">6-16个字符，请使用字母加数字或符号的组合密码。</span>
+                                <span class="msg_cnt_empty">密码不能为空</span>
+                                <span class="msg_cnt_error">长度应为6-16个字符</span>
+                                <span class="msg_cnt_right">校验通过</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="input_name">确认密码：</td>
+                    <td>
+                        <input class="input_area" type="password" name="repwd" onblur="checkRePwd();"/>
+                    </td>
+                    <td>
+                        <div class="msg_box msg_tips">
+                            <i></i>
+                            <div class="msg_cnt grey">
+                                <span class="msg_cnt_tips">再次输入密码</span>
+                                <span class="msg_cnt_empty">再输一次密码</span>
+                                <span class="msg_cnt_error">两次密码不一致</span>
+                                <span class="msg_cnt_right">校验通过</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="remember">
+                    <td></td>
+                    <td class="fuwuxieyi">
+                        <label>
+                            <input type="checkbox" name="hasread" value="1" checked="checked" />
+                            <span>我已阅读并同意<a class="blue" href="/default/website/contract?cfrom=register">《机荒网服务协议》</a></span>
+                        </label>
+                    </td>
+					<td>
+                        <div class="msg_box">
+                            <i></i>
+                            <div class="msg_cnt grey">
+                                <span class="msg_cnt_right">校验通过</span>
+                                <span class="msg_cnt_error">请阅读协议，同意后再提交绑定申请</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+					</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2">
+                        <button class="btn_blue bind_btn" onclick="ajaxBindingRegister(this);">绑定账号</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!--注册end-->
+    </div>
+    <div class="bind_r">
+		<?php if ($third == 'tencent'):?>
+		<img src="<?php echo $this->getImg('third_party/qq.gif')?>"; />
+		<?php endif?>
+		<?php if ($third == 'sina'):?>
+		<img src="<?php echo $this->getImg('third_party/sina.jpg')?>"; />
+		<?php endif?>
+    </div>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	//保持脚部总在页面最底部
+	jQuery('.main').css('min-height', jQuery(window).height() - 138 - 105 - 20 + 45);
+	//选择填写内容
+	jQuery('.bind_hd label').click(function(){
+		switch (jQuery('.bind_hd label').index(jQuery(this))) {
+			case 0:
+				jQuery('.reg_box input[name=username]').focus();
+				jQuery('.log_box').hide();
+				jQuery('.reg_box').show();
+				break;
+			case 1:
+				jQuery('.log_box input[name=customer]').focus();
+				jQuery('.reg_box').hide();
+				jQuery('.log_box').show();
+				break;
+		}
+	});
+});
+
+//检测是否同意协议
+function checkContract()
+{
+	var box = jQuery('.msg_box:eq(5)');
+	box.show();
+	if (jQuery('input[name=hasread]:checked').val() == '1') {
+		showMsg(box, 'right');
+		return true;
+	}
+	showMsg(box, 'error');
+	return false;
+}
+
+/**
+ * ajax提交注册绑定请求
+ */
+function ajaxBindingRegister(obj)
+{
+	if(checkUsername() && checkEmail() && checkPwd() && checkRePwd() && checkContract()){
+		var data = {
+			third:'<?php echo $third?>',
+			binding:'<?php echo $binding?>',
+			customer:{
+				username:jQuery('#register input[name=username]').val(),
+				email:jQuery('#register input[name=email]').val(),
+				pwd:jQuery('#register input[name=pwd]').val(),
+				repwd:jQuery('#register input[name=repwd]').val()
+			}
+		};
+		jQuery.ajax({
+			type:'get',
+			data:jQuery.param(data),
+			dataType:'json',
+			url:'/customer/account/ajax-binding-register',
+			beforeSend:function(){
+				jQuery(obj).html('数据正在提交...');
+			},
+			success:function(data){
+				if(data == '0') {
+					jQuery(obj).html('绑定帐号');
+					alert('注册失败，请检测您所输入的数据是否合符要求');
+				} else {
+					window.location.href = '/?cfrom=binding';
+				}
+			},
+			error:function(data){
+				jQuery(obj).html('绑定帐号');
+				alert('注册失败，请检测您所输入的数据是否合符要求');
+			}
+		});
+	}
+}
+
+//ajax提交登录绑定请求
+function ajaxBindingLogin(obj)
+{
+	var msg_box = jQuery('.log_box .log_error_tis');
+	var customer = jQuery('#login input[name=customer]').val();
+	var pwd = jQuery('#login input[name=password]').val();
+	var msg = '';
+	if(customer == ''){
+		msg += '请填写用户名/注册邮箱;';
+	}
+	if(pwd == ''){
+		msg += '请填写登录密码;';
+	}
+	if(msg != ''){
+		msg_box.html(msg).show();
+		return;
+	}
+	jQuery.ajax({
+		type:'get',
+		data:{customer:customer, pwd:pwd, third:'<?php echo $third?>', binding:'<?php echo $binding?>'},
+		dataType:'json',
+		url:'/customer/account/ajax-binding-login',
+		beforeSend:function(){
+			jQuery(obj).html('正在提交...');
+		},
+		success:function(data){
+			if(data == '1'){
+				window.location.reload();
+			} else {
+				jQuery(obj).html('绑定帐号');
+				msg_box.html('绑定失败，请核对您的用户名/邮箱/密码').show();
+			}
+		},
+		error:function(){
+			jQuery(obj).html('绑定帐号');
+			msg_box.html('绑定失败，请核对您的用户名/邮箱/密码').show();
+		}
+	});
+}
+</script>

@@ -1,0 +1,90 @@
+<?php global $MStatic?>
+<?php global $CStatic?>
+<?php $brands = Factory::getView('system/tlib')->loadBrandList()?>
+<?php $filter = Factory::getSession('tfilter')?>
+<?php $selected = $filter ? $this->translate($filter) : array()?>
+<?php $options = $this->loadAvailableFilterOption()?>
+<!--面包屑ks-->
+<!--面包屑end-->
+<?php if ($selected):?>
+<!--您的选择ks-->
+<div class="y_choices">
+	<div class="l grey"><span>筛选条件：</span></div>
+    <div class="r">
+    	<ul>
+			<?php foreach ($selected as $key => $value):?>
+        	<li>
+            	<a href="?cfrom=attr_selector&filter[<?php echo $key?>]=all"><?php echo $value?><i></i></a>
+            </li>
+			<?php endforeach;?>
+            <li>
+            	<a class="red qingkong_btn" href="?cfrom=attr_selector&filter=all">清空筛选条件</a>
+            </li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!--您的选择end-->
+<?php endif?>
+<!--属性筛选框ks-->
+<div class="attrs">
+	<dl class="attrs_item">
+    	<dt>平板品牌：</dt>
+    	<dd>
+			<?php foreach ($options['2'] as $value):?>
+			<?php 
+			if ($value == '07') {
+				$tmp = '07';
+				continue;
+			}
+			?>
+			<a <?php if ($filter['2'] == $value):?>class="attrs_c"<?php endif;?> href="/tablet/list?cfrom=newly&filter[2]=<?php echo $value?>"><?php echo $brands[$value]?></a>
+			<?php endforeach?>
+			<?php if (isset($tmp)):?>
+			<a href="/tablet/list?cfrom=brand&filter[2]=07">其它</a>
+			<?php endif?>
+        </dd>
+    	<div class="clear"></div>
+    </dl>
+	<dl class="attrs_item">
+    	<dt>新旧程度：</dt>
+    	<dd>
+			<?php foreach ($options['3'] as $value):?>
+			<a <?php if ($filter['3'] == $value):?>class="attrs_c"<?php endif;?> href="/tablet/list?cfrom=newly&filter[3]=<?php echo $value?>"><?php echo $MStatic['newly'][$value]?></a>
+			<?php endforeach?>
+        </dd>
+    	<div class="clear"></div>
+    </dl>
+	<dl class="attrs_item">
+    	<dt>交易地区：</dt>
+    	<dd>
+			<?php ksort($options['4'])?>
+			<?php foreach ($options['4'] as $value):?>
+			<a <?php if ($filter['4'] == $value):?>class="attrs_c"<?php endif;?> href="/tablet/list?cfrom=who&filter[4]=<?php echo $value?>"><?php echo $CStatic['region'][$value]?></a>
+			<?php endforeach?>
+        </dd>
+    	<div class="clear"></div>
+    </dl>
+	<dl class="attrs_item">
+    	<dt>价格范围：</dt>
+    	<dd class="price_attrs">
+			<?php $options['1'] = array_reverse($options['1'], true)?>
+			<?php 
+			$huan = false;
+			if (isset($options['1']['8'])) {
+				unset($options['1']['8']);
+				$huan = true;
+			}
+			?>
+			<?php foreach ($options['1'] as $value):?>
+			<a <?php if ($filter['1'] == $value):?>class="attrs_c"<?php endif;?> href="/tablet/list?cfrom=price&filter[1]=<?php echo $value?>"><?php echo $MStatic['level'][$value]['label']?></a>
+			<?php endforeach?>
+			<?php if ($huan):?>
+			<a <?php if ($filter['1'] == '8'):?>class="attrs_c"<?php endif;?> href="/tablet/list?cfrom=price&filter[1]=8">换机</a>
+			<?php endif?>
+            <div class="clear"></div>
+        </dd>
+    	<div class="clear"></div>
+    </dl>
+</div>
+<!--属性筛选框end-->

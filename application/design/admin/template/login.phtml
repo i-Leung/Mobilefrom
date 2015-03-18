@@ -1,0 +1,77 @@
+<div class="login_wrap">
+	<div class="tis item">
+		<p class="info" style="display:block;">请输入您的后台登陆密码及验证码！</p>
+		<p class="error" style="display:none;">请确保您输入的登陆密码及验证码无误！</p>
+	</div>
+    	<div class="account_password item">
+		<input name="pwd" type="password" placeholder="后台登陆密码" style="padding-right:26px;" />
+		<input name="verify" type="text" placeholder="验证码" />
+        </div>
+        <div class="yzm_btns item">
+		<div class="item2" style="width:220px;padding-top:5px;">
+			<img style="float:left;width:77px;padding-left:20px;" src="/monitor/entrance/verify" />
+			<a href="javascript:void(0);" onclick="changeVerify(this);" style="line-height:30px;margin-left:15px;color:#4579cc;float:left;">点击切换图片</a>
+		</div>
+		<div class="item2 submit">
+			<button type="button" onclick="login(this);">验证登录</button>
+		</div>
+		<div class="item2 reset">
+			<button type="button" onclick="clearInput();">清空输入</button>
+		</div>
+        </div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('input[name=pwd]').focus();
+});
+//清空输入
+function clearInput()
+{
+	jQuery('input').val('');
+}
+//验证码刷新
+function changeVerify(obj)
+{
+	jQuery(obj).parent().find('img')
+		.attr('src', '/monitor/entrance/verify?sn=' + Math.random());
+}
+//ajax登录
+function login(obj)
+{
+	var parent = jQuery(obj).parent().parent().parent();
+	var pwd = parent.find('input[name=pwd]').val();
+	if(pwd == ''){
+		alert('请输入登录密码');
+		return;
+	}
+	var verify = parent.find('input[name=verify]').val();
+	if(verify == ''){
+		alert('请输入验证码');
+		return;
+	}
+	jQuery.ajax({
+		type:'get',
+		data:{pwd:pwd, verify:verify},
+		dataType:'json',
+		url:'/monitor/entrance/login',
+		beforeSend:function(){
+			jQuery(obj).html('正在登录...')
+				.attr('disabled', 'disabled');
+		},
+		success:function(data){
+			if(data == '1'){
+				window.location.href = '/monitor';
+			}else{
+				jQuery(obj).html('验证登录')
+					.removeAttr('disabled');
+				alert('登录失败，请确保登录密码及验证码填写正确');
+			}
+		},
+		error:function(){
+			jQuery(obj).html('验证登录')
+				.removeAttr('disabled');
+			alert('登录失败，请稍候尝试');
+		}
+	});
+}
+</script>

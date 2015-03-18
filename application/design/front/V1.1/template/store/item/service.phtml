@@ -1,0 +1,25 @@
+<?php $store = Factory::getRequest()->getParam('store', null)?>
+<?php $services = $this->loadStoreServiceList($store)?>
+<?php if ($services):?>
+<table class="store_service" style="font-family:\5FAE\8F6F\96C5\9ED1;font-size:14px;line-height:35px;">
+	<thead style="font-weight:bold;">
+		<tr>
+			<td style="width:100px;text-align:center;">服务名称</td>
+			<td style="width:800px;padding-left:15px;">服务介绍</td>
+		</tr>
+	</thead>
+	<?php foreach ($services as $item):?>
+	<tbody>
+		<tr>
+			<td style="border-top:1px solid #ccc;text-align:center;border-right:1px solid #ccc;vertical-align:top;font-weight:bold;"><a style="color:red;" name="<?php echo $item['id']?>"><?php echo $item['title']?></a></td>
+			<td style="border-top:1px solid #ccc;padding-left:15px;">
+				<?php if ($item['introduction']):?>
+				<p><?php echo $item['introduction']?></p>
+				<?php endif?>
+				<p class="grey1" style="line-height:25px;font-size:12px;">解释：<?php echo $item['description']?></p>
+			</td>
+		</tr>
+	</tbody>
+	<?php endforeach?>
+</table>
+<?php endif?>

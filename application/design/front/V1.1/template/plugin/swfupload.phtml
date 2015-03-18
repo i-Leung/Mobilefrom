@@ -1,0 +1,87 @@
+<?php header('Content-Type: text/html;charset=utf-8');?>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getPlugin('swfupload/css/default.css')?>" />
+<script type="text/javascript" src="<?php echo $this->getPlugin('swfupload/js/swfupload.js')?>"></script>
+<script type="text/javascript" src="<?php echo $this->getPlugin('swfupload/js/handlers.js')?>"></script>
+<script type="text/javascript" src="<?php echo $this->getPlugin('jquery-1.8.3.js')?>"></script>
+<script type="text/javascript">
+	var swfu;
+	window.onload = function () {
+		swfu = new SWFUpload({
+			// Backend Settings
+			upload_url: "<?php echo $this->getUploadImgUrl()?>",
+			post_params: {"PHPSESSID": "<?php echo session_id()?>"},
+
+			// File Upload Settings
+			file_size_limit : "2 MB",	// 2MB
+			file_types : "*.jpg;*.png;*.gif",
+			file_types_description : "JPG/PNG/GIF Images",
+			file_upload_limit : "10",
+
+			// Event Handler Settings - these functions as defined in Handlers.js
+			//  The handlers are not part of SWFUpload but are part of my website and control how
+			//  my website reacts to the SWFUpload events.
+			file_queue_error_handler : fileQueueError,
+			file_dialog_complete_handler : fileDialogComplete,
+			upload_progress_handler : uploadProgress,
+			upload_error_handler : uploadError,
+			upload_success_handler : uploadSuccess,
+			upload_complete_handler : uploadComplete,
+
+			// Button Settings
+			button_image_url : "<?php echo Factory::getBaseUrl()?>/plugin/swfupload/images/SmallSpyGlassWithTransperancy_17x18.png",
+			button_placeholder_id : "spanButtonPlaceholder",
+			button_width: 180,
+			button_height: 11,
+			button_text : '<span class="button">Select Images <span class="buttonSmall">(2 MB Max)</span></span>',
+			button_text_style : '.button { font-family: Helvetica, Arial, sans-serif; font-size: 12pt; } .buttonSmall { font-size: 10pt; }',
+			button_text_top_padding: 0,
+			button_text_left_padding: 18,
+			button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+			button_cursor: SWFUpload.CURSOR.HAND,
+			
+			// Flash Settings
+			flash_url : "<?php echo Factory::getBaseUrl()?>/plugin/swfupload/js/swfupload.swf",
+
+			custom_settings : {
+				upload_target : "divFileProgressContainer"
+			},
+			
+			// Debug Settings
+			debug: false
+		});
+	};
+	
+	jQuery(document).ready(function(){
+		jQuery('.pack').dblclick(function(){
+			var current = jQuery('.pack').index(this);
+			jQuery(this).find('img').remove();
+			jQuery('.pack:gt(' + current + ')').each(function(){
+				var pre = jQuery('.pack').index(this) - 1;
+				jQuery('.pack:eq(' + pre + ')').append(jQuery(this).find('img'));
+				jQuery(this).find('img').remove();
+			});
+			//改变flash接收的成功上传图片数量
+			var stats = swfu.getStats();
+			stats.successful_uploads = parseInt(jQuery('#thumbnails').find('img').length);
+			swfu.setStats(stats);
+		});
+		jQuery('.pack').click(function(){
+			jQuery('.pack img').css('border', 'solid 1px #DDD');
+			var img = jQuery(this).find('img');
+			var src = img.attr('src');
+			img.css('border', 'solid 1px red').addClass('isthumb');
+			jQuery(window.parent.document).find('#thumb').val(
+				src.substring(parseInt(src.indexOf('=')) + 1)
+			);//截取缩略图文件名
+		});
+	});
+</script>
+<form>
+	<div style="border: solid 1px #7FAAFF; background-color: #C5D9FF; padding: 2px;width: 105px;height: 11px;">
+		<span id="spanButtonPlaceholder"></span>
+	</div>
+</form>
+<div id="divFileProgressContainer" style="height: 50px;"></div>
+<div id="thumbnails">
+	<div class="clear"></div>
+</div>

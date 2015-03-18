@@ -1,0 +1,49 @@
+<?php $id = Factory::getRequest()->getParam('id', null)?>
+<script type="text/javascript">
+<!--
+jQuery(document).ready(function(){
+	<?php if ($id):?>
+	getMobile('<?php echo $id?>');
+	<?php else :?>
+	getContact();
+	<?php endif;?>
+});
+//-->
+</script>
+<!--发布步骤ks-->
+<div class="stepbar step_one"><!--第一步加上类step_one，第二步将前者换成step_two，第三步前者换成step_three-->
+    <ul>
+        <li class="l">
+            <span class="num">1.</span>
+            <span class="maintxt">填写手机信息</span>
+            <a class="blue" href="javascript:void(0);" onclick="backToEdit();">（返回编辑）</a>
+            <i></i>
+        </li>
+        <li class="c">
+            <span class="num">2.</span>
+            <span class="maintxt">填写联系信息</span>
+            <i></i>
+        </li>
+        <li class="r">
+            <span class="num">3.</span>
+            <span class="maintxt">信息发布成功</span>
+        </li>
+        <div class="clear"></div>
+    </ul>
+</div>
+<!--发布步骤end-->
+<div class="tabs_publish_bd">
+	<input name="id" type="hidden" value="<?php echo $id ? $id : 0?>" />
+	<input name="complete" type="hidden" value="1" />
+    <!--填写基本信息ks-->
+	<?php echo $this->getChildHtml('base');?>
+    <!--填写基本信息end-->
+    
+    <!--填写联系信息ks-->
+	<?php echo $this->getChildHtml('contact');?>
+    <!--填写联系信息end-->
+    
+    <!--信息上传结果ks-->
+	<?php echo $this->getChildHtml('fail');?>
+    <!--信息上传结果end-->
+</div>

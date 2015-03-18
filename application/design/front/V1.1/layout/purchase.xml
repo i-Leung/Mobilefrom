@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--求购信息ks-->
+	<purchase_list_index>
+		<reference name="meta" type="Purchase_ListView">
+			<action method="setTemplate">page/head/meta/purchase/list.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">purchase/list.css</action>
+			<action method="addJs">purchase.js</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">purchase/list.phtml</action>
+			<block name="list_condition" type="Purchase_ListView" template="purchase/list_condition.phtml"/>
+			<block name="list_choices" type="Purchase_ListView" template="purchase/list_choices.phtml"/>
+		</reference>
+	</purchase_list_index>
+	<!--求购信息end-->
+	
+	<!--求购详情ks-->
+	<purchase_item_index>
+		<reference name="meta" type="Purchase_ItemView">
+			<action method="setTemplate">page/head/meta/purchase/item.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">purchase/item.css</action>
+			<action method="addJs">purchase.js</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">purchase/item.phtml</action>
+			<block name="item_left" type="Purchase_ItemView" template="purchase/item_left.phtml"/>
+			<block name="item_right" type="Purchase_ItemView" template="purchase/item_right.phtml"/>
+		</reference>
+	</purchase_item_index>
+	<!--求购详情end-->
+	
+	<!--求购信息ks-->
+	<purchase_list_search>
+		<reference name="skin">
+			<action method="addCss">purchase/list.css</action>
+			<action method="addJs">purchase.js</action>
+		</reference>
+		<reference name="content" type="Purchase_ListView">
+			<action method="setTemplate">purchase/search.phtml</action>
+			<block name="list_choices" type="Purchase_ListView" template="purchase/list_choices.phtml"/>
+		</reference>
+	</purchase_list_search>
+	<!--求购信息end-->
+</layouts>

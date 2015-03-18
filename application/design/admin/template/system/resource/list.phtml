@@ -1,0 +1,60 @@
+<?php $gid = Factory::getRequest()->getParam('gid')?>
+<?php $status = Factory::getRequest()->getParam('status', null)?>
+<?php $resources = $this->loadResourceList($gid, $status)?>
+<!--筛选框ks-->
+<div class="search_div">
+	<div class="sx search_div_item">
+		<button type="button" onclick="window.location.href='/monitor/system_resource/add-item?gid=<?php echo $gid?>'">+添加资源</button>
+	</div>
+	<div class="search_div_item">
+		<form action="/monitor/system_resource/list" method="get">
+			<strong>资源状态：</strong>
+			<input type="hidden" name="gid" value="<?php echo $gid?>" />
+			<select name="status">
+				<option value="">所有状态</option>
+				<option value="1" <?php echo $status == '1' ? 'selected="selected"' : ''?>>有效</option>
+				<option value="0" <?php echo $status == '0' ? 'selected="selected"' : ''?>>冻结</option>
+			</select>
+			<button type="submit">筛选</button>
+		</form>
+	</div>
+	<div class="clear"></div>
+</div>
+<!--筛选框end-->
+<div class="table1" entity="resource">
+	<table width="990">
+		<thead>
+			<tr>
+				<th width="150">名称</th>
+				<th width="150">所属资源组</th>
+				<th width="150">资源组控制器</th>
+				<th width="150">资源动作</th>
+				<th class="tac" width="130">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if ($resources):?>
+			<?php foreach ($resources as $resource):?>
+			<tr entity="<?php echo $resource['id']?>">
+				<td><?php echo $resource['label']?></td>
+				<td><?php echo $resource['group']?></td>
+				<td><?php echo $resource['controller']?></td>
+				<td><?php echo $resource['action']?></td>
+				<td class="table_cz tac">
+					<a href="/monitor/system_resource/add-item?id=<?php echo $resource['id']?>">修改</a>
+					<?php if ($resource['status']):?>
+					<a href="javascript:void(0);" onclick="itemInActive(this, '<?php echo $resource['id']?>', 'resource');">禁用</a>
+					<?php else:?>
+					<a href="javascript:void(0);" onclick="itemActive(this, '<?php echo $resource['id']?>', 'resource');">启用</a>
+					<?php endif;?>
+				</td>
+			</tr>
+			<?php endforeach?>
+			<?php else:?>
+			<tr>
+				<td colspan="5" style="text-align:center;">暂无符合条件的资源</td>
+			</tr>
+			<?php endif?>
+		</tbody>
+    </table>
+</div>

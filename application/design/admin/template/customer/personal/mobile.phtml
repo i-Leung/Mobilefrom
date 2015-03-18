@@ -1,0 +1,64 @@
+<?php $id = Factory::getRequest()->getParam('id', null)?>
+<?php $params['status'] = Factory::getRequest()->getParam('status', null)?>
+<?php $params['search'] = Factory::getRequest()->getParam('search', null)?>
+<?php $current = Factory::getRequest()->getParam('p', 1)?>
+<?php $per = 20?>
+<?php $action = Factory::getRequest()->getActionName()?>
+<ul class="tabs1">
+	<li <?php echo $action == 'mobile' ? 'class="tabs1_c"' : ''?>>
+		<a href="/monitor/customer_personal/mobile?id=<?php echo $id?>">闲置手机列表</a>
+	</li>
+	<li <?php echo $action == 'purchase' ? 'class="tabs1_c"' : ''?>>
+		<a href="/monitor/customer_personal/purchase?id=<?php echo $id?>">求购列表</a>
+	</li>
+</ul>
+<div class="clear"></div>
+<!--筛选框-->
+<div class="search_div">
+	<div class="search_div_item">
+		<form action="/monitor/customer_common/mobile" method="get">
+			<input name="id" type="hidden" value="<?php echo $id?>" />
+			<strong>标题内容：</strong>
+			<input name="search" type="text" value="<?php echo $params['search'] ? $params['search'] : ''?>" />
+			<button type="submit">操作</button>
+		</form>
+	</div>
+	<div class="clear"></div>
+</div>
+<!--筛选框end-->
+<div class="table1" entity="mobile">
+	<table width="990">
+		<thead>
+			<tr>
+				<th width="550">信息名称</th>
+				<th width="100">浏览次数</th>
+				<th width="180">发布时间</th>
+				<th class="tac" width="100">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $mobiles = $this->loadAdminCustomerMobile($id, $params, $current, $per)?>
+			<?php if ($mobiles):?>
+			<?php foreach ($mobiles as $mobile):?>
+			<tr entity="<?php echo $mobile['id']?>">
+				<td><?php echo $mobile['title']?></td>
+				<td><?php echo $mobile['clicks']?></td>
+				<td><?php echo date('Y-m-d h:i:s', $mobile['created_at'])?></td>
+				<td class="table_cz tac">
+					<a href="javascript:void(0);" onclick="itemInActive(this, '<?php echo $mobile['id']?>', 'mobile');">禁用</a>
+				</td>
+			</tr>
+			<?php endforeach?>
+			<?php else:?>
+			<tr>
+				<td colspan="4">该用户暂无相关手机发布记录</td>
+			</tr>
+			<?php endif;?>
+		</tbody>
+	</table>
+</div>
+<?php $amount = $this->getAdminCustomerMobileTotal($id, $params)?>
+<?php if ($amount > $per):?>
+<?php $url = '/monitor/customer_common/mobile?id=' . $id . '&search=' . $params['search'] . '&'?> 
+<?php echo Factory::getView('page/paginator')->init($amount, $current, $per, $url, 'admin')->render();?>
+<?php endif?>

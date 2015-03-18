@@ -1,0 +1,27 @@
+<?php $order = Factory::getSession('tlib-order', 'default')?>
+<div class="tlib_list_select_area tlib_list_layout">
+	<?php echo $this->getChildHtml('condition')?>
+</div>
+<div class="tlib_list_order_area tlib_list_layout">
+	<ul>
+		<li <?php echo $order == 'default' ? 'class="m_l_o_a_selected"' : ''?>><a href="/tlib/list?order=default">默认排序</a></li>
+		<li <?php echo $order == 'clicks' ? 'class="m_l_o_a_selected"' : ''?>><a href="/tlib/list?order=clicks">点阅次数</a></li>
+		<li <?php echo $order == 'sales' ? 'class="m_l_o_a_selected"' : ''?>><a href="/tlib/list?order=sales">出售信息量</a></li>
+	</ul>
+</div>
+<div class="tlib_list_item_area tlib_list_layout">
+	<?php echo $this->getChildHtml('choise')?>
+	<div class="clear"></div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	var mdata = new Array();
+	jQuery('.tlib_list_item_area ul li').each(function(){
+		mdata.push(jQuery(this).attr('v'));
+	});
+	loadModelQuote(mdata);
+	jQuery('.tlib_list_order_area ul li').click(function(){
+		window.location.href = jQuery(this).find('a').attr('href');
+	});
+});
+</script>

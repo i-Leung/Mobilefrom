@@ -1,0 +1,177 @@
+/* CSS Document */
+.message_list{}
+.message_item{
+	margin-top:15px;}
+.message_item .l{
+	width:50px;
+	height:50px;
+	float:left;}
+.message_item .l a img{
+	width:50px;
+	height:50px;}
+.message_item .r{
+	position:relative;
+	width:660px;
+	float:right;
+	border:1px #d4d4d4 solid;
+	padding:6px 14px 10px 14px;
+	background:#fafafa;
+	border-radius:3px;}
+.message_item .r i{
+	display:block;
+	width:8px;
+	height:17px;
+	background:url(../../img/customer/comment_arrow.png) no-repeat;
+	position:absolute;
+	left:-8px;
+	top:15px;}
+.message_item .r p{
+	margin-top:5px;
+	line-height:20px;
+	max-height:40px;
+	overflow:hidden;}
+.quick_reply{
+	display:none;}
+.quick_input{
+	margin: 5px 0;}
+.quick_input textarea{
+	width: 658px;
+	height: 50px;}
+.quick_btn{
+	text-align: right;}
+.quick_btn button{
+	width: 50px;}
+
+/*查看对话弹出框ks*/
+.dialogue_pop{
+	background-color:white;
+	margin: 0 auto;
+	width:690px;
+	border:1px #d4d4d4 solid;
+	box-shadow:0px 0px 10px #e4e4e4;
+	padding:20px 30px 30px 30px;
+	border-radius:4px;}
+.dialogue_pop .title{
+	position:relative;
+	text-align:center;}
+.dialogue_pop .title h1{
+	font-size:20px;}
+.dialogue_pop .title .close{
+	display:block;
+	width:17px;
+	height:18px;
+	position:absolute;
+	top:-2px;
+	right:-11px;
+	background:url(../../img/close/icon-close.png);}
+.dialogue_pop .title .close:hover{
+	background:url(../../img/close/icon-close-hover.png);}
+.dialogue_pop .body{
+	margin-top:20px;
+	max-height:450px;
+	overflow-y:auto;}
+.comment_wp{
+	width:670px;}
+.comment_wp .l{
+	width:48px;
+	height:48px;
+	padding:1px;
+	border:1px #d4d4d4 solid;
+	float:left;}
+.comment_wp .l img{
+	width:48px;
+	height:48px;}
+.comment_wp .r{
+	width:600px;
+	float:right;}
+.comment_wp .r .com_text{
+	line-height:20px;
+	font-size:14px;}
+.reply_op{
+	margin-top:10px;
+	height:20px;
+	line-height:20px;}
+.reply_js{
+	margin-left:10px;}
+.reply_list{
+	max-height: 240px;
+	overflow-y: scroll;}
+.reply_box{
+	position:relative;
+	border-top:1px #ddd solid;
+	margin-top:15px;}
+.reply_box i{
+	display:block;
+	width:20px;
+	height:10px;
+	position:absolute;
+	top:-10px;
+	left:60px;
+	background:url(../../img/report/reply_icon.png);}
+.reply_item{
+	margin-top:10px;}
+.reply_item .l{
+	float:left;}
+.reply_item .r{
+	width:525px !important;}
+.reply textarea{
+	width:588px;
+	height:48px;
+	padding:5px;
+	border:1px #ddd inset;}
+.reply{
+	margin-top:10px;}
+.reply .bottom{
+	margin-top:6px;}
+.reply .bottom span{
+	display:block;
+	height:22px;
+	line-height:22px;
+	float:left;}
+.reply .bottom button{
+	padding:0px 10px;
+	float:right;}
+/*查看对话弹出框end*/
+
+/*站内信弹出框ks*/
+.notice_box{
+	display:none;
+	position:fixed;
+	top:0;
+	left:0;
+	background:url(../../img/grey2.png) repeat;}
+.notice_detail_box{
+	display:none;
+	width:580px;
+	height:350px;
+	padding: 20px 10px 10px;
+	background:#e4e4e4;
+	border:1px #d4d4d4 solid;
+	border-radius:4px;
+	z-index:1;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin: -175px 0 0 -290px;}
+.notice_title{
+	width:510px;
+	height:28px;
+	line-height:28px;
+	padding:0px 5px;
+	border:1px #d4d4d4 solid;
+	font-size:14px;
+	background:white;}
+.notice_detail{
+	padding:5px 10px;
+	background:white;
+	width:500px;
+	height:250px;
+	border:1px #d4d4d4 solid;
+	overflow-y:auto;}
+.detail_btn{
+	padding-top:10px;}
+.detail_btn a{
+	height:24px;
+	line-height:24px;
+	float:left;}
+/*站内信弹出框end*/

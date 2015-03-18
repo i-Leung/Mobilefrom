@@ -1,0 +1,153 @@
+<?php $request = Factory::getRequest()?>
+<?php $url = $request->getControllerName() . '/' . $request->getActionName()?>
+<?php $customer_id = Factory::getSession('customer/id')?>
+<h1>
+	<a href="<?php echo Factory::getUrl('customer/index/index')?>">
+    	<img alt="会员中心" title="会员中心" src="<?php echo $this->getImg('customer/usercenter.png')?>" />
+    </a>
+</h1>
+<ul class="sidebar_menu">
+	<?php if (Factory::getSession('customer/group') == '2'):?>
+	<?php $cstore = Factory::getView('customer/store')?>
+	<?php $validated = $cstore->isValidated($customer_id)?>
+    <li>
+        <div class="sidebar_title">
+            <span>商家服务管理</span>
+        </div>
+        <ul class="sidebar_item">
+			<?php if ($validated === '0'):?>
+            <li>
+                <a <?php if (in_array($url, array('store/mobile-publish', 'store/tablet-publish'))):?>class="blue"<?php endif;?> href="/customer/store/mobile-publish?cfrom=uc_sidebar">发布产品</a>
+            </li>
+            <li>
+                <a <?php if (in_array($url, array('store/mobile-list', 'store/tablet-list'))):?>class="blue"<?php endif;?> href="/customer/store/mobile-list?cfrom=uc_sidebar">店铺产品</a>
+            </li>
+            <li>
+                <a <?php if ($url == 'store/service'):?>class="blue"<?php endif;?> href="/customer/store/service?cfrom=uc_sidebar">店铺服务</a>
+            </li>
+            <li>
+                <a <?php if ($url == 'store/setting'):?>class="blue"<?php endif;?> href="/customer/store/setting?cfrom=uc_sidebar">店铺设置</a>
+            </li>
+            <li>
+                <a <?php if ($url == 'store/info'):?>class="blue"<?php endif;?> href="/customer/store/info?cfrom=uc_sidebar">店铺资料</a>
+            </li>
+            <li>
+				<a href="/store/item?store=<?php echo $cstore->getStoreId($customer_id)?>&cfrom=cstore">查看店铺</a>
+            </li>
+            <li>
+                <a <?php if ($url == 'store/apply'):?>class="blue"<?php endif;?> href="/customer/store/apply?cfrom=uc_sidebar">商铺入驻</a>
+            </li>
+			<?php elseif ($validated === '1'):?>
+            <li>
+                <a <?php if (in_array($url, array('store/mobile-publish', 'store/tablet-publish'))):?>class="blue"<?php endif;?> href="/customer/store/mobile-publish?cfrom=uc_sidebar">发布产品</a>
+            </li>
+            <li>
+                <a <?php if (in_array($url, array('store/mobile-list', 'store/tablet-list'))):?>class="blue"<?php endif;?> href="/customer/store/mobile-list?cfrom=uc_sidebar">店铺产品</a>
+			</li>
+            <li>
+                <a <?php if (in_array($url, array('store/activity-list', 'store/activity-apply'))):?>class="blue"<?php endif;?> href="/customer/store/activity-list?cfrom=uc_sidebar">店铺活动</a>
+            </li>
+            <li>
+                <a <?php if ($url == 'store/analysis'):?>class="blue"<?php endif;?> href="/customer/store/analysis?cfrom=uc_sidebar">店铺统计</a>
+            </li>
+            <li>
+                <a <?php if ($url == 'store/service'):?>class="blue"<?php endif;?> href="/customer/store/service?cfrom=uc_sidebar">店铺服务</a>
+            </li>
+            <li>
+                <a <?php if ($url == 'store/setting'):?>class="blue"<?php endif;?> href="/customer/store/setting?cfrom=uc_sidebar">店铺设置</a>
+            </li>
+            <li>
+                <a <?php if ($url == 'store/info'):?>class="blue"<?php endif;?> href="/customer/store/info?cfrom=uc_sidebar">店铺资料</a>
+            </li>
+            <li>
+				<a href="/store/item?store=<?php echo $cstore->getStoreId($customer_id)?>&cfrom=cstore">查看店铺</a>
+            </li>
+			<?php else:?>
+            <li>
+                <a <?php if ($url == 'store/apply'):?>class="blue"<?php endif;?> href="/customer/store/apply?cfrom=uc_sidebar">商铺入驻</a>
+            </li>
+			<?php endif?>
+        </ul>
+    </li>
+	<?php else:?>
+	<li>
+    	<div class="sidebar_title">
+    		<span>闲置交易管理</span>
+    	</div>
+        <ul class="sidebar_item">
+        	<li>
+            	<a <?php if (in_array($url, array('mobile/active', 'mobile/inactive'))):?>class="blue"<?php endif;?> href="/customer/mobile/active?cfrom=uc_sidebar">
+                	我的手机
+                    <span>（<span class="blue"><?php echo Factory::getView('mobile/list')->getMyMobileTotal($customer_id)?></span>）</span>
+                </a>
+            </li>
+        	<li>
+            	<a <?php if (in_array($url, array('tablet/active', 'tablet/inactive'))):?>class="blue"<?php endif;?> href="/customer/tablet/active?cfrom=uc_sidebar">
+                	我的平板
+                    <span>（<span class="blue"><?php echo Factory::getView('tablet/list')->getMyTabletTotal($customer_id)?></span>）</span>
+                </a>
+            </li>
+        	<li>
+            	<a <?php if ($url == 'account/info-contact'):?>class="blue"<?php endif;?> href="/customer/account/info-contact?cfrom=uc_sidebar">联系信息</a>
+            </li>
+        </ul>
+    </li>
+	<?php endif?>
+	<li>
+    	<div class="sidebar_title">
+    		<span>消息管理</span>
+    	</div>
+    	<?php $msg = Factory::getView('customer/msg')?>
+        <ul class="sidebar_item">
+        	<li>
+            	<a <?php if ($url == 'message/report'):?>class="blue"<?php endif;?> href="/customer/message/report?cfrom=uc_sidebar">
+                	举报相关
+                    <span>（<span class="blue"><?php echo $msg->getNewReportMsgTotal($customer_id)?></span>）</span>
+                </a>
+            </li>
+        	<li>
+            	<a <?php if ($url == 'message/notice'):?>class="blue"<?php endif;?> href="/customer/message/notice?cfrom=uc_sidebar">
+                	站内信
+                    <span>（<span class="blue"><?php echo $msg->getNewNoticeTotal($customer_id)?></span>）</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+	<li>
+    	<div class="sidebar_title">
+    		<span>账号管理</span>
+    	</div>
+        <ul class="sidebar_item">
+        	<li>
+            	<a <?php if ($url == 'account/info-base'):?>class="blue"<?php endif;?> href="/customer/account/info-base?cfrom=uc_sidebar">基本信息</a>
+            </li>
+        	<li>
+            	<a <?php if ($url == 'account/thumb'):?>class="blue"<?php endif;?> href="/customer/account/thumb?cfrom=uc_sidebar">设置头像</a>
+            </li>
+        	<li>
+            	<a <?php if ($url == 'account/account-binding'):?>class="blue"<?php endif;?> href="/customer/account/account-binding?cfrom=uc_sidebar">第三方帐号绑定</a>
+            </li>
+        	<li>
+            	<a <?php if ($url == 'account/email-verify'):?>class="blue"<?php endif;?> href="/customer/account/email-verify?cfrom=uc_sidebar">邮箱验证</a>
+            </li>
+        	<li>
+            	<a <?php if ($url == 'account/set-password'):?>class="blue"<?php endif;?> href="/customer/account/set-password?cfrom=uc_sidebar">修改用户密码</a>
+            </li>
+        </ul>
+    </li>
+</ul>
+<script type="text/javascript">
+$(document).ready(
+	function(){
+		$('.sidebar_menu li div').toggle(
+			function(){
+				$(this).next().toggle('false');
+				$(this).addClass("sidebar_close");	
+			},function(){
+				$(this).next().toggle('true');
+				$(this).removeClass("sidebar_close");	
+			}
+		);
+	}
+);
+</script>

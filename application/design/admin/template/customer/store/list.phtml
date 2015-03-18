@@ -1,0 +1,55 @@
+<?php $region = Factory::getRequest()->getParam('region', null)?>
+<?php $current = Factory::getRequest()->getParam('p', 1)?>
+<?php $per = 20?>
+<?php $list = $this->loadStoreList($region, $current, $per)?>
+<?php global $CStatic?>
+<!--筛选框ks-->
+<div class="search_div">
+	<form action="/monitor/customer_store/list" method="get">
+	    <div class="sx search_div_item">
+	    	<strong style="padding-left:0;">所在地区：</strong>
+			<select name="region">
+				<option value="">选择店铺所在地区</option>
+				<?php foreach ($CStatic['region'] as $key => $item):?>
+				<option value="<?php echo $key?>"><?php echo $item?></option>
+				<?php endforeach?>
+			</select>
+	    </div>
+	    <div class="search_div_item">
+	    	<button type="submit">提交</button>
+	    </div>
+		<div class="clear"></div>
+	</form>
+</div>
+<!--筛选框end-->
+<div class="table1" entity="customer">
+	<table width="990">
+    	<thead>
+        	<tr>
+            	<th width="160">用户名称</th>
+            	<th width="350">店铺名称</th>
+            	<th width="230">入驻时间</th>
+            	<th width="100">店铺状态</th>
+            	<th width="100">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<?php foreach ($list as $item):?>
+        	<tr entity="<?php echo $item['id']?>">
+            	<td><?php echo $item['username']?></td>
+            	<td><?php echo $item['name']?></td>
+            	<td><?php echo $item['created_at'] ? date('Y-m-d H:i:s', $item['created_at']) : '暂未入驻'?></td>
+                <td><?php echo $item['status'] ? ($item['status'] == '1' ? '可用' : '屏蔽') : '未审核'?></td>
+            	<td><a href="javascript:void(0);">冻结</a></td>
+            </tr>
+            <?php endforeach;?>
+        </tbody>
+    </table>
+</div>
+<!--分页ks-->
+<?php $amount = $this->getStoreTotal($params)?>
+<?php if ($amount > $per):?>
+<?php $url = '/monitor/customer_common/list?region=' . $region . '&'?>
+<?php echo Factory::getView('page/paginator')->init($amount, $current, $per, $url, 'admin')->render();?>
+<?php endif;?>
+<!--分页end-->

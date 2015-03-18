@@ -1,0 +1,81 @@
+<?php $customer_id = Factory::getRequest()->getParam('id')?>
+<?php $page = Factory::getRequest()->getParam('page', 1)?>
+<?php $mobiles = $this->loadCustomerMobile($customer_id, $page)?>
+<?php $url = ''?>
+<?php echo $this->getChildHtml('sidebar')?>
+<div class="content_r">
+    <div class="tabs1">
+        <ul>
+            <li class="tabs1_c" style="width:120px;" title="mobile">
+            	<a href="/space/mobile/list?cfrom=uc_tab&id=<?php echo $customer_id?>">TA发布的手机</a>
+            </li>
+            <li style="width:120px;" title="tablet">
+            	<a href="/space/tablet/list?cfrom=uc_tab&id=<?php echo $customer_id?>">TA发布的平板</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tabs1_body">
+        <!--详细描述ks-->
+        <div id="mobile" class="tabs1_item">
+        	<table class="table1">
+                <thead>
+                    <tr>
+                        <th width="80">图片</th>
+                        <th width="300">信息标题</th>
+                        <th width="150">发布时间</th>
+                        <th width="120">价格</th>
+                        <th width="80">信息类型</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	<?php foreach ($mobiles as $mobile):?>
+                	<tr>
+                    	<td class="mb_img">
+                        	<a href="/mobile/item?cfrom=space&id=<?php echo $mobile['id']?>" target="_blank">
+                            	<img src="http://mobilefrom-upload.stor.sinaapp.com/mobile/thumb/<?php echo $mobile['thumb']?>" onerror="loadErrorImg(this);"/>
+                            </a>
+                        </td>
+                    	<td>
+                        	<a href="/mobile/item?cfrom=space&id=<?php echo $mobile['id']?>" target="_blank">
+                        		<?php echo $mobile['title']?>
+                        	</a>
+                        </td>
+                    	<td><?php echo timeforcustomer($mobile['created_at'])?></td>
+                    	<td class="red"><?php echo $mobile['price']?>元</td>
+                    	<td class="blue">出售</td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <?php $total = $this->getCustomerMobileTotal($customer_id)?>
+    <?php if ($total > 10):?>
+	<?php $url = '/space/mobile/list?cfrom=uc_paginator&id=' . $customer_id . '&page='?>
+	<?php $current = Factory::getRequest()->getParam('page', '1')?>
+	<?php $last = ceil($total / 10)?>
+    <div class="fenye1" style="margin-top: 20px;">
+		<div class="fenye1_l">
+	    	<p>
+	        	共计
+	        	<span class="red"><?php echo $total?></span>
+	            条信息
+	        </p>
+	    </div>
+	    <div class="fenye1_r">
+	    	<?php if ($current != '1'):?>
+	    	<a href="<?php echo $url . '1'?>">首页</a>
+	        <a href="<?php echo $url . ($current - 1)?>">前一页</a>
+	        <?php endif;?>
+	        <span class="red"><?php echo $current?></span>
+	        <?php if ($current != $last):?>
+	    	<a href="<?php echo $url . ($current + 1)?>">后一页</a>
+	        <a href="<?php echo $url . $last?>">尾页</a>
+	        <?php endif;?>
+	    	<div class="clear"></div>
+	    </div>
+	    <div class="clear"></div>
+	</div>
+	<?php endif;?>
+</div>
+<div class="clear"></div>

@@ -1,0 +1,231 @@
+<!--注册弹出框ks-->
+<div class="pop_register pop_wp">
+	<div class="pop_reg_hd pop_hd">
+    	<h1>Register 注册</h1>
+        <p>Hi，新朋友，欢迎注册机荒网，以下各项均必填。如遇到困难，请 <a class="blue" href="/default/website/contact?cfrom=pop_window">联系我们</a></p>
+        <a class="pop_close" href="javascript:popClose();" title="关闭"></a>
+	</div>
+	<div class="pop_reg_bd pop_bd">
+    	<div class="tis_area">
+        </div>
+    	<dl>
+        	<dt>用户名</dt>
+            <dd>
+            	<input class="input_area" type="text" name="username" onblur="checkUsername();">
+            </dd>
+            <dd class="ms_tips_wp">
+                <div class="msg_box msg_empty" style="display: block;">
+                    <i></i>
+                    <div class="msg_cnt grey">
+                        <span class="msg_cnt_tips" style="display: none;">2-16个字符，推荐使用中文会员名。</span>
+                        <span class="msg_cnt_empty" style="display: inline;">账号不能为空</span>
+                        <span class="msg_cnt_error" style="display: none;">2-16个字符</span>
+                        <span class="msg_cnt_used" style="display: none;">该账户已被使用</span>
+                        <span class="msg_cnt_right" style="display: none;">校验通过</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </dd>
+			<div class="clear"></div>
+        </dl>
+    	<dl>
+        	<dt>邮箱地址</dt>
+            <dd>
+            	<input class="input_area" type="text" name="email" onblur="checkEmail();">
+            </dd>
+            <dd class="ms_tips_wp">
+                <div class="msg_box msg_tips">
+                    <i></i>
+                    <div class="msg_cnt grey">
+                        <span class="msg_cnt_tips" style="display: none;">输入您的常用邮箱</span>
+                        <span class="msg_cnt_empty" style="display: inline;">邮箱不能为空</span>
+                        <span class="msg_cnt_error" style="display: none;">邮箱格式错误</span>
+                        <span class="msg_cnt_used" style="display: none;">该邮箱已被注册</span>
+                        <span class="msg_cnt_right" style="display: none;">校验通过</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </dd>
+			<div class="clear"></div>
+        </dl>
+    	<dl>
+        	<dt>密码</dt>
+            <dd>
+            	<input class="input_area" type="password" name="pwd" onblur="checkPwd();">
+            </dd>
+            <dd class="ms_tips_wp">
+                <div class="msg_box msg_tips">
+                    <i></i>
+                    <div class="msg_cnt grey">
+                        <span class="msg_cnt_tips" style="display:inline;">6-16个字符，请使用字母加数字或符号的组合密码。</span>
+                        <span class="msg_cnt_empty">密码不能为空</span>
+                        <span class="msg_cnt_error">长度应为6-16个字符</span>
+                        <span class="msg_cnt_right">校验通过</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </dd>
+			<div class="clear"></div>
+        </dl>
+    	<dl>
+        	<dt>确认密码</dt>
+            <dd>
+            	<input class="input_area" type="password" name="repwd" onblur="checkRePwd();">
+            </dd>
+            <dd class="ms_tips_wp">
+                <div class="msg_box msg_tips">
+                    <i></i>
+                    <div class="msg_cnt grey">
+                        <span class="msg_cnt_tips">再次输入密码</span>
+                        <span class="msg_cnt_empty">再输一次密码</span>
+                        <span class="msg_cnt_error">两次密码不一致</span>
+                        <span class="msg_cnt_right">校验通过</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </dd>
+			<div class="clear"></div>
+        </dl>
+    	<dl style="height:65px;">
+        	<dt style="height:65px;"></dt>
+            <dd style="height:65px;">
+            	<button class="pop_reg_btn pop_log_btn" onclick="ajaxRegister(this);">同意协议并注册</button>
+                <div class="xieyi_auto">
+                	<div class="pop_reg_xieyi"><a href="/default/website/contract?cfrom=pop_window">《机荒网服务协议》</a></div>
+                    <div class="pop_log_auto" style="width:90px;">
+                        <input id="auto_login" name="auto_login" type="checkbox" checked="checked" value="1"
+                         style="width:16px; vertical-align:middle; background:none;"/>
+                        <label for="auto_login" style="vertical-align:middle; cursor:pointer;">自动登录</label>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </dd>
+			<div class="clear"></div>
+        </dl>
+	</div>
+	<div class="pop_reg_ft pop_ft">
+    	<div class="pop_ft_l">
+        	<p>使用合作网站帐号登录</p>
+            <div class="other_log_method">
+            	<a class="icon_sina_mini" href="#"></a>
+            	<a class="icon_qq_mini" href="#"></a>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="pop_ft_r">
+            <p style="padding-top:30px;">已经注册？<a class="red" href="javascript:void(0);">马上登录</a></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--注册弹出框end-->
+<!--登录弹出框ks-->
+<div class="pop_login pop_wp">
+	<div class="pop_log_hd pop_hd">
+    	<h1>Login 登录</h1>
+        <p>Hi，欢迎回来！登录【机荒网】开启您的手机交易之旅 O(∩_∩)O</p>
+        <a class="pop_close" href="javascript:popClose();" title="关闭"></a>
+	</div>
+	<div class="pop_log_bd pop_bd">
+    	<div class="tis_area">
+        	<p class="red"></p>
+        </div>
+    	<dl>
+        	<dt>用户名/邮箱</dt>
+            <dd>
+            	<input id="ls_customer" name="customer" placeholder="输入您的用户名或邮箱" type="text">
+            </dd>
+            <div class="clear"></div>
+        </dl>
+    	<dl>
+        	<dt>密码</dt>
+            <dd>
+            	<input id="ls_password" name="password" placeholder="输入你的密码" type="password">
+            </dd>
+            <div class="clear"></div>
+        </dl>
+        <dl>
+        	<dt></dt>
+            <dd>
+            	<button class="pop_log_btn" type="button" onclick="ajaxPopLogin(this);">登录</button>
+                <div class="pop_log_auto" style="width:90px;">
+					<input id="auto_login" name="auto_login" type="checkbox" checked="checked" value="1"
+                     style="width:16px; vertical-align:middle; background:none;"/>
+					<label for="auto_login" style="vertical-align:middle; cursor:pointer;">自动登录</label>
+				</div>
+            	<div class="clear"></div>
+            </dd>
+            <div class="clear"></div>
+        </dl>
+	</div>
+	<div class="pop_log_ft pop_ft">
+    	<div class="pop_ft_l">
+        	<p>使用合作网站帐号登录</p>
+            <div class="other_log_method">
+				<a href="/customer/account/tencent?act=authorize">
+					<img src="http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_3.png" />	
+				</a>
+				<a href="/customer/account/sina?act=authorize">
+					<img src="http://img.t.sinajs.cn/t4/appstyle/open/images/website/loginbtn/loginbtn_03.png" />
+				</a>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="pop_ft_r">
+        	<p>忘记密码？<a class="red" href="javascript:popOpen('retrieve');">找回密码</a></p>
+            <p style="padding-top:10px;">不是机荒网会员？<a class="red" href="/customer/account/register?cfrom=pop_window">立即注册</a></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--登录弹出框end-->
+<!--找回密码弹出框ks-->
+<div class="pop_retrieve pop_wp">
+	<div class="pop_ret_hd pop_hd">
+    	<h1>Retrieve 找回密码</h1>
+        <p>Hi，请使用注册邮箱找回密码，如遇到困难，请 <a class="blue" href="/default/website/contact?cfrom=pop_window">联系我们</a> O(∩_∩)O</p>
+        <a class="pop_close" href="javascript:popClose();" title="关闭"></a>
+	</div>
+	<div class="pop_ret_bd pop_bd">
+    	<div class="tis_area">
+        	<p class="red"></p>
+        </div>
+    	<dl>
+        	<dt>用户名</dt>
+            <dd>
+            	<input id="ls_customer" name="username" placeholder="输入您的用户名" type="text">
+            </dd>
+            <div class="clear"></div>
+        </dl>
+    	<dl>
+        	<dt>邮箱地址</dt>
+            <dd>
+            	<input id="ls_email" name="email" placeholder="输入您的注册邮箱" type="text">
+            </dd>
+            <div class="clear"></div>
+        </dl>
+    	<dl>
+        	<dt></dt>
+            <dd>
+            	<button class="pop_tet_btn pop_log_btn" type="button" onclick="ajaxPopRetrieve(this);">找回密码</button>
+            </dd>
+            <div class="clear"></div>
+        </dl>
+	</div>
+	<div class="pop_ret_ft pop_ft">
+    	<div class="pop_ft_l">
+        	<p>在线客服：</p>
+            <div class="other_log_method">
+				<a class="icon_qq_mini" href="http://wpa.qq.com/msgrd?v=3&uin=2824673297&site=www.mobilefrom.com&menu=yes" style="margin-left:0px;">
+					<img src="http://pub.idqqimg.com/wpa/images/counseling_style_52.png" alt="若无法交谈，请加Q:2824673297" title="若无法交谈，请加Q:2824673297"/>
+				</a>
+            </div>
+        </div>
+        <div class="pop_ft_r">
+        	<p>客服邮箱：</p>
+            <p style="padding-top:10px;">service@mobilefrom.com</p>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!--找回密码弹出框end-->

@@ -1,0 +1,80 @@
+<?php $gid = Factory::getRequest()->getParam('gid', '')?>
+<?php $status = Factory::getRequest()->getParam('status', '')?>
+<?php $members = $this->loadMemberList($gid, $status)?>
+<!--筛选框ks-->
+<ul class="tabs1">
+	<li>网站群组列表</li>
+	<li class="tabs1_c">网站成员列表</li>
+	<li>网站后台操作历史</li>
+</ul>
+<div class="search_div">
+	<div class="search_div_item">
+		<form action="/monitor/system_member/list" method="get">
+			<strong>群组：</strong>
+			<select name="gid">
+				<option value="">所有群组</option>
+				<?php $groups = $this->loadGroupList()?>
+				<?php foreach ($groups as $group):?>
+				<option value="<?php echo $group['id']?>" <?php echo $gid == $group['id'] ? 'selected="selected"' : ''?>><?php echo $group['label']?></option>
+				<?php endforeach?>
+			</select>
+			<strong>状态：</strong>
+			<select name="status">
+				<option value="">所有状态</option>
+				<option value="1" <?php echo $status == '1' ? 'selected="selected"' : ''?>>有效</option>
+				<option value="0" <?php echo $status == '0' ? 'selected="selected"' : ''?>>冻结</option>
+			</select>
+			<button type="submit">筛选</button>
+		</form>
+	</div>
+	<div class="clear"></div>
+</div>
+<!--筛选框end-->
+<div class="table1" entity="member">
+	<table width="990">
+		<thead>
+			<tr>
+				<th width="150">成员名称</th>
+				<th width="150">所在群组</th>
+				<th width="200">加入时间</th>
+				<th width="200">最后登录时间</th>
+				<th width="100">状态</th>
+				<th class="tac" width="130">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if ($members):?>
+			<?php foreach ($members as $member):?>
+			<tr entity="<?php echo $member['id']?>">
+				<td><?php echo $member['username']?></td>
+				<td><?php echo $member['group']?></td>
+				<td><?php echo date('Y-m-d H:i:s', $member['authorized_at'])?></td>
+				<td><?php echo $member['logon_latest'] ? date('Y-m-d H:i:s', $member['logon_latest']) : '从未登录'?></td>
+				<td class="green"><?php echo $member['status'] ? '有效' : '冻结'?></td>
+				<td class="table_cz tac">
+					<?php if ($member['status']):?>
+					<a href="javascript:void(0);" onclick="itemInActive(this, '<?php echo $member['id']?>', 'member');">禁用</a>
+					<?php else:?>
+					<a href="javascript:void(0);" onclick="itemActive(this, '<?php echo $member['id']?>', 'member');">启用</a>
+					<?php endif;?>
+				</td>
+			</tr>
+			<?php endforeach?>
+			<?php else:?>
+			<tr>
+				<td colspan="6" style="text-align:center;">暂无符合条件的网站成员记录</td>
+			</tr>
+			<?php endif?>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.tabs1 li:eq(0)').click(function(){
+		window.location.href = '/monitor/system_member/group-list';
+	});
+	jQuery('.tabs1 li:eq(2)').click(function(){
+		window.location.href = '/monitor/system_member/history';
+	});
+});
+</script>

@@ -1,0 +1,30 @@
+/* CSS Document */
+h3{
+	line-height:30px;
+	color:black !important;}
+table tr th{
+	text-align:right;
+	font-weight:normal;}
+table tr td{
+	text-align:left;}
+table tr th,table tr td{
+	padding-top:20px;
+	vertical-align:middle;}
+table tr td input{
+	width:186px;
+	height:21px;
+	line-height:21px;
+	padding:0px 5px;
+	border:1px #ddd inset;}
+table tr td select{
+	width:200px;
+	height:25px;
+	border:1px #ddd inset;}
+.tis{
+	height:30px;
+	background:#E7DFDF;}
+.tis p{
+	line-height:30px;
+	padding-left:10px;}
+.error_tis{
+	color:#996633;}

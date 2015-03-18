@@ -1,0 +1,195 @@
+.fl{
+	float:left;
+}
+.fr{
+	float:right;
+}
+a:hover{
+	text-decoration:none;
+}
+.act-list-left{
+	width:680px;
+}
+.act-list-right a{
+	display:block;
+	width:300px;
+	height:300px;
+	background: url(../../img/store/side_banner.png) no-repeat;
+}
+/*筛选排序ks*/
+.act-list-condition{
+	width:680px;
+	height:50px;
+	background-color:#F2F2F2;
+	border:1px solid #D4D4D4;
+}
+.a-l-c-region, .a-l-c-sort, .a-l-c-type{
+	height:30px;
+	line-height:30px;
+	margin:10px;
+	padding:0 10px;
+	background-color:#FFFFFF;
+	border:1px solid #D4D4D4;
+}
+.a-l-c-region, .a-l-c-type{
+	background: url(../../img/store/list_open.png) no-repeat 90% 50%;
+	background-color:#FFFFFF;
+	width:60px;
+}
+.a-l-c-sort{
+	margin-left:0;
+	padding:0;
+	width:101px;
+}
+.a-l-c-sort a{
+	display:block;
+	width:50px;
+	text-align:center;
+}
+.a-l-c-sort .selected{
+	background-color:#F2F2F2;
+}
+.a-l-c-region, .a-l-c-type{
+	position:relative;
+}
+.a-l-c-region ul, .a-l-c-type ul{
+	display:none;
+	top:0px;
+	left:-1px;
+	z-index:99;
+	position:absolute;
+}
+.a-l-c-region ul li, .a-l-c-type ul li{
+	border:1px solid #d4d4d4;
+	background-color:#fff;
+	width: 80px;
+	border-top: none;
+	text-align: center;
+}
+/*筛选排序end*/
+/*列表ks*/
+.act-list-item ul li{
+	margin-top:20px;
+	border-bottom:1px dotted #CCCCCC;
+	padding-bottom:20px;
+}
+.a-l-i-title{
+	width:500px;
+	overflow:hidden;
+}
+.a-l-i-title a{
+	font-size:20px;
+	font-family:'microsoft yaHei','\5FAE\8F6F\96C5\9ED1';
+}
+.a-l-i-region{
+	color:#CCCCCC;
+	line-height:30px;
+}
+.a-l-i-bottom{
+	margin-top:10px;
+}
+.a-l-i-thumb{
+	width:150px;
+	height:150px;
+}
+.a-l-i-thumb img{
+	width:150px;
+	height:150px;
+}
+.a-l-i-info{
+	width:510px;
+}
+.a-l-i-summary p{
+	height:125px;
+	overflow:hidden;
+	font-size:14px;
+	color:#999999;
+	line-height:25px;
+}
+.a-l-i-i-bottom{
+	color:#999999;
+	margin-top: 5px;
+}
+.a-l-i-i-link a{
+	color:#0066CC;
+}
+/*列表end*/
+/*活动详情ks*/
+.act-item-info{
+	border:1px solid #D4D4D4;
+}
+.a-i-title{
+	width:978px;
+	overflow:hidden;
+	line-height:60px;
+	font-size:22px;
+	padding-left:20px;
+	border-bottom:1px solid #D4D4D4;
+}
+.a-i-i-other{
+	font-size:14px;
+	width:998px;
+	border-bottom:1px solid #D4D4D4;
+}
+.a-i-date, .a-i-clicks{
+	margin:10px 20px;
+}
+.a-i-i-middle{
+	margin:20px auto;
+	width:960px;
+	border-bottom:1px solid #D4D4D4;
+}
+.a-i-description{
+	font-size:20px;
+	margin-bottom:20px;
+}
+.a-i-gallery{
+	padding-bottom:20px;
+}
+.a-i-gallery li{
+	text-align:center;
+	margin-bottom:5px;
+}
+.a-i-gallery img{
+	max-width:960px;
+}
+.a-i-share{
+	margin:0 0 20px 20px;
+}
+.a-i-next{
+	line-height: 40px;
+	margin-right: 20px;
+}
+.a-i-next a{
+	font-size: 18px;
+}
+.act-item-store{
+	background-color:#F9F9F9;
+	border:1px solid #D4D4D4;
+	border-top:none;
+}
+.a-i-s-info{
+	margin:20px;
+}
+.a-i-s-title{
+	font-weight:bold;
+	font-size:14px;
+	font-family: 'microsoft yaHei','\5FAE\8F6F\96C5\9ED1';
+}
+.a-i-s-table th, .a-i-s-table td{
+	vertical-align:top;
+}
+.a-i-s-table th{
+	font-weight:normal;
+}
+.a-i-s-table td{
+	width:270px;
+}
+.a-i-s-join a{
+	display:block;
+	width:280px;
+	height:90px;
+	margin:20px;
+	background: url(../../img/store/active_banner.png) no-repeat;
+}
+/*活动详情end*/

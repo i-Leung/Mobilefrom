@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--手机大全ks-->
+	<mlib_list_index>
+		<reference name="meta" type="Mlib_ListView">
+			<action method="setTemplate">page/head/meta/mlib/list.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">mlib/list.css</action>
+			<action method="addJs">mlib.js</action>
+		</reference>
+		<reference name="content" type="Mlib_ListView">
+			<action method="setTemplate">mlib/list.phtml</action>
+			<block name="condition" type="Mlib_ListView" template="mlib/list/condition.phtml"/>
+			<block name="choise" type="Mlib_ListView" template="mlib/list/choise.phtml"/>
+		</reference>
+	</mlib_list_index>
+	<!--手机大全end-->
+	<!--手机搜索ks-->
+	<mlib_list_search>
+		<reference name="meta" type="Mlib_ListView">
+			<action method="setTemplate">page/head/meta/mlib/list.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">mlib/list.css</action>
+			<action method="addJs">mlib.js</action>
+		</reference>
+		<reference name="content" type="Mlib_ListView">
+			<action method="setTemplate">mlib/search.phtml</action>
+		</reference>
+	</mlib_list_search>
+	<!--手机搜索end-->
+	<!--手机详情ks-->
+	<mlib_item_index>
+		<reference name="meta" type="Mlib_ItemView">
+			<action method="setTemplate">page/head/meta/mlib/item.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">mlib/item.css</action>
+			<action method="addJs">mlib.js</action>
+		</reference>
+		<reference name="content" type="Mlib_ItemView">
+			<action method="setTemplate">mlib/item.phtml</action>
+			<block name="sales" type="Mlib_ItemView" template="mlib/item/sales.phtml"/>
+			<block name="data" type="Mlib_ItemView" template="mlib/item/data.phtml"/>
+			<block name="gallery" type="Mlib_ItemView" template="mlib/item/gallery.phtml"/>
+		</reference>
+	</mlib_item_index>
+	<!--手机详情end-->
+</layouts>

@@ -1,0 +1,62 @@
+<?php $id = Factory::getRequest()->getParam('id', null)?>
+<?php $params['search'] = Factory::getRequest()->getParam('search', null)?>
+<?php $current = Factory::getRequest()->getParam('p', 1)?>
+<?php $per = 20?>
+<?php $action = Factory::getRequest()->getActionName()?>
+<ul class="tabs1">
+	<li <?php echo $action == 'mobile' ? 'class="tabs1_c"' : ''?>>
+		<a href="/monitor/customer_personal/mobile?id=<?php echo $id?>">闲置手机列表</a>
+	</li>
+	<li <?php echo $action == 'purchase' ? 'class="tabs1_c"' : ''?>>
+		<a href="/monitor/customer_personal/purchase?id=<?php echo $id?>">求购列表</a>
+	</li>
+</ul>
+<div class="clear"></div>
+<div class="search_div">
+	<div class="search_div_item">
+		<form action="/monitor/customer_common/purchase" method="get">
+			<input name="id" type="hidden" value="<?php echo $id?>" />
+			<strong>标题内容：</strong>
+			<input name="search" type="text" value="<?php echo $params['search'] ? $params['search'] : ''?>" />
+			<button type="submit">操作</button>
+		</form>
+	</div>
+	<div class="clear"></div>
+</div>
+<!--筛选框end-->
+<div class="table1" entity="purchase">
+	<table width="990">
+		<thead>
+			<tr>
+				<th width="550">信息名称</th>
+				<th width="100">浏览次数</th>
+				<th width="180">发布时间</th>
+				<th class="tac" width="100">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $purchases = $this->loadAdminCustomerPurchase($id, $params, $current, $per)?>
+			<?php if ($purchases):?>
+			<?php foreach ($purchases as $purchase):?>
+			<tr entity="<?php echo $purchase['id']?>">
+				<td><?php echo $purchase['title']?></td>
+				<td><?php echo $purchase['clicks']?></td>
+				<td><?php echo date('Y-m-d h:i:s', $purchase['created_at'])?></td>
+				<td class="table_cz tac">
+					<a href="javascript:void(0);" onclick="itemInActive(this, '<?php echo $purchase['id']?>', 'purchase');">禁用</a>
+				</td>
+			</tr>
+			<?php endforeach?>
+			<?php else:?>
+			<tr>
+				<td>用户暂无发布相关求购信息</td>
+			</tr>
+			<?php endif;?>
+		</tbody>
+	</table>
+</div>
+<?php $amount = $this->getAdminCustomerPurchaseTotal($id, $params)?>
+<?php if ($amount > $per):?>
+<?php $url = '/monitor/customer_common/purchase?id=' . $id . '&search=' . $params['search'] . '&'?> 
+<?php echo Factory::getView('page/paginator')->init($amount, $current, $per, $url, 'admin')->render();?>
+<?php endif?>

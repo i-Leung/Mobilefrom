@@ -1,0 +1,193 @@
+<?php $id = Factory::getRequest()->getParam('id', null)?>
+<?php $summary = $this->getModelSummary($id)?>
+<?php $quote = $this->getModelQuote($id)?>
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+		<span class="jiantou">></span>
+		<a href="/tlib/list?cfrom=breadcrumb">平板导购</a>
+		<span class="jiantou">></span>
+		<a href="javascript:void(0);"><?php echo $summary['brand'] . '&nbsp;' . $summary['model']?></a>
+    </div>
+</div>
+<div class="tlib_item_summary">
+	<div class="m_i_s_thumb">
+		<img src="<?php echo $this->getThumbImg($summary['thumb'])?>" onerror="loadErrorImg(this);" />
+	</div>	
+	<div class="m_i_s_info">
+		<div class="m_i_s_i_price">
+			<h1><?php echo $summary['brand'] . '&nbsp;' . $summary['model']?></h1>
+			<ul>
+				<?php if ($quote['new']):?>
+				<li>新机底价：<span class="red">￥<?php echo $quote['new']?></span></li>
+				<?php else:?>
+				<li>新机：暂无出售信息</li>
+				<?php endif?>
+				<?php if ($quote['used']):?>
+				<li>二手底价：<span class="red">￥<?php echo $quote['used']?></span></li>
+				<?php else:?>
+				<li>二手：暂无出售信息</li>
+				<?php endif?>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div class="m_i_s_i_data">
+			<table>
+				<tbody>
+					<tr>
+						<td>上市时间：<?php echo $summary['released_at']?></td>
+						<td>CPU型号：<span id="cpu_type"><?php echo $summary['params']['cpu_type']?></span></td>
+						<td>屏幕尺寸：<span id="screen_size" v="<?php echo $summary['params']['screen_size']['index']?>"><?php echo $summary['params']['screen_size']['label']?>英寸</span></td>
+					</tr>
+					<tr>
+						<td>操作系统：<span id="os"><?php echo $summary['params']['os']?></span></td>
+						<td>CPU频率：<span id="cpu_frequency"><?php echo $summary['params']['cpu_frequency']?></span></td>
+						<td>屏幕分辨率：<span id="screen_resolution" v="<?php echo $summary['params']['screen_resolution']['index']?>"><?php echo $summary['params']['screen_resolution']['label']?>像素</span></td>
+					</tr>
+					<tr>
+						<td>扩容类型：<span id="expansion"><?php echo $summary['params']['expansion']?></span></td>
+						<td>核心数：<span id="core_number" v="<?php echo $summary['params']['core_number']['index']?>"><?php echo $summary['params']['core_number']['label']?></span></td>
+						<td>前置摄像头：<span id="front_camera" v="<?php echo $summary['params']['front_camera']['index']?>"><?php echo $summary['params']['front_camera']['label']?>万像素</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>RAM容量：<span id="ram" v="<?php echo $summary['params']['ram']['index']?>"><?php echo $summary['params']['ram']['label']?></span></td>
+						<td>后置摄像头：<span id="back_camera" v="<?php echo $summary['params']['back_camera']['index']?>"><?php echo $summary['params']['back_camera']['label']?>万像素</span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>	
+	<div class="clear"></div>
+</div>
+<div class="tlib_item_content">
+	<div class="tlib_item_tab">
+		<div class="m_i_t_title">
+			<ul>
+				<li class="m_i_t_selected" title="sales" visited="1">出售信息</li>
+				<li title="data" visited="0">型号参数</li>
+				<li title="gallery" visited="0">相关图片</li>
+				<li style="display:none;" visited="1">平板评价</li>
+				<div class="clear"></div>
+			</ul>
+		</div>
+		<div class="tlib_item_sells tlib_item_box">
+			<?php echo $this->getChildHtml('sales')?>
+		</div>
+		<div class="tlib_item_data tlib_item_box" style="display:none;">
+			<?php echo $this->getChildHtml('data')?>
+		</div>
+		<div class="tlib_item_gallery tlib_item_box" style="display:none;">
+			<?php echo $this->getChildHtml('gallery')?>
+		</div>
+		<div class="tlib_item_comment tlib_item_box" style="display:none;"></div>
+	</div>
+	<div class="tlib_item_recommend">
+		<div class="m_i_r_title">
+			<span>平板推荐</span>
+		</div>
+		<ul>
+			<?php $lview = Factory::getView('tlib/list')?>
+			<?php $recommends = $lview->loadRecommendModelList($id, $quote)?>
+			<?php foreach ($recommends as $item):?>
+			<li id="m_l_i_<?php echo $item['id']?>" class="m_i_r_item" v="<?php echo $item['id']?>">
+				<div class="m_i_r_i_thumb">
+					<a href="/tlib/item?id=<?php echo $item['id']?>&cfrom=tlib-recommend">
+						<img src="<?php echo $lview->getThumbImg($item['thumb'])?>" onerror="loadErrorImg(this);" />
+					</a>
+				</div>
+				<div class="m_i_r_i_title">
+					<a href="/tlib/item?id=<?php echo $item['id']?>&cfrom=tlib-recommend"><?php echo $item['brand'] . '&nbsp;' . $item['model']?></a>
+				</div>
+				<div class="m_i_r_i_price">
+					<div class="m_i_r_i_lprice">新机：暂无出售</div>
+					<div class="m_i_r_i_rprice">二手：暂无出售</div>
+					<div class="clear"></div>
+				</div>
+			</li>
+			<?php endforeach?>
+		</ul>
+	</div>
+	<div class="clear"></div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	//撤换tab
+	jQuery('.m_i_t_title ul li').click(function(){
+		var tab = jQuery(this).attr('title');
+		var index = jQuery('.m_i_t_title ul li').index(jQuery(this));
+		jQuery('.m_i_t_selected').removeClass('m_i_t_selected');
+		jQuery(this).addClass('m_i_t_selected');
+		jQuery('.tlib_item_box').hide();
+		jQuery('.tlib_item_box:eq(' + index + ')').show();
+		if (jQuery(this).attr('visited') == '0') {
+			switch (tab) {
+				case 'data':
+					var params = {
+						data:{
+							1:jQuery('#screen_resolution').attr('v'),
+							2:jQuery('#screen_size').attr('v'),
+							3:jQuery('#front_camera').attr('v'),
+							4:jQuery('#back_camera').attr('v'),
+							8:jQuery('#core_number').attr('v'),
+							9:jQuery('#ram').attr('v')
+						}
+					};
+					jQuery.ajax({
+						type:'get',
+						dataType:'json',
+						data:jQuery.param(params),
+						url:'/tlib/item/data-percent',
+						success:function(data){
+							if (data != '0') {
+								jQuery.each(data, function(k, v){
+									jQuery('#percent_' + k).html('优胜于&nbsp;<span class="red" style="font-weight:bold;">' + v + '%</span>&nbsp;平板');
+								});
+							}
+						},
+						error:function(){}
+					});
+					break;
+				case 'gallery':
+					jQuery.ajax({
+						type:'get',
+						dataType:'json',
+						data:{id:'<?php echo $id?>'},
+						url:'/tlib/item/gallery',
+						success:function(data){
+							if (data != '0') {
+								jQuery('.m_i_g_title span:eq(0)').html(jQuery('.m_i_s_i_price h1').html());
+								jQuery.each(data, function(k, v){
+									var html = '<li>\
+													<a href="javascript:void(0);" onclick="showBig(this);">\
+														<img src="/upload/tlib/thumb/' + v + '" onerror="loadErrorImg(this);" />\
+													</a>\
+												</li>';
+									jQuery('.m_i_g_img ul').append(html);
+								});
+								jQuery('.gallery-img').attr('last', data.length - 1);
+							}
+						},
+						error:function(){}
+					});
+					break;
+			}
+		}
+		jQuery(this).attr('visited', '1');
+	});
+	var mdata = new Array();
+	jQuery('.tlib_item_recommend ul li').each(function(){
+		mdata.push(jQuery(this).attr('v'));
+	});
+	loadModelQuote(mdata);
+	jQuery.ajax({
+		type:'get',
+		data:{id:'<?php echo $id?>'},
+		dataType:'json',
+		url:'/tlib/item/clicks',
+		success:function(){},
+		error:function(){}
+	});
+});
+</script>

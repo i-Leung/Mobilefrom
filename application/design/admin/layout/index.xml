@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--后台管理首页ks-->
+	<index_index>
+		<reference name="content">
+			<action method="setTemplate">index.phtml</action>
+		</reference>
+	</index_index>
+	<!--后台管理首页end-->
+</layouts>

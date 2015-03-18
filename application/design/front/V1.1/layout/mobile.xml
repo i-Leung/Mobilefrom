@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--手机天地ks-->
+	<mobile_list_index>
+		<reference name="meta" type="Mobile_ListView">
+			<action method="setTemplate">page/head/meta/mobile/list.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">mobile/list.css</action>
+			<action method="addJs">mobile.js</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">mobile/list.phtml</action>
+			<block name="list_condition" type="Mobile_ListView" template="mobile/list_condition.phtml"/>
+			<block name="list_choices" type="Mobile_ListView" template="mobile/list_choices.phtml">
+				<block name="list_compare" type="Mobile_ListView" template="mobile/list_compare.phtml"/>
+			</block>
+		</reference>
+	</mobile_list_index>
+	<!--手机天地end-->
+	
+	<!--手机对比ks-->
+	<mobile_list_compare>
+		<reference name="skin">
+			<action method="addCss">mobile/compare.css</action>
+			<action method="addJs">mobile.js</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">mobile/compare.phtml</action>
+		</reference>
+	</mobile_list_compare>
+	<!--手机对比end-->
+	
+	<!--手机详情ks-->
+	<mobile_item_index>
+		<reference name="meta" type="Mobile_ItemView">
+			<action method="setTemplate">page/head/meta/mobile/item.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">mobile/item.css</action>
+			<action method="addJs">mobile.js</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">mobile/item/layout.phtml</action>
+			<block name="base" type="Mobile_ItemView" template="mobile/item/base.phtml"/>
+			<block name="detail_l" type="Mobile_ItemView" template="mobile/item/detail_l.phtml"/>
+			<block name="detail_r" type="Mobile_ItemView" template="mobile/item/detail_r.phtml"/>
+			<block name="list_compare" type="Mobile_ListView" template="mobile/list_compare.phtml"/>
+		</reference>
+	</mobile_item_index>
+	<!--手机详情end-->
+	
+	<!--手机搜索ks-->
+	<mobile_list_search>
+		<reference name="skin">
+			<action method="addCss">mobile/list.css</action>
+			<action method="addJs">mobile.js</action>
+		</reference>
+		<reference name="content" type="Mobile_ListView">
+			<action method="setTemplate">mobile/search.phtml</action>
+			<block name="list_compare" type="Mobile_ListView" template="mobile/list_compare.phtml"/>
+		</reference>
+	</mobile_list_search>
+	<!--手机搜索end-->
+</layouts>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<default>
+		<block name="root" type="Page_BaseView" template="page/layout/default.phtml">
+			<block name="skin" type="Page_HeadView" template="page/head/skin.phtml">
+				<action method="addCss">common.css</action>
+				<action method="addCss">page.css</action>
+			</block>
+			<block name="header" type="Page_BaseView" template="page/header.phtml"/>
+			<block name="sidebar" type="Page_BaseView" template="page/sidebar.phtml"/>
+			<block name="content" type="Page_BaseView" template=""/>
+		</block>
+	</default>
+		
+	<!--登录页面ks-->
+	<login>
+		<block name="root" type="Page_BaseView" template="page/layout/login.phtml">
+			<block name="skin" type="Page_HeadView" template="page/head/skin.phtml">
+				<action method="addCss">common.css</action>
+				<action method="addCss">login.css</action>
+			</block>
+			<block name="content" type="Page_BaseView" template="login.phtml"/>
+		</block>
+	</login>
+	<!--登录页面end-->
+	
+	<!--后台管理首页ks-->
+	<index>
+		<block name="root" type="Page_BaseView" template="page/layout/index.phtml">
+			<block name="skin" type="Page_HeadView" template="page/head/skin.phtml">
+				<action method="addCss">common.css</action>
+				<action method="addCss">page.css</action>
+			</block>
+			<block name="header" type="Page_BaseView" template="page/header.phtml"/>
+			<block name="content" type="Page_BaseView" template=""/>
+		</block>
+	</index>
+	<!--后台管理首页end-->
+</layouts>

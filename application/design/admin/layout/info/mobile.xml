@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--手机信息列表ks-->
+	<info_mobile_list>
+		<reference name="content" type="Mobile_ListView">
+			<action method="setTemplate">info/mobile/list.phtml</action>
+		</reference>
+	</info_mobile_list>
+	<!--手机信息列表end-->
+</layouts>

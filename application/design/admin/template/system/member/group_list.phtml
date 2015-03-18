@@ -1,0 +1,59 @@
+<?php $groups = $this->loadGroupList()?>
+<ul class="tabs1">
+	<li class="tabs1_c">网站群组列表</li>
+	<li>网站成员列表</li>
+	<li>网站后台操作历史</li>
+</ul>
+<!--筛选框ks-->
+<div class="search_div">
+	<div class="search_div_item">
+    	<button type="button" onclick="window.location.href='/monitor/system_member/add-group'">+添加群组</button>
+    </div>
+	<div class="clear"></div>
+</div>
+<!--筛选框end-->
+<div class="table1" entity="member-group">
+	<table width="990">
+		<thead>
+			<tr>
+				<th width="150">群组名称</th>
+				<th width="200">创建时间</th>
+				<th width="100">状态</th>
+				<th class="tac" width="130">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if ($groups):?>
+			<?php foreach ($groups as $group):?>
+			<tr entity="<?php echo $group['id']?>">
+				<td><?php echo $group['label']?></td>
+				<td><?php echo date('Y-m-d H:i:s', $group['created_at'])?></td>
+				<td class="green"><?php echo $group['status'] ? '有效' : '冻结'?></td>
+				<td class="table_cz tac">
+					<a href="/monitor/system_member/add-group?id=<?php echo $group['id']?>">修改</a>
+					<?php if ($group['status']):?>
+					<a href="javascript:void(0);" onclick="itemInActive(this, '<?php echo $group['id']?>', 'member-group');">禁用</a>
+					<?php else:?>
+					<a href="javascript:void(0);" onclick="itemActive(this, '<?php echo $group['id']?>', 'member-group');">启用</a>
+					<?php endif;?>
+				</td>
+			</tr>
+			<?php endforeach?>
+			<?php else:?>
+			<tr>
+				<td colspan="4" style="text-align:center;">暂无网站成员群组记录</td>
+			</tr>
+			<?php endif?>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.tabs1 li:eq(1)').click(function(){
+		window.location.href = '/monitor/system_member/list';
+	});
+	jQuery('.tabs1 li:eq(2)').click(function(){
+		window.location.href = '/monitor/system_member/history';
+	});
+});
+</script>

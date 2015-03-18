@@ -1,0 +1,95 @@
+<?php $id = Factory::getRequest()->getParam('id')?>
+<?php if ($id):?>
+<?php $resource = $this->getResource($id)?>
+<?php else:?>
+<?php $gid = Factory::getRequest()->getParam('gid')?>
+<?php $group = $this->getGroupInfo($gid)?>
+<?php endif?>
+<h1>添加资源</h1>
+<table class="table2">
+	<tbody>
+		<tr>
+			<th>资源类型：</th>
+			<td>
+				<label><?php echo $id ? $resource['group'] : $group['label']?></label>
+			</td>
+		</tr>
+		<tr>
+			<th>资源名称：</th>
+			<td>
+			<input name="label" type="text" value="<?php echo $resource['label']?>" />
+		    </td>
+		</tr>
+		<tr>
+			<th>资源所属动作：</th>
+			<td>
+			<input name="action" type="text" value="<?php echo $resource['action']?>" />
+			<span>action，例如create</span>
+		    </td>
+		</tr>
+		<tr>
+			<th></th>
+			<td>
+				<button class="btn_red" type="type" onclick="saveItem(this);">保存</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<script type="text/javascript">
+function saveItem(obj){
+	var label = jQuery('input[name=label]').val();
+	var action = jQuery('input[name=action]').val();
+	if(label == ''){
+		alert('请填写资源名称');
+		return;
+	}
+	if(action == ''){
+		alert('请填写资源动作');
+		return;
+	}
+	<?php if ($id):?>
+	var params = {
+		id:'<?php echo $id?>',
+		item:{
+			group_id:'<?php echo $resource['group_id']?>',
+			label:label,
+			action:action
+		}
+	};
+	var url = '/monitor/system_resource/ajax-modify-item';
+	<?php else:?>
+	var params = {
+		item:{
+			group_id:'<?php echo $gid?>',
+			label:label,
+			action:action
+		}
+	};
+	var url = '/monitor/system_resource/ajax-add-item';
+	<?php endif;?>
+	jQuery.ajax({
+		type:'get',
+		data:jQuery.param(params),
+		url:url,
+		dataType:'json',
+		beforeSend:function(){
+			jQuery(obj).html('正在操作...')
+				.attr('onclick', '');
+		},
+		success:function(data){
+			jQuery(obj).html('保存')
+				.attr('onclick', 'saveGroup(this);');
+			if(data == '1'){
+				window.location.href = '/monitor/system_resource/list?gid=<?php echo $id ? $resource['group_id'] : $gid?>';
+			}else{
+				alert('添加资源组失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			jQuery(obj).html('保存')
+				.attr('onclick', 'saveGroup(this);');
+			alert('添加资源组失败，请稍候尝试');
+		}
+	});	
+}
+</script>

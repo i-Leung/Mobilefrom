@@ -1,0 +1,77 @@
+<?php $member = Factory::getSession('member')?>
+<?php $controller = Factory::getRequest()->getControllerName()?>
+<?php $controller = explode('_', $controller)?>
+<div class="logo_area">
+	<div class="logo">
+		<a href="/monitor">
+			<img src="<?php echo $this->getImg('logo.png')?>" />
+		</a>
+	</div>
+	<div class="header_user_info">
+		您好&nbsp;
+		<strong><?php echo $member['member']?></strong>
+		&nbsp;当前身份&nbsp;
+		<strong><?php echo $member['group']?></strong>
+		<a class="red" href="/monitor/entrance/logout">
+			<strong> 退出管理</strong>
+		</a>
+		</div>
+	</div>
+<div class="menu">
+	<div class="menu_wp">
+		<a class="menu_l_link" href="/monitor">后台管理首页</a>
+		<ul>
+			<li>
+				<a class="menu_a" href="javascript:void(0);">用户管理</a>
+				<div class="nav_list">
+					<a href="/monitor/customer_common/list">帐号列表</a>
+					<a href="/monitor/customer_personal/list">个人列表</a>
+					<a href="/monitor/customer_store/list">商家列表</a>
+				</div>
+			</li>
+			<li>
+				<a class="menu_a" href="javascript:void(0);">信息管理</a>
+				<div class="nav_list">
+					<a href="/monitor/info_mobile/list">闲置手机信息</a>
+					<a href="/monitor/info_purchase/list">求购信息</a>
+				</div>
+			</li>
+			<li>
+				<a class="menu_a" href="javascript:void(0);">网站管理</a>
+				<div class="nav_list">
+					<a href="/monitor/website_report/list">举报中心管理</a>
+				</div>
+			</li>
+			<li>
+				<a class="menu_a" href="javascript:void(0);">统计管理</a>
+				<div class="nav_list">
+					<a href="/monitor/analysis_pfrom/site">页面导向统计</a>
+					<a href="/monitor/analysis_afilter/mobile">属性筛选统计</a>
+				</div>
+			</li>
+			<li>
+				<a class="menu_a" href="javascript:void(0);">系统管理</a>
+				<div class="nav_list">
+					<a href="/monitor/system_member/group-list">网站成员管理</a>
+					<a href="/monitor/system_resource/group-list">资源管理</a>
+					<a href="/monitor/system_mlib/brand-list">手机资料库</a>
+					<a href="/monitor/system_tlib/brand-list">平板资料库</a>
+					<a href="/monitor/system_service/index">商家服务列表</a>
+				</div>
+			</li>
+		</ul>
+		<a class="menu_a menu_r_link" href="/">机荒网</a>
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="header_bottom"></div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.menu_wp li').mouseover(function(){
+		jQuery(this).find('.nav_list').show();
+	});
+	jQuery('.menu_wp ul li').mouseleave(function(){
+		jQuery('.nav_list').hide();
+	});
+});
+</script>

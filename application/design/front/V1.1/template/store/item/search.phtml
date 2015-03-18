@@ -1,0 +1,150 @@
+<?php $request = Factory::getRequest()?>
+<?php $id = $request->getParam('store', null)?>
+<?php $q =  $request->getParam('q', null)?>
+<?php $from = 'inside'?>
+<?php if ($total = $this->getInsideRecordsTotal($id, $q)):?>
+<?php $models = $this->loadInsideRecords($id, $q)?>
+<?php else:?>
+<?php $from = 'outside'?>
+<?php $models = $this->loadOutsideRecords($q)?>
+<?php $total = $this->getOutsideRecordsTotal($q)?>
+<?php endif?>
+<?php if ($total):?>
+<div class="search_q">
+	<span>搜索到<span class="red"><?php echo $total?></span>个"<span class="red"><?php echo $q?></span>"相关商品</span>
+</div>
+<div class="sort_bar" style="height:auto;"></div>
+<!--商品列表ks-->
+<?php if ($from == 'inside')://店内搜索?>
+<div class="pro_list">
+	<ul>
+		<?php if ($models['mobile']):?>
+    	<?php foreach ($models['mobile'] as $model):?>
+    	<li>
+			<a class="pro_wp" target="_blank" title="<?php echo $model['brand'] . '&nbsp;' . $model['model']?>" href="/store/item/mobile-info?store=<?php echo $id?>&model=<?php echo $model['id']?>&cfrom=store-model">
+            	<div class="pro_img" style="padding:25px 35px;">
+					<img src="/upload/mlib/thumb/<?php echo $model['thumb']?>" onerror="loadErrorImg(this);" style="width:151px;height:151px;" />
+                </div>
+                <p class="pro_name"><?php echo $model['brand'] . '&nbsp;' . $model['model']?></p>
+            </a>
+            <p class="pro_price">
+				<span class="red">￥<?php echo $model['min']?></span>
+                <em>~</em>
+                <span class="red">￥<?php echo $model['max']?></span>
+            </p>
+        </li>
+        <?php endforeach?>
+		<?php endif?>
+		<?php if ($models['tablet']):?>
+    	<?php foreach ($models['tablet'] as $model):?>
+    	<li>
+			<a class="pro_wp" target="_blank" title="<?php echo $model['brand'] . '&nbsp;' . $model['model']?>" href="/store/item/tablet-info?store=<?php echo $id?>&model=<?php echo $model['id']?>&cfrom=store-model">
+            	<div class="pro_img">
+					<img src="/upload/tlib/thumb/<?php echo $model['thumb']?>" onerror="loadErrorImg(this);" style="height:151px;" />
+                </div>
+                <p class="pro_name"><?php echo $model['brand'] . '&nbsp;' . $model['model']?></p>
+            </a>
+            <p class="pro_price">
+				<span class="red">￥<?php echo $model['min']?></span>
+                <em>~</em>
+                <span class="red">￥<?php echo $model['max']?></span>
+            </p>
+        </li>
+        <?php endforeach?>
+		<?php endif?>
+    </ul>
+	<div class="clear"></div>
+</div>
+<?php else://全站搜索?>
+<div class="pro_list">
+	<ul>
+		<?php if ($models['mobile']):?>
+    	<?php foreach ($models['mobile'] as $model):?>
+    	<li>
+			<a class="pro_wp" target="_blank" title="<?php echo $model['brand'] . '&nbsp;' . $model['model']?>" href="/mlib/item/?id=<?php echo $model['id']?>&cfrom=store-search">
+            	<div class="pro_img" style="padding:25px 35px;">
+					<img src="/upload/mlib/thumb/<?php echo $model['thumb']?>" onerror="loadErrorImg(this);" style="width:151px;height:151px;" />
+                </div>
+                <p class="pro_name"><?php echo $model['brand'] . '&nbsp;' . $model['model']?></p>
+            </a>
+			<div>
+				<p class="grey1" style="float:left;">共有<span class="red"><?php echo $model['offers']?></span>条出售信息</p>
+				<p class="grey1" style="float:right;">共点阅<?php echo $model['clicks']?>次</p>
+				<div class="clear"></div>
+			</div>
+        </li>
+        <?php endforeach?>
+		<?php endif?>
+		<?php if ($models['tablet']):?>
+    	<?php foreach ($models['tablet'] as $model):?>
+    	<li>
+			<a class="pro_wp" target="_blank" title="<?php echo $model['brand'] . '&nbsp;' . $model['model']?>" href="/tlib/item/?id=<?php echo $model['id']?>&cfrom=store-model">
+            	<div class="pro_img">
+					<img src="/upload/tlib/thumb/<?php echo $model['thumb']?>" onerror="loadErrorImg(this);" style="height:151px;" />
+                </div>
+                <p class="pro_name"><?php echo $model['brand'] . '&nbsp;' . $model['model']?></p>
+            </a>
+			<div>
+				<p class="grey1" style="float:left;">共有<span class="red"><?php echo $model['offers']?></span>条出售信息</p>
+				<p class="grey1" style="float:right;">共点阅<?php echo $model['clicks']?>次</p>
+				<div class="clear"></div>
+			</div>
+        </li>
+        <?php endforeach?>
+		<?php endif?>
+    </ul>
+	<div class="clear"></div>
+</div>
+<?php endif?>
+<!--商品列表end-->
+<?php else:?>
+<div class="search_q">
+	<span>抱歉，<span class="red">没有</span>找到相关的商品</span>
+</div>
+<?php $lview = Factory::getView('store/item')?>
+<?php $total = $lview->getSellingMobileModelTotal($id)?>
+<?php $models = $lview->loadSellingMobileModelList($id)?>
+<div class="sort_bar">
+	<ul>
+		<li class="sort_bar_c">
+			<a href="/store/item/mobile-list?store=<?php echo $id?>&cfrom=sort">默认排序</a>
+		</li>
+		<li>
+			<a href="/store/item/mobile-list?store=<?php echo $id?>&cfrom=sort&sort=price">价格低至高</a>
+		</li>
+		<li>
+			<a href="/store/item/mobile-list?store=<?php echo $id?>&cfrom=sort&sort=clicks">点阅数量</a>
+		</li>
+		<div class="clear"></div>
+    </ul>
+	<p>共有<span class="red"><?php echo $total?></span>个商品</p>
+    <div class="clear"></div>
+</div>
+<!--商品列表ks-->
+<?php if ($models):?>
+<div class="pro_list">
+	<ul>
+    	<?php foreach ($models as $model):?>
+    	<li>
+			<a class="pro_wp" target="_blank" title="<?php echo $model['brand'] . '&nbsp;' . $model['model']?>" href="/store/item/mobile-info?store=<?php echo $id?>&model=<?php echo $model['id']?>&cfrom=store-model">
+            	<div class="pro_img">
+					<img src="/upload/mlib/thumb/<?php echo $model['thumb']?>" onerror="loadErrorImg(this);" />
+                </div>
+                <p class="pro_name"><?php echo $model['brand'] . '&nbsp;' . $model['model']?></p>
+            </a>
+            <p class="pro_price">
+				<span class="red">￥<?php echo $model['min']?></span>
+                <em>~</em>
+                <span class="red">￥<?php echo $model['max']?></span>
+            </p>
+        </li>
+        <?php endforeach?>
+        <div class="clear"></div>
+    </ul>
+</div>
+<?php else:?>
+<p style="margin:20px;font-size:16px;text-align:center;">抱歉,没有找到相关的商品</p>
+<?php endif?>
+<!--商品列表end-->
+<?php endif?>
+<!--排序end-->

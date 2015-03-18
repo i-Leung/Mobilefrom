@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--手机属性筛选列表ks-->
+	<analysis_afilter_mobile>
+		<reference name="content" type="Analysis_AfilterView">
+			<action method="setTemplate">analysis/afilter/mobile.phtml</action>
+		</reference>
+	</analysis_afilter_mobile>
+	<!--手机属性筛选列表end-->
+	<!--求购属性筛选列表ks-->
+	<analysis_afilter_purchase>
+		<reference name="content" type="Analysis_AfilterView">
+			<action method="setTemplate">analysis/afilter/purchase.phtml</action>
+		</reference>
+	</analysis_afilter_purchase>
+	<!--求购属性筛选列表end-->
+</layouts>

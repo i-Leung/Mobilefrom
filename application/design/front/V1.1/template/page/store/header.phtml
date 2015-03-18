@@ -1,0 +1,146 @@
+<?php $request = Factory::getRequest()?>
+<?php $store = $request->getParam('store', null)?>
+<?php $q = $request->getParam('q', null)?>
+<?php $controller = $request->getControllerName()?>
+<?php $action = $request->getActionName()?>
+<?php $info = $this->getStorePublicInfo($store)?>
+<?php $isLoged = Factory::isLoged()?>
+<div class="top_nav">
+    <div class="top_nav_wp">
+        <div class="top_nav_l">
+        	<a href="/?cfrom=store_top">机荒首页</a>
+            <em>|</em>
+            <a href="/mlib/list?cfrom=store_top">同城购机</a>
+            <em>|</em>
+            <a href="/activity/list/store?cfrom=store_top">优惠活动</a>
+        </div>
+        <div class="top_nav_r"> 
+            <?php if ($isLoged):?>
+            <span>Hi，</span>
+            <a href="/customer?cfrom=store-top"><?php echo Factory::getSession('customer/username')?>！</a>
+            <a href="/customer?cfrom=store-top">
+                <?php $news = Factory::getView('customer/msg')->getNewMsgTotal(Factory::getSession('customer/id'))?>
+                消息<?php echo $news ? '<strong class="yellow">' . $news . '</strong>' : '<strong>0</strong>'?>
+            </a>
+            <a style="margin-left:8px;" href="/customer/account/logout">退出</a>
+            <?php else:?>
+            <span>Hi，欢迎来到机荒网！</span>
+            <a style="color:white;" href="javascript:popOpen('login');">请登录</a>
+            <a style="margin-left:8px;" href="/customer/account/register?cfrom=topheader">免费注册</a>
+            <?php endif?>
+            <em>|</em>
+            <a href="/customer?cfrom=store-top">个人中心</a>
+            <a style="margin-left:8px;color:white;" href="/website/store/business?cfrom=store_top">商家入驻</a>
+            <a style="margin-left:8px;" href="javascript:addFavorite();">收藏本站</a>
+            <a style="margin-left:8px;" href="http://weibo.com/mobilefrom" rel="nofollow">关注机荒</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="header_wp">
+	<div class="mf_logo">
+    	<div class="m_logo">
+        	<a href="/?cfrom=store-top"></a>
+        </div>
+        <div class="s_logo">
+			<a class="store_name" href="/store/item/?store=<?php echo $store?>&cfrom=store-top"><?php echo $info['name']?></a>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+	<div class="searchbar">
+		<input class="search_text" type="text" value="<?php echo $q ? $q : '请输入你想搜索的品牌或型号'?>" style="color:#999;" />
+		<input class="search_btn" type="button" url="/store/search?store=<?php echo $store?>&cfrom=store_search&q=" />
+        <div class="clear"></div>
+	</div>
+    <div class="clear"></div>
+</div>
+<div class="menu">
+	<div class="menu_wp">
+    	<ul class="menu_box">
+			<li <?php if ($action == 'index'):?>class="onclick"<?php endif?>>
+				<a href="/store/item?store=<?php echo $store?>&cfrom=store-header">店铺首页</a>
+            </li>
+			<li <?php if (in_array($action, array('mobile-list', 'mobile-info'))):?>class="onclick"<?php endif?>>
+				<a href="/store/item/mobile-list?store=<?php echo $store?>&cfrom=store-header">手机专区</a>
+            </li>
+			<?php if ($this->hasSellingTablet($store)):?>
+			<li <?php if (in_array($action, array('tablet-list', 'tablet-info'))):?>class="onclick"<?php endif?>>
+				<a href="/store/item/tablet-list?store=<?php echo $store?>&cfrom=store-header">平板专区</a>
+            </li>
+			<?php endif?>
+        	<li <?php if ($action == 'service'):?>class="onclick"<?php endif?>>
+            	<a href="/store/item/service?store=<?php echo $store?>&cfrom=store-header">店铺服务</a>
+			</li>
+        	<li <?php if ($action == 'about'):?>class="onclick"<?php endif?>>
+            	<a href="/store/item/about?store=<?php echo $store?>&cfrom=store-header">关于本店</a>
+            </li>
+        	<li <?php if ($action == 'feedback'):?>class="onclick"<?php endif?>>
+            	<a href="/store/item/feedback?store=<?php echo $store?>&cfrom=store-header">本店留言</a>
+            </li>
+			<div class="clear"></div>
+        </ul>
+    	<div class="menu_shop_info">
+        	<div class="shop_info_new">
+				<i style="display:none;"></i>
+        		<div class="main_info">
+                	<span style="color:#99CCFF;">店铺：</span>
+                    <span>商品数量</span>
+					<strong><?php echo $info['total']?></strong>
+                    <span style="margin-left:10px;">访问数量</span>
+                    <strong><?php echo $info['clicks']?></strong>
+                </div>
+            </div>
+            <div class="shop_info_approve" style="display:none;"></div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery.ajax({
+		type:'get',
+		<?php if ($action == 'mobile-info'):?>
+		data:{store:'<?php echo $store?>', url:'<?php echo $controller . '/' . $action?>', model:'<?php echo Factory::getRequest()->getParam('model', null)?>'},
+		<?php else:?>
+		data:{store:'<?php echo $store?>', url:'<?php echo $controller . '/' . $action?>'},
+		<?php endif?>
+		dataType:'json',
+		url:'/store/item/clicks',
+		success:function(data){},
+		error:function(){}
+	});
+	jQuery('.search_text').focus(function(){
+		var value = jQuery(this).val();
+		switch (value) {
+			case '请输入你想搜索的品牌或型号':
+				jQuery(this).val('');
+				break;
+			default:
+				break;
+		}
+	});
+	jQuery('.search_text').blur(function(){
+		var value = jQuery(this).val();
+		if (value == '') {
+			jQuery(this).val('请输入你想搜索的品牌或型号').css('color', '#999');
+		}
+	});
+	jQuery('.search_text').keydown(function(e){
+		jQuery(this).css('color', '#333');
+		var q = jQuery(this).val();
+		if(e.keyCode == 13 && q != ''){
+			var url = jQuery('.search_btn').attr('url');
+			window.location.href = url + q;
+		}
+	});
+	jQuery('.search_btn').click(function(e){
+		var q = jQuery('.search_text').val();
+		if(q != '' && q != '请输入你想搜索的品牌或型号'){
+			var url = jQuery(this).attr('url');
+			window.location.href = url + q;
+		}
+	});
+});
+</script>

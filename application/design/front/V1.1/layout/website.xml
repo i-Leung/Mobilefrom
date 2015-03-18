@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--举报中心ks-->
+	<website_report_list>
+		<reference name="meta" type="Website_ReportView">
+			<action method="setTemplate">page/head/meta/website/report.phtml</action>
+		</reference>
+		<reference name="content" type="Website_ReportView">
+			<action method="setTemplate">website/report/list.phtml</action>
+		</reference>
+	</website_report_list>
+	<!--举报中心end-->
+	<!--举报信息ks-->
+	<website_report_item>
+		<reference name="meta" type="Website_ReportView">
+			<action method="setTemplate">page/head/meta/website/report.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">website/report/item.css</action>
+			<action method="addJs">report.js</action>
+		</reference>
+		<reference name="content" type="Website_ReportView">
+			<action method="setTemplate">website/report/item.phtml</action>
+		</reference>
+	</website_report_item>
+	<!--举报信息end-->
+	<!--我的举报ks-->
+	<website_report_my>
+		<reference name="meta" type="Website_ReportView">
+			<action method="setTemplate">page/head/meta/website/report.phtml</action>
+		</reference>
+		<reference name="content" type="Website_ReportView">
+			<action method="setTemplate">website/report/my.phtml</action>
+		</reference>
+	</website_report_my>
+	<!--我的举报end-->
+	<!--举报规则ks-->
+	<website_report_rule>
+		<reference name="meta" type="Website_ReportView">
+			<action method="setTemplate">page/head/meta/website/report.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">website/report/rule.css</action>
+		</reference>
+		<reference name="content" type="Website_ReportView">
+			<action method="setTemplate">website/report/rule.phtml</action>
+		</reference>
+	</website_report_rule>
+	<!--举报规则end-->
+	<!--发布举报信息ks-->
+	<website_report_publish>
+		<reference name="meta" type="Website_ReportView">
+			<action method="setTemplate">page/head/meta/website/report.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">website/report/report.css</action>
+			<action method="addJs">report.js</action>
+		</reference>
+		<reference name="content" type="Website_ReportView">
+			<action method="setTemplate">website/report/report.phtml</action>
+		</reference>
+	</website_report_publish>
+	<!--发布举报信息end-->
+	<!--手机交易知多Dks-->
+	<website_helper_what-to-buy>
+		<reference name="meta">
+			<action method="setTemplate">page/head/meta/website/helper.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">website/helper/what_to_buy.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">website/helper/what_to_buy.phtml</action>
+		</reference>
+	</website_helper_what-to-buy>
+	<!--手机交易知多Dend-->
+	<!--手机交易防骗攻略ks-->
+	<website_helper_how-to-buy>
+		<reference name="meta">
+			<action method="setTemplate">page/head/meta/website/helper.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">website/helper/what_to_buy.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">website/helper/how_to_buy.phtml</action>
+		</reference>
+	</website_helper_how-to-buy>
+	<!--手机交易防骗攻略end-->
+	<!--清除手机个人信息ks-->
+	<website_helper_clean-private-info>
+		<reference name="meta">
+			<action method="setTemplate">page/head/meta/website/helper.phtml</action>
+		</reference>
+		<reference name="skin">
+			<action method="addCss">website/helper/clean_private_info.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">website/helper/clean_private_info.phtml</action>
+		</reference>
+	</website_helper_clean-private-info>
+	<!--清除手机个人信息end-->
+	<!--线上店商家介绍ks-->
+	<website_store_business>
+		<reference name="skin">
+			<action method="addCss">website/store.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">website/store/business.phtml</action>
+		</reference>
+	</website_store_business>
+	<!--线上店商家介绍end-->
+	<!--线上店用户介绍ks-->
+	<website_store_customer>
+		<reference name="skin">
+			<action method="addCss">website/store.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">website/store/customer.phtml</action>
+		</reference>
+	</website_store_customer>
+	<!--线上店用户介绍end-->
+	<!--线上店协议介绍ks-->
+	<website_store_contract>
+		<reference name="skin">
+			<action method="addCss">website/contract.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">website/store/contract.phtml</action>
+		</reference>
+	</website_store_contract>
+	<!--线上店协议介绍end-->
+</layouts>

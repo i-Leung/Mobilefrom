@@ -1,0 +1,112 @@
+<?php $store = Factory::getRequest()->getParam('store', null)?>
+<?php $models = $this->loadStoreMobileModelList($store)?>
+<div class="toolbar">
+	<div class="l">
+		<span>品牌过滤：</span>
+		<?php if ($models):?>
+		<select name="brand">
+			<option value="">选择品牌</option>
+			<?php foreach ($models as $bid => $brand):?>
+			<option value="<?php echo $bid?>"><?php echo $brand['label']?></option>
+			<?php endforeach?>
+		</select>
+		<?php endif?>
+	</div>
+	<?php if ($this->isMyStore($store, Factory::getSession('customer/id'))):?>
+    <div class="r">
+		<a href="/customer/store/mobile-list?cfrom=sheet">编辑</a>
+	</div>
+	<?php endif?>
+	<div class="clear"></div>
+</div>
+<table class="model_sheet_table">
+	<thead>
+    	<tr>
+        	<th>版本</th>
+        	<th>内存</th>
+        	<th>颜色</th>
+        	<th>成色</th>
+        	<th style="width:243px;">备注</th>
+        	<th>价格</th>
+        </tr>
+    </thead>
+	<?php if ($models):?>
+	<?php foreach ($models as $bid => $brand):?>
+	<thead>
+		<tr class="sales_brand_label">
+			<th style="width:750px;" colspan="6"><?php echo $brand['label']?></th>
+		</tr>
+	</thead>
+	<tbody brand="<?php echo $bid?>">
+		<?php foreach ($brand['model'] as $mid => $model):?>
+		<tr model="<?php echo $mid?>" class="sales_model_label">
+			<th style="width:750px;" colspan="6"><?php echo $model['label']?></th>
+		</tr>
+		<?php foreach ($model['mobile'] as $mobile):?>
+		<tr model="<?php echo $mid?>">
+			<td><?php echo $mobile['version']?></td>
+			<td><?php echo $mobile['storage']?>G</td>
+			<td><?php echo $mobile['color']?></td>
+			<td><?php echo $mobile['newly']?></td>
+			<td><?php echo $mobile['remark'] ? $mobile['remark'] : '---'?></td>
+			<td><span class="red">￥<?php echo $mobile['price']?></span></td>
+		</tr>
+		<?php endforeach?>
+		<?php endforeach?>
+	</tbody>
+	<?php endforeach?>
+	<?php else:?>
+	<tbody>
+		<tr>
+			<td style="width:750px;" colspan="6">暂无相关手机信息发布记录</td>
+		</tr>
+	</tbody>
+	<?php endif?>
+</table>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.sales_brand_label th').click(function(){
+		var index = jQuery('table thead').index(jQuery(this).parent().parent());
+		if (jQuery('tbody:eq(' + (index - 1) + ')').css('display') == 'none') {
+			if(!-[1,]){
+				jQuery('tbody:eq(' + (index - 1) + ')').slideDown();
+			}else{
+				jQuery('tbody:eq(' + (index - 1) + ')').fadeIn();
+			}
+		} else {
+			if(!-[1,]){
+				jQuery('tbody:eq(' + (index - 1) + ')').slideUp();
+			}else{
+				jQuery('tbody:eq(' + (index - 1) + ')').fadeOut();
+			}
+		}
+	});
+	jQuery('.model_sheet_table tbody tr').mouseover(function(){
+		if (!jQuery(this).hasClass('sales_model_label')) {
+			jQuery(this).css('background-color', '#FAFAFA');
+		}
+	});
+	jQuery('.model_sheet_table tbody tr').mouseout(function(){
+		if (!jQuery(this).hasClass('sales_model_label')) {
+			jQuery(this).css('background-color', '');
+		}
+	});
+	jQuery('.model_sheet_table tbody tr').click(function(){
+		var model = jQuery(this).attr('model');
+		window.open('/store/item/mobile-info?store=<?php echo $store?>&model=' + model + '&cfrom=store-sheet');
+	});
+	jQuery('select[name=brand]').change(function(){
+		var brand = jQuery(this).val();
+		if (brand != '') {
+			jQuery('.model_sheet_table tbody').hide();
+			jQuery('.model_sheet_table tbody').each(function(){
+				if (jQuery(this).attr('brand') == brand) {
+					jQuery(this).show();
+				}
+			});
+		} else {
+			jQuery('.model_sheet_table tbody').show();
+		}
+	});
+});
+</script>

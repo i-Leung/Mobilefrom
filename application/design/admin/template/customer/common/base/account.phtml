@@ -1,0 +1,93 @@
+<?php $id = Factory::getRequest()->getParam('id', null)?>
+<?php $info = $this->getInfo($id)?>
+<?php $groups = $this->getGroupName()?>
+<table id="account_info" class="table2">
+	<tbody>
+		<tr>
+			<th>用户名称：</th>
+			<td>
+				<input type="text" name="username" value="<?php echo $info['username']?>" />
+			</td>
+		</tr>
+		<tr>
+			<th>所属群组：</th>
+			<td>
+				<select name="group">
+					<?php foreach ($groups as $key => $value):?>
+					<option value="<?php echo $key?>" <?php echo $key == $info['group'] ? 'selected="selected"' : ''?>>
+						<?php echo $value?>
+					</option>
+					<?php endforeach;?>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>邮箱：</th>
+			<td>
+				<input type="text" name="email" value="<?php echo $info['email']?>" />
+			</td>
+		</tr>
+		<tr>
+			<th>注册时间：</th>
+			<td><?php echo date('Y-m-d H:i:s', $info['registered_at'])?></td>
+		</tr>
+		<tr>
+			<th>登录次数：</th>
+			<td><?php echo $info['logon_times']?></td>
+		</tr>
+		<tr>
+			<th>最后登录时间：</th>
+			<td><?php echo date('Y-m-d H:i:s', $info['logon_latest'])?></td>
+		</tr>
+		<tr>
+			<th></th>
+			<td>
+				<button type="button" class="btn_red" onclick="saveAccountInfo('<?php echo $id?>');">保存</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<script type="text/javascript">
+function saveAccountInfo(id)
+{
+	var box = jQuery('#account_info');
+	var msg = '';
+	var username = box.find('input[name=username]').val();
+	if(username == ''){
+		msg += '请填写用户名;';
+	}
+	var email = box.find('input[name=email]').val();
+	if(email == ''){
+		msg += '请填写用户邮箱;';
+	}
+	var group = box.find('select[name=group]').val();
+	if(msg != ''){
+		alert(msg);
+		return;
+	}
+	var params = {
+		id:id,
+		info:{
+			username:username,
+			email:email,
+			group:group
+		}
+	};
+	jQuery.ajax({
+		type:'get',
+		data:jQuery.param(params),
+		dataType:'json',
+		url:'/monitor/customer_common/modify-info',
+		success:function(data){
+			if(data == '1'){
+				alert('账号信息修改成功');
+			}else{
+				alert('账号信息修改失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			alert('账号信息修改失败，请稍候尝试');
+		}
+	});
+}
+</script>

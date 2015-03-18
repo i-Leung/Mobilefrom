@@ -1,0 +1,132 @@
+ .attribute th{
+	vertical-align: baseline;
+	padding-top: 9px;
+}
+ .attribute-value th{
+	vertical-align: baseline;
+	padding-top: 12px;
+}
+ .attribute ul li, .attribute-value ul li{
+	padding-bottom: 10px;
+}
+ .attribute-name, .attribute-action, .value-name, .value-sort, .value-action{
+	float: left;
+	padding-right: 10px;
+}
+ .group-attribute{
+	width: 120px;
+	display: inline-block;
+	line-height: 14px;
+	padding: 0 5px 5px 0;
+}
+ .group-attribute input{
+	vertical-align: bottom;
+}
+.item-input th{
+	width: 100px !important;
+}
+.item-input .group-attribute{
+	width: 200px !important;
+}
+/*上传图片ks*/
+.upload_img_btn{
+	width:85px;
+	height:30px;
+	float:left;
+	margin-right:5px;
+	background:url(../../img/upload_img.png) 0px 0px no-repeat;}
+.upload_img_btn:hover{
+	background:url(../../img/upload_img.png) 0px -30px no-repeat;}
+.pack{
+	float: left;
+	width: 100px;
+	height: 120px;
+}
+.mvpack{
+	float: left;
+	width: 100px;
+	height: 120px;
+}
+.tmpack{
+	float: left;
+	width: 100px;
+	height: 120px;
+}
+.pack-img img{
+	width: 88px;
+}
+.pack-link a{
+	font-size:12px;
+}
+.isThumb{
+	border: 1px solid red;
+}
+.progressWrapper {
+	width: 357px;
+	overflow: hidden;
+}
+.progressContainer {
+	margin: 5px;
+	padding: 4px;
+	border: solid 1px #E8E8E8;
+	background-color: #F7F7F7;
+	overflow: hidden;
+}
+/* Message */
+.message {
+	margin: 1em 0;
+	padding: 10px 20px;
+	border: solid 1px #FFDD99;
+	background-color: #FFFFCC;
+	overflow: hidden;
+}
+/* Complete */
+.progressName {
+	font-size: 8pt;
+	font-weight: 700;
+	color: #555;
+	width: 323px;
+	height: 14px;
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.progressBarInProgress,
+.progressBarComplete,
+.progressBarError {
+	font-size: 0;
+	width: 0%;
+	height: 2px;
+	background-color: blue;
+	margin-top: 2px;
+}
+.progressBarComplete {
+	width: 100%;
+	background-color: green;
+	visibility: hidden;
+}
+.progressBarError {
+	width: 100%;
+	background-color: red;
+	visibility: hidden;
+}
+.progressBarStatus {
+	margin-top: 2px;
+	width: 337px;
+	font-size: 7pt;
+	font-family: Arial;
+	text-align: left;
+	white-space: nowrap;
+}
+.images_upload_ex{
+	width:540px;
+	padding:15px;
+	border:1px #ddd solid;
+	margin-top:10px;
+	box-shadow: 1px 1px 0px #fafafa;}
+.images_upload_ex p{
+	height:20px;
+	line-height:20px;
+	padding-bottom:10px;
+	font-size:12px;}
+/*上传图片end*/

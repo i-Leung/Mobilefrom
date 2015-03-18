@@ -1,0 +1,265 @@
+/* CSS Document */
+/*左侧栏ks*/
+.main{
+	margin-top:20px !important;
+}
+.sidebar{
+	width:220px;
+	height:auto;
+	background:#F4F6F6;
+	float:left;}
+.sidebar .hd{
+	height:50px;
+	line-height:50px;
+	border-bottom:1px #e5e5e5 solid;}
+.sidebar .hd h1{
+	padding-left:44px;
+	font-size:16px;
+	text-shadow:0px 1px 1px #fff;}
+.sidebar .bd{
+	border-top:1px #fff solid;
+	padding-bottom:20px;}
+.sidebar ul li{
+	position:relative;
+	margin-top:10px;}
+/*.sidebar ul li:first-child{
+	margin-top:0px;}*/
+.sidebar ul li:hover{
+	background:#d4d4d4;}
+.sidebar ul li a{
+	display:block;
+	width:150px;
+	height:30px;
+	line-height:30px;
+	padding-left:70px;
+	font-size:14px;}
+.sidebar ul li a:hover{
+	text-decoration:none;}
+.sidebar ul li i{
+	display:inline-block;
+	width:16px;
+	height:16px;
+	background:url(../../../img/report/sidebar1.png);
+	position:absolute;
+	left:44px;
+	top:7px;}
+.sidebar_c{
+	background:url(../../../img/report/sidebar_icon.png) 200px 10px no-repeat #3991D0 !important;}
+.sidebar_c a{
+	color:#fff !important;}
+.sidebar_c i{
+	background:url(../../../img/report/sidebar2.png) no-repeat !important;}
+.qbjb i{
+	background-position:0px 0px !important;}
+.zdl i{
+	background-position:0px -16px !important;}
+.fjs i{
+	background-position:0px -32px !important;}
+.eyxx i{
+	background-position:0px -48px !important;}
+.dytp i{
+	background-position:0px -64px !important;}
+.mctr i{
+	background-position:0px -80px !important;}
+.qt i{
+	background-position:0px -96px !important;}
+.wdjb i{
+	background-position:0px -112px !important;}
+.jbgz i{
+	background-position:0px -128px !important;}
+/*左侧栏end*/
+/*正文部分ks*/
+.content{
+	width:779px;
+	min-height:500px;
+	padding-bottom:30px;
+	float:left;
+	border:1px #e4e4e4 solid;
+	border-left:none;
+	background:url(../../../img/report/content_bg.png) 0px 0px repeat-y;}
+/*正文部分end*/
+/*举报中心ks*/
+.search_report{
+	width:700px;
+	height:34px;
+	padding-top:20px;
+	margin-left:40px;}
+.search_rep{
+	position:relative;
+	width:350px;
+	height:34px;
+	float:left;}
+.search_rep input{
+	width:338px;
+	height:20px;
+	padding:6px 0px;
+	padding-left:10px;
+	border:1px #ccc inset;
+	outline:none;}
+.search_rep button{
+	width:16px;
+	height:16px;
+	background:url(../../../img/report/search.png);
+	position:absolute;
+	right:10px;
+	top:9px;
+	border:none;}
+.search_report a{
+	display:block;
+	width:150px;
+	height:34px;
+	line-height:34px;
+	text-align:center;
+	font-size:14px;
+	font-weight:bold;
+	float:right;
+	background:#3991D0;
+	color:#fff;
+	font-family:'微软雅黑';
+	box-shadow:1px 1px 1px #959595;}
+.search_report a:hover{
+	color:#fff;
+	text-decoration:none;
+	background:#09F;}
+.report_list{
+	margin-left:40px;}
+.report_item{
+	width:700px;
+	height:150px;
+	padding:20px 0px;
+	border-bottom:1px #ccc dotted;}
+.report_item .l{
+	display:block;
+	width:150px;
+	height:150px;
+	float:left;}
+.report_item .l img{
+	max-width:150px;
+	max-height:150px;}
+.report_item .r{
+	width:520px;
+	height:150px;
+	float:right;}
+.report_item .r h3{
+	font-size:20px;
+	width:520px;
+	max-height:60px;
+	line-height:30px;
+	overflow:hidden;}
+.report_item .r h3 strong{
+	color:#f60 !important;}
+.report_item .r h3 a:hover{
+	color:#f60 !important;}
+.desc{
+	width:520px;
+	height:40px;
+	line-height:20px;
+	margin-top:10px;
+	color:#666;
+	text-indent:2em;
+	overflow:hidden;}
+.other_info{
+	width:520px;
+	height:20px;
+	margin-top:10px;
+	line-height:20px;}
+.other_info_l{
+	float:left;
+	color:#999;}
+.other_info_l i{
+	padding:0px 5px;}
+.other_info_r{
+	float:right;}
+.no_report{
+	padding:50px 0px;
+	text-align:center;}
+/*举报中心end*/
+/*分页ks*/
+.fenye_wp{
+	width:700px;
+	height:22px;
+	padding:20px 0px;
+	text-align:right;}
+.fenye_wp span{
+	display:inline-block;
+	height:20px;
+	line-height:20px;
+	padding:0px 5px;}
+.fenye_wp a{
+	display:inline-block;
+	width:20px;
+	height:20px;
+	text-align:center;
+	line-height:20px;
+	border:1px #e4e4e4 solid;
+	font-family:'宋体';}
+.fenye_wp a:hover{
+	text-decoration:none;}
+/*分页end*/
+
+/*购机小常识ks*/
+.knowledge{
+	margin-left:40px;}
+.knowledge .tit{
+	position:relative;
+	width:700px;
+	height:20px;
+	padding:5px 0px;
+	border-bottom:2px #06C solid;}
+.knowledge .tit a{
+	position:absolute;
+	right:0px;
+	bottom:3px;
+	font-family:'宋体';}
+.knowledge .bd ul{
+	float:left;
+	margin-top:5px;
+	margin-left:20px;}
+.knowledge .bd ul li{
+	width:200px;
+	font-size:14px;
+	margin-top:10px;
+	list-style-type:disc;}
+/*购机小常识end*/
+/*我的举报ks*/
+.my_report_tit{
+	width:720px;
+	margin-left:30px;
+	height:50px;
+	line-height:50px;}
+.my_report_tit h2{
+	float:left;}
+.my_report_tit a{
+	display:block;
+	float:right;}
+.my_report_tb{
+	margin-left:20px;}
+.my_report_tb thead tr th{
+	height:30px;
+	line-height:30px;
+	padding-left:10px;
+	background:#F2F2F2;
+	text-align:left;}
+.my_report_tb tbody tr td{
+	padding:15px 0px 15px 10px;
+	border-bottom:1px #ddd dotted;
+	vertical-align:top;}
+.my_report_tb .user_info .l{
+	width:48px;
+	height:48px;
+	padding:1px;
+	border:1px #e4e4e4 solid;
+	float:left;}
+.my_report_tb .user_info .l img{
+	width:48px;
+	height:48px;}
+.my_report_tb .user_info .r{
+	float:left;
+	padding-left:10px;
+	line-height:20px;}
+.my_report_tb .fenye_wp{
+	width:730px;
+	padding:10px 0px;}
+/*我的举报end*/
+/*举报规则ks*/
+/*举报规则end*/

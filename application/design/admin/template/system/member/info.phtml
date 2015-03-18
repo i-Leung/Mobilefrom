@@ -1,0 +1,61 @@
+<?php $id = Factory::getRequest()->getParam('id')?>
+<?php $member = $this->getMember($id)?>
+<ul class="tabs1">
+	<li class="tabs1_c">基本信息</li>
+	<li>设置密码</li>
+	<li>操作历史</li>
+</ul>
+<div class="clear"></div>
+<div class="tabs1_bd">
+	<!--基本信息ks-->
+	<div class="tabs1_item">
+		<table class="table2">
+			<tbody>
+				<tr>
+					<th width="85">成员名称：</th>
+					<td><?php echo $member['member']?></td>
+				</tr>
+				<tr>
+					<th>所在群组：</th>
+					<td><?php echo $member['group']?></td>
+				</tr>
+				<tr>
+					<th>授权人：</th>
+					<td><?php echo $member['author']?></td>
+				</tr>
+				<tr>
+					<th>授权时间：</th>
+					<td><?php echo date('Y-m-d H:i:s', $member['authorized_at'])?></td>
+				</tr>
+				<tr>
+					<th>最后登录：</th>
+					<td><?php echo $member['logon_latest'] ? date('Y-m-d H:i:s', $member['logon_latest']) : '从未登录'?></td>
+				</tr>
+				<tr>
+					<th>状态：</th>
+					<td>
+					<span class="green"><?php echo $member['status'] ? '有效' : '冻结'?></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!--基本信息end-->
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.tabs1 li').click(function(){
+		var index = jQuery('.tabs1 li').index(jQuery(this));
+		switch(index){
+			case 0:
+				break;
+			case 1:
+				window.location.href = '/monitor/system_member/pwd?id=<?php echo $id?>';
+				break;
+			case 2:
+				window.location.href = '/monitor/system_member/operation?id=<?php echo $id?>';
+				break;
+		}
+	});
+});
+</script>

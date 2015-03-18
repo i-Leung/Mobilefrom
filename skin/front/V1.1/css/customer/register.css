@@ -1,0 +1,68 @@
+/* CSS Document */
+.header_menu{
+	display:none;}
+.register_wp{
+	width:998px;
+	height:515px;
+	border:1px #e5e5e5 solid;
+	background:url(../../img/register_bg.png) no-repeat;
+	background-position:40px 70px;}
+.reg_box{
+	width:440px;
+	height:440px;
+	margin-left:550px;
+	margin-top:60px;}
+.reg_box h1{
+	font-size:28px;}
+.reg_box table{
+	margin-top:30px;}
+.reg_box table tr td{
+	height:46px;
+	vertical-align:top;}
+.reg_box .remember td{
+	height:35px !important;}
+.input_name{
+	padding-top:4px;
+	font-weight:bold;}
+.input_area{
+	width:168px;
+	height:28px;
+	line-height:28px;
+	padding:0px 5px;
+	border:1px #d4d4d4 solid;}
+.xingzhi label input{
+	vertical-align:middle;}
+.xingzhi label span{
+	vertical-align:middle;}
+.msg_box{
+	display:none;
+	width:185px;
+	height:40px;
+	margin-left:5px;}
+.msg_cnt{
+	width:165px;
+	height:40px;
+	line-height:20px;
+	float:left;}
+.msg_cnt span{
+	display:none;
+}
+.msg_box i{
+	display:block;
+	width:20px;
+	height:20px;
+	float:left;}
+/*信息反馈符号ks*/
+.msg_tips i{
+	background:url(../../img/register.png) 1px 121px;}/*获取焦点*/
+.msg_empty i{
+	background:url(../../img/register.png) 1px 161px;}/*输入为空*/
+.msg_error i{
+	background:url(../../img/register.png) 1px 1px;}/*输入错误*/
+.msg_right i{
+	background:url(../../img/register.png) 1px 81px;}/*校验通过*/
+.msg_used i{
+	background:url(../../img/register.png) 1px 241px;}/*账号邮箱已被占用*/
+/*信息反馈符号end*/
+.yx_fixed_bar{
+	display:none;}

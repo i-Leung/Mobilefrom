@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--服务列表ks-->
+	<system_service_index>
+		<reference name="content" type="System_ServiceView">
+			<action method="setTemplate">system/service/list.phtml</action>
+		</reference>
+	</system_service_index>
+	<!--服务列表end-->
+	<!--添加服务ks-->
+	<system_service_add>
+		<reference name="content" type="System_ServiceView">
+			<action method="setTemplate">system/service/add.phtml</action>
+		</reference>
+	</system_service_add>
+	<!--添加服务end-->
+</layouts>

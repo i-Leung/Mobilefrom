@@ -1,0 +1,500 @@
+<?php global $CStatic?>
+<!--发布步骤ks-->
+<div class="stepbar step_one"><!--第一步加上类step_one，第二步将前者换成step_two，第三步前者换成step_three-->
+    <ul>
+        <li class="l">
+            <span class="num">1.</span>
+            <span class="maintxt">填写店铺信息</span>
+            <a class="blue" href="javascript:void(0);" onclick="backToStoreEdit();">（返回编辑）</a>
+            <i></i>
+        </li>
+        <li class="c">
+            <span class="num">2.</span>
+            <span class="maintxt">填写店主信息</span>
+            <i></i>
+        </li>
+        <li class="r">
+            <span class="num">3.</span>
+            <span class="maintxt">提交申请</span>
+        </li>
+        <div class="clear"></div>
+    </ul>
+</div>
+<!--发布步骤end-->
+<div id="step_one" class="store_apply_layout">
+	<table style="margin-top:10px;">
+		<tbody>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>店铺名称：</label>
+				</th>
+				<td>
+					<input type="text" name="name" value="" />
+					<span class="grey1">必须和实体店一致，认证后更改虽重新审核</span>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>营业执照：</label>
+				</th>
+				<td>
+					<script type="text/javascript" src="<?php echo $this->getPlugin('jquery.form.js')?>"></script>
+					<script type="text/javascript">
+					jQuery(document).ready(function(){
+						jQuery('.select_img').wrap('<form id="upload_form" name="upload_form" method="post" action="/customer/store/license" enctype="multipart/form-data"></form>');
+						jQuery('#upload').change(function(){
+							if (jQuery(this).val() != '') {
+								jQuery("#upload_form").ajaxSubmit({
+									dataType:  'json',
+									beforeSend: function() {
+										jQuery('.btn span').html("上传中...");
+									},
+									success: function(data) {
+										jQuery('.btn span').html("上传图片");
+										if (data != '0') {
+											jQuery(".thumb").html('<img src="' + data + '?' + Math.random() + '"/>');
+										} else {
+											alert('上传营业执照失败，请重新尝试');
+										}
+									},
+									error:function(){
+										jQuery('.btn span').html("上传图片");
+										alert('上传营业执照失败，请重新尝试');
+									}
+								});
+							}
+						});
+					});
+					</script>
+					<div class="select_img">
+						<div class="btn">
+							<span>上传图片</span>
+							<input id="upload" class="upload_license_btn" name="upload" type="file" />
+						</div>
+						<p class="grey1" style="line-height:30px;">图片大小不能大于5M，且必须为JPG格式</p>
+						<div class="clear"></div>
+					</div>
+					<p class="red">为验证店铺真实性，请上传店铺营业执照相片，机荒网承诺绝不泄漏店铺营业执照相关信息！</p>
+					<div class="thumb"></div>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>店铺地址：</label>
+				</th>
+				<td>
+					<select class="region" style="width:120px;">
+						<option value="">选择所在区域</option>
+						<option value="1">大良</option>
+						<option value="2">容桂</option>
+						<option value="3">北滘</option>
+						<option value="4">龙江</option>
+						<option value="5">杏坛</option>
+						<option value="6">乐从</option>
+						<option value="7">陈村</option>
+						<option value="8">均安</option>
+						<option value="9">勒流</option>
+						<option value="10">伦教</option>
+						<option value="11">其它地区</option>
+					</select>
+					<input type="text" style="width:350px;" class="addr" value="" />
+					<a class="blue" onclick="addAddr(this);" href="javascript:void(0);">我有分店，我要多地址!</a>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>店铺介绍：</label>
+				</th>
+				<td>
+					<div class="rstyle">
+						<ul>
+							<li>
+								<a href="javascript:void(0);">字体</a>
+								<ul class="roption">
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'bold');">粗体</a></li>
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'italic');">斜体</a></li>
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'underline');">下划线</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="javascript:void(0);">排版</a>
+								<ul class="roption">
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'justifyCenter');">居中</a></li>
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'justifyLeft');">左对齐</a></li>
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'justifyRight');">右对齐</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="javascript:void(0);">颜色</a>
+								<ul class="roption">
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'foreColor', '#333');" style="color:#333;">黑色</a></li>
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'foreColor', '#FF0000');" style="color:#FF0000;">红色</a></li>
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'foreColor', '#0D61A8');" style="color:#0D61A8;">蓝色</a></li>
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'foreColor', '#FCAE28');" style="color:#FCAE28;">黄色</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+					<div id="introduction" contenteditable="true"></div>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>店铺相片：</label>
+				</th>
+				<td>
+					<input type="hidden" name="gallery" value="" />
+					<script type="text/javascript" src="<?php echo $this->getPlugin('swfupload/js/swfupload.js')?>"></script>
+					<script type="text/javascript" src="<?php echo $this->getPlugin('swfupload/js/store.js')?>"></script>
+					<script type="text/javascript">
+						var storeswfu;
+						window.onload = function () {
+							storeswfu = new SWFUpload({
+								upload_url: "<?php echo $this->getStoreUploadUrl()?>",
+								post_params: {"PHPSESSID": "<?php echo session_id()?>", "id": "<?php echo Factory::getSession('customer/id')?>"},
+								file_size_limit : "5MB",	// 2MB
+								file_types : "*.jpg;*.png;*.gif",
+								file_types_description : "JPG/PNG/GIF Images",
+								file_upload_limit : "10",
+								file_queue_error_handler : fileQueueError,
+								file_dialog_complete_handler : fileDialogComplete,
+								upload_progress_handler : uploadStoreProgress,
+								upload_error_handler : uploadError,
+								upload_success_handler : uploadStoreSuccess,
+								upload_complete_handler : uploadComplete,
+								button_image_url : "",
+								button_placeholder_id : "storeHolder",
+								button_width: 67,
+								button_height: 26,
+								button_text : '<div class="button"></div>',
+								button_text_style : '.button {font-size: 12px;}',
+								button_text_top_padding: 0,
+								button_text_left_padding: 0,
+								button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+								button_cursor: SWFUpload.CURSOR.HAND,
+								flash_url : "<?php echo Factory::getBaseUrl()?>/plugin/swfupload/js/swfupload.swf",
+								custom_settings : {
+									upload_target : "upload-process"
+								},
+								debug: false
+							});
+						};
+					</script>
+					<div class="upload_img">
+						<form>
+							<div class="upload_img_btn">
+								<div id="storeHolder"></div>
+							</div>
+							<div style="float:left; line-height:30px; margin-left:10px;">每张图片大小不能大于5M，图片最多上传10张</div>
+							<div class="clear"></div>
+							<div class="red" style="line-height:30px;">注：点击拖动图片可调节图片顺序</div>
+						</form>
+						<div id="upload-process"></div>
+					</div>
+					<div class="upload_img">
+						<div id="store-thumbnails" style="margin-top:5px;">
+							<div class="clear"></div>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th></th>
+				<td>
+					<input name="agree" type="checkbox" value="1" style="vertical-align:middle;" />
+					<span style="vertical-align:middle;">我同意<a class="red" href="/website/store/contract?cfrom=apply" target="_blank">《机荒网线上店商家进驻协议》</a></span>
+				</td>
+			</tr>
+			<tr>
+				<th></th>
+				<td><button type="button" onclick="checkInStore();">下一步</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div id="step_two" class="store_apply_layout" style="display:none;">
+	<table>
+		<tbody>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>店主姓名：</label>
+				</th>
+				<td><input type="text" name="username" value="" /></td>
+			</tr>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>手机号码：</label>
+				</th>
+				<td><input type="text" name="mobile" value="" /></td>
+			</tr>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>联系QQ：</label>
+				</th>
+				<td><input type="text" name="qq" value="" /></td>
+			</tr>
+			<tr>
+				<th></th>
+				<td><button id="submit-btn" type="button" onclick="checkInShopkeeper();">提交资料</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div id="step_three" class="store_apply_layout" style="display:none;">
+	<div class="s_t_top"></div>
+	<div class="s_t_middle">
+		<p>恭喜，您已成功提交申请！</p>
+		<p>我们将会在24小时内完成对您的资料的审核。</p>
+		<p>审核期间，我们的工作人员将会电话联系您，请留意接听！</p>
+	</div>
+	<div class="s_t_bottom">
+		<button type="type" onclick="window.location.href='/customer/store/info';">查看发布结果</button>
+	</div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	//加载店铺申请信息
+	getStoreApply();
+	//去除粘帖内容中的所有标签
+	jQuery('#introduction').bind('paste', function(){
+		var e = jQuery(this);
+		setTimeout(function() {
+			var content = jQuery(e).html();
+			var re=/<[^img][^>]+>/g;
+			content = content.replace(re,"");
+			jQuery(e).html(content);
+		}, 100);
+	});
+});
+//获取店铺信息
+function getStoreApply()
+{
+	jQuery.ajax({
+		type:'post',
+		dataType:'json',
+		url:'/customer/store/get-apply',
+		success:function(data){
+			if (data != '0') {
+				jQuery('input[name=name]').val(data.name);
+				jQuery('.thumb').html('<img src="' + data.license + '"/>');
+				jQuery.each(data.addr, function(k, v){
+					if (k == 0) {
+						jQuery('.region option[value=' + v.rid + ']').attr('selected', 'selected');
+						jQuery('.addr').val(v.addr);
+					} else {
+						<?php foreach ($CStatic['region'] as $key => $value):?>
+						var v<?php echo $key?> = '';
+						if (v.rid == '<?php echo $key?>') v<?php echo $key?> = 'selected="selected"';
+						<?php endforeach?>
+						var html = '<tr>\
+										<th></th>\
+										<td>\
+											<select class="region" style="width:120px;">\
+												<option value="">选择所在区域</option>\
+												<?php foreach ($CStatic['region'] as $key => $value):?>
+												<option ' + v<?php echo $key?> + ' value="<?php echo $key?>"><?php echo $value?></option>\
+												<?php endforeach?>
+											</select>\
+											<input type="text" style="width:350px;" class="addr" value="' + v.addr + '" />\
+											<a class="red" onclick="rmAddr(this);" href="javascript:void(0);">删除</a>\
+										</td>\
+									</tr>';
+						jQuery('.region:eq(0)').parent().parent().after(html);
+					}
+				});
+				jQuery('#introduction').html(data.introduction);
+				jQuery.each(data.gallery, function(k, v){
+					jQuery('input[name=gallery]').val(jQuery('input[name=gallery]').val() + v + ';');
+					var pack = '<div class="pack">\
+									<div class="pack-img" onmousedown="tarselect(this, event);" onmousemove="tarmove(event);" onmouseup="tarlocate();" style="padding:5px;border:solid 1px #ddd;">\
+										<img src="/upload/store/thumb/' + v + '" ondragstart="return false"/>\
+									</div>\
+									<div class="pack-link" style="text-align:center;">\
+										<a href="javascript:void(0);" onclick="removeImg(this);">删除</a>\
+									</div>\
+								</div>';
+					jQuery('#store-thumbnails').append(pack);
+				});
+				jQuery('input[name=username]').val(data.username);
+				jQuery('input[name=mobile]').val(data.mobile);
+				jQuery('input[name=qq]').val(data.qq);
+			}
+		},
+		error:function(){}
+	});
+}
+//填写店铺信息
+function checkInStore()
+{
+	var parent = jQuery('#step_one');
+	var msg = '';
+	var name = trim(parent.find('input[name=name]').val());
+	if (name == '') {
+		msg += '请填写正确的店铺名称；\n';
+	}
+	var license = trim(parent.find('.thumb img').attr('src'));
+	if (!license) {
+		msg += '请上传店铺营业执照图片；\n';
+	}
+	jQuery('.region').each(function(){
+		if (jQuery(this).val() == '') {
+			msg += '请选择店铺所在区域；\n';
+			return;
+		} 
+	});
+	jQuery('.addr').each(function(){
+		if (jQuery(this).val() == '') {
+			msg += '请填写店铺详细地址；\n';
+			return;
+		} 
+	});
+	var introduction = trim(parent.find('#introduction').html());
+	if (introduction == '') {
+		msg += '请填写店铺介绍；\n';
+	}
+	var gallery = trim(parent.find('input[name=gallery]').val());
+	if (gallery == '') {
+		msg += '请填写店铺相片；\n';
+	}
+	if (parent.find('input[name=agree]:checked').length == 0) {
+		msg += '若想店铺入驻必须阅读并同意《机荒网开店协议》；';
+	}
+	if (msg != '') {
+		alert(msg);
+		return;
+	}
+	jQuery('.step_one').removeClass('step_one').addClass('step_two');
+	jQuery('#step_one').hide();
+	jQuery('#step_two').show();
+}
+//重新编辑店铺信息
+function backToStoreEdit()
+{
+	jQuery('.step_two').removeClass('step_two').addClass('step_one');
+	jQuery('#step_two').hide();
+	jQuery('#step_one').show();
+}
+//填写店主信息
+function checkInShopkeeper()
+{
+	var parent = jQuery('#step_two');
+	var msg = '';
+	var username = trim(parent.find('input[name=username]').val());
+	if (username == '' || username.length < 2 || username.length > 5) {
+		msg += '请正确填写店主姓名；\n';
+	}
+	var mobile = trim(parent.find('input[name=mobile]').val());
+	if (mobile == '' || !isInt(mobile)) {
+		msg += '请正确填写店主手机号码；\n';
+	}
+	var qq = trim(parent.find('input[name=qq]').val());
+	if (qq == '' || !isInt(qq)) {
+		msg += '请正确填写店主联系QQ；';
+	}
+	if (msg != '') {
+		alert(msg);
+		return;
+	}
+	submitApply();
+}
+//提交申请资料
+function submitApply()
+{
+	//店铺资料
+	var sone = jQuery('#step_one');
+	var name = trim(sone.find('input[name=name]').val());
+	var license = trim(sone.find('.thumb img').attr('src'));
+	var region = new Array();
+	jQuery('.region').each(function(){
+		region.push(trim(jQuery(this).val()));
+	});
+	var addr = new Array();
+	jQuery('.addr').each(function(){
+		addr.push(trim(jQuery(this).val()));
+	});
+	var introduction = trim(sone.find('#introduction').html());
+	var gallery = trim(sone.find('input[name=gallery]').val());
+	//店主资料
+	var stwo = jQuery('#step_two');
+	var username = trim(stwo.find('input[name=username]').val());
+	var mobile = trim(stwo.find('input[name=mobile]').val());
+	var qq = trim(stwo.find('input[name=qq]').val());
+	//提交
+	var params = {
+		store:{
+			name:name,
+			license:license,
+			region:region,
+			addr:addr,
+			introduction:introduction,
+			gallery:gallery,
+			username:username,
+			mobile:mobile,
+			qq:qq
+		}
+	};
+	jQuery.ajax({
+		type:'post',
+		dataType:'json',
+		data:jQuery.param(params),
+		url:'/customer/store/apply-submit',
+		beforeSend:function(){
+			jQuery('#submit-btn').html('真正提交...').attr('disabled', 'disabled');	
+		},
+		success:function(data){
+			if (data == '1') {
+				jQuery('.step_two').removeClass('step_two').addClass('step_three');
+				jQuery('.l a').hide();
+				jQuery('#step_two').hide();
+				jQuery('#step_three').show();
+			} else {
+				alert('申请提交失败，请稍候尝试');
+				jQuery('#submit-btn').html('提交资料').removeAttr('disabled');	
+			}
+		},
+		error:function(){
+			alert('申请提交失败，请稍候尝试');
+			jQuery('#submit-btn').html('提交资料').removeAttr('disabled');	
+		}
+	});
+}
+//添加地址
+function addAddr(obj)
+{
+	var html = '<tr>\
+					<th></th>\
+					<td>\
+						<select class="region" style="width:120px;">\
+							<option value="1">大良</option>\
+							<option value="2">容桂</option>\
+							<option value="3">北滘</option>\
+							<option value="4">龙江</option>\
+							<option value="5">杏坛</option>\
+							<option value="6">乐从</option>\
+							<option value="7">陈村</option>\
+							<option value="8">均安</option>\
+							<option value="9">勒流</option>\
+							<option value="10">伦教</option>\
+							<option value="11">其它地区</option>\
+						</select>\
+						<input type="text" style="width:350px;" class="addr" value="" />\
+						<a class="red" onclick="rmAddr(this);" href="javascript:void(0);">删除</a>\
+					</td>\
+				</tr>';
+	jQuery(obj).parent().parent().after(html);
+}
+//删除地址
+function rmAddr(obj)
+{
+	jQuery(obj).parent().parent().remove();
+}
+</script>

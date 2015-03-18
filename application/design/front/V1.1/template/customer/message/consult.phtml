@@ -1,0 +1,158 @@
+<?php $url = '/customer/message/consult?cfrom=uc_tab&'?>
+<?php $request = Factory::getRequest()?>
+<?php $iam = $request->getParam('iam', 'asker')?>
+<?php $finished = $request->getParam('finished', '1')?>
+<?php $page = $request->getParam('page', '1')?>
+<?php $consults = $iam == 'asker' ? $this->loadMySentConsult($finished, $page) : $this->loadMyRecieveConsult($finished, $page)?>
+<?php $total = $iam == 'asker' ? $this->getMySentConsultTotal($finished) : $this->getMyRecieveConsultTotal($finished)?>
+<div class="tabs1">
+	<ul>
+    	<li title="weidu"  <?php if ($iam == 'asker'):?>class="tabs1_c"<?php endif;?>>
+    		<a href="<?php echo $url . 'iam=asker'?>">发出的咨询</a>
+    	</li>
+    	<li title="yidu" <?php if ($iam == 'answerer'):?>class="tabs1_c"<?php endif;?>>
+    		<a href="<?php echo $url . 'iam=answerer&finished=0'?>">收到的咨询</a>
+    	</li>
+    </ul>
+</div>
+<div class="tabs1_body">
+	<div id="weidu" class="tabs1_item">
+    	<table class="table1">
+        	<thead>
+            	<tr>
+            		<th width="70">
+						<select name="finished">
+							<option value="1">已回复</option>
+							<option value="0" <?php echo $finished == '0' ? 'selected="selected"' : ''?>>未回复</option>
+						</select>
+					</th>
+            		<th width="250">咨询/回复</th>
+            		<?php if ($finished == '0' && $iam == 'answerer'):?>
+            		<th width="210">主题</th>
+            		<th width="150">时间</th>
+            		<th width="30">操作</th>
+            		<?php else :?>
+            		<th width="240">主题</th>
+            		<th width="160">时间</th>
+            		<?php endif;?>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if ($consults):?>
+            <?php foreach ($consults as $consult):?>
+            	<tr class="ask">
+                    <td class="blue">咨询内容</td>
+                	<td><?php echo $consult['ask']?></td>
+                	<td>
+                	<?php if ($consult['type'] == '1'):?>
+                	手机：<a href="/mobile/item?cfrom=uc_consult&id=<?php echo $consult['topic_id']?>" target="_blank"><?php echo $consult['title']?></a>
+                	<?php else :?>
+                	求购：<a href="/purchase/item?cfrom=uc_consult&id=<?php echo $consult['topic_id']?>" target="_blank"><?php echo $consult['title']?></a>
+                	<?php endif;?>
+                	</td>
+                	<td><?php echo date('Y-m-d H:i:s', $consult['asked_at'])?></td>
+                	<?php if ($finished == '0' && $iam == 'answerer'):?>
+                	<td><a class="blue consult-reply" href="javascript:void(0);">回复</a></td>
+                	<?php endif;?>
+                </tr>
+				<?php if ($finished == '1'):?>
+                <tr class="answer" style="background-color:#FFFFCC;">
+                    <td class="blue">回复内容</td>
+                	<td colspan="2"><?php echo $consult['answer']?></td>
+                	<td><?php echo date('Y-m-d H:i:s', $consult['answered_at'])?></td>
+                </tr>
+                <?php elseif ($iam == 'answerer') :?>
+                <tr class="answer" style="border:1px solid #D4D4D4;display:none;">
+                    <td colspan="5">
+                    <span style="font-weight: bold;">回复内容：</span>
+                    <input type="text" name="answer" style="width: 600px;" />
+                    <button type="button" style="width: 60px;color:#666666;" 
+                    onclick="replyConsult(this, '<?php echo $consult['id']?>', '<?php echo $consult['asker']?>');">提交</button>
+                    </td>
+                </tr>
+                <?php endif;?>
+            <?php endforeach;?>
+            <?php else :?>
+            <tr>
+            	<?php if ($finished == '0' && $iam == 'answerer'):?>
+            	<td colspan="5" style="text-align:center;">暂时没有相关信息！</td>
+            	<?php else :?>
+            	<td colspan="4" style="text-align:center;">暂时没有相关信息！</td>
+            	<?php endif;?>
+            </tr>
+            <?php endif;?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--分页ks-->
+<?php if ($total > 10):?>
+<?php $purl = '/customer/message/consult?cfrom=uc_paginator&iam=' . $iam . '&finished=' . $finished . '&page='?>
+<?php $last = ceil($total / 10)?>
+<div class="fenye1">
+	<div class="fenye1_l">
+    	<p>
+        	共计
+        	<span class="red"><?php echo $total?></span>
+            条信息
+        </p>
+    </div>
+    <div class="fenye1_r">
+    	<?php if ($page != '1'):?>
+    	<a href="<?php echo $purl . '1'?>">首页</a>
+        <a href="<?php echo $purl . ($page - 1)?>">前一页</a>
+        <?php endif;?>
+        <span class="red"><?php echo $page?></span>
+        <?php if ($page != $last):?>
+    	<a href="<?php echo $purl . ($page + 1)?>">后一页</a>
+        <a href="<?php echo $purl . $last?>">尾页</a>
+        <?php endif;?>
+    	<div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<?php endif;?>
+<!--分页end-->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('select[name=finished]').change(function(){
+		window.location.href = '/customer/message/consult?cfrom=uc_select_option&iam=<?php echo $iam?>&finished=' + jQuery(this).val();
+	});
+	jQuery('.consult-reply').click(function(){
+		var index = jQuery('.ask').index(jQuery(this).parent().parent());
+		var answer = jQuery('.answer:eq(' + index + ')');
+		if(answer.css('display') == 'none'){
+			answer.show();
+		}else{
+			answer.hide();
+		}
+	});
+});
+function replyConsult(obj, id, asker)
+{
+	var answer = trim(jQuery(obj).parent().find('input[name=answer]').val());
+	if(answer == ''){
+		alert('请填写回复内容');
+		return;
+	}
+	jQuery.ajax({
+		type:'get',
+		data:{id:id,answer:answer,asker:asker},
+		dataType:'json',
+		url:'/customer/message/reply-consult',
+		success:function(data){
+			if(data == '1'){
+				alert('回复成功');
+				var index = jQuery('.answer').index(jQuery(obj).parent().parent());
+				jQuery('.ask:eq(' + index + ')').remove();
+				jQuery('.answer:eq(' + index + ')').remove();
+			}else{
+				alert('回复失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			alert('回复失败，请稍候尝试');
+		}
+	});
+}
+</script>

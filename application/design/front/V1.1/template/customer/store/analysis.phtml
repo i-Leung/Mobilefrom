@@ -1,0 +1,48 @@
+<?php $store = $this->getStoreId(Factory::getSession('customer/id'))?>
+<?php $date = Factory::getRequest()->getParam('date', '1')?>
+<?php $range = $this->getDateRange($store, $date)?>
+<?php $data = $this->getStoreAnalysis($range)?>
+<?php $records = $this->loadVisitorLog($range)?>
+<div id="store-analysis" class="store_apply_layout">
+	<h1>店铺统计</h1>
+	<div class="date-range">
+		<span>统计时间：</span>
+		<select name="date">
+			<option value="1" <?php echo $date == '1' ? 'selected="selected"' : ''?>>24小时内</option>
+			<option value="2" <?php echo $date == '2' ? 'selected="selected"' : ''?>>3天内</option>
+			<option value="3" <?php echo $date == '3' ? 'selected="selected"' : ''?>>一周内</option>
+			<option value="4" <?php echo $date == '4' ? 'selected="selected"' : ''?>>全部记录</option>
+		</select>
+	</div>
+	<div class="analysis-summary">
+		<span>访客总数：<span class="red"><?php echo $data['ip'] ? $data['ip'] : 0?></span>个</span>
+		<span>页面点击总数：<span class="red"><?php echo $data['pv']?></span>次</span>
+		<span>咨询总数：<span class="red"><?php echo $data['consult']?></span>次</span>
+	</div>
+	<table style="margin-top:15px;">
+		<thead>
+			<tr>
+				<th>浏览页面</th>
+				<th>浏览次数</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if ($records):?>
+			<?php $names = $this->loadStorePageName()?>
+			<?php foreach ($records as $record):?>
+			<tr>
+				<td><?php echo $names[$record['url']]?></td>
+				<td><?php echo $record['amount']?>次</td>
+			</tr>
+			<?php endforeach?>
+			<?php endif?>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('select[name=date]').change(function(){
+		window.location.href = '/customer/store/analysis?date=' + jQuery(this).val();
+	});
+});
+</script>

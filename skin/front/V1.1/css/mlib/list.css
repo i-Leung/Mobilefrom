@@ -1,0 +1,242 @@
+.bread_crumb{
+	display:none;}
+.mlib_list_layout{
+	width:1000px;
+	margin:0 auto 20px;
+	margin-top:20px;
+}
+/*顶部搜索栏ks*/
+.m_l_s_a_search{
+	height:24px;
+	line-height:24px;
+	background-color:#FAFAFA;
+	border:1px solid #d4d4d4;
+	padding:8px 10px;
+}
+.m_l_s_a_s_total{
+	float:left;
+}
+.m_l_s_a_s_input{
+	float:right;
+	border:1px #D7D7D7 solid;
+	height:22px;
+}
+.m_l_s_a_s_input input{
+	width:175px;
+	height:16px;
+	line-height:16px;
+	padding:3px;
+	float:left;
+	padding-left:5px;
+	outline:none;
+	border:0px;
+	color:#999999;
+}
+.m_l_s_a_s_input button{
+	width:42px;
+	height:22px;
+	float:left;
+	border:none;
+	background-color:#D7D7D7;
+}
+/*顶部搜索栏end*/
+/*添加筛选栏ks*/
+.y_choices{
+	height:25px;
+	padding:5px;
+	border:1px #d4d4d4 solid;
+	border-bottom:none;
+	background:#FAF9F9;}
+.y_choices .l,.y_choices .r{
+	float:left;
+	line-height:25px;}
+.y_choices .l{
+	padding-right:10px;
+	text-align:right;
+	min-width:80px;}
+.y_choices .r ul{
+	width:670px;
+	height:25px;}
+.y_choices .r ul li{
+	float:left;
+	margin-left:5px;}
+.y_choices .r ul li:first-child{
+	margin-left:0px;}
+.y_choices .r ul li a{
+	position:relative;
+	display:block;
+	height:23px;
+	line-height:23px;
+	border:1px #CACACA solid;
+	padding-left:9px;
+	padding-right:23px;
+	background:white;}
+.y_choices .r ul li a i{
+	display:block;
+	width:13px;
+	height:13px;
+	position:absolute;
+	right:3px;
+	top:5px;
+	background:url(../../img/filter_bg2.png) 0px 0px no-repeat;}
+.y_choices .r ul li a:hover{
+	border-color:#806f66;
+	color:#C00;}
+.y_choices .r ul li a:hover i{
+	background:url(../../img/filter_bg2.png) 0px -13px no-repeat;}
+.qingkong_btn{
+	background:none !important;
+	border:1px #FAF9F9 solid !important;}
+.qingkong_btn:hover{
+	text-decoration:underline;}
+.m_l_s_a_selector{
+	border:1px solid #d4d4d4;
+	/**
+	border-top:none;
+	*/
+}
+.m_l_s_a_s_item{
+	padding:0 20px 20px;
+	*padding:0 25px 25px;
+}
+.m_l_s_a_s_item:first-child{
+	padding-top:20px;
+	*padding-top:25px;
+}
+.m_l_s_a_selector dt, .m_l_s_a_selector dd{
+	float:left;
+}
+.m_l_s_a_selector dt{
+	text-align:right;
+	color:#999999;
+	width:80px;
+	vertical-align:top;
+	padding-right:15px;
+}
+.m_l_s_a_selector dl{
+	padding-left:5px;
+}
+.m_l_s_a_selector ul li{
+	float:left;
+	padding-right:15px;
+}
+.selector_price_search{
+	float:left;
+}
+.selector_price_search input{
+	width:40px;
+	height:16px;
+	padding-left:5px;
+	color:#999999;
+}
+.selector_price_search button{
+	border:none;
+	background-color:#999999;
+	width:40px;
+	height:20px;
+	*height:18px;
+	*margin-left:5px;
+}
+.m_l_s_a_s_item .selected{
+	color: #0D61A8 !important;
+	font-weight:bold;
+}
+/*添加筛选栏end*/
+/*排序ks*/
+.mlib_list_order_area{
+	border:1px solid #d4d4d4;
+	border-top:2px solid #3991D0;
+	height:39px;
+}
+.mlib_list_order_area ul{
+	float:left;
+}
+.mlib_list_order_area ul li{
+	float:left;
+	width:120px;
+	height:39px;
+	line-height:36px;
+	text-align:center;
+	border-right:1px solid #d4d4d4;
+	cursor:pointer;
+}
+.mlib_list_order_area ul li:first-child{
+	border-left:1px solid #d4d4d4;
+}
+.m_l_o_a_selected{
+	background-color:#3991D0;
+	height:40px !important;
+	border:none !important;
+}
+.m_l_o_a_selected a{
+	font-weight:bold;
+	color:white;
+}
+.show_available{
+	height:40px;
+	line-height:36px;
+	float:left;
+	margin-left:10px;
+}
+.show_available label{
+	cursor:pointer;
+}
+/*排序end*/
+.mlib_list_item_area ul li{
+	width:233px;
+	height:323px;
+	line-height:25px;
+	border:1px solid #d4d4d4;
+	float:left;
+	margin:0 20px 20px 0;
+}
+.m_l_i_a_wrap{
+	margin-right:0 !important;
+}
+.m_l_i_a_item_layout{
+	width:200px;
+	margin:0 auto;
+}
+.m_l_i_a_thumb{
+	height:200px;
+	margin:20px auto;
+	margin-bottom:15px;
+}
+.m_l_i_a_thumb img{
+	width:200px;
+	height:200px;
+}
+.m_l_i_a_title{
+	white-space:nowrap;
+	overflow:hidden;
+	height:25px;
+	font-weight:bold;
+}
+.m_l_i_a_title a{
+	font-weight:bold;
+}
+.m_l_i_a_price .red{
+	font-size:14px;
+}
+.m_l_i_a_left{
+	text-align:left;
+	float:left;
+}
+.m_l_i_a_right{
+	text-align:right;
+	float:right;
+}
+.m_l_i_a_sells{
+	color:#999999;
+}
+.mlib_list_more_area{
+	display:block;
+	width:490px;
+	height:40px;
+	background-color:#F2F2F2;
+	line-height:40px;
+	margin:20px auto;
+	text-align:center;
+	font-size:14px;
+	cursor: pointer;
+}

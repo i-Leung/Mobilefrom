@@ -1,0 +1,65 @@
+<?php $services = $this->loadCustomerService()?>
+<h3>我提供的服务</h3>
+<table class="table1" style="margin-top:20px;">
+	<thead>
+    	<tr>
+        	<th width="120">服务类型</th>
+        	<th width="120">收费标准</th>
+        	<th width="370">服务简介</th>
+        	<th width="120" class="tac">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+		<?php if ($services):?>
+		<?php $types = $this->getServiceType()?>
+		<?php foreach ($services as $item):?>
+    	<tr>
+			<td class="blue"><?php echo $types[$item['sid']]?>服务</td>
+			<td><?php echo $item['price']?>元/部</td>
+        	<td><?php echo $item['introduction']?></td>
+        	<td class="tac">
+				<a href="/customer/store/apply-service?sid=<?php echo $item['sid']?>">修改</a>
+            	<span style="margin:0px 10px;">|</span>
+				<a href="javascript:void(0);" onclick="removeService(this, '<?php echo $item['id']?>');">删除</a>
+            </td>
+		</tr>
+		<?php endforeach?>
+		<?php if (count($services) < 3):?>
+        <tr>
+        	<td colspan="4">
+            	<p style="text-align:center;">您还可以提供更多服务，<a class="blue" href="/customer/store/apply-service">立即申请>></a></p>
+            </td>
+        </tr>
+		<?php endif?>
+		<?php else:?>
+        <tr>
+        	<td colspan="4">
+            	<p style="text-align:center;">您尚未提供任何服务，<a class="blue" href="/customer/store/apply-service">立即申请>></a></p>
+            </td>
+        </tr>
+		<?php endif?>
+    </tbody>
+</table>
+<script type="text/javascript">
+function removeService(obj, id)
+{
+	if (confirm('确定移除该服务？')) {
+		jQuery.ajax({
+			type:'get',
+			data:{id:id},
+			dataType:'json',
+			url:'/customer/store/remove-service',
+			success:function(data){
+				if (data == '1') {
+					window.location.reload();
+				} else {
+					alert('移除服务失败，请稍候尝试');
+				}
+			},
+			error:function(){
+				alert('移除服务失败，请稍候尝试');
+			}
+		});
+	}
+}
+</script>

@@ -1,0 +1,98 @@
+<?php $group = Factory::getRequest()->getParam('group', '0')?>
+<?php $order = Factory::getRequest()->getParam('order', '0')?>
+<?php $current = Factory::getRequest()->getParam('p', '1')?>
+<?php $per = 20?>
+<?php $attributes = $this->loadAttributeList($group, $order, $current, $per)?>
+<?php $groups = $this->loadAttributeGroupList()?>
+<ul class="tabs1">
+	<li>品牌列表</li>
+	<li class="tabs1_c">属性列表</li>
+	<li>属性组列表</li>
+</ul>
+<!--筛选框ks-->
+<div class="search_div">
+	<div class="search_div_item">
+		<button type="button" onclick="window.location.href='/monitor/system_mlib/add-attribute'">+添加属性</button>
+	</div>
+	<div class="search_div_item">
+		<form action="/monitor/system_mlib/attribute-list" method="get">
+			<strong>属性组：</strong>
+			<select name="group">
+				<option value="0">所有属性组</option>
+				<?php if ($groups):?>
+				<?php foreach ($groups as $g):?>
+				<option value="<?php echo $g['id']?>" <?php echo $group == $g['id'] ? 'selected="selected"' : ''?>><?php echo $g['label']?></option>
+				<?php endforeach?>
+				<?php endif?>
+			</select>
+			<strong>排序：</strong>
+			<select name="order">
+				<option value="0">创建时间</option>
+				<option value="1" <?php echo $order ? 'selected="selected"' : ''?>>排序号</option>
+			</select>
+			<button type="submit">筛选</button>
+		</form>
+	</div>
+	<div class="clear"></div>
+</div>
+<!--筛选框end-->
+<div class="table1" entity="mlib-attribute">
+	<table width="990">
+		<thead>
+			<tr>
+				<th width="100">属性名称</th>
+				<th width="80">后台处理</th>
+				<th width="80">前台处理</th>
+				<th width="80">是否筛选属性</th>
+				<th width="80">是否必填</th>
+				<th width="80">排序号</th>
+				<th width="80">状态</th>
+				<th class="tac" width="130">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if ($attributes):?>
+			<?php foreach ($attributes as $attribute):?>
+			<tr entity="<?php echo $attribute['id']?>">
+				<td><?php echo $attribute['label']?></td>
+				<td><?php echo $this->getAttributeOperatedLabel($attribute['backend'])?></td>
+				<td><?php echo $this->getAttributeOperatedLabel($attribute['frontend'])?></td>
+				<td><?php echo $attribute['is_filter'] ? '筛选属性' : '非筛选属性'?></td>
+				<td><?php echo $attribute['is_required'] ? '必填' : '非必填'?></td>
+				<td><?php echo $attribute['sort']?></td>
+				<td class="green"><?php echo $attribute['status'] ? '有效' : '冻结'?></td>
+				<td class="table_cz tac">
+					<a href="/monitor/system_mlib/add-attribute?id=<?php echo $attribute['id']?>">修改</a>
+					<?php if ($attribute['status']):?>
+					<a href="javascript:void(0);" onclick="itemInActive(this, '<?php echo $attribute['id']?>', 'mlib-attribute');">禁用</a>
+					<?php else:?>
+					<a href="javascript:void(0);" onclick="itemActive(this, '<?php echo $attribute['id']?>', 'mlib-attribute');">启用</a>
+					<?php endif;?>
+				</td>
+			</tr>
+			<?php endforeach?>
+			<?php else:?>
+			<tr>
+				<td colspan="7" style="text-align:center;">暂无相关属性记录</td>
+			</tr>
+			<?php endif?>
+		</tbody>
+	</table>
+</div>
+<!--分页ks-->
+<?php $amount = $this->getAttributeTotal($group)?>
+<?php if ($amount > $per):?>
+<?php $url = '/monitor/system_mlib/attribute-list?group=' . $group . '&order=' . $order . '&'?> 
+<?php echo Factory::getView('page/paginator')->init($amount, $current, $per, $url, 'admin')->render();?>
+<?php endif?>
+<!--分页end-->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.tabs1 li:eq(0)').click(function(){
+		window.location.href = '/monitor/system_mlib/brand-list';
+	});
+	jQuery('.tabs1 li:eq(2)').click(function(){
+		window.location.href = '/monitor/system_mlib/attribute-group-list';
+	});
+});
+</script>

@@ -1,0 +1,32 @@
+/* CSS Document */
+.sidebar{
+	width:200px;
+	float:left;}
+.sidebar .tit{
+	height:50px;
+	line-height:50px;
+	padding-left:10px;}
+.sidebar .item{
+	padding:5px 0px 15px 10px;
+	border-top:1px #d4d4d4 solid;}
+.sidebar .item a{
+	display:block;
+	height:20px;
+	line-height:20px;
+	margin-top:10px;}
+.content{
+	width:769px;
+	min-height:400px;
+	padding-left:30px;
+	float:left;
+	border-left:1px #d4d4d4 solid;}
+.content h3{
+	color:#690;
+	height:20px;
+	line-height:20px;
+	padding-top:20px;}
+.content p{
+	line-height:25px;
+	margin-top:10px;
+	text-indent:2em;
+	font-size:14px;}

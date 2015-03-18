@@ -1,0 +1,55 @@
+<div class="index_footer" style="display:none;">
+	<div class="wave"></div>
+    <div class="bd">
+		<div class="wrap">
+            <ul class="index_footer_ul">
+                <li>
+                    <h2 class="title">我是小白</h2>
+                    <p>如果你厌倦了高仿机和翻新机，<br />如果你受够了炸弹佬的贪婪和无耻，<br />那么你可以来机荒逛逛本地商家。<br />机荒认证，品质有保证！</p>
+                    <a href="#">本地商家</a>
+                </li>
+                <li>
+                    <h2 class="title">我爱玩机</h2>
+                    <p>你是手机达人，<br />你是玩机教主，<br />你是潮流人士，<br />总之，如果你需要经常更换手机，<br />就来机荒网发布转让和求购吧！</p>
+                    <a href="#">转让</a>
+                    <a href="#">求购</a>
+                </li>
+                <li>
+                    <h2 class="title">我是本地商家</h2>
+                    <p>不论你是小店铺还是大卖场，<br />只要你注重自身品牌的塑造，<br />敢于维护顺德手机交易市场的秩序，<br />机荒网就随时欢迎你的加入。<br />
+                    快来申请吧！</p>
+                    <a href="#">立即申请</a>
+                </li>
+                <div class="clear"></div>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="footer_wp">
+	<div class="l">
+        <div class="footer_nav">
+            <a href="/default/website/about?cfrom=footer">关于我们</a><em>|</em>
+            <a href="/default/website/contact?cfrom=footer">联系我们</a><em>|</em>
+            <a href="/website/helper/how-to-buy?cfrom=footer">交易小常识</a><em>|</em>
+            <!--<a href="#">入驻机荒网</a><em>|</em>-->
+            <a href="/default/website/contract?cfrom=footer">机荒服务协议</a>
+        </div>
+        <div class="copyright">
+            <span>© 2013 机荒网 版权所有</span>
+            <a href="http://www.miibeian.gov.cn/"> 粤ICP备13030721号</a>
+        </div>
+    </div>
+    <div class="r">
+    	<p>关注我们，您可以第一时间获取最新的手机交易资讯！</p>
+		<div class="weibo_btn">
+			<wb:follow-button uid="2785673680" type="red_2" width="136" height="24" ></wb:follow-button>
+		</div>
+		<img style="margin-top: -8px;" src="<?php echo $this->getImg('sinaapp.png')?>" />
+    </div>
+    <div class="clear"></div>
+    <?php if (!in_array(Factory::getCookie('customer_id'), array(1, 2, 10, 368))):?>
+    <div class="zhanzhang" style="display:block;margin: 10px auto 0;width: 50px;">
+		<script type="text/javascript" src="http://s95.cnzz.com/stat.php?id=5332117&web_id=5332117&show=pic"></script>
+    </div>
+    <?php endif?>
+</div>

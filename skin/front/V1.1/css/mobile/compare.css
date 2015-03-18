@@ -1,0 +1,48 @@
+/* CSS Document */
+.compare_wp{
+	border-top:3px #333 solid;}
+.compare_wp table{
+	width:999px;}
+.compare_wp table tr td{
+	border-right:1px #DBE2F9 solid;
+	border-bottom:1px #DBE2F9 solid;
+	height:40px;
+	text-align:center;}
+.info_title{
+	width:980px;
+	padding:10px;
+	background:#DBE2F9;
+	font-size:14px;
+	margin-top:10px;}
+.info_title p{
+	height:20px;
+	line-height:20px;
+	padding-left:25px;
+	cursor:pointer;
+	background:url(../../img/add_minus.png) no-repeat 0px -20px;}
+.info_title_c p{
+	background:url(../../img/add_minus.png) no-repeat 0px 0px !important;}
+.info_name{
+	font-size:14px;
+	border-left:1px #DBE2F9 solid;
+	text-align:left !important;
+	color:black;}
+.cancal_btn,.add_btn,.guanzhu,.wanted{
+	width:80px !important;
+	height:20px !important;
+	font-weight:normal !important;
+	font-size:12px !important;
+	line-height:20px !important;}
+.mobile_wp a{
+	display:inline-block;}
+.mobile_wp a img{
+	width:140px;
+	height:140px;}
+.mobile_name{
+	width:180px;
+	max-height:40px;
+	line-height:20px;
+	margin:5px 9px;
+	overflow:hidden;}
+.mobile_name a:hover{
+	text-decoration:underline;}

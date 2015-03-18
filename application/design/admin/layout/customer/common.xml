@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--用户列表ks-->
+	<customer_common_list>
+		<reference name="content" type="Customer_InfoView">
+			<action method="setTemplate">customer/common/list.phtml</action>
+		</reference>
+	</customer_common_list>
+	<!--用户列表end-->
+	<!--基本信息ks-->
+	<customer_common_base>
+		<reference name="content">
+			<action method="setTemplate">customer/common/base.phtml</action>
+			<block name="base" type="Customer_InfoView" template="customer/common/base/account.phtml" />
+		</reference>
+	</customer_common_base>
+	<!--基本信息end-->
+	<!--密码设置ks-->
+	<customer_common_pwd>
+		<reference name="content">
+			<action method="setTemplate">customer/common/base.phtml</action>
+			<block name="pwd" type="Page_BaseView" template="customer/common/base/password.phtml" />
+		</reference>
+	</customer_common_pwd>
+	<!--密码设置end-->
+	<!--手机信息列表ks-->
+	<customer_common_mobile>
+		<reference name="content">
+			<action method="setTemplate">customer/common/base.phtml</action>
+			<block name="mobile" type="Mobile_ListView" template="customer/common/base/mobile.phtml" />
+		</reference>
+	</customer_common_mobile>
+	<!--手机信息列表end-->
+	<!--求购信息列表ks-->
+	<customer_common_purchase>
+		<reference name="content">
+			<action method="setTemplate">customer/common/base.phtml</action>
+			<block name="purchase" type="Purchase_ListView" template="customer/common/base/purchase.phtml" />
+		</reference>
+	</customer_common_purchase>
+	<!--求购信息列表end--> 
+</layouts>

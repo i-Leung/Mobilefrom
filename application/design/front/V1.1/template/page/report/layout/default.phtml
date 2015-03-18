@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<?php echo $this->getChildHtml('meta')?>
+	<?php echo $this->getChildHtml('skin')?>
+</head>
+<body>
+	<div class="header">
+		<?php echo $this->getChildHtml('header')?>
+	</div>
+    <div class="main">
+    	<div class="sidebar">
+			<?php echo $this->getChildHtml('sidebar')?>
+        </div>
+        <div class="content">
+        	<?php echo $this->getChildHtml('content')?>
+        </div>
+    	<div class="clear"></div>
+    </div>
+    <div class="footer">
+    	<?php echo $this->getChildHtml('footer')?>
+    </div>
+    <div class="backtop">
+    	<?php echo $this->getChildHtml('backtop')?>
+    </div>
+    <div class="pop_window">
+    	<?php echo $this->getChildHtml('pop_login')?>
+    </div>
+</body>
+</html>

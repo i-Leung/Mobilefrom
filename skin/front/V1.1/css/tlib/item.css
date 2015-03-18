@@ -1,0 +1,350 @@
+/*平板概述ks*/
+.tlib_item_summary{
+	border-color:#d4d4d4;}
+.m_i_s_thumb{
+	width:265px;
+	border:1px solid #d4d4d4;}
+.m_i_s_thumb img{
+	width:265px;
+	height:200px;
+	margin:25px 0;}
+.m_i_s_thumb, .m_i_s_info{
+	float:left;}
+.m_i_s_info{
+	width:730px;
+	height:250px;
+	border:1px solid #d4d4d4;
+	border-left:none;}
+.m_i_s_i_price{
+	border-bottom:1px solid #d4d4d4;
+	margin:20px 20px 0;
+	padding-bottom: 20px;
+	*padding-bottom: 0;}
+.m_i_s_i_price h1{
+	font-weight:normal;}
+.m_i_s_i_price ul{
+	margin-top:10px;}
+.m_i_s_i_price ul li{
+	font-family:\5B8B\4F53;
+	font-size:14px;
+	float:left;
+	width:230px;
+	line-height:20px;
+	font-weight:bold;}
+.m_i_s_i_price ul li span{
+	font-size:16px;
+}
+.m_i_s_i_data{
+	margin:0 20px;
+}
+.m_i_s_i_data table{
+	margin-top:10px;}
+.m_i_s_i_data table tr td{
+	width:230px;
+	padding-top:10px;
+	line-height:20px
+}
+/*平板概述end*/
+/*平板内容ks*/
+.tlib_item_content{
+	margin-top:20px;
+}
+.tlib_item_tab, .tlib_item_recommend{
+	float:left;
+}
+.tlib_item_tab{
+	width:750px;
+}
+.m_i_t_title{
+	height:38px;
+	background-color:#f6f6f6;
+	border:1px #d4d4d4 solid;
+	border-bottom:2px solid #0072BC;}
+.m_i_t_title ul{
+	width: 748px;
+	margin-top:-1px;}
+.m_i_t_title ul li{
+	width:125px;
+	height:38px;
+	line-height:38px;
+	font-size:14px;
+	float:left;
+	margin-left:-1px;
+	text-align:center;
+	border:1px solid #d4d4d4;
+	border-bottom-color:#0072BC;
+	cursor:pointer;
+	position:relative;
+}
+.m_i_t_selected{
+	background-color:#0072BC !important;
+	border-color:#0072BC !important;
+	color:white;
+}
+.tlib_item_recommend{
+	width:228px;
+	margin-left:20px;
+	border:1px solid #d4d4d4;
+}
+.m_i_r_title{
+	background-color:#f6f6f6;
+	text-align:center;
+	line-height:40px;
+	height:40px;
+	font-weight:bold;
+	font-size:14px;
+	border-bottom:1px solid #d4d4d4;
+}
+.m_i_r_item{
+	width:200px;
+	margin:5px auto;
+	padding:10px 0;
+	border-top:1px solid #d4d4d4;
+}
+.tlib_item_recommend li:first-child{
+	padding-top:0 !important;
+	border-top:none !important;
+}
+.m_i_r_i_thumb{
+	width:200px;
+	height:150px;
+	margin:5px auto;
+}
+.m_i_r_i_thumb img{
+	width:200px;
+	height:150px;
+}
+.m_i_r_i_title a{
+	font-weight:bold;
+}
+.m_i_r_i_title, .m_i_r_i_price{
+	overflow:hidden;
+	width:190px;
+	margin:5px auto;
+}
+.m_i_r_i_lprice{
+	float:left;
+	text-align:left;	
+}
+.m_i_r_i_rprice{
+	float:right;
+	text-align:right;	
+}
+/*平板内容end*/
+/*出售信息ks*/
+.tlib_item_sells{
+	font-family:\5B8B\4F53;
+}
+.m_i_s_order{
+	border:1px solid #d4d4d4;
+	height:30px;
+}
+.m_i_s_order ul li{
+	float:left;
+	width:110px;
+	height:30px;
+	text-align:center;
+	line-height:30px;
+	border-right:1px solid #d4d4d4;
+	cursor:pointer;
+}
+.m_i_s_o_region{
+	position:relative;
+	border:1px solid #d4d4d4;
+	border-bottom:none;
+	left:-1px;
+	width:110px !important;
+}
+.m_i_s_o_region li{
+	float:none !important;
+	border:none !important;
+	border-bottom:1px solid #d4d4d4 !important;
+	background-color:white;
+}
+.m_i_s_item{
+	padding:15px 0;
+	*padding:10px 0 0;
+	border-bottom:1px dotted #d4d4d4;
+	line-height:25px;
+}
+.m_i_s_i_thumb, .m_i_s_i_info, .m_i_s_i_sale{
+	float:left;
+}
+.m_i_s_i_thumb{
+	border:1px solid #d4d4d4;
+	margin-right:10px;
+}
+.m_i_s_i_thumb img{
+	width:75px;
+	height:75px;
+}
+.m_i_s_i_info{
+	width:200px;
+	height:65px;
+	margin:2px 10px 0 0;
+}
+.m_i_s_i_name a{
+	font-size:14px;
+	font-family:\5B8B\4F53;
+}
+.m_i_s_i_sale td div{
+	overflow:hidden;
+	width:170px;
+	line-height:20px;
+}
+.m_i_s_p_name{
+	height:20px;
+	line-height:20px;
+	overflow:hidden;
+	margin-top:5px;
+}
+.m_i_s_personal{
+	margin-top:20px;
+	width:748px;
+	border:1px solid #d4d4d4;
+}
+.m_i_s_p_top{
+	height:40px;
+	line-height:40px;
+	background-color:#FAFAFA;
+	border-bottom:1px solid #d4d4d4;
+}
+.m_i_s_p_title{
+	float:left;
+	font-size:14px;
+	margin-left:15px;
+	font-weight:bold;
+}
+.m_i_s_p_more{
+	float:right;
+	margin-right:15px;
+}
+.m_i_s_p_bottom{
+	padding-top:20px;}
+.m_i_s_personal li{
+	width:160px;
+	float:left;
+	margin:0 0 20px 20px;
+}
+.m_i_s_p_thumb img{
+	width:160px;
+	height:160px;
+}
+.m_i_s_p_price{
+	float:left;
+	color:red;
+	font-weight:bold;
+}
+.m_i_s_p_date{
+	float:right;
+	color:#999999;
+}
+/*出售信息end*/
+/*平板参数ks*/
+.tlib_item_data{
+	*padding-bottom:20px;
+	margin-top:20px;
+	border:1px solid #d4d4d4;
+}
+.m_i_d_title{
+	font-size:14px;
+	margin:10px 20px;
+	margin-top:15px;
+}
+.tlib_item_data table{
+	margin:0 20px 20px;
+	border:1px solid #d4d4d4;
+}
+.tlib_item_data table th{
+	font-weight:normal;
+	width:150px;
+	height:40px;
+	border:1px solid #d4d4d4;
+	background-color:#F2F2F2;
+}
+.tlib_item_data table td{
+	text-align:center;
+	width:280px;
+	border:1px solid #d4d4d4;
+}
+/*平板参数end*/
+/*相关图片ks*/
+.tlib_item_gallery{
+	border:1px solid #d4d4d4;
+	margin-top:20px;
+}
+.m_i_g_title{
+	height:20px;
+	line-height:20px;
+	font-size:14px;
+	padding:20px 0 0 20px;
+}
+.m_i_g_img{
+	padding-bottom:20px;
+	*padding-bottom:0;
+}
+.m_i_g_img ul{
+	margin-left:9px;
+	margin-bottom:20px;}
+.m_i_g_img li{
+	float:left;
+	width:220px;
+	height:166px;
+	padding:4px;
+	margin-left:10px;
+	margin-top:10px;
+	border:1px solid #d4d4d4;
+}
+.m_i_g_img img{
+	width:220px;
+	height:166px;
+}
+.gallery-box{
+	display:none;
+	position:fixed;
+	left:0;
+	top:0;
+	z-index:99;
+	background:url(../../img/grey2.png) repeat;
+}
+.gallery-img, .gallery-switch{
+	position:fixed;
+	top:50%;
+	left:50%;
+	margin:-300px 0 0 -400px;
+	width:800px;
+	height:600px;
+	text-align:center;
+}
+.gallery-switch{
+	display:none;
+	position:fixed;
+	top:50%;
+	left:50%;
+	margin:-48px 0 0 -400px;
+	width:800px;
+	height:96px;
+}
+.gprev, .gnext{
+	width:96px;
+	height:96px;
+	display:block;
+}
+.gprev{
+	float:left;
+	background:url(../../img/mlib/prev.png);
+}
+.gnext{
+	float:right;
+	background:url(../../img/mlib/next.png);
+}
+.gclose{
+	position: absolute;
+	top: -252px;
+	left: 752px;
+	display:block;
+	width:48px;
+	height:48px;
+	background:url(../../img/mlib/close.png);
+}
+/*相关图片end*/

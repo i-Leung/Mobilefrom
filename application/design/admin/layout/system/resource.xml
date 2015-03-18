@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--资源操作历史ks-->
+	<system_resource_operation>
+		<reference name="content" type="System_ResourceView">
+			<action method="setTemplate">system/resource/operation.phtml</action>
+		</reference>
+	</system_resource_operation>
+	<!--资源操作历史end-->
+	<!--资源列表ks-->
+	<system_resource_list>
+		<reference name="content" type="System_ResourceView">
+			<action method="setTemplate">system/resource/list.phtml</action>
+		</reference>
+	</system_resource_list>
+	<!--资源列表end-->
+	<!--资源组列表ks-->
+	<system_resource_group-list>
+		<reference name="content" type="System_ResourceView">
+			<action method="setTemplate">system/resource/group_list.phtml</action>
+		</reference>
+	</system_resource_group-list>
+	<!--资源组列表end-->
+	<!--添加资源ks-->
+	<system_resource_add-item>
+		<reference name="content" type="System_ResourceView">
+			<action method="setTemplate">system/resource/add_item.phtml</action>
+		</reference>
+	</system_resource_add-item>
+	<!--添加资源end-->
+	<!--添加资源组ks-->
+	<system_resource_add-group>
+		<reference name="content" type="System_ResourceView">
+			<action method="setTemplate">system/resource/add_group.phtml</action>
+		</reference>
+	</system_resource_add-group>
+	<!--添加资源组end-->
+</layouts>

@@ -1,0 +1,74 @@
+/* CSS Document */
+/*店铺信息ks*/
+.sidebar_item{
+	padding:19px;
+	border:1px #d4d4d4 solid;
+	margin-bottom:20px;}
+.sidebar .store_info{}
+.sidebar .store_logo{
+	width:190px;
+	height:190px;}
+.sidebar .store_logo img{
+	width:190px;
+	height:190px;}
+.sidebar .store_info p{
+	width:190px;
+	margin-top:10px;
+	line-height:20px;}
+.sidebar .store_info p .l{
+	float:left;}
+.sidebar .store_info p .r{
+	float:right;}
+.sidebar .store_info button{
+	margin-top:10px;
+	border:1px #d4d4d4 solid;
+	width:188px;
+	height:32px;
+	line-height:30px;
+	background:url(../../../img/store/btn_bg_grey.png) repeat-x;}
+.sidebar .store_info button:hover{
+	background:url(../../../img/store/btn_bg_grey2.png) repeat-x;}
+/*店铺信息end*/
+.store_search{
+	height:24px;
+	padding:6px 14px 6px 19px;
+	border:1px #d4d4d4 solid;
+	margin-bottom:20px;}
+.store_search input[type=text]{
+	width:170px;
+	border:none;
+	height:24px;
+	line-height:24px;
+	float:left;
+	outline:none;}
+.store_search input[type=button]{
+	width:24px;
+	height:24px;
+	border:none;
+	float:right;
+	background:url(../../../img/store/btn_search2.gif);
+	cursor:pointer;}
+/*联系卖家ks*/
+.sidebar_item {
+	padding-bottom:10px;
+	border-bottom:1px #ccc dotted;}
+.sidebar_item .im_qq_list a{
+	display:block;
+	line-height:20px;
+	background:url(../../../img/store/im_qq.png) no-repeat 0px 2px;
+	padding-left:20px;
+	margin-top:5px;}
+.sidebar_item h3{
+	height:20px;
+	line-height:20px;
+	margin-bottom:10px;}
+.im_qq_list, .notice, .contact{
+	padding-bottom:10px;
+	border-bottom:1px #ccc dotted;}
+.sidebar_item .work_time p{
+	line-height:20px;
+	margin-top:5px;}
+.sidebar_item .contact{
+	line-height:20px;
+	margin-top:10px;}
+/*联系卖家end*/

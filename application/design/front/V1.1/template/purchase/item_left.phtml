@@ -1,0 +1,98 @@
+<?php $id = Factory::getRequest()->getParam('id')?>
+<?php $purchase = $this->showInfo($id)?>
+<?php $info = $this->showContact($id)?>
+<?php $customer_id = Factory::getSession('customer/id')?>
+<?php global $CStatic?>
+<!--基本信息ks-->
+<div class="info">
+	<div class="purchase_tit">
+    	<h1><?php echo $purchase['title']?></h1>
+        <p class="grey1">被浏览<strong class="red"><?php echo $purchase['clicks']?></strong>次</p>
+        <div class="clear"></div>
+    </div>
+	<div class="info_detail">
+		<div class="base_info">
+        	<p class="pur_info">
+                <span>求购<strong class="red"><?php echo $purchase['amount']?></strong>部</span>
+                <i>|</i>
+                <span><?php echo $purchase['brand']?></span>
+                <i>|</i>
+                <span><strong class="red"><?php echo $purchase['price']?></strong>元</span>
+                <i>|</i>
+                <span><?php echo timeforcustomer($purchase['created_at'])?></span>
+            </p>
+            <dl>
+            	<dt>联系人：</dt>
+                <dd><?php echo $info['contact']['name']?><span class="fs12 blue">[<?php echo $CStatic['mode'][$info['group']]?>]</span></dd>
+				<div class="clear"></div>
+            </dl>
+            <dl>
+            	<dt>地区：</dt>
+                <dd>
+                	<span>大良</span>
+                    <i>|</i>
+					<span class="fs12"><?php echo $info['contact']['location'] == '请联系确定' ? $info['contact']['location'] . '交易地点' : '可在' . $info['contact']['location'] . '交易'?></span>
+                </dd>
+				<div class="clear"></div>
+            </dl>
+            <dl>
+            	<dt>手机：</dt>
+				<dd>
+					<?php echo $info['contact']['tel']?><span class="fs12 red"><?php echo $info['contact']['ownership'] ? '[' . $info['contact']['ownership'] . ']' : ''?></span>
+				</dd>
+				<div class="clear"></div>
+            </dl>
+            <dl>
+            	<dt>在线交谈：</dt>
+                <dd>
+					<?php if (is_numeric($info['contact']['qq'])):?>
+					<a target="_blank" href="/default/analysis/qq?uin=<?php echo $info['contact']['qq']?>&detail=purchase">
+						<img border="0" src="http://pub.idqqimg.com/wpa/images/counseling_style_52.png" alt="请加Q:<?php echo $info['contact']['qq']?>" title="请加Q:<?php echo $info['contact']['qq']?>" style="margin-top: 4px;display:inline;"/>
+					</a>
+					<?php else:?>
+					<?php echo $info['contact']['qq'] == '不详' ? '买家没有提供QQ号码' : $info['contact']['qq']?>
+					<?php endif?>
+                </dd>
+				<div class="clear"></div>
+            </dl>
+		</div>
+		<div class="other_info">
+            <p><span class="green">温馨提示：</span>请您选择在人多的公共场合进行交易。</p>
+            <p style="padding-left:60px;">请选择人多的公共场所进行交易！</p>
+			<!-- Baidu Button BEGIN -->
+			<div class="bshare">
+				<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+					<span style="display:block; width:48px; height:25px; line-height:25px; float:left; color:#999;">求鉴定：</span>
+					<span class="bds_more"></span>
+					<a class="bds_tsina"></a>
+					<a class="bds_tqq"></a>
+					<a class="bds_qzone"></a>
+					<div class="clear"></div>
+				</div>
+				<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=0" ></script>
+				<script type="text/javascript" id="bdshell_js"></script>
+				<script type="text/javascript">
+					document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+				</script>
+				<div class="clear"></div>
+			</div>
+			<!-- Baidu Button END -->
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<!--基本信息end-->
+<!--手机描述ks-->
+<div class="tabs1 description">
+	<ul>
+		<li class="tabs1_c" style="width:120px;" title="description">详细描述</li>
+	</ul>
+</div>
+<div class="tabs1_body">
+	<!--详细描述ks-->
+	<div id="description" class="tabs1_item">
+		<p><?php echo $purchase['remark']?></p>
+		<p class="fs14" style="margin-top:10px;">联系我时，请说是在&nbsp;<strong class="red">机荒网</strong>&nbsp;看到的，谢谢！</p>
+	</div>
+	<!--详细描述end-->
+</div>

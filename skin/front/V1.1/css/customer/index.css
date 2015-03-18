@@ -1,0 +1,67 @@
+/* CSS Document */
+.index_l{
+	width:510px;
+	float:left;}
+.jb_info{
+	margin-top:10px;}
+.user_img{
+	position:relative;
+	width:148px;
+	height:148px;
+	border:1px #d4d4d4 solid;
+	float:left;}
+.user_img img{
+	width:148px;
+	height:148px;}
+.user_img a{
+	display:none;
+	width:150px;
+	height:24px;
+	line-height:24px;
+	text-align:center;
+	background:rgba(0,0,0,.3);
+	position:absolute;
+	left:-1px;
+	bottom:0px;}
+.user_img a:hover{
+	color:white;
+	text-decoration:underline;}
+.user_img:hover a{
+	display:block;}
+.jb_info table{
+	float:left;
+	margin-left:30px;}
+.jb_info table tbody tr td{
+	line-height:20px;
+	padding:5px 0px;}
+.tongji_info{
+	width:510px;
+	margin-top:15px;
+	padding:20px 0px;
+	padding-bottom:20px;
+	border-bottom:1px #d7d7d7 solid;
+	border-top:1px #d7d7d7 solid;}
+.tongji_info ul li{
+	float:left;
+	width:120px;
+	height:20px;
+	line-height:20px;
+	margin-top:10px;}
+.index_r{
+	width:220px;
+	float:right;}
+.index_r_item{
+	width:200px;
+	padding:10px;
+	border:1px #d7d7d7 solid;}
+.index_r_item h3{
+	line-height:30px;}
+.index_r_item ul{
+	padding-left:18px;
+	list-style-type:disc;}
+.index_r_item ul li{
+	line-height:25px;}
+.index_r_item ul li a:hover{
+	text-decoration:underline;}
+.main{
+	border-top:none !important;}

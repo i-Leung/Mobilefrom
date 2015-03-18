@@ -1,0 +1,112 @@
+<?php $page = Factory::getRequest()->getParam('p', '1')?>
+<?php $customer_id = Factory::getSession('customer/id')?>
+<?php $notices = $this->loadMyNotice($customer_id, $page)?>
+<?php $total = $this->getMyNoticeTotal($customer_id)?>
+<div class="tabs1">
+	<ul>
+    	<li class="tabs1_c">
+    		<a href="javascript:void(0);">站内信</a>
+    	</li>
+    	<li>
+    		<a href="/customer/message/report?cfrom=uc_tab">举报相关</a>
+    	</li>
+    </ul>
+</div>
+<div class="tabs1_body">
+	<!--发件箱ks-->
+	<div id="mobile" class="tabs1_item">
+    	<table class="table1">
+        	<thead>
+            	<tr>
+            		<th width="380">标题</th>
+            		<th width="70">信件类型</th>
+            		<th width="150">发送时间</th>
+                    <th width="120">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<?php if ($notices):?>
+            	<?php foreach ($notices as $notice):?>
+            	<tr>
+                	<td><?php echo $notice['title']?></td>
+                	<td><?php echo $this->getNoticeType($notice['type'])?></td>
+                	<td><?php echo date('Y-m-d h:i:s', $notice['created_at'])?></td>
+                    <td>
+                    	<a class="blue" href="javascript:void(0);" onclick="getNoticeContent(this, '<?php echo $notice['id']?>');">查看</a>
+                    </td>
+                </tr>
+                <?php endforeach;?>
+                <?php else :?>
+                <tr>
+                	<td colspan="4" style="text-align: center;">
+                    	<span>您暂时没有收到相关站内通知信息记录！</span>
+                    </td>
+                </tr>
+                <?php endif;?>
+            </tbody>
+        </table>
+    </div>
+    <!--发件箱end-->
+</div>
+<!--分页ks-->
+<?php if ($total > 10):?>
+<?php $purl = '/customer/message/notice?cfrom=uc_paginator&p='?>
+<?php $last = ceil($total / 10)?>
+<div class="fenye1">
+	<div class="fenye1_l">
+    	<p>
+        	共计<span class="red"><?php echo $total?></span>条信息
+        </p>
+    </div>
+    <div class="fenye1_r">
+    	<?php if ($page != '1'):?>
+    	<a href="<?php echo $purl . '1'?>">首页</a>
+        <a href="<?php echo $purl . ($page - 1)?>">前一页</a>
+        <?php endif;?>
+        <span class="red"><?php echo $page?></span>
+        <?php if ($page != $last):?>
+    	<a href="<?php echo $purl . ($page + 1)?>">后一页</a>
+        <a href="<?php echo $purl . $last?>">尾页</a>
+        <?php endif;?>
+    	<div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<?php endif;?>
+<!--分页end-->
+
+<!--信息详情ks-->
+<div class="notice_box">
+	<div class="notice_detail_box">
+		<table>
+			<tr>
+				<th class="vam" width="50">标题：</th>
+				<td class="fs14">
+					<div class="notice_title"></div>
+				</td>
+			</tr>
+			<tr>
+				<th style="padding-top:15px;" class="vat" width="50">正文：</th>
+				<td style="padding-top:15px;">
+					<div class="notice_detail"></div>
+					<div class="detail_btn">
+						<a class="btn_orange" href="javascript:void(0);" style="float:right;">关闭</a>
+						<div class="clear"></div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<!--信息详情end-->
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.notice_box').css('width', window.screen.width)
+						.css('height', window.screen.height);
+	jQuery('.detail_btn a').click(function(){
+		jQuery('.notice_box').hide();
+		jQuery('.notice_detail_box').hide();
+	});
+});
+</script>

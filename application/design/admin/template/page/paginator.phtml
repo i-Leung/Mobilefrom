@@ -1,0 +1,35 @@
+<?php $total = $this->getTotal();?>
+<?php $current = $this->getCurrent();?>
+<?php $per = $this->getPerPage();?>
+<?php $last = ceil($total / $per);?>
+<?php $url = $this->getUrl();?>
+<div class="fenye_wrap">
+	<div class="fenye_l">
+    	<span>共计</span>
+    	<span class="red"><?php echo $total?></span>
+    	<span>条信息，</span>
+    	<span class="red"><?php echo $current . '/' . $last?></span>
+    	<span>页</span>
+    </div>
+	<div class="fenye_r">
+		<?php if ($current > 1):?>
+    	<span>
+        	<a href="<?php echo $url . 'p=1'?>">first</a>
+        </span>
+    	<span>
+        	<a href="<?php echo $url . 'p=' . ($current - 1)?>">pre</a>
+        </span>
+        <?php endif;?>
+        <span class="red"><?php echo $current?></span>
+    	<?php if ($current < $last):?>
+    	<span>
+        	<a href="<?php echo $url . 'p=' . ($current + 1)?>">next</a>
+        </span>
+    	<span>
+        	<a href="<?php echo $url . 'p=' . $last?>">last</a>
+        </span>
+        <?php endif;?>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>

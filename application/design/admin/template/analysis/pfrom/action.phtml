@@ -1,0 +1,49 @@
+<?php $action = Factory::getRequest()->getParam('action')?>
+<?php $range = Factory::getRequest()->getParam('range', '1')?>
+<?php $result = $this->actionPageFrom($action, $range)?>
+<!--筛选框ks-->
+<div class="search_div">
+	<div class="search_div_item">
+		<form action="/monitor/analysis_pfrom/action" method="get">
+			<strong>url：<?php echo $action?></strong>
+			<strong>统计范围：</strong>
+			<select name="range">
+				<option value="1" <?php echo $range == '1' ? 'selected="selected"' : ''?>>今天数据</option>
+				<option value="2" <?php echo $range == '2' ? 'selected="selected"' : ''?>>昨天数据</option>
+				<option value="3" <?php echo $range == '3' ? 'selected="selected"' : ''?>>三天内数据</option>
+				<option value="4" <?php echo $range == '4' ? 'selected="selected"' : ''?>>一周内数据</option>
+				<option value="5" <?php echo $range == '5' ? 'selected="selected"' : ''?>>全部数据</option>
+			</select>
+			<input type="hidden" name="action" value="<?php echo $action?>" />
+			<button type="submit">筛选</button>
+		</form>
+	</div>
+	<div class="clear"></div>
+</div>
+<!--筛选框end-->
+<div class="table1" entity="pfrom-action">
+	<table width="990">
+		<thead>
+			<tr>
+				<th width="390">来源</th>
+				<th width="300">数量</th>
+				<th width="300">比例</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if ($result['records']):?>
+			<?php foreach ($result['records'] as $record):?>
+			<tr>
+				<td cfrom="<?php echo $record['from']?>"><?php echo $this->cfrom[$record['from']]?></td>
+				<td><?php echo $record['amount']?></td>
+				<td><?php echo ceil($record['amount'] / $result['total'] * 100)?>%</td>
+			</tr>
+			<?php endforeach?>
+			<?php else:?>
+			<tr>
+				<td colspan="3" style="text-align:center;">暂未对应的导向统计数据</td>
+			</tr>
+			<?php endif?>
+		</tbody>
+	</table>
+</div>

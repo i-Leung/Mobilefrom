@@ -1,0 +1,105 @@
+/* CSS Document */
+.header_menu{
+	display:none;}
+.bind_wp{
+	width:998px;
+	height:515px;
+	padding-top:35px;
+	border:1px #e5e5e5 solid;
+	font-size:14px;
+	color:#666;}
+.bind_l{
+	width:600px;
+	min-height:400px;
+	margin-left:90px;
+	padding-top:10px;
+	border-right:1px #e4e4e4 solid;
+	float:left;}
+.bind_tis{
+	height:16px;
+	line-height:16px;
+	padding-left:20px;
+	font-size:12px;
+	background:url(../../img/info.png) no-repeat;}
+.bind_hd{
+	margin-top:25px;}
+.bind_hd label input,.bind_hd label span{
+	vertical-align:middle;
+	color:#333;}
+.bind_bd{
+	margin-top:25px;}
+.bind_btn{
+	width:120px;
+	height:34px;
+	line-height:34px;
+	border:none;
+	box-shadow:1px 1px 2px #959595;}
+.bind_r{
+	float:left;
+	padding-left:30px;}
+/*登录ks*/
+.log_error_tis{
+	margin-top:20px;
+	margin-left:87px;
+	height:16px;
+	line-height:16px;
+	padding-left:20px;
+	color:red;
+	background:url(../../img/check_wrong.png) -2px -2px no-repeat;}
+/*登录end*/
+/*注册ks*/
+.bind_bd table{
+	margin-top:30px;}
+.bind_bd table tr td{
+	height:46px;
+	vertical-align:top;}
+.bind_bd .remember td{
+	height:35px !important;}
+.input_name{
+	padding-top:4px;
+	text-align:right;}
+.input_area{
+	width:218px;
+	height:20px;
+	line-height:20px;
+	padding:4px 5px;
+	border:1px #ddd solid;
+	border-color:#ABADB3 #E3E9EF #E3E9EF #E2E3EA !important;
+	color:#333;}
+.xingzhi label input,.xingzhi label span{
+	vertical-align:middle;
+	color:#333;}
+.fuwuxieyi label input,.fuwuxieyi label span{
+	font-size:12px;
+	vertical-align:middle;}
+.msg_box{
+	display:none;
+	width:185px;
+	height:40px;
+	margin-left:5px;}
+.msg_cnt{
+	width:165px;
+	height:40px;
+	line-height:20px;
+	float:left;}
+.msg_cnt span{
+	display:none;
+}
+.msg_box i{
+	display:block;
+	width:20px;
+	height:20px;
+	float:left;}
+/*注册end*/
+/*信息反馈符号ks*/
+.msg_tips i{
+	background:url(../../img/register.png) 1px 121px;}/*获取焦点*/
+.msg_empty i{
+	background:url(../../img/register.png) 1px 161px;}/*输入为空*/
+.msg_error i{
+	background:url(../../img/register.png) 1px 1px;}/*输入错误*/
+.msg_right i{
+	background:url(../../img/register.png) 1px 81px;}/*校验通过*/
+.msg_used i{
+	background:url(../../img/register.png) 1px 241px;}/*账号邮箱已被占用*/
+/*信息反馈符号end*/

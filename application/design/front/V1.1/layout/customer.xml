@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--注册ks-->
+	<customer_account_register>
+		<reference name="skin">
+			<action method="addCss">customer/register.css</action>
+			<action method="addJs">register.js</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">customer/account/register.phtml</action>
+		</reference>
+	</customer_account_register>
+	<!--注册end-->
+	
+	<!--用户中心首页ks-->
+	<customer_index_index>
+		<reference name="skin">
+			<action method="addCss">customer/index.css</action>
+		</reference>
+		<reference name="content" type="Customer_InfoView">
+			<action method="setTemplate">customer/index.phtml</action>
+		</reference>
+	</customer_index_index>
+	<!--用户中心首页end-->
+	
+	<!--发布手机ks-->
+	<customer_mobile_publish>
+		<reference name="skin">
+			<action method="addCss">customer/publish.css</action>
+			<action method="addJs">publish/mobile.js</action>
+		</reference>
+		<reference name="content" type="Mobile_ItemView">
+			<action method="setTemplate">customer/publish/mobile.phtml</action>
+			<block name="base" type="Mobile_ItemView" template="customer/publish/mobile/base.phtml"/>
+			<block name="contact" type="Mobile_ItemView" template="customer/publish/mobile/contact.phtml"/>
+			<block name="fail" type="Mobile_ItemView" template="customer/publish/mobile/fail.phtml"/>
+		</reference>
+	</customer_mobile_publish>
+	<!--发布手机end-->
+	
+	<!--发布手机成功ks-->
+	<customer_mobile_success>
+		<reference name="skin">
+			<action method="addCss">customer/publish.css</action>
+			<action method="addJs">publish/mobile.js</action>
+		</reference>
+		<reference name="content" type="Mobile_ItemView">
+			<action method="setTemplate">customer/publish/mobile/success.phtml</action>
+		</reference>
+	</customer_mobile_success>
+	<!--发布手机成功end-->
+	
+	<!--我的有效手机ks-->
+	<customer_mobile_active>
+		<reference name="skin">
+			<action method="addJs">publish/mobile.js</action>
+		</reference>
+		<reference name="content" type="Mobile_ListView">
+			<action method="setTemplate">customer/second/mobile/active.phtml</action>
+		</reference>
+	</customer_mobile_active>
+	<!--我的有效手机end-->
+
+	<!--我的过期手机ks-->
+	<customer_mobile_inactive>
+		<reference name="skin">
+			<action method="addJs">publish/mobile.js</action>
+		</reference>
+		<reference name="content" type="Mobile_ListView">
+			<action method="setTemplate">customer/second/mobile/inactive.phtml</action>
+		</reference>
+	</customer_mobile_inactive>
+	<!--我的过期手机end-->
+
+	<!--发布平板ks-->
+	<customer_tablet_publish>
+		<reference name="skin">
+			<action method="addCss">customer/publish.css</action>
+			<action method="addJs">publish/tablet.js</action>
+		</reference>
+		<reference name="content" type="Tablet_ItemView">
+			<action method="setTemplate">customer/publish/tablet.phtml</action>
+			<block name="base" type="Tablet_ItemView" template="customer/publish/tablet/base.phtml"/>
+			<block name="contact" type="Tablet_ItemView" template="customer/publish/tablet/contact.phtml"/>
+			<block name="fail" type="Tablet_ItemView" template="customer/publish/tablet/fail.phtml"/>
+		</reference>
+	</customer_tablet_publish>
+	<!--发布平板end-->
+	
+	<!--发布平板成功ks-->
+	<customer_tablet_success>
+		<reference name="skin">
+			<action method="addCss">customer/publish.css</action>
+			<action method="addJs">publish/tablet.js</action>
+		</reference>
+		<reference name="content" type="Tablet_ItemView">
+			<action method="setTemplate">customer/publish/tablet/success.phtml</action>
+		</reference>
+	</customer_tablet_success>
+	<!--发布平板成功end-->
+	
+	<!--我的有效平板ks-->
+	<customer_tablet_active>
+		<reference name="skin">
+			<action method="addJs">publish/tablet.js</action>
+		</reference>
+		<reference name="content" type="Tablet_ListView">
+			<action method="setTemplate">customer/second/tablet/active.phtml</action>
+		</reference>
+	</customer_tablet_active>
+	<!--我的有效平板end-->
+
+	<!--我的过期平板ks-->
+	<customer_tablet_inactive>
+		<reference name="skin">
+			<action method="addJs">publish/tablet.js</action>
+		</reference>
+		<reference name="content" type="Tablet_ListView">
+			<action method="setTemplate">customer/second/tablet/inactive.phtml</action>
+		</reference>
+	</customer_tablet_inactive>
+	<!--我的过期平板end-->
+
+	<!--发布求购ks-->
+	<customer_purchase_publish>
+		<reference name="skin">
+			<action method="addCss">customer/publish.css</action>
+			<action method="addJs">publish/purchase.js</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">customer/publish/purchase.phtml</action>
+			<block name="base" type="Purchase_ItemView" template="customer/publish/purchase/base.phtml"/>
+			<block name="contact" type="Purchase_ItemView" template="customer/publish/purchase/contact.phtml"/>
+			<block name="fail" type="Purchase_ItemView" template="customer/publish/purchase/fail.phtml"/>
+		</reference>
+	</customer_purchase_publish>
+	<!--发布求购end-->
+	
+	<!--发布求购成功ks-->
+	<customer_purchase_success>
+		<reference name="skin">
+			<action method="addCss">customer/publish.css</action>
+			<action method="addJs">publish/purchase.js</action>
+		</reference>
+		<reference name="content" type="Purchase_ItemView">
+			<action method="setTemplate">customer/publish/purchase/success.phtml</action>
+		</reference>
+	</customer_purchase_success>
+	<!--发布求购成功end-->
+	
+	<!--我的有效求购ks-->
+	<customer_purchase_active>
+		<reference name="skin">
+			<action method="addJs">publish/purchase.js</action>
+		</reference>
+		<reference name="content" type="Purchase_ListView">
+			<action method="setTemplate">customer/second/purchase/active.phtml</action>
+		</reference>
+	</customer_purchase_active>
+	<!--我的有效求购end-->
+	
+	<!--我的过期求购ks-->
+	<customer_purchase_inactive>
+		<reference name="skin">
+			<action method="addJs">publish/purchase.js</action>
+		</reference>
+		<reference name="content" type="Purchase_ListView">
+			<action method="setTemplate">customer/second/purchase/inactive.phtml</action>
+		</reference>
+	</customer_purchase_inactive>
+	<!--我的过期求购end-->
+	
+	<!--举报相关信息ks-->
+	<customer_message_report>
+		<reference name="skin">
+			<action method="addCss">customer/common.css</action>
+			<action method="addCss">customer/message.css</action>
+			<action method="addJs">report.js</action>
+		</reference>
+		<reference name="content" type="Customer_MsgView">
+			<action method="setTemplate">customer/message/report.phtml</action>
+		</reference>
+	</customer_message_report>
+	<!--举报相关信息end-->
+	
+	<!--站内信ks-->
+	<customer_message_notice>
+		<reference name="skin">
+			<action method="addCss">customer/message.css</action>
+		</reference>
+		<reference name="content" type="Customer_MsgView">
+			<action method="setTemplate">customer/message/notice.phtml</action>
+		</reference>
+	</customer_message_notice>
+	<!--站内信end-->
+	
+	<!--咨询信息ks-->
+	<customer_message_consult>
+		<!--<reference name="skin">
+			<action method="addCss">customer/message.css</action>
+		</reference>-->
+		<reference name="content" type="Customer_MsgView">
+			<action method="setTemplate">customer/message/consult.phtml</action>
+		</reference>
+	</customer_message_consult>
+	<!--咨询信息end-->
+	
+	<!--账号信息ks-->
+	<customer_account_info-base>
+		<reference name="skin">
+			<action method="addCss">customer/account.css</action>
+		</reference>
+		<reference name="content" type="Customer_InfoView">
+			<action method="setTemplate">customer/account/info_base.phtml</action>
+		</reference>
+	</customer_account_info-base>
+	<!--账号信息end-->
+	
+	<!--联系信息ks-->
+	<customer_account_info-contact>
+		<reference name="skin">
+			<action method="addCss">customer/account.css</action>
+		</reference>
+		<reference name="content" type="Customer_InfoView">
+			<action method="setTemplate">customer/account/info_contact.phtml</action>
+		</reference>
+	</customer_account_info-contact>
+	<!--联系信息end-->
+	
+	<!--修改密码ks-->
+	<customer_account_set-password>
+		<reference name="skin">
+			<action method="addCss">customer/account.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">customer/account/password.phtml</action>
+		</reference>
+	</customer_account_set-password>
+	<!--修改密码end-->
+	
+	<!--手机收藏ks-->
+	<customer_favor_mobile>
+		<reference name="skin">
+			<action method="addCss">customer/favor.css</action>
+		</reference>
+		<reference name="content" type="Customer_FavorView">
+			<action method="setTemplate">customer/favor/mobile.phtml</action>
+		</reference>
+	</customer_favor_mobile>
+	<!--手机收藏end-->
+	
+	<!--求购收藏ks-->
+	<customer_favor_purchase>
+		<reference name="skin">
+			<action method="addCss">customer/favor.css</action>
+		</reference>
+		<reference name="content" type="Customer_FavorView">
+			<action method="setTemplate">customer/favor/purchase.phtml</action>
+		</reference>
+	</customer_favor_purchase>
+	<!--求购收藏end-->
+	
+	<!--帐号绑定ks-->
+	<customer_account_binding>
+		<reference name="skin">
+			<action method="addCss">customer/binding.css</action>
+			<action method="addJs">register.js</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">customer/account/binding.phtml</action>
+		</reference>
+	</customer_account_binding>
+	<!--帐号绑定end-->
+	
+	<!--账号设置帐号绑定ks-->
+	<customer_account_account-binding>
+		<reference name="skin">
+			<action method="addCss">customer/account_binding.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">customer/account/account_binding.phtml</action>
+		</reference>
+	</customer_account_account-binding>
+	<!--账号设置帐号绑定end-->
+	
+	<!--邮箱验证ks-->
+	<customer_account_email-verify>
+		<reference name="skin">
+			<action method="addCss">customer/email_verify.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">customer/account/email_verify.phtml</action>
+		</reference>
+	</customer_account_email-verify>
+	<!--邮箱验证end-->
+	
+	<!--上传头像ks-->
+	<customer_account_thumb>
+		<reference name="skin">
+			<action method="addCss">customer/thumb.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">customer/account/thumb.phtml</action>
+		</reference>
+	</customer_account_thumb>
+	<!--上传头像end-->
+	
+	<!--申请服务ks-->
+	<customer_store_apply-service>
+		<reference name="skin">
+			<action method="addCss">customer/service.css</action>
+		</reference>
+		<reference name="content" type="Customer_InfoView">
+			<action method="setTemplate">customer/store/service/apply.phtml</action>
+		</reference>
+	</customer_store_apply-service>
+	<!--申请服务end-->
+	
+	<!--我提供的服务ks-->
+	<customer_store_myservice>
+		<reference name="skin">
+			<action method="addCss">customer/service.css</action>
+		</reference>
+		<reference name="content" type="Customer_InfoView">
+			<action method="setTemplate">customer/store/service/my.phtml</action>
+		</reference>
+	</customer_store_myservice>
+	<!--我提供的服务end-->
+
+	<!--服务列表ks-->
+	<customer_store_service>
+		<reference name="skin">
+			<action method="addCss">customer/service.css</action>
+		</reference>
+		<reference name="content" type="System_ServiceView">
+			<action method="setTemplate">customer/store/service/list.phtml</action>
+		</reference>
+	</customer_store_service>
+	<!--服务列表end-->
+
+	<!-- 申请入驻ks-->
+	<customer_store_apply>
+		<reference name="skin">
+			<action method="addCss">customer/store.css</action>
+			<action method="addJs">cstore.js</action>
+		</reference>
+		<reference name="content" type="Customer_StoreView">
+			<action method="setTemplate">customer/store/apply.phtml</action>
+		</reference>
+	</customer_store_apply>
+	<!-- 申请入驻end-->
+
+	<!-- 发布手机ks-->
+	<customer_store_mobile-publish>
+		<reference name="skin">
+			<action method="addCss">customer/common.css</action>
+			<action method="addCss">customer/store.css</action>
+			<action method="addJs">cstore.js</action>
+		</reference>
+		<reference name="content" type="Customer_StoreView">
+			<action method="setTemplate">customer/store/mobile/publish.phtml</action>
+		</reference>
+	</customer_store_mobile-publish>
+	<!-- 发布手机end-->
+	
+	<!-- 手机列表ks-->
+	<customer_store_mobile-list>
+		<reference name="skin">
+			<action method="addCss">customer/store.css</action>
+			<action method="addJs">cstore.js</action>
+		</reference>
+		<reference name="content" type="Store_ItemView">
+			<action method="setTemplate">customer/store/mobile/list.phtml</action>
+		</reference>
+	</customer_store_mobile-list>
+	<!-- 手机列表end-->
+
+	<!-- 发布平板ks-->
+	<customer_store_tablet-publish>
+		<reference name="skin">
+			<action method="addCss">customer/common.css</action>
+			<action method="addCss">customer/store.css</action>
+			<action method="addJs">cstore.js</action>
+		</reference>
+		<reference name="content" type="Customer_StoreView">
+			<action method="setTemplate">customer/store/tablet/publish.phtml</action>
+		</reference>
+	</customer_store_tablet-publish>
+	<!-- 发布平板end-->
+	
+	<!-- 平板列表ks-->
+	<customer_store_tablet-list>
+		<reference name="skin">
+			<action method="addCss">customer/store.css</action>
+			<action method="addJs">cstore.js</action>
+		</reference>
+		<reference name="content" type="Store_ItemView">
+			<action method="setTemplate">customer/store/tablet/list.phtml</action>
+		</reference>
+	</customer_store_tablet-list>
+	<!-- 平板列表end-->
+	
+	<!-- 店铺设置ks-->
+	<customer_store_setting>
+		<reference name="skin">
+			<action method="addCss">customer/store.css</action>
+		</reference>
+		<reference name="content" type="Customer_StoreView">
+			<action method="setTemplate">customer/store/setting.phtml</action>
+		</reference>
+	</customer_store_setting>
+	<!-- 店铺设置end-->
+	
+	<!-- 店铺资料ks-->
+	<customer_store_info>
+		<reference name="skin">
+			<action method="addCss">customer/store.css</action>
+		</reference>
+		<reference name="content" type="Customer_StoreView">
+			<action method="setTemplate">customer/store/info.phtml</action>
+		</reference>
+	</customer_store_info>
+	<!-- 店铺资料end-->
+
+	<!-- 发布配件ks-->
+	<customer_store_accessory-publish>
+		<reference name="skin">
+			<action method="addCss">customer/common.css</action>
+			<action method="addCss">customer/store.css</action>
+			<action method="addJs">cstore.js</action>
+		</reference>
+		<reference name="content" type="Customer_StoreView">
+			<action method="setTemplate">customer/store/accessory/publish.phtml</action>
+		</reference>
+	</customer_store_accessory-publish>
+	<!-- 发布配件end-->
+	
+	<!-- 配件列表ks-->
+	<customer_store_accessory-list>
+		<reference name="skin">
+			<action method="addCss">customer/store.css</action>
+			<action method="addJs">cstore.js</action>
+		</reference>
+		<reference name="content" type="Store_ItemView">
+			<action method="setTemplate">customer/store/accessory/list.phtml</action>
+		</reference>
+	</customer_store_accessory-list>
+	<!-- 配件列表end-->
+	
+	<!-- 店铺统计ks-->
+	<customer_store_analysis>
+		<reference name="skin">
+			<action method="addCss">customer/store.css</action>
+			<action method="addJs">cstore.js</action>
+		</reference>
+		<reference name="content" type="Customer_StoreView">
+			<action method="setTemplate">customer/store/analysis.phtml</action>
+		</reference>
+	</customer_store_analysis>
+	<!-- 店铺统计end-->
+	
+	<!-- 申请活动ks-->
+	<customer_store_activity-apply>
+		<reference name="skin">
+			<action method="addCss">customer/store.css</action>
+			<action method="addJs">cstore.js</action>
+		</reference>
+		<reference name="content" type="Customer_StoreView">
+			<action method="setTemplate">customer/store/activity/apply.phtml</action>
+		</reference>
+	</customer_store_activity-apply>
+	<!-- 申请活动end-->
+	
+	<!-- 活动列表ks-->
+	<customer_store_activity-list>
+		<reference name="skin">
+			<action method="addCss">customer/store.css</action>
+			<action method="addJs">cstore.js</action>
+		</reference>
+		<reference name="content" type="Customer_StoreView">
+			<action method="setTemplate">customer/store/activity/list.phtml</action>
+		</reference>
+	</customer_store_activity-list>
+	<!-- 活动列表end-->
+</layouts>

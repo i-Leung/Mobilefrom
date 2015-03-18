@@ -1,0 +1,31 @@
+<?php $third = Factory::getView('customer/info')->getCustomerThirdParty(Factory::getSession('customer/id'))?>
+<h3 style="line-height:30px;">账号绑定</h3>
+<p style="margin-top:10px;">绑定第三方帐号，可以直接登录机荒网，还可以将机荒网的内容同步到以下平台，与更多好友分享。</p>
+<div class="platform_list">
+	<div class="platform sina">
+		<?php if ($third['sina']):?>
+        <a class="btn" href="javascript:void(0);">已绑定新浪微博</a>
+		<?php else:?>
+        <a class="btn" href="javascript:void(0);" onclick="bindSina(this);">点击绑定新浪微博</a>
+		<?php endif?>
+    </div>
+	<div class="platform qzone">
+		<?php if ($third['tencent']):?>
+        <a class="btn" href="javascript:void(0);">已绑定腾讯QQ</a>
+		<?php else:?>
+        <a class="btn" href="javascript:void(0);" onclick="bindTencent(this);">点击绑定QQ</a>
+		<?php endif?>
+    </div>
+</div>
+<script type="text/javascript">
+function bindSina(obj)
+{
+	jQuery(obj).html('真正绑定，请稍候...');
+	window.location.href = '/customer/account/sina?act=authorize';
+}
+function bindTencent(obj)
+{
+	jQuery(obj).html('真正绑定，请稍候...');
+	window.location.href = '/customer/account/tencent?act=authorize';
+}
+</script>

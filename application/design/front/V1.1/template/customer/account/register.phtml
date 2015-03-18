@@ -1,0 +1,112 @@
+<!-- 面包屑ks -->
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+		<span class="jiantou">></span>
+		<a href="javascript:void(0);">欢迎注册</a>
+    </div>
+</div>
+<!-- 面包屑end -->
+<div class="register_wp">
+	<div class="reg_box">
+    	<h1>
+        	<span class="blue">MobileFrom</span>
+            账户注册
+        </h1>
+        <table id="register">
+        	<tr>
+            	<td width="70" class="fs14 input_name">用户账号</td>
+            	<td width="180" style="vertical-align:top;">
+                	<input class="input_area" type="text" name="username" onblur="checkUsername();"/>
+                </td>
+                <td>
+                	<div class="msg_box msg_tips">
+                    	<i></i>
+                        <div class="msg_cnt grey">
+                        	<span class="msg_cnt_tips">2-16个字符，推荐使用中文会员名。</span>
+                        	<span class="msg_cnt_empty">账号不能为空</span>
+                        	<span class="msg_cnt_error">2-16个字符</span>
+                        	<span class="msg_cnt_used">该账户已被使用</span>
+                        	<span class="msg_cnt_right">校验通过</span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </td>
+            </tr>
+        	<tr>
+            	<td class="fs14 input_name">注册邮箱</td>
+            	<td>
+                	<input class="input_area" type="text" name="email" onblur="checkEmail();"/>
+                </td>
+                <td>
+                	<div class="msg_box msg_tips">
+                    	<i></i>
+                        <div class="msg_cnt grey">
+	                        <span class="msg_cnt_tips">输入您的常用邮箱</span>
+	                        <span class="msg_cnt_empty">邮箱不能为空</span>
+	                        <span class="msg_cnt_error">邮箱格式错误</span>
+	                        <span class="msg_cnt_used">该邮箱已被注册</span>
+	                        <span class="msg_cnt_right">校验通过</span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </td>
+            </tr>
+        	<tr>
+            	<td class="fs14 input_name">输入密码</td>
+            	<td>
+                	<input class="input_area" type="password" name="pwd" onblur="checkPwd();"/>
+                </td>
+                <td>
+                	<div class="msg_box msg_tips">
+                    	<i></i>
+                        <div class="msg_cnt grey">
+	                        <span class="msg_cnt_tips">6-16个字符，请使用字母加数字或符号的组合密码。</span>
+	                        <span class="msg_cnt_empty">密码不能为空</span>
+	                        <span class="msg_cnt_error">长度应为6-16个字符</span>
+	                        <span class="msg_cnt_right">校验通过</span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </td>
+            </tr>
+        	<tr>
+            	<td class="fs14 input_name">确认密码</td>
+            	<td>
+                	<input class="input_area" type="password" name="repwd" onblur="checkRePwd();"/>
+                </td>
+                <td>
+                	<div class="msg_box msg_tips">
+                    	<i></i>
+                        <div class="msg_cnt grey">
+	                        <span class="msg_cnt_tips">再次输入密码</span>
+	                        <span class="msg_cnt_empty">再输一次密码</span>
+	                        <span class="msg_cnt_error">两次密码不一致</span>
+	                        <span class="msg_cnt_right">校验通过</span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="remember">
+            	<td></td>
+            	<td>
+                	<input type="checkbox" name="remember" value="1" checked="checked" style="vertical-align:middle;" />
+                	<span style="cursor:pointer; vertical-align:middle;" onclick="rememberMe(this);">自动登录</span>
+                </td>
+            	<td></td>
+            </tr>
+            <tr>
+            	<td></td>
+            	<td>
+                	<button class="btn_orange" style="width:138px; height:30px;" onclick="ajaxRegister(this);">同意协议并注册</button>
+                    <p style="line-height:25px; width:138px; margin-top:10px;">
+                    	<a class="blue" href="/default/website/contract?cfrom=register">《机荒网服务协议》</a>
+                    </p>
+                </td>
+            	<td></td>
+            </tr>
+        </table>
+    </div>
+</div>

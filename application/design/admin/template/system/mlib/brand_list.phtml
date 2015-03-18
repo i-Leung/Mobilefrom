@@ -1,0 +1,89 @@
+<?php $brands = $this->loadAdminBrandList()?>
+<ul class="tabs1">
+	<li class="tabs1_c">品牌列表</li>
+	<li>属性列表</li>
+</ul>
+<!--筛选框ks-->
+<div class="search_div">
+	<div class="search_div_item">
+		<form action="/monitor/system_mlib/add-brand" method="get">
+			<strong>添加品牌：</strong>
+			<input type="text" name="brand" value="" />
+			<button type="submit">提交</button>
+		</form>
+	</div>
+	<div class="search_div_item" style="display:none;">
+		<form action="/monitor/system_mlib/modify-brand" method="get">
+			<input type="hidden" name="id" value="" />
+			<strong>修改品牌：</strong>
+			<input type="text" name="label" value="" />
+			<strong>排序号：</strong>
+			<input type="text" name="sort" value="" />
+			<button type="submit">提交</button>
+			<button type="reset" onclick="hideModify();">取消</button>
+		</form>
+	</div>
+	<div class="clear"></div>
+</div>
+<!--筛选框end-->
+<div class="table1" entity="mlib-brand">
+	<table width="990">
+		<thead>
+			<tr>
+				<th width="150">品牌ID</th>
+				<th width="200">品牌名称</th>
+				<th width="80">排序号</th>
+				<th width="80">型号数量</th>
+				<th width="80">状态</th>
+				<th width="80" class="tac">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if ($brands):?>
+			<?php foreach ($brands as $brand):?>
+			<tr entity="<?php echo $brand['id']?>">
+				<td><?php echo $brand['id']?></td>
+				<td><?php echo $brand['label']?></td>
+				<td><?php echo $brand['sort']?></td>
+				<td><?php echo $brand['amount']?></td>
+				<td class="green"><?php echo $brand['status'] ? '有效' : '冻结'?></td>
+				<td class="table_cz tac">
+					<a href="javascript:void(0);" onclick="modifyBrand(this);">修改</a>
+					<?php if ($brand['status']):?>
+					<a href="javascript:void(0);" onclick="itemInActive(this, '<?php echo $brand['id']?>', 'mlib-brand');">禁用</a>
+					<?php else:?>
+					<a href="javascript:void(0);" onclick="itemActive(this, '<?php echo $brand['id']?>', 'mlib-brand');">启用</a>
+					<?php endif;?>
+				</td>
+			</tr>
+			<?php endforeach?>
+			<?php else:?>
+			<tr>
+				<td colspan="6" style="text-align:center;">暂无相关手机品牌记录</td>
+			</tr>
+			<?php endif?>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.tabs1 li:eq(1)').click(function(){
+		window.location.href = '/monitor/system_mlib/attribute-list';
+	});
+});
+//修改品牌
+function modifyBrand(obj)
+{
+	var parent = jQuery(obj).parent().parent();
+	var field = jQuery('.search_div_item:eq(1)');
+	field.find('input[name=id]').val(parent.attr('entity'));
+	field.find('input[name=label]').val(parent.find('td:eq(1)').html());
+	field.find('input[name=sort]').val(parent.find('td:eq(2)').html());
+	field.show();
+}
+//隐藏修改品牌
+function hideModify()
+{
+	jQuery('.search_div_item:eq(1)').hide();
+}
+</script>

@@ -1,0 +1,97 @@
+<?php $id = Factory::getRequest()->getParam('id')?>
+<ul class="tabs1">
+	<li>基本信息</li>
+	<li class="tabs1_c">设置密码</li>
+	<li>操作历史</li>
+</ul>
+<div class="clear"></div>
+<div class="tabs1_bd">
+	<!--设置密码ks-->
+	<div class="tabs1_item">
+		<table class="table2">
+			<tbody>
+				<tr>
+					<th width="85">密码：</th>
+					<td>
+						<input type="password" name="pwd" />
+					</td>
+				</tr>
+				<tr>
+					<th>重复密码：</th>
+					<td>
+						<input type="password" name="repwd" />
+					</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td>
+						<button type="button" class="btn_26" onclick="setPwd(this);">保存</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!--设置密码end-->
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.tabs1 li').click(function(){
+		var index = jQuery('.tabs1 li').index(jQuery(this));
+		switch(index){
+			case 0:
+				window.location.href = '/monitor/system_member/info?id=<?php echo $id?>';
+				break;
+			case 1:
+				break;
+			case 2:
+				window.location.href = '/monitor/system_member/operation?id=<?php echo $id?>';
+				break;
+		}
+	});
+});
+//设置成员后台登录密码
+function setPwd(obj)
+{
+	var parent = jQuery(obj).parent().parent().parent();
+	var pwd = parent.find('input[name=pwd]').val();
+	if(pwd == ''){
+		alert('请输入密码');
+		return;
+	}
+	var repwd = parent.find('input[name=repwd]').val();
+	if(repwd == ''){
+		alert('请输入确认密码');
+		return;
+	}
+	if(pwd != repwd){
+		alert('请确保两次密码输入一致');
+		return;
+	}
+	jQuery.ajax({
+		type:'get',
+		data:{id:'<?php echo $id?>', pwd:pwd},
+		dataType:'json',
+		url:'/monitor/system_member/set-pwd',
+		beforeSend:function(){
+			jQuery(obj).html('正在提交...')
+				.attr('disabled', 'disabled');
+		},
+		success:function(data){
+			jQuery(obj).html('保存')
+				.removeAttr('disabled');
+			parent.find('input[type=password]').val('');
+			if (data == '1'){
+				alert('密码修改成功');
+			}else{
+				alert('密码修改失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			jQuery(obj).html('保存')
+				.removeAttr('disabled');
+			parent.find('input[type=password]').val('');
+			alert('密码修改失败，请稍候尝试');
+		}
+	});
+}
+</script>

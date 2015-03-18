@@ -1,0 +1,93 @@
+<?php $page = Factory::getRequest()->getParam('page', 1)?>
+<?php $customer_id = Factory::getSession('customer/id')?>
+<?php $mobiles = $this->loadMyMobile($customer_id, $page)?>
+<?php $total = $this->getMyMobileTotal($customer_id)?>
+<div class="tabs1">
+	<ul>
+    	<li class="tabs1_c">
+    		<a href="javascript:void(0);">有效信息</a>
+    	</li>
+    	<li>
+    		<a href="/customer/mobile/inactive?cfrom=uc_tab">过期信息</a>
+    	</li>
+    </ul>
+</div>
+<div class="tabs1_body">
+	<!--我的手机ks-->
+	<div id="mobile" class="tabs1_item">
+    	<table class="table1">
+        	<thead>
+            	<tr>
+					<th width="280">
+						信息标题
+					</th>
+            		<th width="80">价格（元）</th>
+            		<th width="100">发布时间</th>
+            		<th width="70">点击量</th>
+            		<th class="tac" width="190">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<?php if ($mobiles):?>
+            	<?php foreach ($mobiles as $mobile):?>
+            	<tr>
+                	<td>
+                    	<a href="/mobile/item?cfrom=uc_mypublish&id=<?php echo $mobile['id']?>">
+                    		<?php echo $mobile['title']?>
+                    	</a>
+                    </td>
+                	<td class="red"><?php echo $mobile['price']?></td>
+                	<td><?php echo timeforcustomer($mobile['created_at'])?></td>
+                	<td><?php echo $mobile['clicks'] . '次'?></td>
+                	<td class="cz tac">
+                		<?php if (time() - strtotime($mobile['created_at']) > 86400):?>
+                    	<a class="blue" href="javascript:void(0);" onclick="refresh(this, '<?php echo $mobile['id']?>');">刷新</a>
+                    	<?php else :?>
+                    	<a class="grey" href="javascript:void(0);" onclick="refreshNotice();">刷新</a>
+                    	<?php endif;?>
+                    	<a class="blue" href="/customer/mobile/publish?cfrom=uc_mypublish&id=<?php echo $mobile['id']?>" target="_blank">编辑</a>
+                    	<a class="blue" href="javascript:void(0);" onclick="changeStatus(this, '<?php echo $mobile['id']?>', 2);">过期</a>
+                    	<a class="red" href="javascript:void(0);" onclick="changeStatus(this, '<?php echo $mobile['id']?>', 3);">删除</a>
+                    </td>
+                </tr>
+                <?php endforeach;?>
+            	<?php else :?>
+                <tr>
+                	<td colspan="5" style="text-align:center;">
+                    	<span>你目前为止暂时还没有发布任何手机信息!<a href="/customer/mobile/publish?cfrom=uc_mypublish">现在发布</a></span>
+                    </td>
+                </tr>
+            	<?php endif;?>
+            </tbody>
+        </table>
+    </div>
+    <!--我的手机end-->
+</div>
+<!--分页ks-->
+<?php if ($total > 10):?>
+<?php $url = '/customer/mobile/active?cfrom=uc_paginator&page='?>
+<?php $last = ceil($total / 10)?>
+<div class="fenye1">
+	<div class="fenye1_l">
+    	<p>
+        	共计
+        	<span class="red"><?php echo $total?></span>
+            条信息
+        </p>
+    </div>
+    <div class="fenye1_r">
+    	<?php if ($page != '1'):?>
+    	<a href="<?php echo $url . '1'?>">首页</a>
+        <a href="<?php echo $url . ($page - 1)?>">前一页</a>
+        <?php endif;?>
+        <span class="red"><?php echo $page?></span>
+        <?php if ($page != $last):?>
+    	<a href="<?php echo $url . ($page + 1)?>">后一页</a>
+        <a href="<?php echo $url . $last?>">尾页</a>
+        <?php endif;?>
+    	<div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<?php endif;?>
+<!--分页end-->

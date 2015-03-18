@@ -1,0 +1,70 @@
+<?php $selector = Factory::getSession('tlib-filter')?>
+<?php $filter = $this->loadFilterOptionList()?>
+<?php if ($selector):?>
+<!--您的选择ks-->
+<div class="y_choices">
+	<div class="l grey"><span>筛选条件：</span></div>
+    <div class="r">
+    	<ul>
+			<?php if (isset($selector['brand'])):?>
+        	<li>
+            	<a href="/tlib/list?filter[brand]=all"><?php echo $filter['brand'][$selector['brand']]?><i></i></a>
+            </li>
+			<?php endif?>
+			<?php if (isset($selector['price'])):?>
+        	<li>
+            	<a href="/tlib/list?filter[price]=all"><?php echo $filter['price'][$selector['price']]['label']?><i></i></a>
+            </li>
+			<?php endif?>
+			<?php if (isset($selector['os'])):?>
+        	<li>
+            	<a href="/tlib/list?filter[os]=all"><?php echo $filter['os'][$selector['os']]?><i></i></a>
+            </li>
+			<?php endif?>
+            <li>
+            	<a class="red qingkong_btn" href="/tlib/list?filter=all">清空筛选条件</a>
+            </li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!--您的选择end-->
+<?php endif?>
+<div class="m_l_s_a_selector">
+	<dl class="m_l_s_a_s_item">
+		<dt>平板品牌：</dt>
+		<dd>
+			<ul>
+				<?php foreach ($filter['brand'] as $key => $value):?>
+				<li><a <?php echo $selector['brand'] == $key ? 'class="selected"' : ''?> href="/tlib/list?filter[brand]=<?php echo $key?>"><?php echo $value?></a></li>
+				<?php endforeach?>
+			</ul>
+			<div class="clear"></div>
+		</dd>
+		<div class="clear"></div>
+	</dl>
+	<dl class="m_l_s_a_s_item">
+		<dt>价格范围：</dt>
+		<dd>
+			<ul style="float:left;">
+				<?php foreach ($filter['price'] as $key => $value):?>
+				<li><a <?php echo $selector['price'] == $key ? 'class="selected"' : ''?> href="/tlib/list?filter[price]=<?php echo $key?>"><?php echo $value['label']?></a></li>
+				<?php endforeach?>
+			</ul>
+			<div class="clear"></div>
+		</dd>
+		<div class="clear"></div>
+	</dl>
+	<dl class="m_l_s_a_s_item">
+		<dt>操作系统：</dt>
+		<dd>
+			<ul>
+				<?php foreach ($filter['os'] as $key => $value):?>
+				<li><a <?php echo $selector['os'] == $key ? 'class="selected"' : ''?> href="/tlib/list?filter[os]=<?php echo $key?>"><?php echo $value?></a></li>
+				<?php endforeach?>
+			</ul>
+			<div class="clear"></div>
+		</dd>
+		<div class="clear"></div>
+	</dl>
+</div>	

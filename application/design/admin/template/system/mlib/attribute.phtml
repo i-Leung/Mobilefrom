@@ -1,0 +1,42 @@
+<?php $attribute = Factory::getRequest()->getParam('id', null)?>
+<!--筛选框ks-->
+<div class="search_div">
+	<div class="search_div_item">
+		<form action="/monitor/system_mlib/add-attribute-value" method="get">
+			<strong>添加<?php echo $this->getAttributeLabel($attribute)?>的属性值：</strong>
+			<input type="hidden" name="value[attribute_id]" value="<?php echo $attribute?>" />
+			<label>值ID</label>
+			<input type="text" name="value[value_id]" value="" />
+			<label>值标签</label>
+			<input type="text" name="value[label]" value="" />
+			<button type="submit">提交</button>
+		</form>
+	</div>
+	<div class="clear"></div>
+</div>
+<?php $values = $this->loadAttributeValue($attribute)?>
+<!--筛选框end-->
+<div class="table1" entity="mlib-attribute-value">
+	<table width="990">
+		<thead>
+			<tr>
+				<th width="400">属性值ID</th>
+				<th width="500">属性值名称</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if ($values):?>
+			<?php foreach ($values as $value):?>
+			<tr entity="<?php echo $value['value_id']?>">
+				<td><?php echo $value['value_id']?></td>
+				<td><?php echo $value['label']?></td>
+			</tr>
+			<?php endforeach?>
+			<?php else:?>
+			<tr>
+				<td colspan="2" style="text-align:center;">暂无相关属性值记录</td>
+			</tr>
+			<?php endif?>
+		</tbody>
+	</table>
+</div>

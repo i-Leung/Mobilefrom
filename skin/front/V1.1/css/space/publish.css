@@ -1,0 +1,82 @@
+/* CSS Document */
+/*左边部分ks*/
+.content_l{
+	margin-top:20px;
+	width:176px;
+	height:auto;
+	float:left;
+	border:3px #E7DFDF solid;
+	padding:9px;}
+.content_l p{
+	line-height:20px;
+	margin-bottom:10px;}
+.content_l th{
+	font-weight:bold;
+	width:65px;
+	vertical-align:top;
+	line-height:30px;
+	font-weight:normal;
+}
+.content_l td{
+	line-height:30px;
+}
+.content_l td:first-child{
+	color:blue;
+}
+.message{
+	border-top:1px #ccc dotted;
+	padding-top:10px;}
+.message textarea{
+	width:178px;
+	height:100px;}
+.message button{
+	border:none;}
+.yzm{
+	margin-top:10px;}
+.yzm input{
+	width:126px;
+	height:23px;
+	border:1px #ccc solid;}
+.yzm img{
+	width:90px;
+	height:30px;
+	cursor:pointer;
+	margin:5px 0px 5px 52px;}
+.yzm button{
+	margin-left:52px;
+	width:90px;
+	height:30px;
+	line-height:30px;}
+/*左边部分end*/
+/*右边部分ks*/
+.content_r{
+	margin-top:20px;
+	width:780px;
+	height:auto;
+	float:right;}
+.mb_img a img{
+	width:60px;
+	height:60px;}
+/*右边部分end*/
+/*table样式ks*/
+.table1 thead tr th{
+	text-align:left;
+	padding-left:10px;
+	height:40px;
+	color:#000;
+	background:#F2F2F2;
+	box-opacity:0.5;}
+.table1 tbody tr td{
+	line-height:20px;
+	padding:8px 0px 8px 10px;
+	color:#666;
+	border-bottom:1px #ccc dotted;}
+.table1 tbody tr td a{
+	color:#666;}
+.table1 tbody tr td a:hover{
+	text-decoration:underline;
+	color:red !important;
+	color:#666;}
+.cz a{
+	padding:0px 5px;}
+/*table样式end*/

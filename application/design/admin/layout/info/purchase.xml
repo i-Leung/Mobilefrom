@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--求购信息列表ks-->
+	<info_purchase_list>
+		<reference name="content" type="Purchase_ListView">
+			<action method="setTemplate">info/purchase/list.phtml</action>
+		</reference>
+	</info_purchase_list>
+	<!--求购信息列表end-->
+</layouts>

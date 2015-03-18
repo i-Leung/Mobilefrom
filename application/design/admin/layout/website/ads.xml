@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--首页大图控制ks-->
+	<website_ads_index-gallery>
+		<reference name="content">
+			<action method="setTemplate">website/ads/index_gallery.phtml</action>
+		</reference>
+	</website_ads_index-gallery>
+	<!--首页大图控制end-->
+</layouts>

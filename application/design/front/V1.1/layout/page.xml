@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--默认布局ks-->
+	<default>
+		<block name="root" type="Page_BaseView" template="page/default.phtml">
+			<block name="meta" type="Page_BaseView" template="page/head/meta/home.phtml" />
+			<block name="skin" type="Page_HeadView" template="page/head/skin.phtml">
+				<action method="addCss">common.css</action>
+				<action method="addCss">header.css</action>
+				<action method="addCss">footer.css</action>
+			</block>
+			<block name="header" type="Page_BaseView" template="page/header.phtml">
+				<block name="breadcrumb" type="Page_BaseView" template="page/breadcrumb.phtml"/>
+			</block>
+			<block name="content" type="Page_BaseView" template=""/>
+			<block name="footer" type="Page_BaseView" template="page/footer.phtml"/>
+			<block name="backtop" type="Page_BaseView" template="page/backtop.phtml"/>
+			<block name="pop_login" type="Page_BaseView" template="page/pop_window.phtml"/>
+		</block>
+	</default>
+	<!--默认布局end-->
+	<!--关于我们ks-->
+	<website>
+		<block name="root" type="Page_BaseView" template="page/website/layout/default.phtml">
+			<block name="meta" type="Page_BaseView" template="page/head/meta/home.phtml" />
+			<block name="skin" type="Page_HeadView" template="page/head/skin.phtml">
+				<action method="addCss">common.css</action>
+				<action method="addCss">header.css</action>
+				<action method="addCss">footer.css</action>
+				<action method="addCss">website/common.css</action>
+			</block>
+			<block name="header" type="Page_BaseView" template="page/header.phtml">
+				<block name="breadcrumb" type="Page_BaseView" template="page/breadcrumb.phtml"/>
+			</block>
+			<block name="content" type="Page_BaseView" template=""/>
+			<block name="sidebar" type="Customer_InfoView" template="page/website/sidebar.phtml"/>
+			<block name="footer" type="Page_BaseView" template="page/footer.phtml"/>
+			<block name="backtop" type="Page_BaseView" template="page/backtop.phtml"/>
+			<block name="pop_login" type="Page_BaseView" template="page/pop_window.phtml"/>
+		</block>
+	</website>
+	<!--关于我们end-->
+	<!--用户中心ks-->
+	<customer>
+		<block name="root" type="Page_BaseView" template="page/customer/layout/default.phtml">
+			<block name="meta" type="Page_BaseView" template="page/head/meta/home.phtml" />
+			<block name="skin" type="Page_HeadView" template="page/head/skin.phtml">
+				<action method="addCss">customer/common.css</action>
+				<action method="addCss">header.css</action>
+				<action method="addCss">footer.css</action>
+				<action method="addJS">customer.js</action>
+			</block>
+			<block name="header" type="Page_BaseView" template="page/header.phtml">
+				<block name="breadcrumb" type="Page_BaseView" template="page/breadcrumb.phtml"/>
+			</block>
+			<block name="sidebar" type="Customer_InfoView" template="page/customer/sidebar.phtml"/>
+			<block name="content" type="Page_BaseView" template=""/>
+			<block name="footer" type="Page_BaseView" template="page/footer.phtml"/>
+			<block name="backtop" type="Page_BaseView" template="page/backtop.phtml"/>
+			<block name="pop_login" type="Page_BaseView" template="page/pop_window.phtml"/>
+		</block>
+	</customer>
+	<!--用户中心end-->
+	<!--举报中心ks-->
+	<report>
+		<block name="root" type="Page_BaseView" template="page/report/layout/default.phtml">
+			<block name="meta" type="Page_BaseView" template="page/head/meta/home.phtml" />
+			<block name="skin" type="Page_HeadView" template="page/head/skin.phtml">
+				<action method="addCss">common.css</action>
+				<action method="addCss">header.css</action>
+				<action method="addCss">website/report/list.css</action>
+				<action method="addCss">footer.css</action>
+			</block>
+			<block name="header" type="Page_BaseView" template="page/header.phtml">
+				<block name="breadcrumb" type="Page_BaseView" template="page/breadcrumb.phtml"/>
+			</block>
+			<block name="sidebar" type="Website_ReportView" template="page/report/sidebar.phtml"/>
+			<block name="content" type="Page_BaseView" template=""/>
+			<block name="footer" type="Page_BaseView" template="page/footer.phtml"/>
+			<block name="backtop" type="Page_BaseView" template="page/backtop.phtml"/>
+			<block name="pop_login" type="Page_BaseView" template="page/pop_window.phtml"/>
+		</block>
+	</report>
+	<!--举报中心end-->
+	<!--插件ks-->
+	<plugin>
+		<block name="root" type="Page_BaseView" template="page/plugin.phtml">
+			<block name="skin" type="Page_HeadView" template="page/head/skin.phtml" />
+			<block name="content" type="Page_BaseView" template=""/>
+		</block>
+	</plugin>
+	<!--插件end-->
+	<!--商家店铺ks-->
+	<store>
+		<block name="root" type="Page_BaseView" template="page/report/layout/default.phtml">
+			<block name="meta" type="Page_BaseView" template="page/head/meta/home.phtml" />
+			<block name="skin" type="Page_HeadView" template="page/head/skin.phtml">
+				<action method="addCss">store/item/common.css</action>
+				<action method="addCss">store/item/header.css</action>
+				<action method="addCss">store/item/sidebar.css</action>
+				<action method="addCss">footer.css</action>
+			</block>
+			<block name="header" type="Store_ItemView" template="page/store/header.phtml"/>
+			<block name="sidebar" type="Store_ItemView" template="page/store/sidebar.phtml"/>
+			<block name="content" type="Store_ItemView" template=""/>
+			<block name="footer" type="Page_BaseView" template="page/footer.phtml"/>
+			<block name="backtop" type="Page_BaseView" template="page/backtop.phtml"/>
+			<block name="pop_login" type="Page_BaseView" template="page/pop_window.phtml"/>
+		</block>
+	</store>
+	<!--商家店铺end-->
+	<!--商家店铺一列布局ks-->
+	<store>
+		<block name="root" type="Page_BaseView" template="page/report/layout/default.phtml">
+			<block name="meta" type="Page_BaseView" template="page/head/meta/home.phtml" />
+			<block name="skin" type="Page_HeadView" template="page/head/skin.phtml">
+				<action method="addCss">store/item/common.css</action>
+				<action method="addCss">store/item/header.css</action>
+				<action method="addCss">store/item/sidebar.css</action>
+				<action method="addCss">footer.css</action>
+			</block>
+			<block name="header" type="Page_BaseView" template="page/store/header.phtml"/>
+			<block name="sidebar" type="Website_ReportView" template="page/store/sidebar.phtml"/>
+			<block name="content" type="Page_BaseView" template=""/>
+			<block name="footer" type="Page_BaseView" template="page/footer.phtml"/>
+			<block name="backtop" type="Page_BaseView" template="page/backtop.phtml"/>
+			<block name="pop_login" type="Page_BaseView" template="page/pop_window.phtml"/>
+		</block>
+	</store>
+	<!--商家店铺一列布局end-->
+</layouts>

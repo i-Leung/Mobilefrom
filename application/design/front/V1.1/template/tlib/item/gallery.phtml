@@ -1,0 +1,75 @@
+<div class="m_i_g_title">
+	<span></span> [<span class="red">官方效果图</span>]
+</div>
+<div class="m_i_g_img">
+	<ul></ul>
+	<div class="clear"></div>
+</div>
+<div class="gallery-box">
+	<div class="gallery-show">
+		<div class="gallery-img" index="" last=""></div>
+		<div class="gallery-switch">
+			<a class="gprev" title="前一张" href="javascript:void(0);" onclick="prevImg();"></a>
+			<a class="gnext" title="后一张" href="javascript:void(0);" onclick="nextImg();"></a>
+			<div class="clear"></div>
+			<a class="gclose" href="javascript:void(0);" onclick="closeGallery();"></a>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.gallery-box').css('width', window.screen.width)
+							.css('height', window.screen.height);
+	jQuery('.gallery-show').mouseover(function(){
+		jQuery('.gallery-switch').show();
+	});
+	jQuery('.gallery-show').mouseleave(function(){
+		jQuery('.gallery-switch').hide();
+	});
+});
+//查看大图
+function showBig(obj)
+{
+	var index = jQuery('.m_i_g_img ul li a').index(jQuery(obj));
+	jQuery('.gallery-box').show();
+	jQuery('.gallery-img').html('<img src="' + jQuery(obj).find('img').attr('src').replace('/thumb', '') + '" />').attr('index', index);
+}
+//前一张
+function prevImg()
+{
+	var index = parseInt(jQuery('.gallery-img').attr('index'));	
+	if (index > 0) {
+		jQuery('.gallery-img').fadeOut('fast', function(){
+			jQuery('.gallery-img').html('');
+			jQuery('.gallery-switch').hide();
+		});
+		jQuery('.gallery-img').fadeIn('normal', function(){
+			jQuery('.gallery-img').html(
+				'<img src="' + jQuery('.m_i_g_img ul li a:eq(' + (index - 1) + ')').find('img').attr('src').replace('/thumb', '') + '" />'
+			).attr('index', index - 1);
+		});
+	}
+}
+//后一张
+function nextImg()
+{
+	var index = parseInt(jQuery('.gallery-img').attr('index'));	
+	var last = parseInt(jQuery('.gallery-img').attr('last'));
+	if (index < last) {
+		jQuery('.gallery-img').fadeOut('fast', function(){
+			jQuery('.gallery-img').html('');
+			jQuery('.gallery-switch').hide();
+		});
+		jQuery('.gallery-img').fadeIn('normal', function(){
+			jQuery('.gallery-img').html(
+				'<img src="' + jQuery('.m_i_g_img ul li a:eq(' + (index + 1) + ')').find('img').attr('src').replace('/thumb', '') + '" />'
+			).attr('index', index + 1);
+		});
+	}
+}
+//关闭图片浏览
+function closeGallery()
+{
+	jQuery('.gallery-box').hide();
+}
+</script>

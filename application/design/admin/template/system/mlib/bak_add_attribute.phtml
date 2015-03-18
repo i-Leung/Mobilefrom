@@ -1,0 +1,303 @@
+<?php $id = Factory::getRequest()->getParam('id', '')?>
+<?php $attribute = $values = array()?>
+<?php if ($id):?>
+<?php $attribute = $this->getAttribute($id)?>
+<?php $values = $this->loadAttributeValue($id)?>
+<?php endif?>
+<h1>添加属性</h1>
+<table class="table2">
+	<tbody>
+		<tr>
+			<th>属性名称：</th>
+			<td>
+				<input name="label" type="text" value="<?php echo $attribute['label']?>" />
+			</td>
+		</tr>
+		<tr>
+			<th>后台处理：</th>
+			<td>
+				<select name="backend">
+					<option value="text" <?php echo $attribute['backend'] == 'text' ? 'selected="selected"' : ''?>>文本输入</option>
+					<option value="single" <?php echo $attribute['backend'] == 'single' ? 'selected="selected"' : ''?>>单项选择</option>
+					<option value="multiple" <?php echo $attribute['backend'] == 'multiple' ? 'selected="selected"' : ''?>>多项选择</option>
+					<option value="default" <?php echo $attribute['backend'] == 'default' ? 'selected="selected"' : ''?>>默认</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>前台处理：</th>
+			<td>
+				<select name="frontend">
+					<option value="text" <?php echo $attribute['frontend'] == 'text' ? 'selected="selected"' : ''?>>文本输入</option>
+					<option value="single" <?php echo $attribute['frontend'] == 'single' ? 'selected="selected"' : ''?>>单项选择</option>
+					<option value="multiple" <?php echo $attribute['frontend'] == 'multiple' ? 'selected="selected"' : ''?>>多项选择</option>
+					<option value="default" <?php echo $attribute['frontend'] == 'default' ? 'selected="selected"' : ''?>>默认</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>是否筛选属性：</th>
+			<td>
+				<select name="is_filter">
+					<option value="0">非筛选属性</option>
+					<option value="1" <?php echo $attribute['is_filter'] ? 'selected="selected"' : ''?>>筛选属性</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>是否必填属性：</th>
+			<td>
+				<select name="is_required">
+					<option value="0">非必填属性</option>
+					<option value="1" <?php echo $attribute['is_required']? 'selected="selected"' : ''?>>必填属性</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>排序号：</th>
+			<td>
+				<input name="sort" type="text" value="<?php echo $attribute['sort'] ? $attribute['sort'] : 0?>" />
+			</td>
+		</tr>
+		<tr>
+			<th>添加属性值：</th>
+			<td>
+				<a class="red" href="javascript:void(0);" onclick="addValue(this);">添加</a>
+			</td>
+		</tr>
+		<tr>
+			<th></th>
+			<td>
+				<button class="btn_red" type="type" onclick="saveItem(this);">保存</button>
+			</td>
+		</tr>
+		<?php if ($values):?>
+		<tr class="attribute-value">
+			<th>现有属性值：</th>
+			<td>
+				<ul>
+					<?php foreach ($values as $value):?>
+					<li>
+						<div class="value-name">
+							<label>名称：</label>
+							<input name="vlabel" value="<?php echo $value['label']?>" />
+						</div>
+						<div class="value-sort">
+							<label>排序号：</label>
+							<input name="vsort" value="<?php echo $value['sort']?>" />
+						</div>
+						<div class="value-action">
+							<a href="javascript:void(0);" onclick="removeValue(this, '<?php echo $value['id']?>');">删除</a>
+							<label>/</label>
+							<a href="javascript:void(0);" onclick="modifyValue(this, '<?php echo $value['id']?>')">保存</a>
+						</div>
+						<div class="clear"></div>
+					</li>
+					<?php endforeach?>
+				</ul>
+			</td>
+		</tr>
+		<?php endif?>
+	</tbody>
+</table>
+<script type="text/javascript">
+//添加属性
+function addValue(obj)
+{
+	var parent = jQuery(obj).parent().parent();
+	if(jQuery('.add-value-input').length == 0){
+		var html = '<tr class="attribute-value add-value-input">\
+					<th></th>\
+					<td>\
+						<ul>\
+							<li>\
+								<div class="value-name">\
+									<label>名称：</label><input name="vlabel" value="" />\
+								</div>\
+								<div class="value-sort">\
+									<label>排序号：</label><input name="vsort" value="0" />\
+								</div>\
+								<div class="value-action">\
+									<a href="javascript:void(0);" onclick="removeValueInput(this);">删除</a>\
+								</div>\
+								<div class="clear"></div>\
+							</li>\
+						</ul>\
+					</td>\
+				</tr>';
+		parent.after(html);
+	}else{
+		var html = '<li>\
+				<div class="value-name">\
+					<label>名称：</label><input name="vlabel" value="" />\
+				</div>\
+				<div class="value-sort">\
+					<label>排序号：</label><input name="vsort" value="0" />\
+				</div>\
+				<div class="value-action">\
+					<a href="javascript:void(0);" onclick="removeValueInput(this);">删除</a>\
+				</div>\
+				<div class="clear"></div>\
+			</li>';
+		jQuery('.add-value-input ul').append(html);
+	}
+}
+
+//删除新添加属性值
+function removeValueInput(obj)
+{
+	if(jQuery('.add-value-input li').length == 1){
+		jQuery('.add-value-input').remove();
+	}else{
+		jQuery(obj).parent().parent().remove();
+	}
+}
+
+//保存属性
+function saveItem(obj){
+	var parent = jQuery(obj).parent().parent().parent();
+	var label = parent.find('input[name=label]').val();
+	if(label == ''){
+		alert('请填写属性名称');
+		return;
+	}
+	var backend = parent.find('select[name=backend]').val();
+	var frontend = parent.find('select[name=frontend]').val();
+	var is_filter = parent.find('select[name=is_filter]').val();
+	var is_required = parent.find('select[name=is_required]').val();
+	var sort = parent.find('input[name=sort]').val();
+	if(sort == ''){
+		alert('请填写属性排序号');
+		return;
+	}
+	var vlabels = new Array();
+	var vsorts = new Array();
+	jQuery('.add-value-input li').each(function(){
+		var vlabel = jQuery(this).find('input[name=vlabel]').val();
+		var vsort = jQuery(this).find('input[name=vsort]').val();
+		if (vlabel == '' || vsort == ''){
+			alert('请填写属性值的名称及排序号');
+			return;
+		}
+		vlabels.push(vlabel);
+		vsorts.push(vsort);
+	});
+	var params = {
+		<?php if ($id):?>
+		id:'<?php echo $id?>',
+		<?php endif?>
+		attribute:{
+			label:label,
+			backend:backend,
+			frontend:frontend,
+			is_filter:is_filter,
+			is_required:is_required,
+			sort:sort,
+		},
+		values:{
+			label:vlabels,
+			sort:vsorts
+		}
+	};
+	jQuery.ajax({
+		type:'get',
+		data:jQuery.param(params),
+		dataType:'json',
+		url:'/monitor/system_mlib/<?php echo $id ? 'ajax-modify-attribute' : 'ajax-add-attribute'?>',
+		beforeSend:function(){
+			jQuery(obj).html('正在提交...')
+				.attr('disabled', 'disabled');
+		},
+		success:function(data){
+			if(data == '1'){
+				window.location.href = '/monitor/system_mlib/attribute-list';	
+			}else{
+				jQuery(obj).html('保存')
+					.removeAttr('disabled');
+				alert('保存属性失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			jQuery(obj).html('保存')
+				.removeAttr('disabled');
+			alert('保存属性失败，请稍候尝试');
+		}
+	});
+}
+
+//修改属性值
+function modifyValue(obj, id)
+{
+	var parent = jQuery(obj).parent().parent();
+	var label = parent.find('input[name=vlabel]').val();
+	if(label == ''){
+		alert('请填写属性值名称');
+		return;
+	}
+	var sort = parent.find('input[name=vsort]').val();
+	if(sort == ''){
+		alert('请填写属性值排序号');
+		return;
+	}
+	var params = {
+		id:id,
+		value:{
+			label:label,
+			sort:sort
+		}
+	};
+	jQuery.ajax({
+		type:'get',
+		data:jQuery.param(params),
+		dataType:'json',
+		url:'/monitor/system_mlib/ajax-modify-attribute-value',
+		beforeSend:function(){
+			jQuery(obj).html('正在提交...')
+				.attr('disabled', 'disabled');
+		},
+		success:function(data){
+			jQuery(obj).html('保存')
+				.removeAttr('disabled');
+			if(data == '1'){
+				alert('修改成功');
+			}else{
+				alert('修改失败');
+			}
+		},
+		error:function(){
+			jQuery(obj).html('保存')
+				.removeAttr('disabled');
+			alert('修改失败');
+		}
+	});
+}
+
+//删除属性值
+function removeValue(obj, id)
+{
+	jQuery.ajax({
+		type:'get',
+		data:{id:id},
+		dataType:'json',
+		url:'/monitor/system_mlib/ajax-remove-attribute-value',
+		beforeSend:function(){
+			jQuery(obj).html('正在提交...')
+				.attr('disabled', 'disabled');
+		},
+		success:function(data){
+			if(data == '1'){
+				jQuery(obj).parent().parent().remove();
+			}else{
+				jQuery(obj).html('删除')
+					.removeAttr('disabled');
+				alert('删除失败');
+			}
+		},
+		error:function(){
+			jQuery(obj).html('删除')
+				.removeAttr('disabled');
+			alert('删除失败');
+		}
+	});
+}
+</script>

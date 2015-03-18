@@ -1,0 +1,149 @@
+<?php $id = Factory::getRequest()->getParam('model', null)?>
+<?php $store = Factory::getRequest()->getParam('store', null)?>
+<?php $model = $this->getStoreMobileModelInfo($id)?>
+<div class="item">
+	<div class="gallery">
+    	<div class="img_b">
+			<img src="http://mobilefrom-upload.stor.sinaapp.com/mlib/thumb/<?php echo $model['model']['thumb']?>"/>
+        </div>
+    </div>
+    <div class="base_info">
+    	<div class="title">
+			<h1><?php echo $model['model']['brand'] . '&nbsp;' . $model['model']['model']?></h1>
+        </div>
+        <table>
+        	<thead>
+            	<tr>
+                	<th style="width:65px;">版本</th>
+                	<th>颜色</th>
+                	<th>容量</th>
+                	<th>成色</th>
+                	<th style="width:260px;">备注</th>
+                	<th style="width:65px;">价格</th>
+                </tr>
+            </thead>
+            <tbody>
+				<?php if ($model['mobiles']):?>
+				<?php foreach ($model['mobiles'] as $mobile):?>
+            	<tr>
+					<td><?php echo $mobile['version']?></td>
+					<td><?php echo $mobile['color']?></td>
+					<td><?php echo $mobile['storage']?>G</td>
+					<td><?php echo $mobile['newly']?></td>
+					<td><?php echo $mobile['remark'] ? $mobile['remark'] : '---'?></td>
+					<td class="red">￥<?php echo $mobile['price']?></td>
+                </tr>
+				<?php endforeach?>
+				<?php endif?>
+            </tbody>
+        </table>
+        <div class="wx_tis">
+        	提示：
+        	<span class="grey1">机荒网认证的商家均为本地较有信誉的手机商家，各位消费可放心前往实体店购买。若用户在机荒网认证的商铺买到假冒伪劣产品，可向本站举报。若举报属实，本站将对该商家进行相应处罚。</span>
+            <a class="blue" href="/website/store/customer?cfrom=mobile-info" target="_blank">详情>></a>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="item_detail">
+	<!--正文部分ks-->
+	<div class="col_main">
+    	<div class="main_wrap">
+<!--
+        	<div class="tabs">
+        		<ul>
+                	<li class="tabs_c"><a href="javascript:void(0);">商品详情</a></li>
+                </ul>
+            </div>
+-->
+			<div class="tabs_item">
+				<!--商品属性ks-->
+				<div class="attributes" id="attributes">
+<!--
+					<div class="brand_model">
+						品牌机型：<span class="blue"><?php echo $model['model']['brand'] . '&nbsp;' . $model['model']['model']?></span>
+					</div>
+-->
+					<div class="attributes_bd">
+						<ul>
+							<li>上市时间：<?php echo $model['model']['released_at']?></li>
+							<li>操作系统：<?php echo $model['model']['params']['os']?></li>
+							<li>电池容量：<?php echo $model['model']['params']['cell_capacity']['label']?>mAh</li>
+							<li>扩容类型：<?php echo $model['model']['params']['expansion']?></li>
+							<li>CPU型号：<?php echo $model['model']['params']['cpu_type']?></li>
+							<li>CPU频率：<?php echo $model['model']['params']['cpu_frequency']?></li>
+							<li>核心数：<?php echo $model['model']['params']['core_number']['label']?></li>
+							<li>RAM容量：<?php echo $model['model']['params']['ram']['label']?></li>
+							<li>屏幕尺寸：<?php echo $model['model']['params']['screen_size']['label']?>英寸</li>
+							<li>屏幕分辨率：<?php echo $model['model']['params']['screen_resolution']['label']?>像素</li>
+							<li>前置摄像头：<?php echo $model['model']['params']['front_camera']['label']?>万像素</li>
+							<li>后置摄像头：<?php echo $model['model']['params']['back_camera']['label']?>万像素</li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<!--商品属性end-->
+				<!--卖家描述ks-->
+				<div class="miaoshu"><?php echo $model['model']['remark']?></div>
+				<!--卖家描述end-->
+				<!--卖家图片ks-->
+				<div class="tupian">
+					<ul>
+						<?php if ($model['model']['sgallery'] && $gallery = explode(';', substr($model['model']['sgallery'], 0, -1))):?>
+						<?php foreach ($gallery as $item):?>
+						<li><img src="http://mobilefrom-upload.stor.sinaapp.com/store/<?php echo $item?>" /></li>
+						<?php endforeach?>
+						<?php else:?>
+						<?php $gallery = explode(';', substr($model['model']['ogallery'], 0, -1))?>
+						<?php foreach ($gallery as $item):?>
+						<li><img src="http://mobilefrom-upload.stor.sinaapp.com/mlib/<?php echo $item?>" /></li>
+						<?php endforeach?>
+						<?php endif?>
+					</ul>
+				</div>
+				<!--卖家图片end-->
+			</div>
+        </div>
+    </div>
+    <!--正文部分end-->
+    <!--左侧栏ks-->
+    <div class="col_sub">
+		<?php $info = $this->getStorePublicInfo($store)?>
+		<!--在线客服ks-->
+		<div class="sidebar_item">
+			<?php if ($info['notice']):?>
+			<h3>店铺公告</h3>
+			<div class="notice grey1">
+				<p style="text-indent:2em;"><?php echo $info['notice']?></p>
+			</div>
+			<?php endif?>
+			<?php if ($info['qq']):?>
+			<h3 style="margin-top:10px;">在线客服</h3>
+			<div class="im_qq_list">
+				<?php foreach ($info['qq'] as $qq):?>
+				<a target="_blank" rel="nofollow" href="/default/analysis/qq?uin=<?php echo $qq['num']?>&detail=store&store=<?php echo $store?>"><?php echo $qq['name'] . '：' . $qq['num']?></a>
+				<?php endforeach?>
+			</div>
+			<?php endif?>
+			<?php if ($info['tel']):?>
+			<h3 style="margin-top:10px;">客服电话</h3>
+			<div class="contact grey1">
+				<?php foreach ($info['tel'] as $tel):?>
+				<p><?php echo $tel['name'] . '：' . $tel['num']?></p>
+				<?php endforeach?>
+			</div>
+			<?php endif?>
+			<?php if ($info['working']):?>
+			<h3 style="margin-top:10px;">工作时间</h3>
+			<div class="work_time grey1">
+				<?php foreach ($info['working'] as $value):?>
+				<p><?php echo $value?></p>
+				<?php endforeach?>
+			</div>
+			<?php endif?>
+		</div>
+		<!--在线客服end-->
+    </div>
+    <!--左侧栏end-->
+    <div class="clear"></div>
+</div>

@@ -1,0 +1,80 @@
+<?php $services = $this->loadServiceList()?>
+<h1 style="font-family:'微软雅黑';">服务列表</h1>
+<table class="table1 service-list" style="margin-top:20px;">
+	<thead>
+    	<tr>
+        	<th style="text-align:center;width:50px;">提供</th>
+        	<th style="width:100px;">服务标题</th>
+        	<th style="width:200px;">服务描述</th>
+        	<th style="width:300px;">店铺服务介绍</th>
+        </tr>
+    </thead>
+    <tbody>
+		<?php foreach ($services as $item):?>
+		<tr id="service_<?php echo $item['id']?>">
+			<td class="provided">
+				<input type="checkbox" name="provided" value="<?php echo $item['id']?>"/>
+			</td>
+			<td><?php echo $item['title']?></td>
+			<td><?php echo $item['description']?></td>
+			<td>
+				<textarea name="introduction" onpropertychange="this.style.height=this.scrollHeight + 'px'" oninput="this.style.height=this.scrollHeight + 'px'"></textarea>
+			</td>
+		</tr>
+		<?php endforeach?>
+    </tbody>
+</table>
+<div class="service-btn">
+	<button type="button">提交</button>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	loadMyServiceList();
+	jQuery('.service-btn button').click(function(){
+		var id = new Array();
+		var introduction = new Array();
+		jQuery('input[name=provided]:checked').each(function(){
+			id.push(jQuery(this).val());
+			introduction.push(jQuery(this).parent().parent().find('textarea[name=introduction]').val());
+		});
+		jQuery.ajax({
+			type:'get',
+			data:{id:id, introduction:introduction},
+			dataType:'json',
+			url:'/customer/store/submit-service',
+			beforeSend:function(){
+				jQuery(this).html('正在提交...').attr('disabled', 'disabled');
+			},
+			success:function(data){
+				jQuery(this).html('提交').removeAttr('disabled');
+				if (data == '1') {
+					alert('服务信息提交成功');
+				} else {
+					alert('服务信息提交失败，请稍候尝试');
+				}
+			},
+			error:function(){
+				jQuery(this).html('提交').removeAttr('disabled');
+				alert('服务信息提交失败，请稍候尝试');
+			}
+		});
+	});
+});
+//获取店铺服务信息
+function loadMyServiceList()
+{
+	jQuery.ajax({
+		type:'get',
+		dataType:'json',
+		url:'/customer/store/load-my-service',
+		success:function(data) {
+			if (data != '0') {
+				jQuery.each(data, function(k, v){
+					jQuery('#service_' + v.id).find('input[type=checkbox]').attr('checked', 'checked');	
+					jQuery('#service_' + v.id).find('textarea').val(v.introduction);
+				});
+			}
+		}
+	});
+}
+</script>

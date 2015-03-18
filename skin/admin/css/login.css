@@ -1,0 +1,83 @@
+/* CSS Document */
+.login_wrap{
+	position:relative;
+	width:800px;
+	height:600px;
+	margin:0 auto;
+	background:url(../img/login.png) no-repeat;
+	margin-top:50px;}
+.item{
+	position:absolute;}
+.item input{
+	text-align:center;
+	font-size:18px;
+	width:214px;
+	height:31px;
+	background:none;
+	border:none;
+	color:#4579cc;
+	line-height:26px;}
+.tis{
+	width:300px;
+	height:35px;
+	left:200px;
+	top:180px;}
+.tis p{
+	height:35px;
+	line-height:35px;
+	padding-left:40px;
+	color:#85a6dc;}
+.info{
+	background:url(../img/info.png) no-repeat;}
+.error{
+	background:url(../img/error.png) no-repeat;}
+.account_password{
+	width:460px;
+	height:31px;
+	left:180px;
+	top:241px;}
+.password{
+	margin-left:20px;}
+.yzm_btns{
+	width:480px;
+	height:40px;
+	left:180px;
+	top:295px;}
+.item2{
+	float:left;}
+.yzm{
+	margin-top:5px;}
+.submit{
+	width:122px;
+	height:40px;
+	margin-left:10px;}
+.reset{
+	width:122px;
+	height:40px;
+	background:none;
+	border:none;}
+.submit button,.reset button{
+	width:122px;
+	height:30px;
+	margin-top:6px;
+	background:none;
+	border:none;
+	color:#02173A;
+	font-weight:bold;}
+.submit:hover,.reset:hover{
+	background:url(../img/login_btn.png) no-repeat;
+	background-position:0px 6px;}
+.yzm_img_wrap{
+	width:200px;
+	height:32px;
+	left:230px;
+	top:353px;}
+.yzm_img_wrap a{
+	display:block;
+	float:left;}
+.yzm_img{
+	width:100px;
+	height:32px;}
+.yzm_img img{
+	width:100px;
+	height:32px;}

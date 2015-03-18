@@ -1,0 +1,18 @@
+.main{
+	margin-top:20px !important;
+}
+.report-rule{
+	margin-left:30px;
+}
+.report-rule h3{
+	color: #690;
+	height: 20px;
+	line-height: 20px;
+	padding-top: 20px;
+}
+.report-rule p{
+	line-height: 25px;
+	margin-top: 10px;
+	text-indent: 2em;
+	font-size: 14px;
+}

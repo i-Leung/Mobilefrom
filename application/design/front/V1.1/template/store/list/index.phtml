@@ -1,0 +1,174 @@
+<?php $region = Factory::getRequest()->getParam('region', null)?>
+<?php $service = Factory::getRequest()->getParam('service', null)?>
+<?php $page = Factory::getRequest()->getParam('p', '1')?>
+<?php $stores = $this->loadStoreList($service, $region, $page)?>
+<?php $total = $this->getStoreTotal($service, $region)?>
+<?php global $CStatic?>
+<?php $services = $this->loadServiceTitleList()?>
+<?php $selector = $service ? $this->getServiceInfo($service) : null?>
+<div class="shop_top">
+	<a href="/website/store/customer?cfrom=store-list">了解线上店</a>
+	<h1>零翻新、零组装、零假货</h1>
+	<a href="/website/store/business?cfrom=store-list">商家入驻</a>
+	<div class="clear"></div>
+</div>
+<div class="shop_fliter" style="<?php if ($selector):?>height:auto;<?php endif?>">
+	<dl>
+		<dt>商家<span class="red">服务</span></dt>
+		<dd <?php if (!$service):?>class="s_f_selected"<?php endif?>>
+			<a href="/store/list?region=<?php echo $region?>&cfrom=store_filter">全部</a>
+		</dd>
+		<?php foreach ($services as $key => $value):?>
+		<dd <?php if ($service == $key):?>class="s_f_selected"<?php endif?>>
+			<a href="/store/list?service=<?php echo $key?>&region=<?php echo $region?>&cfrom=store_filter"><?php echo $value?></a>
+		</dd>
+		<?php endforeach?>
+		<div class="clear"></div>
+	</dl>
+	<div class="s_f_region">
+		<a href="javascript:void(0);"><?php echo $region ? $CStatic['region'][$region] : '所在区域'?></a>
+		<ul style="display:none;">
+			<li><a href="/store/list?cfrom=store_filter">不限</a></li>
+			<?php foreach ($CStatic['region'] as $key => $value):?>
+			<li><a href="/store/list?region=<?php echo $key?>&cfrom=store_filter"><?php echo $value?></a></li>
+			<?php endforeach?>
+		</ul>
+	</div>
+	<div class="clear"></div>
+	<?php if ($selector):?>
+	<div class="service_selected">
+		<h3 class="red"><?php echo $selector['title']?>：</h3>
+		<p><?php echo $selector['description']?></p>
+		<div class="clear"></div>
+	</div>
+	<?php endif?>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.s_f_region').mouseover(function(){
+		jQuery(this).find('ul').show();
+	});
+	jQuery('.s_f_region').mouseleave(function(){
+		jQuery(this).find('ul').hide();
+	});
+	jQuery('.shop_item').click(function(){
+		window.location.href = jQuery(this).find('.shop_img').attr('href');
+	});
+});
+</script>
+<div class="shop_list" total="<?php echo $total?>">
+	<ul>
+		<?php if ($stores):?>
+		<?php foreach ($stores as $key => $store):?>
+		<li <?php if (($key + 1) % 2 == 0):?>style="margin-left:20px;"<?php endif?>>
+        	<div class="shop_item">
+				<div class="shop_info">
+					<a class="shop_img" href="/store/item?store=<?php echo $store['id']?>&cfrom=store-list">
+						<img src="http://mobilefrom-upload.stor.sinaapp.com/thumbnail/<?php echo $store['customer_id']?>.jpg" onerror="loadErrorStoreThumbnail(this);"/>
+					</a>
+					<div class="labels">
+						<a class="shop_name" href="/store/item?store=<?php echo $store['id']?>&cfrom=store-list"><?php echo $store['name']?></a>
+						<p>
+							<span class="grey1">访问量：<?php echo $store['clicks']?> </span>
+							<a class="grey1" href="/store/item?store=<?php echo $store['id']?>&cfrom=store-list">去店铺逛逛</a>
+						</p>
+					</div>
+					<!--
+					<div class="more" onclick="showStoreIntro(this);"></div>
+					-->
+					<div class="clear"></div>
+				</div>
+                <div class="description" style="display:block;"><?php echo $store['introduction']?>...</div>
+				<div class="services">
+					<h3 class="grey1">店铺服务：</h3>
+					<p>
+					<?php if ($store['service']):?>
+						<?php foreach ($store['service'] as $item) {echo $services[$item] . '；';}?>
+					<?php else:?>
+						该店铺暂未选择可提供的服务
+					<?php endif?>
+					</p>
+				</div>
+<!--
+				<div class="open" onclick="showStoreIntro(this);"></div>
+				<div class="close" onclick="hideStoreIntro(this);"></div>
+-->
+            </div>
+        </li>
+		<?php endforeach?>
+		<?php else:?>
+		<li>
+        	<div class="shop_item">
+				<div class="shop_info">
+					<a class="shop_img" href="/store/item?store=1&cfrom=store-list">
+						<img src="http://mobilefrom-upload.stor.sinaapp.com/thumbnail/368.jpg" onerror="loadErrorStoreThumbnail(this);"/>
+					</a>
+					<div class="labels">
+						<a class="shop_name" href="/store/item?store=1&cfrom=store-list">机荒网示范店</a>
+						<p>
+							<span class="grey1">访问量：0 </span>
+							<a class="grey1" href="/store/item?store=1&cfrom=store-list">去店铺逛逛</a>
+						</p>
+					</div>
+					<!--
+					<div class="more" onclick="showStoreIntro(this);"></div>
+					-->
+					<div class="clear"></div>
+				</div>
+				<div class="description" style="display:block;">
+机荒网（http://www.mobilefrom.com）顺德唯一专注数码产品交易的网络平台，专门提供有助于顺德地区数码产品交易的线上服务。 关注机荒网的新浪官方微博（@机荒网），将会有机荒网的最新动态！...
+				</div>
+				<div class="services">
+					<h3 class="grey1">店铺服务：</h3>
+					<p>手机维修；刷机/解锁；交易中介；旧机换新；贷款购机；数码回收；</p>
+				</div>
+				<!--
+				<div class="open" onclick="showStoreIntro(this);"></div>
+				<div class="close" onclick="hideStoreIntro(this);"></div>
+				-->
+            </div>
+        </li>
+		<?php endif?>
+		<div class="clear"></div>
+    </ul>
+</div>
+<script type="text/javascript">
+/**
+jQuery(document).ready(function(){
+	jQuery('.shop_list ul li').mouseover(function(){
+		if (jQuery(this).find('.description').css('display') == 'none') {
+			jQuery(this).find('.more').show();
+			jQuery(this).find('.open').show();
+		}
+	});
+	jQuery('.shop_list ul li').mouseleave(function(){
+		jQuery(this).find('.more').hide();
+		if (jQuery(this).find('.description').css('display') == 'none') {
+			jQuery(this).find('.open').hide();
+		}
+	});
+});
+//显示店铺介绍
+function showStoreIntro(obj)
+{
+	box = jQuery(obj).parent();
+	if (jQuery(obj).hasClass('more')) {
+		box = jQuery(obj).parent().parent();
+	}
+	box.find('.more').hide();
+	box.find('.description').slideDown();
+	box.css('border', '1px solid #0066CC').css('height', 'auto').css('z-index', '9').css('position', 'absolute');
+	box.find('.open').hide();
+	box.find('.close').show();
+}
+//隐藏店铺介绍
+function hideStoreIntro(obj)
+{
+	jQuery(obj).parent().find('.description').slideUp();
+	jQuery(obj).parent().find('.close').hide();
+	jQuery(obj).parent().css('border', 'none').animate(
+		{height:'200px', position:'static'}
+	);
+}
+*/
+</script>

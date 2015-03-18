@@ -1,0 +1,45 @@
+<?php $pid = Factory::getRequest()->getParam('pid', 0)?>
+<!--筛选框ks-->
+<div class="search_div">
+	<div class="search_div_item">
+    	<button type="button" onclick="window.location.href = '/monitor/system_resource/add-group'">+添加资源组</button>
+    </div>
+	<div class="clear"></div>
+</div>
+<!--筛选框end-->
+<div class="table1" entity="<?php echo $pid ? 'resource-group' : 'resource-main-group'?>">
+	<table width="990">
+    	<thead>
+        	<tr>
+            	<th width="200">资源组名称</th>
+            	<th width="200">资源组url</th>
+            	<th width="200">状态</th>
+            	<th class="tac" width="130">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+		<?php $groups = $this->loadGroupList($pid)?>
+		<?php if ($groups):?>
+		<?php foreach ($groups as $group):?>
+		<tr entity="<?php echo $group['id']?>">
+			<td><?php echo $group['label']?></td>
+			<td><?php echo $group['controller']?></td>
+			<td class="green"><?php echo $group['status'] ? '有效' : '冻结'?></td>
+			<td class="table_cz tac">
+				<a href="/monitor/system_resource/add-group?id=<?php echo $group['id']?>">修改</a>
+				<?php if ($group['status']):?>
+				<a href="javascript:void(0);" pid="<?php echo $group['pid']?>" onclick="itemInActive(this, '<?php echo $group['id']?>', 'resource-group');">禁用</a>
+				<?php else:?>
+				<a href="javascript:void(0);" pid="<?php echo $group['pid']?>" onclick="itemActive(this, '<?php echo $group['id']?>', 'resource-group');">启用</a>
+				<?php endif;?>
+			</td>
+		</tr>
+		<?php endforeach;?>
+		<?php else:?>
+		<tr>
+			<td colspan="4" style="text-align:center;">暂无相关资源组</td>
+		</tr>
+		<?php endif;?>
+        </tbody>
+    </table>
+</div>

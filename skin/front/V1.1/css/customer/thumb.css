@@ -1,0 +1,97 @@
+/* CSS Document */
+.content_title{
+	line-height:30px;}
+.select_img{
+	margin-top:10px;
+	height:30px;}
+.btn{
+	float:left;
+	position: relative;
+	overflow: hidden;
+	margin-right: 4px;
+	display: inline-block;
+	padding: 4px 10px 4px;
+	font-size: 14px;
+	line-height: 18px;
+	color: #fff;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	background-color: #5bb75b;
+	border:1px #690 solid;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;}
+.btn:hover{
+	background:#87CF4C;}
+.upload_img_btn{
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0;
+	border: solid transparent;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	cursor: pointer;
+	width:75px;}
+.upload_img_btn:hover{
+	background:url(../../img/customer/upload_img.png) no-repeat 0px -30px;}
+.select_img p{
+	float:left;
+	line-height:30px;
+	padding-left:10px;}
+.img_edit_area{
+	margin-top:20px;
+	padding-bottom:30px;
+	border-bottom:1px #ccc dotted;}
+.thumb,.img_upload_tis{
+	float:left;
+	border:1px #e2e2e2 solid;}
+.thumb{
+	overflow:hidden;}
+.img_upload_tis{
+	margin-left:80px;
+	border:none;}
+.img_upload_tis li{
+	line-height:20px;
+	margin-bottom:10px;
+	color:#F60;}
+.img_upload_tis .grey1{
+	margin-top:30px;
+	color:#999 !important;}
+.save_img{
+	width:110px;
+	height:36px;
+	line-height:32px;
+	margin-top:30px;
+	font-size:14px;}
+/*
+ * imgAreaSelect default style
+ */
+.imgareaselect-border1, .imgareaselect-border2,.imgareaselect-border3, .imgareaselect-border4 {
+    filter: alpha(opacity=50);
+	opacity: 0.5;
+}
+.imgareaselect-border1 {
+	border: solid 1px #000;
+}
+.imgareaselect-border2 {
+	border: dashed 1px #fff;
+}
+.imgareaselect-handle {
+    background-color: #fff;
+    border: solid 1px #000;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+}
+.imgareaselect-outer {
+    background-color: #000;
+    filter: alpha(opacity=40);
+    opacity: 0.4;
+}
+.imgareaselect-selection {
+	background-color: #fff;
+    filter: alpha(opacity=0);
+	opacity: 0;
+}
+

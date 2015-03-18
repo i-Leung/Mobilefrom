@@ -1,0 +1,140 @@
+<?php $tree = Factory::getView('system/resource')->loadResourceTree()?>
+<?php
+$id = Factory::getRequest()->getParam('id');
+if ($id) {
+	$info = $this->getGroup($id);
+}
+?>
+<h1>添加网站成员群组</h1>
+<table class="table2">
+	<tbody>
+    	<tr>
+		<th>群组名称：</th>
+		<td>
+			<input name="label" type="text" value="<?php echo $info['label']?>" />
+		</td>
+        </tr>
+    	<tr>
+		<th>职责描述：</th>
+		<td>
+			<textarea name="description" style="width:400px;height:100px;"><?php echo $info['description']?></textarea>
+		</td>
+        </tr>
+    	<tr>
+        	<th>权限分配：</th>
+        	<td></td>
+        </tr>
+    </tbody>
+</table>
+<table class="table3" style="margin-top:10px;">
+    <tbody>
+	<?php if ($tree):?>
+	<?php foreach ($tree as $mgroup => $children):?>
+	<tr>
+		<th width="103" valign="top" style="padding:10px 0;"><?php echo $mgroup?></th>
+		<td width="884">
+			<?php if ($children):?>
+			<?php foreach ($children as $group => $item):?>
+			<div class="resource-group">
+				<div class="resource-group-label">
+					<span><?php echo $group?></span>
+					<?php if ($item):?>
+					<a href="javascript:void(0);" onclick="selectAll(this);">全选</a>
+					<a href="javascript:void(0);" onclick="unselectAll(this);">取消全选</a>
+					<?php endif?>
+				</div>
+				<div class="resource-item-list">
+					<?php if ($item):?>
+					<?php foreach ($item as $value):?>
+					<label>
+					<input name="resources[]" type="checkbox" value="<?php echo $value['id']?>" <?php echo $id && in_array($value['id'], $info['resource']) ? 'checked="checked"' : ''?> />
+						<span><?php echo $value['item']?></span>
+					</label>
+					<?php endforeach?>
+					<?php endif?>
+				</div>	
+			</div>
+			<?php endforeach?>
+			<?php endif?>
+		</td>
+	</tr>
+	<?php endforeach?>
+	<?php endif?>
+    </tbody>
+</table>
+<div style="padding:20px 0px 0px 105px;">
+    <button class="btn_red" onclick="saveGroup(this);">保存</button>
+    <button class="btn_grey" style="margin-left:10px;" onclick="history.go(-1);">取消</button>
+</div>
+<script type="text/javascript">
+//全选
+function selectAll(obj)
+{
+	var parent = jQuery(obj).parent().parent();
+	parent.find('input[type=checkbox]').each(function(){
+		jQuery(this).attr('checked', 'checked');
+	});
+}
+
+//取消全选
+function unselectAll(obj)
+{
+	var parent = jQuery(obj).parent().parent();
+	parent.find('input[type=checkbox]').each(function(){
+		jQuery(this).removeAttr('checked');
+	});
+}
+
+//提交群组数据
+function saveGroup(obj)
+{
+	var parent = jQuery(obj).parent().parent();
+	var label = parent.find('input[name=label]').val();
+	if(label == ''){
+		alert('请输入群组名称');
+		return;
+	}
+	var description = parent.find('textarea[name=description]').val();
+	if(description == ''){
+		alert('请输入职责描述');
+		return;
+	}
+	var resources = new Array();
+	parent.find('input[name="resources[]"]:checked').each(function(){
+		resources.push(jQuery(this).val());
+	});
+	if(resources == ''){
+		alert('请选择该群组可操作的资源');
+		return;
+	}
+	jQuery.ajax({
+		type:'get',
+		<?php if ($id):?>
+		data:{id:'<?php echo $id?>', label:label, description:description, resources:resources},
+		url:'/monitor/system_member/ajax-modify-group',
+		<?php else:?>
+		data:{label:label, description:description, resources:resources},
+		url:'/monitor/system_member/ajax-add-group',
+		<?php endif?>
+		dataType:'json',
+		beforeSend:function(XMLHttpRequest){
+			jQuery(obj).html('正在提交...')
+				.attr('disabled', 'disabled');
+		},
+		success:function(data){
+			if(data == '1'){
+				window.location.href = '/monitor/system_member/group-list';
+			}else{
+				alert('保存网站成员群组失败，请稍候尝试');
+				jQuery(obj).html('保存')
+					.attr('disabled', '');
+			}
+		},
+		error:function(){
+			alert('保存网站成员群组失败，请稍候尝试');
+			jQuery(obj).html('保存')
+				.attr('disabled', '');
+		}
+	});
+}
+</script>

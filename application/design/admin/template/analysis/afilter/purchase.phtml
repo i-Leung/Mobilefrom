@@ -1,0 +1,60 @@
+<?php global $static?>
+<?php $filter_id = Factory::getRequest()->getParam('filter', null)?>
+<?php $records = $this->loadPurchaseAttributeRecord($filter_id)?>
+<ul class="tabs1">
+	<li>手机属性筛选列表</li>
+	<li class="tabs1_c">求购属性筛选列表</li>
+</ul>
+<!--筛选框ks-->
+<div class="search_div">
+	<div class="search_div_item">
+		<form action="/monitor/analysis_afilter/purchase" method="get">
+			<strong>属性：</strong>
+			<select name="filter">
+				<option value="">所有属性</option>
+				<?php $filters = $this->loadAllPurchaseAttribute()?>
+				<?php foreach ($filters as $key => $filter):?>
+				<option value="<?php echo $key?>" <?php echo $key == $filter_id ? 'selected="selected"' : ''?>><?php echo $filter?></option>
+				<?php endforeach?>
+			</select>
+			<button type="submit">筛选</button>
+		</form>
+	</div>
+	<div class="clear"></div>
+</div>
+<!--筛选框end-->
+<div class="table1" entity="attribute-filter">
+	<table width="990">
+		<thead>
+			<tr>
+				<th width="320">属性名称</th>
+				<th width="320">属性值名称</th>
+				<th width="320">筛选次数</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if ($records):?>
+			<?php foreach ($records as $record):?>
+			<tr>
+				<td><?php echo $static['filter']['purchase'][$record['filter_id']]?></td>
+				<td><?php echo $this->purchaseAttributeTranslateFilter($record['filter_id'], $record['value_id'])?></td>
+				<td><?php echo $record['amount']?></td>
+			</tr>
+			<?php endforeach?>
+			<?php else:?>
+			<tr>
+				<td colspan="3" style="text-align:center;">暂无相关统计数据</td>
+			</tr>
+			<?php endif?>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.tabs1 li').click(function(){
+		if(!jQuery(this).hasClass('tabs1_c')){
+			window.location.href = '/monitor/analysis_afilter/mobile';
+		}
+	});
+});
+</script>

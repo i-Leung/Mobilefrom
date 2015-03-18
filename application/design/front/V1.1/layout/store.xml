@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--店铺列表ks-->
+	<store_list_index>
+		<reference name="skin">
+			<action method="addCss">store/list/index.css</action>
+			<action method="addJs">store.js</action>
+		</reference>
+		<reference name="content" type="Store_ListView">
+			<action method="setTemplate">store/list/index.phtml</action>
+		</reference>
+	</store_list_index>
+	<!--店铺列表end-->
+	<!--店铺首页ks-->
+	<store_item_index>
+		<reference name="skin">
+			<action method="addCss">store/item/index.css</action>
+			<action method="addJs">store.js</action>
+		</reference>
+		<reference name="content" type="Store_ItemView">
+			<action method="setTemplate">store/item/index.phtml</action>
+		</reference>
+	</store_item_index>
+	<!--店铺首页end-->
+	<!--在售手机列表ks-->
+	<store_item_mobile-list>
+		<reference name="skin">
+			<action method="addCss">store/item/mobile/list.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">store/item/mobile/list.phtml</action>
+		</reference>
+	</store_item_mobile-list>
+	<!--在售手机列表end-->
+	<!--在售手机详情ks-->
+	<store_item_mobile-info>
+		<reference name="skin">
+			<action method="addCss">store/item/mobile/info.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">store/item/mobile/info.phtml</action>
+		</reference>
+	</store_item_mobile-info>
+	<!--在售手机详情end-->
+	<!--在售平板列表ks-->
+	<store_item_tablet-list>
+		<reference name="skin">
+			<action method="addCss">store/item/tablet/list.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">store/item/tablet/list.phtml</action>
+		</reference>
+	</store_item_tablet-list>
+	<!--在售平板列表end-->
+	<!--在售平板详情ks-->
+	<store_item_tablet-info>
+		<reference name="skin">
+			<action method="addCss">store/item/tablet/info.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">store/item/tablet/info.phtml</action>
+		</reference>
+	</store_item_tablet-info>
+	<!--在售平板详情end-->
+	<!--关于本店ks-->
+	<store_item_about>
+		<reference name="skin">
+			<action method="addCss">store/item/about.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">store/item/about.phtml</action>
+		</reference>
+	</store_item_about>
+	<!--关于本店end-->
+	<!--报价表ks-->
+	<store_item_mobile-sheet>
+		<reference name="skin">
+			<action method="addCss">store/item/mobile/sheet.css</action>
+		</reference>
+		<reference name="content">
+			<action method="setTemplate">store/item/mobile/sheet.phtml</action>
+		</reference>
+	</store_item_mobile-sheet>
+	<!--报价表end-->
+	<!--商家服务ks-->
+	<store_item_service>
+		<reference name="content">
+			<action method="setTemplate">store/item/service.phtml</action>
+		</reference>
+	</store_item_service>
+	<!--商家服务end-->
+	<!--店铺留言ks-->
+	<store_item_feedback>
+		<reference name="content">
+			<action method="setTemplate">store/item/feedback.phtml</action>
+		</reference>
+	</store_item_feedback>
+	<!--店铺留言end-->
+	<!--店内搜索ks-->
+	<store_search_index>
+		<reference name="skin">
+			<action method="addCss">store/item/mobile/list.css</action>
+		</reference>
+		<reference name="content" type="Store_SearchView">
+			<action method="setTemplate">store/item/search.phtml</action>
+		</reference>
+	</store_search_index>
+	<!--店内搜索end-->
+</layouts>

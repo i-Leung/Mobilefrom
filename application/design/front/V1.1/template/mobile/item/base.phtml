@@ -1,0 +1,256 @@
+<?php $id = Factory::getRequest()->getParam('id')?>
+<?php $mobile = $this->showInfo($id)?>
+<?php $info = $this->showContact($id)?>
+<?php $customer_id = Factory::getSession('customer/id')?>
+<?php global $MStatic?>
+<?php global $CStatic?>
+<div class="gallery_base_info">
+	<!--相册ks-->
+	<div class="gallery_wp">
+		<div class="gallery">
+			<div class="img_b">
+				<table>
+					<tr>
+						<td style="vertical-align:middle;width:320px;height:320px;text-align:center;">
+							<?php if ($mobile['thumb']):?>
+							<a href="<?php echo '#' . $mobile['thumb']?>">
+								<img alt="<?php echo $mobile['title']?>" title="点击可查看大图" onerror="loadErrorImg(this);" 
+								style="width:320px;height:320px;" src="http://mobilefrom-upload.stor.sinaapp.com/mobile/thumb/<?php echo $mobile['thumb']?>" />
+							</a>
+							<?php else:?>
+							<a href="javascript:void(0);">
+								<img alt="卖家暂未上传手机图片" title="卖家暂未上传手机图片" style="width:320px;height:320px;" src="/skin/front/V1.1/img/mf.png" />
+							</a>
+							<?php endif?>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<?php $amount = count($mobile['gallery'])?>
+			<div class="img_s" num="<?php echo $amount - 4?>">
+				<div class="img_btn img_up_none">
+					<a href="javascript:void();" onclick="nextPic(this);"></a>
+				</div>
+				<div style="float:left;width:292px;overflow-x:hidden;">
+					<ul style="width:<?php echo ($amount + 1) * 72?>px;">
+						<?php if ($mobile['gallery']):?>
+						<?php foreach ($mobile['gallery'] as $img):?>
+						<li>
+							<a href="javascript:void(0);" onclick="showGalleryPic(this);">
+								<img src="http://mobilefrom-upload.stor.sinaapp.com/mobile/thumb/<?php echo $img?>" onerror="loadErrorImg(this);" />
+							</a>
+						</li>
+						<?php endforeach;?>
+						<?php else:?>
+						<li>
+							<a href="javascript:void(0);">
+								<img src="/skin/front/V1.1/img/mf.png" />
+							</a>
+						</li>
+						<?php endif?>
+					</ul>
+					<div class="clear"></div>
+				</div>
+				<div class="img_btn <?php echo $amount > 4 ? 'img_down' : 'img_down_none'?>">
+					<a href="javascript:void();" onclick="nextPic(this);"></a>
+				</div>
+                <div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	<!--相册end-->
+	<!--基本信息ks-->
+	<div class="base_info">
+		<div class="name">
+			<h1>
+                <span class="orange">[<?php echo $MStatic['newly'][$mobile['data']['newly']]?>]</span>
+				<?php echo $mobile['title']?>
+            </h1>
+		</div>
+        <div class="base_info_wp">
+        	<div class="summary_wp">
+                <!--信息管理区域ks-->
+                <ul class="info_op">
+                    <li class="time" style="margin-left:-5px;" title="发布时间">
+                        <i></i>
+                        <span><?php echo timeforcustomer($mobile['created_at'])?></span>
+                    </li>
+                    <li class="count" title="浏览次数"><i></i><span><?php echo $mobile['clicks']?></span></li>
+                    <li class="share">
+                    	<i class="share_icon"></i><span>求鉴定</span><em></em>
+                        <!-- Baidu Button BEGIN -->
+                        <div class="bshare">
+                            <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+                                <span class="bds_more" style="background:none !important; width:45px; height:20px;"></span>
+                                <div class="clear"></div>
+                            </div>
+                            <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=0" ></script>
+                            <script type="text/javascript" id="bdshell_js"></script>
+                            <script type="text/javascript">
+                            document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+                            </script>
+                            <div class="clear"></div>
+                        </div>
+                        <!-- Baidu Button END -->
+                    </li>
+                    <?php if ($customer_id == $info['customer_id']):?>
+                    <li class="manager">
+                    	<i></i><span>管理</span><em></em>
+                        <div class="manager_bar">
+							<?php if (time() - $mobile['created_at'] > 86400):?>
+                            <p><a class="grey1" href="javascript:void(0);" onclick="refresh(this, '<?php echo $id?>');">刷新</a></p>
+							<?php else:?>
+                            <p><a class="grey1" href="javascript:void(0);" onclick="refreshNotice();">刷新</a></p>
+							<?php endif?>
+                            <p><a class="grey1" href="/customer/mobile/publish?cfrom=item&id=<?php echo $id?>">编辑</a></p>
+                            <p><a class="grey1" href="javascript:void(0);" onclick="changeStatus(this, '<?php echo $id?>', '2');">过期</a></p>
+                            <p><a class="grey1" href="javascript:void(0);" onclick="changeStatus(this, '<?php echo $id?>', '3');">删除</a></p>
+                        </div>
+                    </li>
+					<?php endif?>
+                </ul>
+				<div class="clear"></div>
+                <!--信息管理区域end-->
+                <!--信息概要ks-->
+                <ul class="summary">
+                    <li>
+                        <span class="grey1">价格：</span>
+						<strong class="fs16 red"><?php echo $mobile['price']?></strong>
+                        <span>元</span>
+                    </li>
+                    <li>
+                        <span class="l grey1">换机：</span>
+                        <span class="r"><?php echo $mobile['data']['exchange'] == '' ? '不支持换机' : $mobile['data']['exchange']?></span>
+                        <div class="clear"></div>
+                    </li>
+                    <li>
+                        <span class="grey1">地点：</span>
+                        <span><?php echo $CStatic['region'][$info['contact']['region']]?></span> |
+                        <span><?php echo $info['contact']['location'] == '请联系确定' ? $info['contact']['location'] . '交易地点' : $info['contact']['location']?></span>
+                    </li>
+                    <li>
+                        <span class="grey1">卖家：</span>
+                        <span><?php echo $info['contact']['name']?></span>
+						<a id="report_check" class="red" href="" target="blank" style="font-size:12px;"></a>
+                    </li>
+                    <li>
+                        <span class="grey1">手机：</span>
+                        <span><?php echo $info['contact']['tel']?></span>
+                        <span class="fs12 green">
+							<?php echo $info['contact']['ownership'] ? '[' . $info['contact']['ownership'] . ']' : ''?>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="l grey1">交谈：</span>
+                        <?php if (is_numeric($info['contact']['qq'])):?>
+                        <span class="r" style="padding-top:5px;">
+                            <a style="float:left;display:block;" target="_blank" href="/default/analysis/qq?uin=<?php echo $info['contact']['qq']?>&detail=mobile">
+								<img src="http://pub.idqqimg.com/wpa/images/counseling_style_52.png"/>
+                            </a>
+							<span style="float:left;display:block;font-size:12px;line-height:20px;padding-left:5px;">若无法交谈，请加Q:<?php echo $info['contact']['qq']?></span>
+                        </span>
+                        <?php else:?>
+                        <span class="r">
+                        <?php echo $info['contact']['qq'] == '不详' ? '卖家没有提供QQ号码' : $info['contact']['qq']?>
+                        </span>
+                        <?php endif?>
+                        <div class="clear"></div>
+                    </li>
+                </ul>
+                <!--信息概要end-->
+                <!--举报ks-->
+                <div class="btns_wrap">
+                    <?php if ($customer_id):?>
+                    <a class="btn_red" href="/website/report/publish?cfrom=mobile&tid=<?php echo $id?>">
+                    	举报此信息
+                    </a>
+                    <?php else:?>
+                    <a class="btn_red" href="javascript:popOpen('login');">举报此信息</a>
+                    <?php endif?>
+                </div>
+                <!--举报end-->
+            </div>
+			<!--发布人信息ks-->
+            <div class="r_sidebar">
+                <div class="business_info">
+                    <div class="item" style="background:#fafafa;">
+						<a href="/space/mobile/list?cfrom=item_other&id=<?php echo $info['customer_id']?>" target="_blank">
+							<strong><?php echo $info['username']?></strong>
+						</a>
+                    </div>
+                    <div class="item renzheng">
+                        <span>认证信息：</span>
+						<?php 
+						switch ($info['verified']):
+						case '1':
+						?>
+                        <i class="email" title="邮箱已验证"></i>
+						<?php break?>
+						<?php case '2':?>
+                        <i class="phone" title="手机已验证"></i>
+                        <i class="license" title="营业执照已验证"></i>
+						<?php break?>
+						<?php default:?>
+                        <span class="grey1">暂无认证信息</span>
+						<?php break?>
+						<?php endswitch?>
+                    </div>
+					<div class="item">
+						<a class="blue" href="/space/mobile/list?cfrom=item_other&id=<?php echo $info['customer_id']?>" target="_blank">TA发布的其它信息>></a>
+					</div>
+                </div>
+                <div class="guide">
+                    <h3><a href="/website/helper/what-to-buy?cfrom=mobile" target="_blank">菜鸟购机知多少</a></h3>
+                    <p><a href="/website/helper/what-to-buy?cfrom=mobile#faq6" target="_blank">如何鉴别翻新机组装机？</a></p>
+                    <p><a href="/website/helper/what-to-buy?cfrom=mobile#faq7" target="_blank">如何识别高仿机？</a></p>
+                    <p><a href="/website/helper/what-to-buy?cfrom=mobile#faq8" target="_blank">如何鉴别水货手机？</a></p>
+                </div>
+            </div>
+            <!--发布人信息end-->
+            <div class="clear"></div>
+        </div>
+	</div>
+	<!--基本信息end-->
+	<div class="clear"></div>
+</div>
+<!--温馨提示ks-->
+<div class="wx_tis">
+	<p>温馨提示：当面交易，最好选择人多的公共场合进行交易，谨防人才两空！<a class="blue" href="/website/helper/how-to-buy?cfrom=mobile" target="_blank">[点阅数码产品交易防骗攻略，看完最起码不那么容易被骗喔！]</a></p>
+    <p style="padding-left:60px;">
+    	线下购买的商品价格及信息，为卖方自由提供，其真实、准确及合法性由发布人负责。机荒网不提供任何保证，也不承担任何法律责任。
+    </p>
+</div>
+<!--温馨提示end-->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	//记录点击数
+	jQuery.ajax({
+		type:'get',
+		data:{id:<?php echo $id?>},
+		dataType:'json',
+		url:'/mobile/item/click',
+		success:function(){},
+		error:function(){}
+	});
+	var params = {
+		check:{
+			uid:'<?php echo $info['customer_id']?>',
+			username:'<?php echo $info['username']?>',
+			tel:'<?php echo $info['contact']['tel']?>',
+			qq:'<?php echo $info['contact']['qq']?>'
+		}
+	};
+	jQuery.ajax({
+		type:'get',
+		data:jQuery.param(params),
+		dataType:'json',
+		url:'/website/report/check',
+		success:function(data){
+			if (data != '0') {
+				jQuery('#report_check').html('此卖家曾被举报，点击查看').attr('href', '/website/report/list?cfrom=mobile&q=' + data);			
+			}
+		},
+		error:function(){}
+	});
+});
+</script>

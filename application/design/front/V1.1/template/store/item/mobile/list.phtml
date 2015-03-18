@@ -1,0 +1,140 @@
+<?php $page = Factory::getRequest()->getParam('p', '1')?>
+<?php $id = Factory::getRequest()->getParam('store', null)?>
+<?php $sort = Factory::getSession('store-sort-' . $id, 'default');?>
+<?php $filter = Factory::getSession('store-filter-' . $id, null);?>
+<?php $brands = $this->loadSellingMobileBrandList($id)?>
+<?php $total = $this->getSellingMobileModelTotal($id)?>
+<?php $models = $this->loadSellingMobileModelList($id, $page)?>
+<!--手机筛选区域ks-->
+<div class="attrs">
+	<div class="attrs_brand">
+    	<ul>
+			<?php if (isset($filter['brand'])):?>
+			<li>
+				<a href="/store/item/mobile-list?store=<?php echo $id?>&filter[brand]=all&cfrom=sort-brand">不限</a>
+			</li>
+			<?php endif?>
+			<?php foreach ($brands as $brand):?>
+			<li <?php if ($filter['brand'] == $brand['id']):?>class="attrs_c"<?php endif?>>
+				<a href="/store/item/mobile-list?store=<?php echo $id?>&filter[brand]=<?php echo $brand['id']?>&cfrom=store-brand"><?php echo $brand['label']?></a>
+			</li>
+			<?php endforeach?>
+        </ul>
+		<div class="clear"></div>
+    </div>
+    <div class="attrs_search">
+		<?php if (isset($filter['price'])):?>
+		<?php $price = explode(':', $filter['price'])?>
+		<a class="red" href="/store/item/mobile-list?store=1&filter[price]=all&cfrom=store-price">清空价格过滤</a>
+        <span>价格：</span>
+		<input type="text" name="min" value="<?php echo $price[0]?>" />
+        <span style="margin:0px 5px;">-</span>
+        <input type="text" name="max" value="<?php echo $price[1]?>" />
+		<?php else:?>
+        <span>价格：</span>
+		<input type="text" name="min" value="低" />
+        <span style="margin:0px 5px;">-</span>
+        <input type="text" name="max" value="高" />
+		<?php endif?>
+        <button id="price-search" type="button">搜索</button>
+    </div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.attrs_search input[name=min]').focus(function(){
+		if (jQuery(this).val() == '低') {
+			jQuery(this).val('');
+		}
+	});
+	jQuery('.attrs_search input[name=max]').focus(function(){
+		if (jQuery(this).val() == '高') {
+			jQuery(this).val('');
+		}
+	});
+	jQuery('.attrs_search input[name=min]').blur(function(){
+		if (jQuery(this).val() == '') {
+			jQuery(this).val('低');
+		}
+	});
+	jQuery('.attrs_search input[name=max]').blur(function(){
+		if (jQuery(this).val() == '') {
+			jQuery(this).val('高');
+		}
+	});
+	jQuery('#price-search').click(function(){
+		var msg = 0;
+		var min = jQuery('input[name=min]').val();
+		var max = jQuery('input[name=max]').val();
+		if (min == '' || !isInt(min) || max == '' || !isInt(max) || parseInt(min) > parseInt(max)) {
+			alert('请输入数字，且从低到高填写搜索价格');
+			return;
+		}
+		window.location.href = '/store/item/mobile-list?store=<?php echo $id?>&filter[price]=' + min + ':' + max + '&cfrom=store-price';
+	});	
+});
+</script>
+<!--手机筛选区域end-->
+<!--排序ks-->
+<div class="sort_bar">
+	<ul>
+		<li <?php if ($sort == 'default'):?>class="sort_bar_c"<?php endif?>>
+			<a href="/store/item/mobile-list?store=<?php echo $id?>&sort=default&cfrom=sort">默认排序</a>
+		</li>
+		<li <?php if ($sort == 'price'):?>class="sort_bar_c"<?php endif?>>
+			<a href="/store/item/mobile-list?store=<?php echo $id?>&sort=price&cfrom=sort">价格低至高</a>
+		</li>
+		<li <?php if ($sort == 'clicks'):?>class="sort_bar_c"<?php endif?>>
+			<a href="/store/item/mobile-list?store=<?php echo $id?>&sort=clicks&cfrom=sort">点阅数量</a>
+		</li>
+		<div class="clear"></div>
+    </ul>
+	<p>共有<span class="red"><?php echo $total?></span>个商品</p>
+    <div class="clear"></div>
+</div>
+<!--排序end-->
+<!--商品列表ks-->
+<?php if ($models):?>
+<div class="pro_list">
+	<ul>
+    	<?php foreach ($models as $model):?>
+    	<li>
+			<a class="pro_wp" title="<?php echo $model['brand'] . '&nbsp;' . $model['model']?>" href="/store/item/mobile-info?store=<?php echo $id?>&model=<?php echo $model['id']?>&cfrom=store-model">
+            	<div class="pro_img">
+					<img src="http://mobilefrom-upload.stor.sinaapp.com/mlib/thumb/<?php echo $model['thumb']?>" onerror="loadErrorImg(this);" />
+                </div>
+                <p class="pro_name"><?php echo $model['brand'] . '&nbsp;' . $model['model']?></p>
+            </a>
+            <p class="pro_price">
+				<?php if ($model['min'] == $model['max']):?>
+                <span class="red">￥<?php echo $model['max']?></span>
+				<?php else:?>
+				<span class="red">￥<?php echo $model['min']?></span>
+                <em>~</em>
+                <span class="red">￥<?php echo $model['max']?></span>
+				<?php endif?>
+            </p>
+        </li>
+        <?php endforeach?>
+        <div class="clear"></div>
+    </ul>
+</div>
+<?php else:?>
+<p style="margin:20px;font-size:16px;text-align:center;">抱歉,没有找到相关的商品</p>
+<?php endif?>
+<!--商品列表end-->
+<!--翻页ks-->
+<?php if ($total > 9):?>
+<?php $last = ceil($total / 9)?>
+<div class="pro_list_paginator">
+	<p>共搜索到 <span class="red"><?php echo $total?></span> 个符合条件的商品信息   </p>
+	<?php if ($last != $page):?>
+	<a href="/store/item/mobile-list?store=<?php echo $id?>&cfrom=store-paginator&p=<?php echo $page + 1?>">下一页>></a>
+	<?php endif?>
+	<?php if ('1' != $page):?>
+	<a href="/store/item/mobile-list?store=<?php echo $id?>&cfrom=store-paginator&p=<?php echo $page - 1?>"><<上一页</a>
+	<?php endif?>
+	<a><?php echo $page . '/' . $last?></a>
+	<div class="clear"></div>
+</div>
+<?php endif?>
+<!--翻页ks-->

@@ -1,0 +1,105 @@
+<?php $controller = Factory::getRequest()->getControllerName()?>
+<?php $action = Factory::getRequest()->getActionName()?>
+<?php $controller = explode('_', $controller)?>
+<?php
+switch ($controller[0]):
+case 'system':
+?>
+<!--系统管理ks-->
+<div class="sidebar_item">
+	<div class="sidebar_title">系统管理</div>
+    <ul class="sidebar_bd">
+    	<li>
+        	<a <?php echo $controller[1] == 'member' ? 'class="sidebar_c"' : ''?> href="/monitor/system_member/group-list">网站成员管理</a>
+        </li>
+    	<li>
+        	<a <?php echo $controller[1] == 'resource' ? 'class="sidebar_c"' : ''?> href="/monitor/system_resource/group-list">资源管理</a>
+        </li>
+    	<li>
+        	<a <?php echo $controller[1] == 'mlib' ? 'class="sidebar_c"' : ''?> href="/monitor/system_mlib/brand-list">手机资料库</a>
+        </li>
+    	<li>
+        	<a <?php echo $controller[1] == 'tlib' ? 'class="sidebar_c"' : ''?> href="/monitor/system_tlib/brand-list">平板资料库</a>
+        </li>
+    	<li>
+        	<a <?php echo $controller[1] == 'service' ? 'class="sidebar_c"' : ''?> href="/monitor/system_service/index">商家服务列表</a>
+        </li>
+    </ul>
+</div>
+<!--系统管理end-->
+<?php break;?>
+<?php case 'customer':?>
+<!--用户管理ks-->
+<div class="sidebar_item">
+	<div class="sidebar_title">用户管理</div>
+    <ul class="sidebar_bd">
+    	<li>
+        	<a <?php echo $controller[1] == 'common' ? 'class="sidebar_c"' : ''?> href="/monitor/customer_common/list">帐号列表</a>
+        </li>
+    	<li>
+        	<a <?php echo $controller[1] == 'personal' ? 'class="sidebar_c"' : ''?> href="/monitor/customer_personal/list">个人列表</a>
+        </li>
+    	<li>
+        	<a <?php echo $controller[1] == 'store' ? 'class="sidebar_c"' : ''?> href="/monitor/customer_store/list">商家列表</a>
+        </li>
+    </ul>
+</div>
+<!--用户管理end-->
+<?php break;?>
+<?php case 'info':?>
+<!--信息管理ks-->
+<div class="sidebar_item">
+	<div class="sidebar_title">信息管理</div>
+    <ul class="sidebar_bd">
+    	<li>
+        	<a <?php echo $controller[1] == 'mobile' ? 'class="sidebar_c"' : ''?> href="/monitor/info_mobile/list">手机信息列表</a>
+        </li>
+    	<li>
+        	<a <?php echo $controller[1] == 'purchase' ? 'class="sidebar_c"' : ''?> href="/monitor/info_purchase/list">求购信息列表</a>
+        </li>
+    </ul>
+</div>
+<!--信息管理end-->
+<?php break;?>
+<?php case 'website':?>
+<!--网站管理ks-->
+<div class="sidebar_item">
+	<div class="sidebar_title">网站管理</div>
+    <ul class="sidebar_bd">
+    	<li>
+        	<a <?php echo $controller[1] == 'report' ? 'class="sidebar_c"' : ''?> href="/monitor/website_report/list">举报管理</a>
+        </li>
+    </ul>
+</div>
+<!--网站管理end-->
+<?php break;?>
+<?php case 'analysis':?>
+<!--统计管理ks-->
+<div class="sidebar_item">
+	<div class="sidebar_title">统计管理</div>
+    <ul class="sidebar_bd">
+    	<li>
+        	<a <?php echo $controller[1] == 'pfrom' ? 'class="sidebar_c"' : ''?> href="/monitor/analysis_pfrom/site">页面导向统计</a>
+        </li>
+    	<li>
+        	<a <?php echo $controller[1] == 'afilter' ? 'class="sidebar_c"' : ''?> href="/monitor/analysis_afilter/mobile">属性筛选统计</a>
+        </li>
+    </ul>
+</div>
+<!--统计管理end-->
+<?php endswitch;?>
+<!--面包屑ks-->
+<div class="clear"></div>
+<?php $current = Factory::getView('system/resource')->getCurrentResource(Factory::getSession('member/current-resource'))?>
+<div class="bread_crumb_wrap">
+	<div class="bread_crumb">
+		<a href="javascript:void(0);"><?php echo $current['mgroup']?></a>
+		<span>></span>
+		<a href="javascript:void(0);"><?php echo $current['group']?></a>
+		<span>></span>
+		<a href="javascript:void(0);"><?php echo $current['resource']?></a>
+	</div>
+	<a class="return_pre_page" href="javascript:history.go(-1);">返回</a>
+	<div class="clear"></div>
+</div>
+<!--面包屑end-->

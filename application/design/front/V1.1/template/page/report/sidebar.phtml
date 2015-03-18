@@ -1,0 +1,54 @@
+<?php $action = Factory::getRequest()->getActionName()?>
+<?php $id = Factory::getRequest()->getParam('id', null)?>
+<?php //$category = $this->getReportCategory()?>
+<div style="height:1px;"></div>
+<div class="sidebar-content" style="background: #F4F6F6;">
+	<div class="hd">
+		<h1>举报处理中心</h1>
+	</div>
+	<div class="bd">
+		<ul>
+			<li class="qbjb <?php if ($action == 'list' && !$id):?>sidebar_c<?php endif;?>">
+				<a href="/website/report/list">全部举报</a>
+				<i></i>
+			</li>
+			<li class="zdl <?php if ($id == '1'):?>sidebar_c<?php endif;?>">
+				<a href="/website/report/list?id=1">炸弹佬</a>
+				<i></i>
+			</li>
+			<li class="fjs <?php if ($id == '2'):?>sidebar_c<?php endif;?>">
+				<a href="/website/report/list?id=2">放飞机</a>
+				<i></i>
+			</li>
+			<li class="eyxx <?php if ($id == '3'):?>sidebar_c<?php endif;?>">
+				<a href="/website/report/list?id=3">虚假信息</a>
+				<i></i>
+			</li>
+			<li class="qt <?php if ($id == '-1'):?>sidebar_c<?php endif;?>">
+				<a href="/website/report/list?id=-1">其它</a>
+				<i></i>
+			</li>
+			<li style="border-top:1px #e5e5e5 solid; border-bottom:1px #fff solid;"></li>
+			<li class="wdjb <?php if ($action == 'my'):?>sidebar_c<?php endif;?>">
+				<a href="/website/report/my">我的举报</a>
+				<i></i>
+			</li>
+			<li class="jbgz <?php if ($action == 'rule'):?>sidebar_c<?php endif;?>">
+				<a href="/website/report/rule">举报知多少</a>
+				<i></i>
+			</li>
+		</ul>
+	</div>
+	<div class="btn"></div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery(window).scroll(function () {
+		if (jQuery(window).scrollTop() >= 168) {
+			jQuery('.sidebar-content').css('position', 'fixed').css('top', '0');
+		}else{
+			jQuery('.sidebar-content').css('position', 'static');
+		}
+	});
+});
+</script>

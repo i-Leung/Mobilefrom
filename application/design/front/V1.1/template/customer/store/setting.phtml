@@ -1,0 +1,279 @@
+<div id="mobile-publish" class="store_apply_layout">
+	<h1>店铺设置</h1>
+	<table style="margin-top:15px;">
+		<tbody>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>工作时间：</label>
+				</th>
+				<td id="working">
+					<div>
+						<input class="working" type="text" value="" />
+						<a class="add-working-field blue" href="javascript:void(0);">+加一个</a>
+						<span class="red">如周一至周五：9:00-21:00</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>电话：</label>
+				</th>
+				<td id="tel">
+					<div>
+						<label>名称：</label><input class="tel-name" type="text" value="" style="width:80px;" />
+						<label>号码：</label><input class="tel-num" type="text" value="" />
+						<a class="add-tel-field blue" href="javascript:void(0);">+加一个</a>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>QQ：</label>
+				</th>
+				<td id="qq">
+					<div>
+						<label>名称：</label><input class="qq-name" type="text" value="" style="width:80px;" />
+						<label>号码：</label><input class="qq-num" type="text" value="" />
+						<a class="add-qq-field blue" href="javascript:void(0);">+加一个</a>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label>百度地图：</label>
+				</th>
+				<td>
+					<input name="xbaidu" type="text" value="坐标1" />
+					<input name="ybaidu" type="text" value="坐标2" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label>店铺公告：</label>
+				</th>
+				<td>
+					<span class="red">店铺公告内容将于店铺页面左侧位置显示，内容长度请不要超过100字符</span>
+					<textarea name="notice" style="width:400px;height:100px; resize:none;"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th></th>
+				<td>
+					<button type="button" onclick="submitSetting(this);">保存</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	getStoreSetting();
+	jQuery('.add-tel-field').click(function(){
+		if (jQuery(this).parent().find('.tel-num').length < 5) {
+			jQuery(this).parent().parent().append(
+				'<div>\
+					<label>名称：</label><input class="tel-name" type="text" value="" style="width:80px;" />\
+					<label>号码：</label><input class="tel-num" type="text" value="" />\
+					<a class="red" href="javascript:void(0);" onclick="removeField(this);">+删除</a>\
+				</div>'
+			);
+		}
+	});
+	jQuery('.add-qq-field').click(function(){
+		if (jQuery(this).parent().find('.qq-num').length < 5) {
+			jQuery(this).parent().parent().append(
+				'<div>\
+					<label>名称：</label><input class="qq-name" type="text" value="" style="width:80px;" />\
+					<label>号码：</label><input class="qq-num" type="text" value="" />\
+					<a class="red" href="javascript:void(0);" onclick="removeField(this);">+删除</a>\
+				</div>'
+			);
+		}
+	});
+	jQuery('.add-working-field').click(function(){
+		if (jQuery(this).parent().find('.working').length < 5) {
+			jQuery(this).parent().parent().append(
+				'<div>\
+					<input class="working" type="text" value=""/>\
+					<a class="red" href="javascript:void(0);" onclick="removeField(this);">+删除</a>\
+				</div>'
+			);
+		}
+	});
+});
+
+//删除输入栏
+function removeField(obj)
+{
+	jQuery(obj).parent().remove();
+}
+//提交店铺设置
+function submitSetting(obj)
+{
+	var msg = '';
+	var working = new Array();
+	jQuery('.working').each(function(){
+		if (jQuery(this).val() == '') {
+			msg += '请填写工作时间；\n';
+			return;
+		}
+		working.push(jQuery(this).val());
+	});
+	var telname = new Array();
+	jQuery('.tel-name').each(function(){
+		if (jQuery(this).val() == '') {
+			msg += '请填写电话名称；\n';
+			return;
+		}
+		telname.push(jQuery(this).val());
+	});
+	var telnum = new Array();
+	jQuery('.tel-num').each(function(){
+		if (jQuery(this).val() == '') {
+			msg += '请填写电话号码；\n';
+			return;
+		}
+		telnum.push(jQuery(this).val());
+	});
+	var qqname = new Array();
+	jQuery('.qq-name').each(function(){
+		if (jQuery(this).val() == '') {
+			msg += '请填写QQ名称；\n';
+			return;
+		}
+		qqname.push(jQuery(this).val());
+	});
+	var qqnum = new Array();
+	jQuery('.qq-num').each(function(){
+		if (jQuery(this).val() == '') {
+			msg += '请填写QQ号码；\n';
+			return;
+		}
+		qqnum.push(jQuery(this).val());
+	});
+	var notice = jQuery('textarea[name=notice]').val();
+	if (notice.length >= 100) {
+		msg += '店铺公告内容不能多于100字符';
+		return;
+	}
+	var xbaidu = jQuery('input[name=xbaidu]').val();
+	if (xbaidu == '坐标1') {
+		xbaidu = '';
+	}
+	var ybaidu = jQuery('input[name=ybaidu]').val();
+	if (ybaidu == '坐标2') {
+		ybaidu = '';
+	}
+	if (msg != '') {
+		alert(msg);
+		return;
+	}
+	var params = {
+		setting:{
+			working:working,
+			telname:telname,
+			telnum:telnum,
+			qqname:qqname,
+			qqnum:qqnum,
+			notice:notice,
+			xbaidu:xbaidu,
+			ybaidu:ybaidu
+		}
+	};
+	jQuery.ajax({
+		type:'get',
+		data:jQuery.param(params),
+		dataType:'json',
+		url:'/customer/store/setting-submit',
+		beforeSend:function(){
+			jQuery(obj).html('真正提交...');
+		},
+		success:function(data){
+			jQuery(obj).html('保存');
+			if (data == '1') {
+				alert('店铺设置成功');
+			} else {
+				alert('店铺设置失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			jQuery(obj).html('保存');
+			alert('店铺设置失败，请稍候尝试');
+		}
+	});
+}
+//获取店铺设置
+function getStoreSetting()
+{
+	jQuery.ajax({
+		type:'get',
+		dataType:'json',
+		url:'/customer/store/get-setting',
+		success:function(data){
+			if (data != '0') {
+				if (data.working) {
+					jQuery.each(data.working, function(k, v){
+						if (k == 0) {
+							jQuery('.working').val(v);
+						} else {
+							jQuery('#working').append(
+								'<div>\
+									<input class="working" type="text" value="' + v + '"/>\
+									<a class="red" href="javascript:void(0);" onclick="removeField(this);">+删除</a>\
+								</div>'
+							);
+						}
+					});
+				}	
+				if (data.tel) {
+					jQuery.each(data.tel, function(k, v){
+						if (k == 0) {
+							jQuery('.tel-name').val(v.name);
+							jQuery('.tel-num').val(v.num);
+						} else {
+							jQuery('#tel').append(
+								'<div>\
+									<label>名称：</label><input class="tel-name" type="text" value="' + v.name + '" style="width:80px;" />\
+									<label>号码：</label><input class="tel-num" type="text" value="' + v.num + '" />\
+									<a class="red" href="javascript:void(0);" onclick="removeField(this);">+删除</a>\
+								</div>'
+							);
+						}
+					});
+				}	
+				if (data.qq) {
+					jQuery.each(data.qq, function(k, v){
+						if (k == 0) {
+							jQuery('.qq-name').val(v.name);
+							jQuery('.qq-num').val(v.num);
+						} else {
+							jQuery('#qq').append(
+								'<div>\
+									<label>名称：</label><input class="qq-name" type="text" value="' + v.name + '" style="width:80px;" />\
+									<label>号码：</label><input class="qq-num" type="text" value="' + v.num + '" />\
+									<a class="red" href="javascript:void(0);" onclick="removeField(this);">+删除</a>\
+								</div>'
+							);
+						}
+					});
+				}	
+				jQuery('textarea[name=notice]').val(data.notice);
+				if (data.xbaidu) {
+					jQuery('input[name=xbaidu]').val(data.xbaidu);
+				} else {
+					jQuery('input[name=xbaidu]').val('坐标1');
+				}
+				jQuery('input[name=ybaidu]').val(data.ybaidu);
+				if (data.ybaidu) {
+					jQuery('input[name=ybaidu]').val(data.ybaidu);
+				} else {
+					jQuery('input[name=ybaidu]').val('坐标2');
+				}
+			}
+		}
+	});
+}
+</script>

@@ -1,0 +1,178 @@
+<h3 style="line-height:30px;">邮箱验证</h3>
+<?php $code = Factory::getRequest()->getParam('code', null)?>
+<?php $step = Factory::getRequest()->getParam('step', null)?>
+<?php $passed = $code ? Factory::getLogic('customer')->verifyEmail($code) : false?>
+<?php $customer = Factory::getSession('customer')?>
+<?php if ($step):?>
+<!--邮箱验证过程ks-->
+<div class="verify_process">
+	<?php 
+	switch ($step):
+	case '1':
+	?>
+    <!--第一步ks-->
+    <div class="step1">
+        <div class="step_bar">
+            <ul>
+                <li class="step_c"><i></i><p>第一步：验证原邮箱</p></li>
+                <li><i></i><p>第二步：输入新的邮箱地址</p></li>
+                <li><i></i><p>第三步：绑定成功</p></li>
+                <div class="clear"></div>
+            </ul>
+        </div>
+        <div class="cont">
+        	<p class="green">修改邮箱前须先验证原邮箱。</p>
+            <p style="margin-top:20px;">原邮箱地址：<strong class="red"><?php echo Factory::getView('customer/info')->getEmail($customer['id'])?></strong></p>
+            <button type="button" onclick="sendVerifyEmail(this, '2');">发送验证信息</button>
+        </div>
+    </div>
+    <!--第一步end-->
+	<?php break?>
+	<?php case '2':?>
+    <!--第二步验证新邮箱ks-->
+    <div class="step2">
+        <div class="step_bar">
+            <ul>
+                <li><i></i><p>第一步：验证原邮箱</p></li>
+                <li class="step_c"><i></i><p>第二步：输入新的邮箱地址</p></li>
+                <li><i></i><p>第三步：绑定成功</p></li>
+                <div class="clear"></div>
+            </ul>
+        </div>
+        <div class="cont">
+			<?php if ($passed):?>
+        	<p class="green">原邮箱验证成功，请输入新的邮箱地址：</p>
+            <div class="new_email">
+            	<span>新邮箱地址：</span>
+                <input name="newmail" type="text" />
+                <span class="grey1">为了让您能够更好地享受我们的服务，请您使用QQ邮箱，新浪邮箱等主流邮箱。</span>
+            </div>
+            <button type="button" onclick="sendVerifyEmail(this, '3');">验证新邮箱</button>
+			<?php else:?>
+        	<p class="green">原邮箱验证失败，请联系<a class="blue" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2824673297&site=www.mobilefrom.com&menu=yes">机荒网客服。</a></p>
+			<?php endif?>
+        </div>
+    </div>
+    <!--第二步验证新邮箱end-->
+	<?php break?>
+	<?php case '3':?>
+    <!--第三步ks-->
+    <div class="step3">
+        <div class="step_bar">
+            <ul>
+                <li><i></i><p>第一步：验证原邮箱</p></li>
+                <li><i></i><p>第二步：输入新的邮箱地址</p></li>
+                <li class="step_c"><i></i><p>第三步：绑定成功</p></li>
+                <div class="clear"></div>
+            </ul>
+        </div>
+        <div class="cont">
+			<?php $newmail = Factory::getRequest()->getParam('newmail', null)?>
+			<?php if ($passed && $newmail && Factory::getLogic('customer')->modify($customer['id'], array('email' => $newmail))):?>
+        	<div class="verify_success">
+                <div class="tis">
+                    <p>恭喜，您已经完成了邮箱验证！</p>
+                </div>
+                <p style="margin-top:20px; line-height:20px;">
+                    <span>您的验证邮箱是：</span>
+					<strong class="red"><?php echo Factory::getView('customer/info')->getEmail($customer['id'])?></strong>
+					<a class="blue" href="/customer/account/email-verify?cfrom=verify&step=1" style="margin-left:10px;">修改邮箱</a>
+                </p>
+			</div>
+			<?php else:?>
+        	<p class="green">新邮箱验证失败，请联系<a class="blue" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2824673297&site=www.mobilefrom.com&menu=yes">机荒网客服。</a></p>
+			<?php endif?>
+        </div>
+    </div>
+    <!--第三步end-->
+	<?php break?>
+	<?php endswitch?>
+</div>
+<?php if ($step == '1' || $step == '2'):?>
+<div class="verify_tis tis1">
+	<p><strong>如果您没有收到邮件</strong></p>
+	<p class="grey1">①邮件到达需要2-3分钟，若您长时间未收到邮件，建议您检查邮件中的垃圾邮件或者 <a class="green" href="javascript:void(0);" onclick="sendVerifyEmail(this, '<?php echo $step?>');">重发验证信</a></p>
+	<p class="grey1">②如果您的原邮箱已经无法使用，可以通过账号申诉进行邮箱更换。</p>
+</div>
+<?php endif?>
+<!--邮箱验证过程end-->
+<?php else:?>
+<?php if ($customer['verified']):?>
+<!--邮箱验证成功ks-->
+<div class="verify_success" style="margin-top:10px;">
+	<div class="tis">
+		<p>恭喜，您已经完成了邮箱验证！</p>
+	</div>
+	<p style="margin-top:20px; line-height:20px;">
+		<span>您的验证邮箱是：</span>
+		<strong class="red"><?php echo Factory::getView('customer/info')->getEmail($customer['id'])?></strong>
+		<a class="blue" href="/customer/account/email-verify?cfrom=verify&step=1" style="margin-left:10px;">修改邮箱</a>
+	</p>
+</div>
+<!--邮箱验证成功end-->
+<?php else:?>
+<!--邮箱未验证ks-->
+<div class="no_verify">
+	<div class="tis">
+		<p>警告，您的邮箱尚未验证，账号安全级别较低！</p>
+	</div>
+	<p style="margin-top:20px; line-height:20px;">
+		<span>您的注册邮箱是：<strong><?php echo Factory::getView('customer/info')->getEmail($customer['id'])?></strong>尚未通过验证，<a class="green" href="javascript:void(0);" onclick="sendVerifyEmail(this, '0');">立即验证</a></span>
+	</p>
+</div>
+<!--邮箱未验证end-->
+<div class="verify_tis tis2">
+    <p><strong>验证邮箱后，您可以享有以下服务：</strong></p>
+    <p class="grey1">①可直接使用"邮箱地址"登录到机荒网；</p>
+    <p class="grey1">②重要事件提醒，当有用户咨询或评价您时，可及时收到邮件提醒；</p>
+    <p class="grey1">③忘记密码时，可使用邮件找回密码。</p>
+</div>
+<?php endif?>
+<?php endif?>
+<input name="sent_at" type="hidden" />
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('input[name=newmail]').focus();
+});
+function sendVerifyEmail(obj, step)
+{
+	//var sent_at = Date.parse(new Date());
+	//var lasted = parseInt(jQuery('input[name=sent_at]').val());
+	//if ((sent_at - lasted) < (60 * 2)) {
+	//	alert('您的验证邮件已发送，若2分钟后还没有收到，请选择再发送');
+	//	return;
+	//}
+	var newmail = '';
+	if (step == '3') {
+		newmail = jQuery('input[name=newmail]').val();
+		var pattern = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+		if (newmail == '' || !pattern.test(newmail)) {
+			alert('请填写正确的电子邮箱地址');
+			return;
+		}
+	}
+	var html = jQuery(obj).html();
+	jQuery.ajax({
+		type:'get',
+		data:{step:step, newmail:newmail},
+		dataType:'json',
+		url:'/customer/account/send-verify-email',
+		beforeSend:function(){
+			jQuery(obj).html('真正发送验证邮件...').attr('disabled', 'disabled');
+		},
+		success:function(data){
+			jQuery(obj).html(html).attr('disabled', '');
+			if (data == '1') {
+				alert('验证邮件已发送，请于10分钟内登陆您的邮箱完成验证');
+	//			jQuery('input[name=sent_at]').val(sent_at);
+			} else {
+				alert('验证邮件发送失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			jQuery(obj).html(html).attr('disabled', '');
+			alert('验证邮件发送失败，请稍候尝试');
+		}
+	});
+}
+</script>

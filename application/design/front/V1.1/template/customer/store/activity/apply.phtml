@@ -1,0 +1,190 @@
+<?php $types = Factory::getView('activity/list')->getActivityType()?>
+<div class="tabs1">
+	<ul>
+    	<li>
+    		<a href="/customer/store/activity-list?cfrom=uc_tab">店铺活动</a>
+    	</li>
+    	<li class="tabs1_c">
+    		<a href="javascript:void(0);">活动申请</a>
+    	</li>
+    </ul>
+</div>
+<div class="store_apply_layout" style="margin-top:10px;">
+	<input type="hidden" name="id" />
+	<table>
+		<tbody>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>活动类型：</label>
+				</th>
+				<td>
+					<select name="type">
+						<option value="">请选择活动类型</option>
+						<?php foreach ($types as $k => $v):?>
+						<option value="<?php echo $k?>"><?php echo $v?></option>
+						<?php endforeach?>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>有效期：</label>
+				</th>
+				<td id="limit">
+					<select name="limit">
+						<option value="">请选择活动有效期</option>
+						<option value="3">3天内</option>
+						<option value="7">7天内</option>
+						<option value="15">半个月内</option>
+						<option value="30">一个月内</option>
+						<option value="-1">没有限期</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>活动标题：</label>
+				</th>
+				<td>
+					<input type="text" name="title" value="" style="width:500px;" />
+					<span class="red">注：标题长度不得超过40字符</span>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>详情描述：</label>
+				</th>
+				<td>
+					<div class="rstyle">
+						<ul>
+							<li>
+								<a href="javascript:void(0);">字体</a>
+								<ul class="roption">
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'bold');">粗体</a></li>
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'italic');">斜体</a></li>
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'underline');">下划线</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="javascript:void(0);">排版</a>
+								<ul class="roption">
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'justifyCenter');">居中</a></li>
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'justifyLeft');">左对齐</a></li>
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'justifyRight');">右对齐</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="javascript:void(0);">颜色</a>
+								<ul class="roption">
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'foreColor', '#333');" style="color:#333;">黑色</a></li>
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'foreColor', '#FF0000');" style="color:#FF0000;">红色</a></li>
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'foreColor', '#0D61A8');" style="color:#0D61A8;">蓝色</a></li>
+									<li><a href="javascript:void(0);" onclick="execCommandOnElement(this, 'foreColor', '#FCAE28');" style="color:#FCAE28;">黄色</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+					<div id="remark" contenteditable="true"></div>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="red">*</span>
+					<label>相关图片：</label>
+				</th>
+				<td>
+					<input type="hidden" name="thumb" value="" />
+					<input type="hidden" name="gallery" value="" />
+					<script type="text/javascript" src="<?php echo $this->getPlugin('swfupload/js/swfupload.js')?>"></script>
+					<script type="text/javascript" src="<?php echo $this->getPlugin('swfupload/js/store.js')?>"></script>
+					<script type="text/javascript">
+						var storeswfu;
+						window.onload = function () {
+							storeswfu = new SWFUpload({
+								upload_url: "<?php echo $this->getStoreUploadUrl()?>",
+								post_params: {"PHPSESSID": "<?php echo session_id()?>", "id": "<?php echo Factory::getSession('customer/id')?>"},
+								file_size_limit : "5MB",	// 2MB
+								file_types : "*.jpg;*.png;*.gif",
+								file_types_description : "JPG/PNG/GIF Images",
+								file_upload_limit : "10",
+								file_queue_error_handler : fileQueueError,
+								file_dialog_complete_handler : fileDialogComplete,
+								upload_progress_handler : uploadStoreProgress,
+								upload_error_handler : uploadError,
+								upload_success_handler : uploadStoreSuccess,
+								upload_complete_handler : uploadComplete,
+								button_image_url : "",
+								button_placeholder_id : "storeHolder",
+								button_width: 67,
+								button_height: 26,
+								button_text : '<div class="button"></div>',
+								button_text_style : '.button {font-size: 12px;}',
+								button_text_top_padding: 0,
+								button_text_left_padding: 0,
+								button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+								button_cursor: SWFUpload.CURSOR.HAND,
+								flash_url : "<?php echo Factory::getBaseUrl()?>/plugin/swfupload/js/swfupload.swf",
+								custom_settings : {
+									upload_target : "upload-process"
+								},
+								debug: false
+							});
+						};
+					</script>
+					<div class="upload_img">
+						<form>
+							<div class="upload_img_btn">
+								<div id="storeHolder"></div>
+							</div>
+							<div style="float:left; line-height:30px; margin-left:10px;">每张图片大小不能大于5M，且数量不能多于10张</div>
+							<div class="clear"></div>
+							<div class="red" style="line-height:30px;">注：点击拖动图片可调节图片顺序</div>
+						</form>
+						<div id="upload-process"></div>
+					</div>
+					<div class="upload_img">
+						<div id="store-thumbnails" style="margin-top:5px;">
+							<div class="clear"></div>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="mbutton" colspan="2">
+					<button class="mpublish" type="button" onclick="submitActivity(this);">发布</button>
+					<button class="mcancle" type="button" onclick="window.location.href='/customer/store/activity-list?cfrom=activity-apply'">取消</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	//去除粘帖内容中的所有标签
+	jQuery('#remark').bind('paste', function(){
+		var e = jQuery(this);
+		setTimeout(function() {
+			var content = jQuery(e).html();
+			var re=/<[^img][^>]+>/g;
+			content = content.replace(re,"");
+			jQuery(e).html(content);
+		}, 100);
+	});
+});
+<?php $id = Factory::getRequest()->getParam('id', null)?>
+<?php if ($id):?>
+getActivityInfo('<?php echo $id?>');
+<?php endif?>
+//显示有效期选择框
+function editLimit()
+{
+	jQuery('#limit span').hide();
+	jQuery('#limit a').hide();
+	jQuery('select[name=limit]').show();
+}
+</script>

@@ -1,0 +1,164 @@
+<?php $store = Factory::getRequest()->getParam('store', null)?>
+<?php $services = $this->loadStoreServiceTitleList($store)?>
+<?php $models = $this->loadSellingMobileModelList($store, '1', '8')?>
+<?php $brands = $this->loadSellingMobileBrandList($store)?>
+<?php $hots = $this->loadMobileHotList($store)?>
+<?php $recommends = $this->loadMobileRecommendList($store)?>
+<?php $activity = $this->getStoreActivity($store)?>
+<?php if ($activity):?>
+<div class="activity">
+	<span class="red">优惠活动：</span>
+	<a title="<?php echo $activity['title']?>" href="/activity/item/store?cfrom=store&id=<?php echo $activity['id']?>"><?php echo $activity['title']?></a>
+</div>
+<?php endif?>
+<?php if ($hots && $recommends):?>
+<div class="recommend">
+	<div class="recommend-hot">
+		<ul>
+			<li></li>
+			<?php foreach ($hots as $item):?>
+			<li>
+				<a href="/store/item/mobile-info?store=<?php echo $store?>&model=<?php echo $item['id']?>&cfrom=store-hot">
+					<div class="hot-thumb">
+						<img src="/upload/mlib/thumb/<?php echo $item['thumb']?>" onerror="loadErrorImg(this);" />
+					</div>
+					<div class="hot-title">
+						<p><?php echo $item['brand'] . '&nbsp;' . $item['model']?></p>
+						<p style="color:#FF0000;font-weight:bold;">￥<?php echo $item['price']?></p>
+					</div>
+				</a>
+			</li>
+			<?php endforeach?>
+		</ul>
+		<div class="clear"></div>
+	</div>
+	<?php foreach ($recommends as $item):?>
+	<a class="recommend-best" href="/store/item/mobile-info?store=<?php echo $store?>&model=<?php echo $item['id']?>&cfrom=store-recommend">
+		<div class="recommend-best-thumb">
+			<img src="/upload/mlib/thumb/<?php echo $item['thumb']?>" onerror="loadErrorImg(this);" />
+		</div>
+		<div class="recommend-best-title">
+			<div class="r-b-t-span"><?php echo $item['brand'] . '&nbsp;' . $item['model']?></div>
+			<div class="r-b-t-price">￥<?php echo $item['price']?></div>
+			<div class="clear"></div>
+		</div>
+		<i></i>
+	</a>
+	<?php endforeach?>
+	<div class="clear"></div>
+</div>
+<?php endif?>
+<?php if ($services):?>
+<div class="store_service">
+	<ul>
+		<?php foreach ($services as $item):?>
+		<li>
+			<a href="/store/item/service?cfrom=store-index&store=<?php echo $store?>"><?php echo $item['title']?></a>
+		</li>
+		<?php endforeach?>
+	</ul>
+	<div class="more_service">
+		<a href="/store/item/service?cfrom=store-index&store=<?php echo $store?>">查看本店全部服务 >></a>
+	</div>
+</div>
+<?php endif?>
+<div class="store_new">
+	<div class="store_new_title"></div>
+	<!--商品列表ks-->
+	<div class="pro_list">
+		<ul>
+			<?php if ($models):?>
+			<?php foreach ($models as $model):?>
+			<li>
+				<a class="pro_wp" title="<?php echo $model['brand'] . '&nbsp;' . $model['model']?>" href="/store/item/mobile-info?store=<?php echo $store?>&model=<?php echo $model['id']?>&cfrom=store-model">
+					<div class="pro_img">
+						<img src="/upload/mlib/thumb/<?php echo $model['thumb']?>" onerror="loadErrorImg(this);" />
+					</div>
+					<p class="pro_name"><?php echo $model['brand'] . '&nbsp;' . $model['model']?></p>
+				</a>
+				<p class="pro_price">
+					<?php if ($model['min'] == $model['max']):?>
+					<span class="red">￥<?php echo $model['max']?></span>
+					<?php else:?>
+					<span class="red">￥<?php echo $model['min']?></span>
+					<em>~</em>
+					<span class="red">￥<?php echo $model['max']?></span>
+					<?php endif?>
+				</p>
+			</li>
+			<?php endforeach?>
+			<div class="clear"></div>
+			<?php endif?>
+		</ul>
+	</div>
+	<!--商品列表end-->
+	<div class="store_more">
+		<div class="store_more_top">
+			<p>没有您想要的？搜索一下！</p>
+			<div>
+				<a href="/store/item/mobile-list?cfrom=store-index&store=<?php echo $store?>">更多手机 >></a>
+			</div>
+		</div>
+		<!--手机筛选区域ks-->
+		<div class="attrs">
+			<div class="attrs_brand">
+				<ul>
+					<?php foreach ($brands as $brand):?>
+					<li>
+						<a href="/store/item/mobile-list?store=<?php echo $store?>&filter[brand]=<?php echo $brand['id']?>&cfrom=store-brand"><?php echo $brand['label']?></a>
+					</li>
+					<?php endforeach?>
+				</ul>
+				<div class="clear"></div>
+			</div>
+			<div class="attrs_search">
+				<span>价格：</span>
+				<input type="text" name="min" value="低" />
+				<span style="margin:0px 5px;">-</span>
+				<input type="text" name="max" value="高" />
+				<button id="price-search" type="button">搜索</button>
+			</div>
+		</div>
+		<script type="text/javascript">
+		jQuery(document).ready(function(){
+			jQuery('.attrs_search input[name=min]').focus(function(){
+				if (jQuery(this).val() == '低') {
+					jQuery(this).val('');
+				}
+			});
+			jQuery('.attrs_search input[name=max]').focus(function(){
+				if (jQuery(this).val() == '高') {
+					jQuery(this).val('');
+				}
+			});
+			jQuery('.attrs_search input[name=min]').blur(function(){
+				if (jQuery(this).val() == '') {
+					jQuery(this).val('低');
+				}
+			});
+			jQuery('.attrs_search input[name=max]').blur(function(){
+				if (jQuery(this).val() == '') {
+					jQuery(this).val('高');
+				}
+			});
+			jQuery('#price-search').click(function(){
+				var msg = 0;
+				var min = jQuery('input[name=min]').val();
+				var max = jQuery('input[name=max]').val();
+				if (min == '' || !isInt(min) || max == '' || !isInt(max) || parseInt(min) > parseInt(max)) {
+					alert('请输入数字，且从低到高填写搜索价格');
+					return;
+				}
+				window.location.href = '/store/item/mobile-list?store=<?php echo $store?>&filter[price]=' + min + ':' + max + '&cfrom=store-price';
+			});	
+			jQuery('.store_service ul li:eq(0)').css('background-color', '#FF6600');
+			jQuery('.store_service ul li:eq(1)').css('background-color', '#0066FF');
+			jQuery('.store_service ul li:eq(2)').css('background-color', '#669900');
+			jQuery('.store_service ul li:eq(3)').css('background-color', '#CC0066');
+			jQuery('.store_service ul li:eq(4)').css('background-color', '#CC0000');
+			jQuery('.store_service ul li:eq(5)').css('background-color', '#333333');
+		});
+		</script>
+		<!--手机筛选区域end-->
+	</div>
+</div>

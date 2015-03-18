@@ -1,0 +1,61 @@
+/* CSS Document */
+.grey1{
+	color:#999;}
+.tis{
+	height:34px;
+	line-height:34px;
+	padding-left:30px;
+	border:1px #ccc solid;}
+.no_verify{
+	margin-top:10px;}
+.no_verify .tis{
+	background:url(../../img/customer/check_w.png) no-repeat 9px 9px #FFD7D7;
+	border-color:#FFCCCC !important;}
+.verify_success .tis{
+	background:url(../../img/customer/check_r.png) no-repeat 9px 9px #DFF0D8;
+	border-color:#D6E9C6 !important;}
+/*邮箱验证过程ks*/
+.verify_process{}
+.step_bar{
+	padding-bottom:25px;
+	border-bottom:1px #ccc dotted;
+	margin-bottom:25px;}
+.step_bar ul{
+	height:45px;}
+.step_bar ul li{
+	width:200px;
+	height:45px;
+	float:left;
+	margin-left:2px;}
+.step_bar ul li i{
+	display:block;
+	width:200px;
+	height:15px;
+	background:#e4e4e4;}
+.step_bar ul li p{
+	height:20px;
+	line-height:20px;
+	margin-top:10px;}
+.step_c i{
+	background:#3991D0 !important;}
+.step1,.step2,.step3{
+	margin-top:10px;}
+.verify_tis{
+	padding-top:25px;
+	margin-top:25px;
+	line-height:30px;
+	border-top:1px #ccc dotted;}
+.verify_process button{
+	width:110px;
+	height:36px;
+	line-height:32px;
+	color:#333;
+	margin-top:20px;}
+.new_email{
+	height:30px;
+	margin-top:20px;}
+.new_email input[type=text]{
+	height:20px;
+	padding:4px;
+	border:1px #ddd inset;}
+/*邮箱验证过程end*/

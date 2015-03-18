@@ -1,0 +1,125 @@
+<?php $current = Factory::getRequest()->getParam('page', 1)?>
+<?php $purchases = $this->loadVisiblePurchase($current)?>
+<?php $total = $this->getVisiblePurchaseTotal()?>
+<?php $last = ceil($total / 10)?>
+<?php $last = $last ? $last : 1;?>
+<?php $purl = '/purchase/list?cfrom=manual_paginator&page='?>
+<!--信息排序ks-->
+<div class="filter_bar">
+    <ul class="sort_by">
+        <li class="sort_c">
+            <a class="shijian" href="?cfrom=sort_time&morder=refreshed">最新发布</a>
+        </li>
+        <div class="clear"></div>
+    </ul>
+    <div class="info_type">
+    	<label>
+        	<input type="radio" name="info_type" checked="checked" value="1" />
+            <span class="blue">个人求购</span>
+        </label>
+    	<label>
+        	<input type="radio" name="info_type" value="0" />
+            <span>闲置转让</span>
+        </label>
+    </div>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.info_type label').click(function(){
+		var index = jQuery('.info_type label').index(jQuery(this));
+		switch (index) {
+			case 0:
+				window.location.href = '/purchase/list?cfrom=switch';
+				break;
+			case 1:
+				window.location.href = '/mobile/list?cfrom=switch';
+				break;
+		}
+	});
+	jQuery('input[name=q]').focus(function(){
+		var q = trim(jQuery(this).val());
+		if (q == '输入手机品牌或型号') {
+			jQuery(this).val('');	
+		}	
+		jQuery(this).parent().addClass('search_c');
+	});
+	jQuery('input[name=q]').blur(function(){
+		var q = trim(jQuery(this).val());
+		if (q == '') {
+			jQuery(this).val('输入手机品牌或型号');	
+		}	
+		jQuery(this).parent().removeClass('search_c');
+	});
+	jQuery('input[name=q]').keydown(function(e){
+		var q = trim(jQuery(this).val());
+		if(e.keyCode==13){
+			if(q == '' || q == '输入手机品牌或型号'){
+				alert('请填写搜索内容');
+			}else{
+				window.location.href = '/mobile/list/search?cfrom=list&q=' + q;
+			}	
+		}
+	});
+	jQuery('#search button').click(function(){
+		var q = trim(jQuery(this).parent().find('input[name=q]').val());
+		if(q == '' || q == '输入手机品牌或型号'){
+			alert('请填写搜索内容');
+		}else{
+			window.location.href = '/mobile/list/search?cfrom=list&q=' + q;
+		}
+	});
+});
+</script>
+<!--信息排序end-->
+<!--求购列表ks-->
+<div id="buying_list" class="buying_list" page="<?php echo $current?>">
+	<ul>
+    	<?php if ($purchases):?>
+		<?php global $static?>
+    	<?php foreach ($purchases as $purchase):?>
+    	<li>
+        	<p><?php echo $purchase['created_at']?></p>
+            <a target="_blank" class="fs14 blue" href="<?php echo '/purchase/item?cfrom=list&id=' . $purchase['id']?>">
+				<?php echo $purchase['title']?>
+            </a>
+            <strong class="red"><?php echo $purchase['price']?>元</strong>
+        	<span class="area_xingzhi grey1">
+				<?php echo $purchase['region']?>
+            	<i>/</i>
+                [<?php echo $purchase['group']?>]
+            </span>
+            <div class="clear"></div>
+        </li>
+        <?php endforeach;?>
+        <?php endif;?>
+    </ul>
+    <div class="clear"></div>
+	<div class="loading" style="width:220px;margin:5px auto;display:none;">
+		<img alt="正在加载中..." src="<?php echo $this->getImg('loading.gif')?>" />
+	</div>
+</div>
+<!--求购列表end-->
+<div class="list_buttom" style="<?php if (!$purchases):?>display:block;<?php endif;?>"></div>
+<div class="list_bt_tis" style="<?php if (!$mobiles || $total <= 10):?>display:block;position:static;<?php endif;?>">
+    <span>没有找到关于您手机型号的求购信息么？发布一个手机吧！</span>
+	<?php if (Factory::getSession('customer/id')):?>
+	<a href="/customer/mobile/publish">发布手机</a>
+    <a href="/customer/purchase/publish" style="background:grey;">发布求购</a>
+	<?php else:?>
+	<a href="javascript:void(0);" onclick="popOpen('login');">发布手机</a>
+    <a href="javascript:void(0);" onclick="popOpen('login');" style="background:grey;">发布求购</a>
+	<?php endif?>
+</div>
+<?php if ($total > 10):?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery(window).scroll(function () {
+		/*判断窗体高度与竖向滚动位移大小相加 是否 超过内容页高度*/
+		if ((jQuery(window).height() + jQuery(window).scrollTop()) >= jQuery('body').height()) {
+			loadVisiblePurchase();
+		}
+	});
+});
+</script>
+<?php endif;?>

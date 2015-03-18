@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--管理员列表ks-->
+	<system_member_list>
+		<reference name="content" type="System_MemberView">
+			<action method="setTemplate">system/member/list.phtml</action>
+		</reference>
+	</system_member_list>
+	<!--管理员列表end-->
+	<!--管理员信息ks-->
+	<system_member_info>
+		<reference name="content" type="System_MemberView">
+			<action method="setTemplate">system/member/info.phtml</action>
+		</reference>
+	</system_member_info>
+	<!--管理员信息end-->
+	<!--网站成员操作历史ks-->
+	<system_member_operation>
+		<reference name="content" type="System_MemberView">
+			<action method="setTemplate">system/member/operation.phtml</action>
+		</reference>
+	</system_member_operation>
+	<!--网站成员操作历史end-->
+	<!--网站成员设置密码ks-->
+	<system_member_pwd>
+		<reference name="content" type="System_MemberView">
+			<action method="setTemplate">system/member/pwd.phtml</action>
+		</reference>
+	</system_member_pwd>
+	<!--网站成员设置密码end-->
+	<!--添加管理员ks-->
+	<system_member_add>
+		<reference name="content" type="System_MemberView">
+			<action method="setTemplate">system/member/add.phtml</action>
+		</reference>
+	</system_member_add>
+	<!--添加管理员end-->
+	<!--角色列表ks-->
+	<system_member_group-list>
+		<reference name="content" type="System_MemberView">
+			<action method="setTemplate">system/member/group_list.phtml</action>
+		</reference>
+	</system_member_group-list>
+	<!--角色列表end-->
+	<!--角色信息ks-->
+	<system_member_group-info>
+		<reference name="skin">
+			<action method="addCss">system/member.css</action>
+		</reference>
+		<reference name="content" type="System_MemberView">
+			<action method="setTemplate">system/member/group_info.phtml</action>
+		</reference>
+	</system_member_group-info>
+	<!--角色信息end-->
+	<!--添加角色ks-->
+	<system_member_add-group>
+		<reference name="skin">
+			<action method="addCss">system/member.css</action>
+		</reference>
+		<reference name="content" type="System_MemberView">
+			<action method="setTemplate">system/member/add_group.phtml</action>
+		</reference>
+	</system_member_add-group>
+	<!--添加角色end-->
+	<!--网站后台操作历史ks-->
+	<system_member_history>
+		<reference name="content" type="System_MemberView">
+			<action method="setTemplate">system/member/history.phtml</action>
+		</reference>
+	</system_member_history>
+	<!--网站后台操作历史end-->
+</layouts>

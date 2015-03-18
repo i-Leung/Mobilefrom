@@ -1,0 +1,106 @@
+<?php $id = Factory::getRequest()->getParam('id')?>
+<?php $attributes = $this->loadGroupAttributeList(0)?>
+<?php $group = $selected = array()?>
+<?php if ($id):?>
+<?php $group = $this->getAttributeGroup($id)?>
+<?php $selected = $this->loadGroupAttributeList($id)?>
+<?php endif?>
+<?php $unselected = array_diff($attributes, $selected)?>
+<h1>添加属性组</h1>
+<table class="table2">
+	<tbody>
+		<tr>
+			<th>属性组名称：</th>
+			<td>
+				<input name="label" type="text" value="<?php echo $group['label']?>" />
+			</td>
+		</tr>
+		<tr>
+			<th>排序号：</th>
+			<td>
+				<input name="sort" type="text" value="<?php echo $group['sort'] ? $group['sort'] : 0?>" />
+			</td>
+		</tr>
+		<tr>
+			<th style="vertical-align:top;">选择组内属性：</th>
+			<td width="600" style="padding:0px;">
+				<?php foreach ($selected as $key => $item):?>
+				<label class="group-attribute">
+					<span>
+						<input name="attribute[]" type="checkbox" checked="checked" value="<?php echo $key?>" />
+					</span>
+					<span><?php echo $item?></span>
+				</label>
+				<?php endforeach?>
+				<?php foreach ($unselected as $key => $item):?>
+				<label class="group-attribute">
+					<span>
+						<input name="attribute[]" type="checkbox" value="<?php echo $key?>" />
+					</span>
+					<span><?php echo $item?></span>
+				</label>
+				<?php endforeach?>
+			</td>
+		</tr>
+		<tr>
+			<th></th>
+			<td>
+				<button class="btn_red" type="type" onclick="saveItem(this);">保存</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<script type="text/javascript">
+//保存属性
+function saveItem(obj){
+	var parent = jQuery(obj).parent().parent().parent();
+	var label = parent.find('input[name=label]').val();
+	if(label == ''){
+		alert('请填写属性值名称');
+		return;
+	}
+	var sort = parent.find('input[name=sort]').val();
+	if(sort == ''){
+		alert('请填写排序号');
+		return;
+	}
+	var attributes = new Array();
+	jQuery('input[type=checkbox]:checked').each(function(){
+		attributes.push(jQuery(this).val());
+	});
+	var params = {
+		<?php if ($id):?>
+		id:'<?php echo $id?>',
+		<?php endif?>
+		group:{
+			label:label,
+			sort:sort
+		},
+		attributes:attributes
+	};
+	jQuery.ajax({
+		type:'get',
+		data:jQuery.param(params),
+		dataType:'json',
+		url:'/monitor/system_mlib/ajax-<?php echo $id ? 'modify' : 'add'?>-attribute-group',
+		beforeSend:function(){
+			jQuery(obj).html('正在提交...')
+				.attr('disabled', 'disabled');
+		},
+		success:function(data){
+			if(data == '1'){
+				window.location.href = '/monitor/system_mlib/attribute-group-list';
+			}else{
+				jQuery(obj).html('保存')
+					.removeAttr('disabled');
+				alert('保存属性组失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			jQuery(obj).html('保存')
+				.removeAttr('disabled');
+			alert('保存属性组失败，请稍候尝试');
+		}
+	});
+}
+</script>

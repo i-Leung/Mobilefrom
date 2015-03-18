@@ -1,0 +1,98 @@
+<?php $request = Factory::getRequest()?>
+<?php $module = $request->getModuleName()?>
+<?php $controller = $request->getControllerName()?>
+<div class="yx_fixed_bar">
+	<?php if (!($module == 'store' && $controller == 'item')):?>
+	<a class="yx_xianzhi backtop_icon" title="同城购机" href="/mlib/list?cfrom=backtop">选机</a>
+	<a class="yx_store backtop_icon" title="本地商家" href="/store/list/index?cfrom=backtop">商家</a>
+	<?php endif?>
+	<div class="feedback">
+    	<i class="backtop_icon" title="用户反馈">爆粗</i>
+        <div class="feedback_box">
+        	<div class="feedback_title">
+				用得不爽！？尽管说！俺们立马改！
+                <a href="javascript:void(0);"></a>
+            </div>
+            <div class="feedback_main">
+				<div>
+					<span>您的联系QQ：</span>
+					<input name="qq" type="text" value="" />
+				</div>
+                <textarea maxlength="240"></textarea>
+                <div class="survey_count_submit">
+                	<div class="survey_count">
+                    	还能输入<span class="grey">240</span>个字符
+                    </div>
+                    <button class="survey_submit" type="button" onclick="makeSuggestion(this);">提交</button>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="gotop backtop_icon" title="返回顶部" href="javascript:void(0);"></a>
+</div>
+<script type="text/jscript">
+jQuery(document).ready(function(){
+		/*意见反馈ks*/
+		jQuery(".feedback").mouseover(function(){
+			jQuery(".feedback i").addClass("dot");
+		});
+		jQuery(".feedback").mouseleave(function(){
+			jQuery(".feedback i").removeClass("dot");
+		});
+		jQuery(".feedback_title a").click(function(){
+			jQuery(".feedback_box").hide();
+		});
+		jQuery(".feedback i").click(function(){
+			jQuery(".feedback_box").show();
+		});
+		jQuery(".feedback span").click(function(){
+			jQuery(".feedback_box").show();
+		});
+		jQuery('.feedback_main textarea').keydown(function(e){
+			if(e.ctrlKey && e.keyCode==13){
+				makePageSuggestion(jQuery('.survey_submit'));
+			}else{
+				var free = 240 - parseInt(jQuery(this).val().length);
+				jQuery('.survey_count span').html(free);
+			}
+		});
+		/*意见反馈end*/
+		/*返回顶部ks*/
+		jQuery(".gotop").hide();
+		jQuery(".gotop").click(function(){
+			jQuery("html").animate({scrollTop:0}, 'slow');
+			jQuery("body").animate({scrollTop:0}, 'slow');
+		});
+		jQuery(window).bind("scroll", backToTopFun);
+		backToTopFun();
+		/*返回顶部end*/
+
+		//记录页面导向
+		<?php if (!in_array(Factory::getCookie('customer_id'), array(1, 2, 10))):?>
+		<?php $request = Factory::getRequest()?>
+		var pfrom = {
+			module:'<?php echo $request->getModuleName()?>',
+			controller:'<?php echo $request->getControllerName()?>',
+			action:'<?php echo $request->getActionName()?>',
+			cfrom:'<?php echo $request->getParam('cfrom', 'outside')?>'
+		};
+		jQuery.ajax({
+			type:'get',
+			data:jQuery.param(pfrom),
+			dataType:'json',
+			url:'/default/analysis/pfrom',
+			success:function(data){},
+			error:function(){}
+		});
+		<?php endif?>
+});
+var backToTopFun = function(){ 
+	var st = jQuery(document).scrollTop(),winh = jQuery(window).height();
+	if (st > 0) {
+		jQuery(".gotop").show();
+	} else {
+		jQuery(".gotop").hide();
+	}
+};
+</script>

@@ -1,0 +1,157 @@
+<!--面包屑ks-->
+<?php $id = Factory::getRequest()->getParam('id')?>
+<?php $mobile = Factory::getView('mobile/item')->showInfo($id)?>
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+        <span class="jiantou">></span>
+		<a href="/mobile/list?cfrom=breadcrumb">手机天地</a>
+		<span class="jiantou">></span>
+		<a href="javascript:void(0);">手机对比</a>
+    </div>
+</div>
+<!--面包屑end-->
+<div class="compare_wp">
+    <table>
+        <tr>
+            <td width="198" style="font-size:14px; border-left:1px #DBE2F9 solid">
+            	<strong>对比选项</strong>
+            </td>
+            <td class="mobile_item" width="199">
+            	<a class="cancal_btn btn_blue" href="/mobile/list?cfrom=add_compare">增加对比项</a>
+            </td>
+            <td class="mobile_item" width="199">
+            	<a class="cancal_btn btn_blue" href="/mobile/list?cfrom=add_compare">增加对比项</a>
+            </td>
+            <td class="mobile_item" width="199">
+            	<a class="cancal_btn btn_blue" href="/mobile/list?cfrom=add_compare">增加对比项</a>
+            </td>
+            <td class="mobile_item" width="199">
+            	<a class="cancal_btn btn_blue" href="/mobile/list?cfrom=add_compare">增加对比项</a>
+            </td>
+        </tr>
+    </table>
+    <div class="info_title" style="margin-top:0px;">
+    	<p>基本信息</p>
+    </div>
+    <table>
+        <tr>
+            <td class="info_name" width="188" style="padding-left:10px;">图片/标题</td>
+            <td class="mobile_wp" width="199" style="padding:10px 0px;"></td>
+            <td class="mobile_wp" width="199" style="padding:10px 0px;"></td>
+            <td class="mobile_wp" width="199" style="padding:10px 0px;"></td>
+            <td class="mobile_wp" width="199" style="padding:10px 0px;"></td>
+        </tr>
+        <tr>
+            <td class="info_name" width="188" style="padding-left:10px;">交易类型</td>
+            <td class="mobile_cost"></td>
+            <td class="mobile_cost"></td>
+            <td class="mobile_cost"></td>
+            <td class="mobile_cost"></td>
+        </tr>
+        <tr>
+            <td class="info_name" width="188" style="padding-left:10px;">价格</td>
+            <td class="price"></td>
+            <td class="price"></td>
+            <td class="price"></td>
+            <td class="price"></td>
+        </tr>
+        <tr>
+            <td class="info_name" width="188" style="padding-left:10px;">新旧程度</td>
+            <td class="mobile_newly"></td>
+            <td class="mobile_newly"></td>
+            <td class="mobile_newly"></td>
+            <td class="mobile_newly"></td>
+        </tr>
+    </table>
+    <div class="info_title">
+    	<p>详细信息</p>
+    </div>
+    <table>
+        <tr>
+            <td class="info_name" width="188" style="padding-left:10px;">功能状况</td>
+            <td class="mobile_trouble" width="188"></td>
+            <td class="mobile_trouble" width="188"></td>
+            <td class="mobile_trouble" width="188"></td>
+            <td class="mobile_trouble" width="188"></td>
+        </tr>
+        <tr>
+            <td class="info_name" width="188" style="padding-left:10px;">手机描述</td>
+            <td class="mobile_remark" width="188"></td>
+            <td class="mobile_remark" width="188"></td>
+            <td class="mobile_remark" width="188"></td>
+            <td class="mobile_remark" width="188"></td>
+        </tr>
+    </table>
+    <div class="info_title">
+    	<p>联系信息</p>
+    </div>
+    <table>
+        <tr>
+            <td class="info_name" width="188" style="padding-left:10px;">联系人</td>
+            <td class="contact_name" width="199"></td>
+            <td class="contact_name" width="199"></td>
+            <td class="contact_name" width="199"></td>
+            <td class="contact_name" width="199"></td>
+        </tr>
+        <tr>
+            <td class="info_name" width="188" style="padding-left:10px;">手机号码</td>
+            <td class="contact_tel"></td>
+            <td class="contact_tel"></td>
+            <td class="contact_tel"></td>
+            <td class="contact_tel"></td>
+        </tr>
+        <tr>
+            <td class="info_name" width="188" style="padding-left:10px;">Q Q号码</td>
+            <td class="contact_qq"></td>
+            <td class="contact_qq"></td>
+            <td class="contact_qq"></td>
+            <td class="contact_qq"></td>
+        </tr>
+        <tr>
+            <td class="info_name" width="188" style="padding-left:10px;">交易地区</td>
+            <td class="contact_region"></td>
+            <td class="contact_region"></td>
+            <td class="contact_region"></td>
+            <td class="contact_region"></td>
+        </tr>
+        <tr>
+            <td class="info_name" width="188" style="padding-left:10px;">交易地点</td>
+            <td class="contact_location"></td>
+            <td class="contact_location"></td>
+            <td class="contact_location"></td>
+            <td class="contact_location"></td>
+        </tr>
+        <tr>
+            <td class="info_name" width="188" style="padding-left:10px;">卖家性质</td>
+            <td class="contact_group"></td>
+            <td class="contact_group"></td>
+            <td class="contact_group"></td>
+            <td class="contact_group"></td>
+        </tr>
+        <tr>
+            <td class="info_name" width="188" style="padding-left:10px;">相中哪部？</td>
+            <td class="to_see"></td>
+            <td class="to_see"></td>
+            <td class="to_see"></td>
+            <td class="to_see"></td>
+        </tr>
+    </table>
+</div>
+<script type="text/jscript">
+	jQuery(document).ready(
+		function(){
+			jQuery('.info_title').toggle(
+				function(){
+					jQuery(this).next().toggle('false');
+					jQuery(this).addClass("info_title_c");	
+				},function(){
+					jQuery(this).next().toggle('true');
+					jQuery(this).removeClass("info_title_c");	
+				}
+			);
+			showCompare();
+		}
+	)
+</script>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--属性列表ks-->
+	<system_tlib_attribute-list>
+		<reference name="content" type="System_TlibView">
+			<action method="setTemplate">system/tlib/attribute_list.phtml</action>
+		</reference>
+	</system_tlib_attribute-list>
+	<!--属性列表end-->
+	<!--属性信息ks-->
+	<system_tlib_attribute>
+		<reference name="content" type="System_TlibView">
+			<action method="setTemplate">system/tlib/attribute.phtml</action>
+		</reference>
+	</system_tlib_attribute>
+	<!--属性信息end-->
+	<!--添加属性ks-->
+	<system_tlib_add-attribute>
+		<reference name="skin">
+			<action method="addCss">system/tlib.css</action>
+		</reference>
+		<reference name="content" type="System_TlibView">
+			<action method="setTemplate">system/tlib/add_attribute.phtml</action>
+		</reference>
+	</system_tlib_add-attribute>
+	<!--添加属性end-->
+	<!--品牌列表ks-->
+	<system_tlib_brand-list>
+		<reference name="content" type="System_TlibView">
+			<action method="setTemplate">system/tlib/brand_list.phtml</action>
+		</reference>
+	</system_tlib_brand-list>
+	<!--品牌列表end-->
+	<!--型号列表ks-->
+	<system_tlib_model-list>
+		<reference name="content" type="System_TlibView">
+			<action method="setTemplate">system/tlib/model_list.phtml</action>
+		</reference>
+	</system_tlib_model-list>
+	<!--型号列表end-->
+	<!--型号详细ks-->
+	<system_tlib_model>
+		<reference name="skin">
+			<action method="addCss">system/tlib.css</action>
+		</reference>
+		<reference name="content" type="System_TlibView">
+			<action method="setTemplate">system/tlib/model.phtml</action>
+		</reference>
+	</system_tlib_model>
+	<!--型号详细end-->
+</layouts>

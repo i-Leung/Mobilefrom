@@ -1,0 +1,102 @@
+<?php
+if ($id = Factory::getRequest()->getParam('id')) {
+	$group = $this->getGroupInfo($id);
+}
+?>
+<h1>添加资源组</h1>
+<table class="table2">
+	<tbody>
+		<tr>
+			<th>父资源组：</th>
+			<td>
+				<select name="pid">
+					<option value="0">创建主资源组</option>
+					<?php if ($mains = $this->loadGroupList()):?>
+					<?php foreach ($mains as $item):?>
+					<option value="<?php echo $item['id']?>" <?php echo $group['pid'] == $item['id'] ? 'checked="checked"' : ''?>>
+						<?php echo $item['label']?>
+					</option>
+					<?php endforeach;?>
+					<?php endif;?>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>资源组名称：</th>
+			<td>
+			<input name="label" type="text" value="<?php echo $group['label']?>" />
+			</td>
+		</tr>
+		<tr>
+			<th>资源组控制器：</th>
+			<td>
+				<input name="controller" type="text" value="<?php echo $group['controller']?>" />
+			</td>
+		</tr>
+		<tr>
+			<th></th>
+			<td>
+				<button class="btn_red" type="button" onclick="saveGroup(this);">保存</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<script type="text/javascript">
+function saveGroup(obj){
+	var pid = jQuery('select[name=pid]').val();
+	var label = jQuery('input[name=label]').val();
+	var controller = jQuery('input[name=controller]').val();
+	if(label == ''){
+		alert('请填写资源组名称');
+		return;
+	}
+	if(controller == ''){
+		alert('请填写资源组控制器');
+		return;
+	}
+	<?php if ($id):?>
+	var params = {
+		id:'<?php echo $id?>',
+		group:{
+			pid:pid,
+			label:label,
+			controller:controller
+		}
+	};
+	var url = '/monitor/system_resource/ajax-modify-group';
+	<?php else:?>
+	var params = {
+		group:{
+			pid:pid,
+			label:label,
+			controller:controller
+		}
+	};
+	var url = '/monitor/system_resource/ajax-add-group';
+	<?php endif;?>
+	jQuery.ajax({
+		type:'get',
+		data:jQuery.param(params),
+		url:url,
+		dataType:'json',
+		beforeSend:function(){
+			jQuery(obj).html('正在操作...')
+				.attr('onclick', '');
+		},
+		success:function(data){
+			jQuery(obj).html('保存')
+				.attr('onclick', 'saveGroup(this);');
+			if(data == '1'){
+				window.location.href = '/monitor/system_resource/group-list';
+			}else{
+				alert('添加资源组失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			jQuery(obj).html('保存')
+				.attr('onclick', 'saveGroup(this);');
+			alert('添加资源组失败，请稍候尝试');
+		}
+	});	
+}
+</script>

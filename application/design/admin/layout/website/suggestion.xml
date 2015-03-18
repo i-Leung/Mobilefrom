@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--网站建议列表ks-->
+	<website_suggestion_list>
+		<reference name="content">
+			<action method="setTemplate">website/suggestion/list.phtml</action>
+		</reference>
+	</website_suggestion_list>
+	<!--网站建议列表end-->
+	<!--网站建议详细ks-->
+	<website_suggestion_detail>
+		<reference name="content">
+			<action method="setTemplate">website/suggestion/detail.phtml</action>
+		</reference>
+	</website_suggestion_detail>
+	<!--网站建议详细end-->
+</layouts>

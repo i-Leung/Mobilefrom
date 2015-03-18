@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layouts>
+	<!--整站导向统计ks-->
+	<analysis_pfrom_site>
+		<reference name="content" type="Analysis_PfromView">
+			<action method="setTemplate">analysis/pfrom/site.phtml</action>
+		</reference>
+	</analysis_pfrom_site>
+	<!--整站导向统计end-->
+	<!--模块导向统计ks-->
+	<analysis_pfrom_module>
+		<reference name="content" type="Analysis_PfromView">
+			<action method="setTemplate">analysis/pfrom/module.phtml</action>
+		</reference>
+	</analysis_pfrom_module>
+	<!--模块导向统计end-->
+	<!--动作导向统计ks-->
+	<analysis_pfrom_action>
+		<reference name="content" type="Analysis_PfromView">
+			<action method="setTemplate">analysis/pfrom/action.phtml</action>
+		</reference>
+	</analysis_pfrom_action>
+	<!--动作导向统计end-->
+</layouts>

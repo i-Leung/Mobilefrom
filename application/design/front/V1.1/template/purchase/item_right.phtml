@@ -1,0 +1,121 @@
+<?php $id = Factory::getRequest()->getParam('id')?>
+<?php $info = $this->showContact($id)?>
+<?php global $CStatic?>
+<?php $customer_id = Factory::getSession('customer/id')?>
+<!--用户名片ks-->
+<div class="r_box">
+	<div class="r_box_title" style="background:#F1EDEC;">
+    	<h3>用户名片</h3>
+        <?php if ($customer_id != $info['customer_id']):?>
+        <p>
+        	<a class="blue" href="javascript:void(0);" style="display:none;">举报</a>
+        </p>
+        <?php endif;?>
+        <div class="clear"></div>
+    </div>
+    <div class="r_box_bd">
+    	<table width="180">
+        	<tr>
+            	<th>账号：</th>
+            	<td>
+	            	<a href="/space/purchase/list?cfrom=namecard&id=<?php echo $info['customer_id']?>"><?php echo $info['username']?></a>
+            	</td>
+            </tr>
+        	<tr>
+            	<th>买家：</th>
+            	<td><?php echo $info['contact']['name']?><span class="blue">【<?php echo $CStatic['mode'][$info['group']]?>】</td>
+            </tr>
+        	<tr>
+            	<th>手机：</th>
+				<td><?php echo $info['contact']['tel']?><span id="ownership" class="blue"><?php echo $info['contact']['ownership'] ? '[' . $info['contact']['ownership'] . ']' : ''?></span></td>
+            </tr>
+        	<tr>
+            	<th>QQ ：</th>
+				<td><?php echo $info['contact']['qq']?></td>
+            </tr>
+        	<tr>
+            	<th>地区：</th>
+            	<td><?php echo $CStatic['region'][$info['contact']['region']]?></td>
+            </tr>
+        	<tr>
+            	<th>地点：</th>
+            	<td><?php echo $info['contact']['location']?></td>
+            </tr>
+        </table>
+        <?php if ($customer_id == $info['customer_id']):?>
+        <?php $refreshed_at = $this->getLastRefreshedAt($id)?>
+        <div id="user_cz" class="card_f">
+        	<?php if (time() - $refreshed_at > 86400):?>
+            <a class="blue" href="javascript:void(0);" onclick="refresh(this, '<?php echo $id?>');">刷新</a>
+            <?php else :?>
+            <a class="grey" href="javascript:void(0);" onclick="refreshNotice();">刷新</a>
+            <?php endif;?>
+            <span>|</span>
+        	<a class="blue" href="/customer/purchase/publish?cfrom=item&id=<?php echo $id?>">修改</a>
+            <span>|</span>
+        	<a class="red" href="javascript:void(0);" onclick="changeStatus(this, '<?php echo $id?>', '2');">过期</a>
+            <span>|</span>
+        	<a class="red" href="javascript:void(0);" onclick="changeStatus(this, '<?php echo $id?>', '3');">删除</a>
+        </div>
+        <?php endif;?>
+        <div id="user_tis" class="card_f">
+        	<p>联系我时，请说明是在&nbsp;<strong class="red">机荒网</strong></p>
+            <p>看到的，谢谢!</p>
+        </div>
+    </div>
+</div>
+<!--用户名片end-->
+<!--TA还发布了ks-->
+<div id="publish_other" class="r_box" style="margin-top:10px;display:none;">
+	<div class="r_box_title">
+    	<h3>TA还发布了</h3>
+    	<p>
+        	<a class="blue" href="/space/purchase/list?cfrom=item_other&id=<?php echo $info['customer_id']?>">更多</a>
+        </p>
+        <div class="clear"></div>
+    </div>
+    <div class="r_box_bd">
+    	<ul class="info_list"></ul>
+        <div id="user_cz" class="card_f tac" style="margin-top:0px;">
+        	<a class="blue" href="/space/purchase/list?cfrom=item_other&id=<?php echo $info['customer_id']?>">查看全部</a>
+        </div>
+    </div>
+</div>
+<!--TA还发布了end-->
+
+<!--浏览记录ks-->
+<div id="history" class="r_box" style="margin-top:10px;display:none;">
+	<div class="r_box_title">
+    	<h3>您浏览过的求购</h3>
+    	<p>
+        	<a class="blue" href="javascript:void(0);" onclick="clearHistoryPurchase();">清空</a>
+        </p>
+        <div class="clear"></div>
+    </div>
+    <div class="r_box_bd">
+    	<ul class="info_list"></ul>
+    </div>
+</div>
+<!--浏览记录end-->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	
+	//获取TA还发布
+	loadOtherPurchase('<?php echo $info['customer_id']?>', '<?php echo $info['id']?>');
+	
+	//获取浏览历史记录
+	loadHistoryPurchase();
+
+	//记录点击量
+	<?php if ($customer_id != $info['customer_id']):?>
+	jQuery.ajax({
+		type:'get',
+		data:{id:<?php echo $id?>},
+		dataType:'json',
+		url:'/purchase/item/click',
+		success:function(){},
+		error:function(){}
+	});
+	<?php endif;?>
+});
+</script>

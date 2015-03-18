@@ -1,0 +1,231 @@
+<?php global $CStatic?>
+<?php $sid = Factory::getRequest()->getParam('sid', '1')?>
+<h3>申请提供服务</h3>
+<div class="tabs1">
+	<ul>
+	<li title="verification" <?php if ($sid == '1'):?>class="tabs1_c"<?php endif?>>
+    		<a href="/customer/store/apply-service?sid=1">解锁服务</a>
+    	</li>
+    	<li title="unlock" <?php if ($sid == '2'):?>class="tabs1_c"<?php endif?>>
+    		<a href="/customer/store/apply-service?sid=2">验机服务</a>
+    	</li>
+    	<li title="root" <?php if ($sid == '3'):?>class="tabs1_c"<?php endif?>>
+    		<a href="/customer/store/apply-service?sid=3">刷机服务</a>
+    	</li>
+    </ul>
+</div>
+<div class="tabs1_body">
+	<!--解锁服务ks-->
+	<div class="tabs1_item">
+    	<table class="service_table">
+        	<tbody>
+            	<tr>
+                	<th>
+    					<p style="color:#333;"><strong>1.填写基本信息</strong></p>
+                    </th>
+                    <td></td>
+                </tr>
+            	<tr style="display:none;">
+                    <th>服务区域：</th>
+                    <td>
+						<?php foreach ($CStatic['region'] as $key => $item):?>
+                    	<label>
+                        	<input name="sregion" type="checkbox" value="<?php echo $key?>"/>
+							<span><?php echo $item?></span>
+                        </label>
+						<?php endforeach?>
+                    </td>
+                </tr>
+            	<tr>
+                    <th>收费标准：</th>
+                    <td>
+                    	<input name="price" type="text"/>
+                        <span>元/部</span>
+                    </td>
+                </tr>
+            	<tr>
+                    <th style="padding-top:0px;">填写服务简介：</th>
+                    <td>
+                    	<textarea name="introduction"></textarea>
+                        <span style="margin-top:10px;" class="grey1">（30个字以内，可以不填）</span>
+                    </td>
+                </tr>
+            	<tr>
+                	<th>
+        				<p style="color:#333;"><strong>2.填写联系方式</strong></p>
+                    </th>
+                	<td></td>
+                </tr>
+            	<tr>
+                	<th>
+                    	联系人：
+                    </th>
+                	<td>
+                    	<input name="name" type="text"/>
+                    </td>
+                </tr>
+            	<tr>
+                	<th>电  话：</th>
+                	<td>
+                    	<input name="tel" type="text"/>
+                    </td>
+                </tr>
+            	<tr>
+                	<th>Q  Q：</th>
+                	<td>
+                    	<input name="qq" type="text"/>
+                    </td>
+                </tr>
+            	<tr>
+                	<th>所在地区：</th>
+                	<td>
+                    	<select name="region">
+                        	<option value="">选择所在地区</option>
+							<?php foreach ($CStatic['region'] as $key => $item):?>
+							<option value="<?php echo $key?>"><?php echo $item?></option>
+							<?php endforeach?>
+                        </select>
+                    </td>
+                </tr>
+            	<tr>
+                	<th>店铺地址：</th>
+                	<td>
+                    	<input name="location" type="text" style="width:290px;"/>
+                    </td>
+                </tr>
+            	<tr>
+                	<th></th>
+                	<td>
+						<input name="id" value="" type="hidden" />
+						<input name="sid" value="<?php echo $sid?>" type="hidden" />
+                    	<button type="button" onclick="submitService(this);">确认提交</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+	<!--解锁服务end-->
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	getService('<?php echo $sid?>', '<?php echo Factory::getSession('customer/id')?>');
+});
+
+//获取用户联系信息
+function getContact()
+{
+	jQuery.ajax({
+		type:'get',
+		dataType:'json',
+		url:'/customer/account/get-contact',
+		success:function(data){
+			if(data != '0'){
+				jQuery('input[name=name]').val(data.name);
+				jQuery('input[name=tel]').val(data.tel);
+				jQuery('input[name=qq]').val(data.qq);
+				jQuery('select[name=region] option[value=' + data.region + ']').attr('selected', 'selected');
+				jQuery('input[name=location]').val(data.location);
+			}
+		},
+		error:function(){}
+	});
+}
+
+//获取服务内容
+function getService(sid, customer)
+{
+	jQuery.ajax({
+		type:'get',
+		data:{sid:sid, customer:customer},
+		dataType:'json',
+		url:'/customer/store/get-service',
+		success:function(data){
+			if(data != '0'){
+				jQuery('input[name=id]').val(data.id);
+				jQuery('input[name=price]').val(data.price);
+				jQuery('textarea[name=introduction]').val(data.introduction);
+				jQuery('input[name=name]').val(data.contact.name);
+				jQuery('input[name=tel]').val(data.contact.tel);
+				jQuery('input[name=qq]').val(data.contact.qq);
+				jQuery('select[name=region] option[value=' + data.contact.region + ']').attr('selected', 'selected');
+				jQuery('input[name=location]').val(data.contact.location);
+			} else {
+				getContact();
+			}
+		},
+		error:function(){}
+	});
+}
+
+//提交申请数据
+function submitService(obj)
+{
+	var parent = jQuery(obj).parent().parent().parent();
+	var msg = '';
+	var price = parent.find('input[name=price]').val();
+	if (price == '') {
+		msg += '请填写收费标准;\n';
+	}
+	var introduction = parent.find('textarea[name=introduction]').val();
+	if (introduction.length > 30) {
+		msg += '服务简介内容长度不能大于30个字符;\n';
+	}
+	var name = parent.find('input[name=name]').val();
+	if (name == '') {
+		msg += '请填写联系人称呼\n';
+	}
+	var tel = parent.find('input[name=tel]').val();
+	if (tel == '') {
+		msg += '请填写联系电话\n';
+	}
+	var qq = parent.find('input[name=qq]').val();
+	if (qq == '') {
+		msg += '请填写QQ\n';
+	}
+	var region = parent.find('select[name=region]').val();
+	if (region == '') {
+		msg += '请选择交易区域\n';
+	}
+	var location = parent.find('input[name=location]').val();
+	if (location == '') {
+		msg += '请填写详细地址\n';
+	}
+	if (msg != '') {
+		alert(msg);
+		return;	
+	}
+	var id = parent.find('input[name=id]').val();
+	var sid = parent.find('input[name=sid]').val();
+	var params = {
+		id:id,
+		service:{
+			sid:sid,
+			price:price,
+			introduction:introduction
+		},
+		contact:{
+			name:name,
+			tel:tel,
+			qq:qq,
+			region:region,
+			location:location
+		}
+	};
+	jQuery.ajax({
+		type:'get',
+			data:jQuery.param(params),
+		dataType:'json',
+		url:'/customer/store/submit-service-apply',
+		success:function(data){
+			if (data == '1') {
+				window.location.href = '/customer/store/myservice';
+			} else {
+				alert('服务申请提交失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			alert('服务申请提交失败，请稍候尝试');
+		}
+	});
+}
+</script>

@@ -1,0 +1,228 @@
+<?php $current = Factory::getRequest()->getParam('page', 1)?>
+<?php $q = Factory::getRequest()->getParam('q', '')?>
+<?php $morder = Factory::getSession('smorder')?>
+<?php $mobiles = $q ? $this->loadSearchMobile($q, $current, 20) : array()?>
+<?php $total = $q ? $this->getSearchMobileTotal($q) : 0?>
+<?php $last = ceil($total / 20)?>
+<?php $last = $last ? $last : 1;?>
+<?php $murl = '/mobile/item?cfrom=search&id='?>
+<?php $purl = '/mobile/list/search?cfrom=search&q=' . $q . '&page='?>
+<?php global $MStatic?>
+<?php global $CStatic?>
+<?php $brands = Factory::getView('system/mlib')->loadBrandList()?>
+<?php $options = $this->loadAvailableFilterOption()?>
+<!--面包屑ks-->
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+        <span class="jiantou">></span>
+		<a href="/mobile/list?cfrom=breadcrumb&filter=all">闲置出售</a>
+        <span class="jiantou">></span>
+		<a href="javascript:void(0);"><?php echo $q?></a>
+    </div>
+</div>
+<!--面包屑end-->
+<!--您的选择ks-->
+<div class="y_choices">
+	<div class="l grey"><span>共有<strong class="red"><?php echo $total?></strong>条信息</span></div>
+    <div class="r">
+    	<ul>
+        	<li>
+            	<a href="/mobile/list?cfrom=search">您的搜索：<?php echo $q?><i></i></a>
+            </li>
+			<div class="clear"></div>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!--您的选择end-->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.brand_box li a').mouseover(function(){
+		if (jQuery(this).find('img').length > 0) {
+			jQuery(this).find('img').hide();
+			jQuery(this).find('span').show();
+		}
+	});
+	jQuery('.brand_box li a').mouseout(function(){
+		if (jQuery(this).find('img').length > 0) {
+			jQuery(this).find('img').show();
+			jQuery(this).find('span').hide();
+		}
+	});
+});
+//缺少品牌图片时处理方式
+function loadBrandLogoError(obj)
+{
+	jQuery(obj).parent().find('span').show();
+	jQuery(obj).remove();
+}
+//显示更多品牌
+function showMoreBrand(obj)
+{
+	if (jQuery('.brand_box').css('height') == '50px') {
+		jQuery(obj).addClass('more_brand_c');
+		jQuery('.brand_box').css('height', 'auto');
+	} else {
+		jQuery(obj).removeClass('more_brand_c');
+		jQuery('.brand_box').css('height', '50px');
+	}
+}
+</script>
+<!--属性筛选框ks-->
+<div class="attrs">
+	<dl class="attrs_brand">
+    	<dt>品牌：</dt>
+    	<dd>
+        	<div class="brand_box">
+            	<ul>
+					<?php foreach ($options['2'] as $value):?>
+					<?php 
+					if ($value == '15') {
+						$tmp = '15';
+						continue;
+					}
+					?>
+                	<li>
+						<a href="/mobile/list?cfrom=brand&filter[2]=<?php echo $value?>">
+                        	<img src="<?php echo $this->getImg('brand2/' . $value . '.jpg')?>" onerror="loadBrandLogoError(this);" />
+							<span style="display:none;"><?php echo $brands[$value]?></span>
+                        </a>
+                    </li>
+					<?php endforeach?>
+					<?php if (isset($tmp)):?>
+                	<li>
+						<a href="/mobile/list?cfrom=brand&filter[2]=15">
+							<span><?php echo $brands['15']?></span>
+                        </a>
+                    </li>
+					<?php endif?>
+                </ul>
+				<div class="clear"></div>
+            </div>
+			<span class="more_brand" onclick="showMoreBrand(this);">更多<i></i></span><!--点击更多时在此添加类more_brand_c-->
+            <div class="clear"></div>
+        </dd>
+    	<div class="clear"></div>
+    </dl>
+	<dl class="attrs_item">
+    	<dt>新旧程度：</dt>
+    	<dd>
+        	<a href="/mobile/list?cfrom=newly&filter[3]=all">不限</a>
+			<?php foreach ($options['3'] as $value):?>
+			<a href="/mobile/list?cfrom=newly&filter[3]=<?php echo $value?>"><?php echo $MStatic['newly'][$value]?></a>
+			<?php endforeach?>
+        </dd>
+    	<div class="clear"></div>
+    </dl>
+	<dl class="attrs_item">
+    	<dt>交易地区：</dt>
+    	<dd>
+            <a href="/mobile/list?cfrom=who&filter[6]=all">不限</a>
+			<?php ksort($options['6'])?>
+			<?php foreach ($options['6'] as $value):?>
+			<a href="/mobile/list?cfrom=who&filter[6]=<?php echo $value?>"><?php echo $CStatic['region'][$value]?></a>
+			<?php endforeach?>
+        </dd>
+    	<div class="clear"></div>
+    </dl>
+	<dl class="attrs_item">
+    	<dt>价格范围：</dt>
+    	<dd class="price_attrs">
+        	<a href="/mobile/list?cfrom=price&filter[1]=all">不限</a>
+			<?php foreach ($options['1'] as $value):?>
+			<a href="/mobile/list?cfrom=price&filter[1]=<?php echo $value?>"><?php echo $MStatic['level'][$value]['label']?></a>
+			<?php endforeach?>
+			<a href="/mobile/list?cfrom=price&filter[1]=8">换机</a>
+            <div class="clear"></div>
+        </dd>
+    	<div class="clear"></div>
+    </dl>
+</div>
+<!--属性筛选框end-->
+<div class="filter_bar">
+    <ul class="sort_by">
+        <li <?php if ($morder == 'refreshed'):?>class="sort_c"<?php endif;?>>
+			<a class="shijian" href="?cfrom=sort_time&smorder=refreshed&q=<?php echo $q?>">最新发布</a>
+        </li>
+        <li  <?php if ($morder == 'price'):?>class="sort_c"<?php endif;?>>
+            <a class="jiage" href="?cfrom=sort_price&smorder=price&q=<?php echo $q?>">价格最低</a>
+        </li>
+        <div class="clear"></div>
+    </ul>
+    <div class="clear"></div>
+</div>
+<!--矩阵显示ks-->
+<div id="view_grid" class="view_grid" page="<?php echo $current?>">
+	<ul>
+    	<!--循环输出手机ks-->
+        <?php if ($mobiles):?>
+        <?php $customer = Factory::getView('customer/info')?>
+        <?php $customer_id = Factory::getSession('customer/id')?>
+        <?php foreach ($mobiles as $mobile):?>
+    	<li>
+        	<div class="mb_img_name">
+            	<a target="_blank" title="<?php echo $mobile['title']?>" href="<?php echo $murl . $mobile['id']?>">
+                	<img alt="<?php echo $mobile['title']?>" src="<?php echo $this->getThumbPicture($mobile['thumb'])?>" onerror="loadErrorImg(this);" />
+                	<span title="<?php echo $mobile['title']?>">[<span class="red" style="display:inline;"><?php echo $mobile['region']?></span>]<?php echo $mobile['title']?></span>
+                </a>
+            </div>
+            <div class="price_seller">
+                <p class="price"><strong><?php echo $mobile['price']?></strong></p>
+                <p class="seller blue"><?php echo timeforcustomer($mobile['created_at'])?></p>
+                <div class="clear"></div>
+            </div>
+        </li>
+        <?php endforeach;?>
+        <?php endif;?>
+        <!--循环输出手机end-->
+    </ul>
+	<div class="clear"></div>
+	<div class="loading" style="width:220px;margin:5px auto;display:none;">
+		<img alt="正在加载中..." src="<?php echo $this->getImg('loading.gif')?>" />
+	</div>
+</div>
+<!--矩阵显示end-->
+<div class="list_buttom" style="<?php if (!$mobiles):?>display:block;<?php endif;?>"></div>
+<?php if ($total > 20):?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery(window).scroll(function () {
+		/*判断窗体高度与竖向滚动位移大小相加 是否 超过内容页高度*/
+		if ((jQuery(window).height() + jQuery(window).scrollTop()) >= jQuery('body').height()) {
+			loadSearchMobileByGrid('<?php echo $q?>');
+		}
+	});
+});
+</script>
+<?php endif;?>
+<!--分页排序ks-->
+<div class="sort_fenye">
+    <div class="fenye">
+    	<?php if ($total > 20):?>
+        <div class="fenye_r">
+        	<?php if ($current != '1'):?>
+        	<a class="first_page page_no" href="<?php echo $purl . '1'?>">首页</a>
+            <a class="pre_page page_no" href="<?php echo $purl . ($current - 1)?>">上一页</a>
+            <?php endif;?>
+            <?php if ($current != $last):?>
+            <a class="next_page" href="<?php echo $purl . ($current + 1)?>">下一页</a>
+            <a class="last_page" href="<?php echo $purl . $last?>">尾页</a>
+            <?php endif;?>
+            <div class="clear"></div>
+        </div>
+        <?php endif;?>
+    	<div class="fenye_l" style="margin-right:20px;">
+        	<span>
+        		共有<strong class="red"><?php echo $total?></strong>件产品
+        	</span>
+            <span style="margin-left:10px;">
+            	<strong><span class="red"><?php echo $current?></span>/<?php echo $last?></strong>页
+            </span>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!--分页排序end-->

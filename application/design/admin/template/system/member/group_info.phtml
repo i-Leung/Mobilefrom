@@ -1,0 +1,122 @@
+<?php $id = Factory::getRequest()->getParam('id')?>
+<?php $info = $this->getGroup($id)?>
+<ul class="tabs1">
+	<li class="tabs1_c">基本信息</li>
+	<li>权限资源列表</li>
+	<li>组内成员列表</li>
+</ul>
+<div class="clear"></div>
+<div class="tabs1_bd">
+	<!--基本信息ks-->
+	<div class="tabs1_item">
+		<table class="table2">
+			<tbody>
+				<tr>
+					<th width="85">角色名称：</th>
+					<td><?php echo $info['label']?></td>
+				</tr>
+				<tr>
+					<th>职责描述：</th>
+					<td><?php echo $info['description']?></td>
+				</tr>
+				<tr>
+					<th>创建时间：</th>
+					<td><?php echo date('Y-m-d H:i:s', $info['created_at'])?></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!--基本信息end-->
+	<!--权限资源列表ks-->
+	<?php $tree = Factory::getView('system/resource')->loadResourceTree()?>
+	<div class="tabs1_item" style="display:none;">
+		<table class="table3">
+			<tbody>
+				<?php if ($tree):?>
+				<?php foreach ($tree as $mgroup => $children):?>
+				<tr>
+					<th width="103" valign="top" style="padding:10px 0;"><?php echo $mgroup?></th>
+					<td width="884">
+						<?php if ($children):?>
+						<?php foreach ($children as $group => $item):?>
+						<div class="resource-group">
+							<div class="resource-group-label">
+								<span><?php echo $group?></span>
+							</div>
+							<div class="resource-item-list">
+								<?php if ($item):?>
+								<?php foreach ($item as $value):?>
+								<label <?php if (!in_array($value['id'], $info['resource'])):?>style="color:#ddd;"<?php endif?>>
+									<span><?php echo $value['item']?></span>
+								</label>
+								<?php endforeach?>
+								<?php endif?>
+							</div>	
+						</div>
+						<?php endforeach?>
+						<?php endif?>
+					</td>
+				</tr>
+				<?php endforeach?>
+				<?php endif?>
+			</tbody>
+		</table>
+	</div>
+	<!--权限资源列表end-->
+	<!--组内成员列表ks-->
+	<div class="tabs1_item" style="display:none;">
+		<div style="margin-bottom:10px;">
+			<button type="submit" class="btn_26" onclick="window.location.href = '/monitor/system_member/add?gid=<?php echo $id?>'">+ 添加成员</button>
+		</div>
+		<div class="table1" entity="member">
+		    <table width="990">
+			<thead>
+			    <tr>
+				<th width="150">账号名称</th>
+				<th width="150">授权账号</th>
+				<th width="200">授权时间</th>
+				<th width="100">状态</th>
+				<th class="tac" width="130">操作</th>
+			    </tr>
+			</thead>
+			<tbody>
+				<?php $members = $this->loadGroupMember($id)?>
+				<?php if ($members):?>
+				<?php foreach ($members as $member):?>
+				<tr entity="<?php echo $member['id']?>">
+					<td><?php echo $member['member']?></td>
+					<td><?php echo $member['author']?></td>
+					<td><?php echo date('Y-m-d H:i:s', $member['authorized_at'])?></td>
+					<td class="green"><?php echo $member['status'] ? '有效' : '冻结'?></td>
+					<td class="table_cz tac">
+						<a href="/monitor/system_member/add?id=<?php echo $member['id']?>">编辑</a>
+						<?php if ($member['status']):?>
+						<a href="javascript:void(0);" onclick="itemInActive(this, '<?php echo $member['id']?>', 'member');">禁用</a>
+						<?php else:?>
+						<a href="javascript:void(0);" onclick="itemActive(this, '<?php echo $member['id']?>', 'member');">启用</a>
+						<?php endif;?>
+					</td>
+				</tr>
+				<?php endforeach?>
+				<?php else:?>
+				<tr>
+					<td colspan="5" style="text-align:center;">此群组内暂无成员</td>
+				</tr>
+				<?php endif?>
+			</tbody>
+		    </table>
+		</div>
+	</div>
+	<!--组内成员列表end-->
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.tabs1 li').click(function(){
+		var index = jQuery('.tabs1 li').index(jQuery(this));
+		jQuery('.tabs1_c').removeClass();
+		jQuery(this).addClass('tabs1_c');
+		jQuery('.tabs1_bd .tabs1_item').hide();
+		jQuery('.tabs1_bd .tabs1_item:eq(' + index + ')').show();
+	});
+});
+</script>

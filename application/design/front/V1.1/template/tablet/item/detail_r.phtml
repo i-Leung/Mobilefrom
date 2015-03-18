@@ -1,0 +1,86 @@
+<?php $id = Factory::getRequest()->getParam('id')?>
+<?php $tablet = $this->showInfo($id)?>
+<?php $customer_id = Factory::getSession('customer/id')?>
+<?php global $MStatic?>
+<div class="tabs">
+	<ul>
+		<li class="selected"><a href="javascript:void(0);">物品详情</a></li>
+        <div class="clear"></div>
+	</ul>
+    <div class="contact" style="width:auto;">
+		<span class="red" style="font-weight:bold;">机荒网强烈建议：为保障交易双方利益，交易时请到正规手机数码店进行验机！</span>
+    </div>
+</div>
+<!--详细描述ks-->
+<div id="description" class="description">
+<div class="base_description" <?php if (!isset($tablet['data']['os']) && !$tablet['data']['warranty']):?>style="display:none;"<?php endif?>>
+		<?php if ($tablet['data']['warranty']):?>
+        <table>
+            <?php if ($tablet['data']['newly'] == '1'):?>
+            <tr>
+                <th>保修期：</th>
+                <td><?php echo $MStatic['warranty'][$tablet['data']['warranty']]?></td>
+                <th>配件/发票：</th>
+                <td>
+                    <?php if ($tablet['data']['attachment']) {
+                        foreach ($tablet['data']['attachment'] as $item) {
+                            echo $MStatic['attachment'][$item] . ';';
+                        }
+                    } else {
+                        echo '不详';
+                    }
+                    ?>
+                </td>
+            </tr>
+            <?php else:?>
+            <tr>
+                <th>屏幕状况：</th>
+                <td><?php echo $MStatic['screen'][$tablet['data']['screen']]?>划痕或坏点</td>
+                <th>机身状况：</th>
+                <td><?php echo $MStatic['pbody'][$tablet['data']['pbody']]?>磨损或划痕</td>
+            </tr>
+            <tr>
+                <th>维修史：</th>
+                <td><?php echo $MStatic['repair'][$tablet['data']['repair']]?></td>
+                <th>保修期：</th>
+                <td><?php echo $MStatic['warranty'][$tablet['data']['warranty']]?></td>
+            </tr>
+            <tr>
+                <th>手机功能：</th>
+                <td><?php echo $tablet['data']['trouble']?></td>
+                <th>配件/发票：</th>
+                <td>
+                    <?php if ($tablet['data']['attachment']) {
+                        foreach ($tablet['data']['attachment'] as $item) {
+                            echo $MStatic['attachment'][$item] . ';';
+                        }
+                    } else {
+                        echo '不详';
+                    }
+                    ?>
+                </td>
+            </tr>
+            <?php endif?>
+		<?php endif?>
+        </table>
+    </div>
+    <!--基本状况end-->
+    <!--详细描述ks-->
+    <div class="detail_description">
+    	<p><?php echo $tablet['data']['remark']?></p>
+    	<p style="margin-top:10px;">联系我时，请说是在&nbsp;<strong class="red">机荒网</strong>&nbsp;看到的，谢谢！</p>
+    </div>
+    <!--详细描述end-->
+	<?php if ($tablet['gallery']):?>
+    <div class="gallery_window">
+        <?php foreach ($tablet['gallery'] as $img):?>
+        <div style="margin-bottom: 5px;">
+            <a name="<?php echo $img?>">
+                <img style="max-width:750px;" src="http://mobilefrom-upload.stor.sinaapp.com/tablet/<?php echo $img?>" onerror="loadErrorImg(this);" />
+            </a>
+        </div>
+        <?php endforeach;?>
+    </div>
+	<?php endif?>
+</div>
+<!--详细描述end-->

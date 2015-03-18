@@ -1,0 +1,148 @@
+<?php $request = Factory::getRequest()?>
+<?php $module = $request->getModuleName()?>
+<?php $controller = $request->getControllerName()?>
+<?php $action = $request->getActionName()?>
+<?php 
+switch ($module):
+case 'mobile':
+case 'purchase':
+case 'customer':
+	break;
+case 'website':
+?>
+	<?php 
+	switch ($controller):
+	case 'report'://举报面包屑
+	?>
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+		<span class="jiantou">></span>
+		<a href="/website/report/list?cfrom=breadcrumb">交易举报中心</a>
+		<?php 
+		switch ($action):
+		case 'list':
+		?>
+		<?php if ($id = $request->getParam('id', null)):?>
+		<span class="jiantou">></span>
+		<a href="javascript:void(0);"><?php echo Factory::getView('website/report')->getReportCategory($id)?></a>
+		<?php endif?>
+		<?php break;?>
+		<?php case 'item'?>
+		<?php if ($id = $request->getParam('id', null)):?>
+		<span class="jiantou">></span>
+		<a href="javascript:void(0);"><?php echo Factory::getView('website/report')->getReportTitle($id)?></a>
+		<?php endif?>
+		<?php break;?>
+		<?php case 'publish'?>
+		<span class="jiantou">></span>
+		<a href="javascript:void(0);">我要举报</a>
+		<?php break;?>
+		<?php case 'my'?>
+		<span class="jiantou">></span>
+		<a href="javascript:void(0);">我的举报</a>
+		<?php break;?>
+		<?php case 'rule'?>
+		<span class="jiantou">></span>
+		<a href="javascript:void(0);">举报规则</a>
+		<?php break;?>
+		<?php endswitch?>
+    </div>
+</div>
+	<?php break;?>
+	<?php case 'helper':?>
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+		<span class="jiantou">></span>
+		<?php 
+		switch ($action):
+		case 'what-to-buy':
+		?>
+		<a href="javascript:void(0);">手机交易知多D</a>
+		<?php break?>
+		<?php case 'how-to-buy':?>
+		<a href="javascript:void(0);">手机交易防骗攻略</a>
+		<?php break?>
+		<?php case 'clean-private-info':?>
+		<a href="javascript:void(0);">换手机之前清理手机隐私的5个步骤</a>
+		<?php break?>
+		<?php endswitch?>
+    </div>
+</div>
+	<?php break;?>
+	<?php case 'store':?>
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+		<span class="jiantou">></span>
+		<?php 
+		switch ($action):
+		case 'business':
+		?>
+		<a href="javascript:void(0);">线上店商家说明</a>
+		<?php break?>
+		<?php case 'customer':?>
+		<a href="javascript:void(0);">线上店用户说明</a>
+		<?php break?>
+		<?php case 'contract':?>
+		<a href="javascript:void(0);">线上店商家协议</a>
+		<?php break?>
+		<?php endswitch?>
+    </div>
+</div>
+	<?php break;?>
+	<?php endswitch;?>
+<?php break;?>
+<?php case 'space':?>
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+		<?php if ($action == 'list'):?>
+		<span class="jiantou">></span>
+		<?php if ($controller == 'mobile'):?>
+		<a href="javascript:void(0);">TA发布的手机</a>
+		<?php else :?>
+		<a href="javascript:void(0);">TA发布的求购</a>
+		<?php endif;?>
+		<?php endif;?>
+    </div>
+</div>
+<?php break;?>
+<?php case 'mlib':?>
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+		<span class="jiantou">></span>
+		<?php 
+		switch ($controller):
+		case 'list':
+		?>
+		<a href="javascript:void(0);">同城购机</a>
+		<?php break?>
+		<?php case 'item':?>
+		<a href="/mlib/list?cfrom=breadcrumb">同城购机</a>
+		<span class="jiantou">></span>
+		<a href="javascript:void(0);">手机详情</a>
+		<?php break?>
+		<?php endswitch?>
+    </div>
+</div>
+<?php break;?>
+<?php default:?>
+<?php if (!($module == 'default' && $controller == 'index' && $action == 'index')):?>
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+    </div>
+</div>
+<?php endif?>
+<?php break;?>
+<?php endswitch;?>
+

@@ -1,0 +1,82 @@
+<?php $current = Factory::getRequest()->getParam('page', 1)?>
+<?php $mobiles = $this->loadFavorType('1', $current)?>
+<?php $murl = '/mobile/item?cfrom=favor&id='?>
+<div class="tabs1">
+	<ul>
+    	<li title="mobile" class="tabs1_c">
+    		<a href="<?php echo '/customer/favor/mobile?cfrom=uc_tab'?>">出售收藏</a>
+    	</li>
+    	<li title="buying">
+    		<a href="<?php echo '/customer/favor/purchase?cfrom=uc_tab'?>">求购收藏</a>
+    	</li>
+    </ul>
+</div>
+<div class="tabs1_body">
+	<!--手机关注ks-->
+	<div id="mobile" class="tabs1_item">
+    	<table class="table1">
+        	<thead>
+            	<tr>
+            		<th width="300">标题</th>
+            		<th width="120">价格</th>
+            		<th width="150">关注时间</th>
+            		<th width="70">状态</th>
+                    <th width="100">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<?php if ($mobiles):?>
+            	<?php foreach ($mobiles as $mobile):?>
+            	<tr>
+                	<td>
+                    	<a target="_blank" href="<?php echo $murl . $mobile['id']?>"><?php echo $mobile['title']?></a>
+                    </td>
+                	<td class="red">￥<?php echo $mobile['price']?></td>
+                	<td><?php echo timeforcustomer($mobile['favor_at'])?></td>
+                	<td><?php echo $this->getStatus($mobile['status'])?></td>
+                    <td>
+                    	<a class="blue" href="javascript:void(0);" onclick="removeFavor(this, '1', '<?php echo $mobile['id']?>');">取消关注</a>
+                    </td>
+                </tr>
+                <?php endforeach;?>
+                <?php else :?>
+                <tr>
+                	<td colspan="5" style="text-align:center;">
+                    	<span>您暂时没有关注手机信息！</span>
+                    </td>
+                </tr>
+                <?php endif;?>
+            </tbody>
+        </table>
+    </div>
+    <!--手机关注end-->
+</div>
+<!--分页ks-->
+<?php $total = $this->getFavorTypeTotal('1')?>
+<?php if ($total > 10):?>
+<?php $url = '/customer/favor/mobile?cfrom=uc_paginator&page='?>
+<?php $last = ceil($total / 10)?>
+<div class="fenye1">
+	<div class="fenye1_l">
+    	<p>
+        	共计
+        	<span class="red"><?php echo $total?></span>
+            条信息
+        </p>
+    </div>
+    <div class="fenye1_r">
+    	<?php if ($current != '1'):?>
+    	<a href="<?php echo $url . '1'?>">首页</a>
+        <a href="<?php echo $url . ($current - 1)?>">前一页</a>
+        <?php endif;?>
+        <span class="red"><?php echo $current?></span>
+        <?php if ($current != $last):?>
+    	<a href="<?php echo $url . ($current + 1)?>">后一页</a>
+        <a href="<?php echo $url . $last?>">尾页</a>
+        <?php endif;?>
+    	<div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<?php endif;?>
+<!--分页end-->

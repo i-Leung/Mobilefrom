@@ -1,0 +1,86 @@
+<?php $id = Factory::getRequest()->getParam('id', null)?>
+<h1>添加服务</h1>
+<table class="table2">
+	<tbody>
+		<tr>
+			<th>服务名称：</th>
+			<td>
+				<input type="text" name="title" value=""/>
+			</td>
+		</tr>
+		<tr>
+			<th>服务描述：</th>
+			<td>
+				<textarea name="description" style="width:500px;height:200px;"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<th></th>
+			<td>
+				<button class="btn_red" type="button" onclick="submitService(this);">提交</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<script type="text/javascript">
+<?php if ($id):?>
+jQuery(document).ready(function(){
+	jQuery.ajax({
+		type:'get',
+		data:{id:'<?php echo $id?>'},
+		dataType:'json',
+		url:'/monitor/system_service/get',
+		success:function(data){
+			if (data != '0') {
+				jQuery('input[name=title]').val(data.title);
+				jQuery('textarea[name=description]').val(data.description);
+			}
+		}
+	});
+});
+<?php endif?>
+//提交服务信息
+function submitService(obj)
+{
+	var title = jQuery('input[name=title]').val();
+	if (title == '') {
+		alert('请填写服务标题');
+		return;
+	}
+	var description = jQuery('textarea[name=description]').val();
+	if (description == '') {
+		alert('请填写服务描述');
+		return;
+	}
+	var params = {
+		<?php if ($id):?>
+		id:'<?php echo $id?>',
+		<?php endif?>
+		service:{
+			title:title,
+			description:description
+		}
+	};
+	jQuery.ajax({
+		type:'get',
+			data:jQuery.param(params),
+		dataType:'json',
+		url:'/monitor/system_service/submit-service',
+		beforeSend:function(){
+			jQuery(obj).html('正在提交...').attr('disabled', 'disabled');
+		},
+		success:function(data){
+			if (data == '1') {
+				window.location.href = '/monitor/system_service/index';
+			} else {
+				jQuery(obj).html('提交').removeAttr('disabled');
+				alert('服务添加失败，请稍候尝试');
+			}
+		},
+		error:function(){
+			jQuery(obj).html('提交').removeAttr('disabled');
+			alert('服务添加失败，请稍候尝试');
+		}
+	});
+}
+</script>

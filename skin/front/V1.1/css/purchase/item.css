@@ -1,0 +1,224 @@
+/* CSS Document */
+.item_left{
+	width:780px;
+	min-height:400px;
+	float:left;}
+.purchase_tit{
+	height:30px;
+	padding-bottom:5px;
+	border-bottom:1px #ccc solid;}
+.purchase_tit h1{
+	float:left;
+	height:30px;
+	line-height:30px;
+	color:black;}
+.purchase_tit p{
+	float:right;
+	height:20px;
+	line-height:20px;
+	padding-top:10px;}
+.info_detail{
+	width:780px;
+	margin-top:10px;
+	margin-bottom:20px;
+	line-height:30px;}
+.base_info{
+	float:left;
+	width:469px;
+	font-size:14px;
+	border-right:1px #ddd dotted;}
+.pur_info i{
+	padding:0px 5px;
+	font:normal 12px 'simsun',sans-serif;}
+.base_info dl{
+	width:460px;
+	height:30px;
+	line-height:30px;
+	margin-top:10px;}
+.base_info dl dt{
+	width:70px;
+	text-align:right;
+	color:#999;}
+.base_info dl dd{
+	width:390px;
+	text-align:left;
+	overflow:hidden;}
+.base_info dl dt,.base_info dl dd{
+	height:30px;
+	float:left;}
+.other_info{
+	margin-top:40px;
+	width:290px;
+	height:141px;
+	padding-left:20px;
+	float:left;}
+.btns_wrap{
+	padding:20px 0px;
+	margin-left:60px;}
+.btns_wrap a{
+	margin-right:15px;}
+.bshare{
+	height:30px;
+	line-height:30px;
+	text-align:right;}
+#description{
+	padding:10px 0px;
+	line-height:25px;
+	font-size:14px;
+	color:#333;}
+#description p{
+	line-height:25px;
+	text-indent:2em;
+	font-size:18px;}
+/*手机咨询ks*/
+.zixun_box{
+	position:relative;
+	padding:5px 7px 10px 7px;
+	border:3px #E7DFDF solid;
+	margin-top:10px;
+	background:#F1EDEC;}
+.zx_box_title{
+	height:30px;
+	background:url(../../img/zxseller.png) no-repeat;
+	line-height:30px;}
+.zx_box_title p{
+	padding-left:120px;}
+.zixun_box textarea{
+	width:748px;
+	height:80px;
+	padding:5px;
+	border:1px #d4d4d4 solid;
+	margin-top:5px;}
+.zx_submit{
+	padding-top:10px;
+	height:26px;}
+.zx_submit button{
+	border:none;
+	width:80px;
+	height:26px;
+	float:right;
+	line-height:26px;}
+.zx_shuru{
+	position:absolute;
+	left:10px;
+	top:140px;}
+.consult li{
+	width:780px;
+	padding:10px 0px;
+	border-bottom:1px #ccc dotted;}
+.zx_ask,.zx_user,.zx_answer{
+	line-height:20px;}
+.zx_user dt{
+	background:url(../../img/user.png) no-repeat;}
+.user_name_time{
+	float:left;}
+.answer_btn{
+	float:right;}
+.answer_btn a{
+	color:#f60;}
+.zx_ask{
+	padding-top:3px;}
+.zx_ask dt{
+	background:url(../../img/question.png) no-repeat 0px 2px;}
+.zx_answer{
+	padding-top:3px;
+	color:#FF6600;}
+.zx_answer dt{
+	background:url(../../img/answer.png) no-repeat;}
+.answer_content{
+	width:540px;
+	float:left;}
+.answer_time{
+	width:150px;
+	float:right;
+	text-align:right;
+	color:#9C9A9C;}
+.consult li dt{
+	float:left;
+	width:60px;
+	padding-left:25px;}
+.consult li dd{
+	float:left;
+	width:690px;}
+/*手机咨询end*/
+/*名片ks*/
+.item_right{
+	width:200px;
+	float:right;}
+.r_box{
+	width:194px;
+	border:3px #E7DFDF solid;}
+.r_box_title{
+	height:32px;
+	line-height:32px;
+	padding:0px 7px;
+	background:#F1EDEC;
+	border-bottom:3px #E7DFDF solid;}
+.r_box_title h3{
+	float:left;
+	color:black;}
+.r_box_title p{
+	float:right;}
+.r_box_bd{
+	padding:7px;
+	padding-top:0px;}
+.r_box_bd table tr th{
+	width:40px;
+	line-height:20px;
+	padding-top:10px;
+	text-align:right;
+	font-weight:normal;
+	vertical-align:text-top;}
+.r_box_bd table tr td{
+	width:122px;
+	line-height:20px;
+	padding-top:10px;
+	word-break: break-all;
+	color:grey;}
+.card_f{
+	padding:7px 8px 0px 7px;
+	line-height:20px;
+	border-top:1px #ccc dotted;
+	margin-top:7px;}
+.card_f a{
+	padding:0px 2px;
+	*padding:0px 1px;
+	color:black;
+	font-size:13px;}
+.info_list li{
+	width:180px;
+	max-height:60px;
+	line-height:20px;
+	overflow:hidden;
+	padding:7px 0px;
+	border-bottom:1px #ccc dotted;}
+.info_list li:last-child{
+	border:none;}
+.mb_img_s{
+	width:60px;
+	height:60px;
+	float:left;}
+.mb_img_s a img{
+	width:60px;
+	height:60px;}
+.mb_name_price{
+	width:115px;
+	height:60px;
+	float:right;}
+.mb_name{
+	width:115px;
+	max-height:40px;
+	overflow:hidden;}
+.mb_price{
+	width:115px;
+	height:20px;
+	overflow:hidden;}
+.buying_name{
+	width:180px;
+	max-height:40px;
+	overflow:hidden;}
+.buying_price{
+	width:180px;
+	height:20px;
+	overflow:hidden;}
+/*名片end*/

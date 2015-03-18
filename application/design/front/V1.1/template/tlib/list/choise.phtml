@@ -1,0 +1,41 @@
+<?php $models = $this->loadModelList(1)?>
+<?php if ($models):?>
+<ul>
+	<?php foreach ($models as $key => $model):?>
+	<li id="m_l_i_<?php echo $model['id']?>" v="<?php echo $model['id']?>" <?php echo ($key + 1) % 4 == 0 ? 'class="m_l_i_a_wrap"' : ''?>>
+		<div class="m_l_i_a_thumb m_l_i_a_item_layout">
+			<a href="/tlib/item?id=<?php echo $model['id']?>&cfrom=list" target="_blank">
+				<img src="<?php echo $this->getThumbImg($model['thumb'])?>" onerror="loadErrorImg(this);" />
+			</a>
+		</div>
+		<div class="m_l_i_a_title m_l_i_a_item_layout">
+			<a href="/tlib/item?id=<?php echo $model['id']?>&cfrom=list" target="_blank" title="<?php echo $model['brand'] . ' ' . $model['model']?>"><?php echo $model['brand'] . ' ' . $model['model']?></a>
+		</div>
+		<div class="m_l_i_a_price m_l_i_a_item_layout">
+			<div class="m_l_i_a_left">
+				<span>新机：暂无出售</span>
+			</div>
+			<div class="m_l_i_a_right">
+				<span>二手：暂无出售</span>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="m_l_i_a_sells m_l_i_a_item_layout">
+			<div class="m_l_i_a_left">
+				<span><?php echo $model['offers'] ? '<span class="red">' . $model['offers'] . '</span>' : '0'?>条出售信息</span>
+			</div>
+			<div class="m_l_i_a_right">
+				<span><?php echo $model['clicks']?>次点阅</span>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</li>
+	<?php endforeach?>
+</ul>
+<div class="clear"></div>
+<?php if ($key == 15):?>
+<a class="tlib_list_more_area" href="javascript:void(0);" onclick="loadMoreModelList(this);" p="2">点击加载更多</a>
+<?php endif?>
+<?php else:?>
+<div style="text-align:center;font-size:16px;">暂无相关平板信息</div>
+<?php endif?>

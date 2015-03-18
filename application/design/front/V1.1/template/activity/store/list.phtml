@@ -1,0 +1,125 @@
+<?php $region = Factory::getRequest()->getParam('region', null)?>
+<?php $type = Factory::getRequest()->getParam('type', null)?>
+<?php $sort = Factory::getRequest()->getParam('sort', 'date')?>
+<?php global $CStatic?>
+<?php $types = $this->getActivityType()?>
+<?php $records = $this->loadStoreActivityList($region, $type, $sort)?>
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+		<span class="jiantou">></span>
+		<a href="javascript:void(0);">优惠活动</a>
+    </div>
+</div>
+<div class="act-list-left fl">
+	<div class="act-list-condition">
+		<div class="a-l-c-region fl">
+			<a href="javascript:void(0);"><?php echo $region ? $CStatic['region'][$region] : '所在区域'?></a>
+			<ul>
+				<li><a href="/activity/list/store?cfrom=activity_region&type=<?php echo $type?>">不限</a></li>
+				<?php foreach ($CStatic['region'] as $key => $value):?>
+				<li><a href="/activity/list/store?cfrom=activity_region&region=<?php echo $key?>&type=<?php echo $type?>"><?php echo $value?></a></li>
+				<?php endforeach?>
+			</ul>
+		</div>
+		<div class="a-l-c-sort fl">
+			<a class="<?php echo $sort == 'date' ? 'selected' : ''?> fl" style="border-right:1px solid #D4D4D4;" href="/activity/list/store?cfrom=activity_sort&sort=date&region=<?php echo $region?>&type=<?php echo $type?>">时间</a>
+			<a class="<?php echo $sort == 'clicks' ? 'selected' : ''?> fr" href="/activity/list/store?cfrom=activity_sort&sort=clicks&region=<?php echo $region?>&type=<?php echo $type?>">人气</a>
+			<div class="clear"></div>
+		</div>
+		<div class="a-l-c-type fr">
+			<a href="javascript:void(0);"><?php echo $type ? $types[$type] : '活动类型'?></a>
+			<ul>
+				<li><a href="/activity/list/store?cfrom=activity_type&region=<?php echo $region?>">不限</a></li>
+				<?php foreach ($types as $k => $v):?>
+				<li><a href="/activity/list/store?cfrom=activity_type&type=<?php echo $k?>&region=<?php echo $region?>"><?php echo $v?></a></li>
+				<?php endforeach?>
+			</ul>
+		</div>
+	</div>
+	<?php if ($records):?>
+	<div class="act-list-item">
+		<ul>
+			<?php foreach ($records as $item):?>
+			<li>
+				<div class="a-l-i-top">
+					<div class="a-l-i-title fl">
+						<a href="/activity/item/store?cfrom=act-list&id=<?php echo $item['id']?>" title="<?php echo $item['title']?>"><?php echo $item['title']?></a>
+					</div>
+					<div class="a-l-i-region fr s_r_<?php echo $item['store_id']?>" v="<?php echo $item['store_id']?>">
+						<span></span>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="a-l-i-bottom">
+					<div class="a-l-i-thumb fl">
+						<img src="http://mobilefrom-upload.stor.sinaapp.com/store/thumb/<?php echo $item['thumb']?>" onerror="loadErrorImg(this);" />
+					</div>
+					<div class="a-l-i-info fr">
+						<div class="a-l-i-summary">
+							<p><?php echo $item['description']?></p>
+						</div>
+						<div class="a-l-i-i-bottom">
+							<div class="a-l-i-i-date fl">
+								<span>距离结束还有：</span>
+								<span class="red"><?php echo $item['limit']?></span>
+							</div>
+							<div class="a-l-i-i-link fr">
+								<a href="/activity/item/store?cfrom=act-list&id=<?php echo $item['id']?>">查看活动详情>></a>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</li>
+			<?php endforeach?>
+		</ul>
+	</div>
+	<?php else:?>
+	<p style="text-align:center;font-size:14px;margin:20px;">不好意思，暂时没有相关优惠活动信息！</p>
+	<?php endif?>
+</div>
+<div class="act-list-right fr">
+	<a href="/website/store/business?cfrom=activity-list"></a>
+</div>
+<div class="clear"></div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('.a-l-c-region').mouseover(function(){
+		jQuery(this).find('ul').show();
+	});
+	jQuery('.a-l-c-region').mouseleave(function(){
+		jQuery(this).find('ul').hide();
+	});
+	jQuery('.a-l-c-type').mouseover(function(){
+		jQuery(this).find('ul').show();
+	});
+	jQuery('.a-l-c-type').mouseleave(function(){
+		jQuery(this).find('ul').hide();
+	});
+	loadStoreRegion();
+});
+//获取商家所在区域
+function loadStoreRegion()
+{
+	var store = new Array();
+	jQuery('.a-l-i-region').each(function(){
+		store.push(jQuery(this).attr('v'));
+	});
+	jQuery.ajax({
+		type:'get',
+		data:{store:store},
+		dataType:'json',
+		url:'/activity/list/get-store-region',
+		success:function(data){
+			if (data != '0') {
+				jQuery.each(data, function(k, v){
+					jQuery('.s_r_' + k + ' span').html('所在区域：' + v);
+				});
+			}
+		}
+	});
+}
+</script>

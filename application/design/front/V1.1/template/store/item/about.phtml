@@ -1,0 +1,93 @@
+<?php $id = Factory::getRequest()->getParam('store', null)?>
+<?php $store = $this->getStoreInfo($id)?>
+<?php $info = $this->getStorePublicInfo($id)?>
+<div class="tabs" style="display:none;">
+    <ul>
+        <li class="tabs_c"><a href="#base_info">基本信息</a></li>
+        <li><a href="#store_intro">店铺介绍</a></li>
+        <li><a href="#store_map">店铺位置</a></li>
+        <div class="clear"></div>
+    </ul>
+</div>
+<div class="detail_info">
+	<h1 id="base_info"><?php echo $store['name']?></h1>
+    <ul class="base_info_list">
+    	<li>
+        	<h3 class="grey1">店铺地址：</h3>
+			<p>
+				<?php foreach ($store['addr'] as $item):?>
+				<span><?php echo '<span class="red">[' . $item['region'] . ']</span>' . $item['addr']?>；</span>
+				<?php endforeach?>
+			</p>
+			<div class="clear"></div>
+        </li>
+    	<li>
+			<h3 class="grey1">入驻时间：</h3>
+			<p><?php echo $store['created_at']?></p>
+			<div class="clear"></div>
+        </li>
+		<?php if ($info['tel']):?>
+    	<li>
+        	<h3 class="grey1">联系方式：</h3>
+			<p>
+				<?php foreach ($info['tel'] as $tel):?>
+				<span class="red"><?php echo $tel['num'] . '（' . $tel['name'] . '）'?></span>&nbsp;
+				<?php endforeach?>
+			</p>
+			<div class="clear"></div>
+		</li>
+		<?php endif?>
+		<?php if ($info['qq']):?>
+    	<li>
+        	<h3 class="grey1">QQ 号码：</h3>
+			<p>
+				<?php foreach ($info['qq'] as $qq):?>
+				<span class="red"><?php echo $qq['num'] . '（' . $qq['name'] . '）'?></span>&nbsp;
+				<?php endforeach?>
+			</p>
+			<div class="clear"></div>
+        </li>
+		<?php endif?>
+    </ul>
+	<?php if ($store['introduction']):?>
+    <div class="intro_title" id="store_intro">
+    	<h3>店铺简介</h3>
+    </div>
+    <div class="introduce"><?php echo $store['introduction']?></div>
+	<?php endif?>
+	<?php if ($info['xbaidu'] && $info['ybaidu']):?>
+    <div class="intro_title" id="store_map">
+    	<h3>店铺地图</h3>
+    </div>
+	<style type="text/css">
+	#milkMap{height:500px;width:700px;border:1px solid blue;}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=71f158ec2575198f50922a98915e4587"></script>
+	<div id="milkMap"></div>
+	<script type="text/javascript">
+	var map = new BMap.Map("milkMap"); // 创建地图实例
+	var point = new BMap.Point(<?php echo $info['xbaidu']?>, <?php echo $info['ybaidu']?>); // 创建点坐标
+	map.centerAndZoom(point, 15); // 初始化地图，设置中心点坐标和地图级别
+	var marker = new BMap.Marker(point); // 创建标注 
+	map.addOverlay(marker); // 将标注添加到地图中
+	map.addControl(new BMap.NavigationControl());               // 添加平移缩放控件
+	map.addControl(new BMap.ScaleControl());                    // 添加比例尺控件
+	map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
+	map.enableScrollWheelZoom();                            //启用滚轮放大缩小
+	map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
+	map.setCurrentCity("佛山");          // 设置地图显示的城市 此项是必须设置的
+	</script>
+	<?php endif?>
+	<?php if ($store['gallery']):?>
+    <div class="intro_title">
+    	<h3>店铺相片</h3>
+    </div>
+	<div class="gallery">
+		<ul>
+			<?php foreach ($store['gallery'] as $item):?>
+			<li><img src="/upload/store/<?php echo $item?>"/></li>
+			<?php endforeach?>
+		</ul>
+	</div>
+	<?php endif?>
+</div>

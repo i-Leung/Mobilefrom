@@ -1,0 +1,90 @@
+<?php $bid = Factory::getRequest()->getParam('bid')?>
+<?php $sort = Factory::getRequest()->getParam('sort', 'id')?>
+<?php $models = $this->loadAdminModelList($bid, $sort)?>
+<!--筛选框ks-->
+<div class="search_div">
+	<div class="search_div_item">
+		<strong>排序：</strong>
+		<button type="button" onclick="window.location.href='/monitor/system_mlib/model-list?bid=<?php echo $bid?>&sort=id';">按ID</button>
+		<button type="button" onclick="window.location.href='/monitor/system_mlib/model-list?bid=<?php echo $bid?>&sort=label';">按名称</button>
+	</div>
+	<div class="search_div_item">
+		<form action="/monitor/system_mlib/add-model" method="get">
+			<strong>所属品牌：<?php echo $this->getBrandLabel($bid)?></strong>
+			<strong>添加型号：</strong>
+			<input type="hidden" name="bid" value="<?php echo $bid?>" />
+			<input type="text" name="model" value="" style="width:400px;" />
+			<button type="submit">提交</button>
+		</form>
+	</div>
+	<div class="search_div_item" style="display:none;">
+		<form action="/monitor/system_mlib/modify-model" method="get">
+			<input type="hidden" name="bid" value="<?php echo $bid?>" />
+			<input type="hidden" name="id" value="" />
+			<strong>修改型号：</strong>
+			<input type="text" name="label" value="" style="width:400px;" />
+			<strong>排序号：</strong>
+			<input type="text" name="sort" value="" />
+			<button type="submit">提交</button>
+			<button type="reset" onclick="hideModify();">取消</button>
+		</form>
+	</div>
+	<div class="clear"></div>
+</div>
+<!--筛选框end-->
+<div class="table1" entity="mlib-model">
+	<table width="990">
+		<thead>
+			<tr>
+				<th width="200">型号ID</th>
+				<th width="200">型号名称</th>
+				<th width="60">是否录入</th>
+				<th width="60">排序号</th>
+				<th width="60">状态</th>
+				<th width="90" class="tac">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if ($models):?>
+			<?php foreach ($models as $model):?>
+			<tr entity="<?php echo $model['id']?>">
+				<td><?php echo $model['id']?></td>
+				<td><?php echo $model['label']?></td>
+				<td><?php echo $model['thumb'] ? '是' : '否'?></td>
+				<td><?php echo $model['sort']?></td>
+				<td class="green"><?php echo $model['status'] ? '有效' : '冻结'?></td>
+				<td class="table_cz tac">
+					<a href="javascript:void(0);" onclick="modifyModel(this);">修改</a>
+					<?php if ($model['status']):?>
+					<a href="javascript:void(0);" onclick="itemInActive(this, '<?php echo $model['id']?>', 'mlib-model');">禁用</a>
+					<?php else:?>
+					<a href="javascript:void(0);" onclick="itemActive(this, '<?php echo $model['id']?>', 'mlib-model');">启用</a>
+					<?php endif;?>
+				</td>
+			</tr>
+			<?php endforeach?>
+			<?php else:?>
+			<tr>
+				<td colspan="5" style="text-align:center;">暂无相关手机品牌记录</td>
+			</tr>
+			<?php endif?>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript">
+//修改品牌
+function modifyModel(obj)
+{
+	var parent = jQuery(obj).parent().parent();
+	var field = jQuery('.search_div_item:eq(2)');
+	field.find('input[name=id]').val(parent.attr('entity'));
+	field.find('input[name=label]').val(parent.find('td:eq(1)').html());
+	field.find('input[name=sort]').val(parent.find('td:eq(3)').html());
+	field.show();
+}
+//隐藏修改品牌
+function hideModify()
+{
+	jQuery('.search_div_item:eq(2)').hide();
+}
+</script>

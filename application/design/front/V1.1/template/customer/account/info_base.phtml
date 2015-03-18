@@ -1,0 +1,28 @@
+<?php $customer_id = Factory::getSession('customer/id')?>
+<?php $info = $this->getInfo($customer_id)?>
+<h3>基本信息</h3>
+<table>
+	<tr>
+    	<th>账号：</th>
+    	<td>
+        	<input type="text" name="info-username" placeholder="<?php echo $info['username']?>" value="<?php echo $info['username']?>" />
+        </td>
+    </tr>
+	<tr>
+    	<th>性质：</th>
+    	<td><?php echo $this->getGroupName($info['group'])?></td>
+    </tr>
+	<tr style="width:500px;line-height:30px;">
+    	<th>邮箱：</th>
+    	<td>
+    		<span><?php echo $info['email']?></span>
+			<a class="red" href="/customer/account/email-verify?cfrom=verify&step=1">修改邮箱</a>
+        </td>
+    </tr>
+    <tr>
+    	<td></td>
+    	<td>
+        	<button class="btn_orange" type="button" onclick="rename(this);" style="height:26px; line-height:22px; padding:0px 15px; border-radius:4px 14px;">保存基本信息</button>
+        </td>
+    </tr>
+</table>

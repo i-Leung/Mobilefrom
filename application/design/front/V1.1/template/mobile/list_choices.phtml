@@ -1,0 +1,94 @@
+<?php global $static?>
+<?php $current = Factory::getRequest()->getParam('page', 1)?>
+<?php $morder = Factory::getSession('morder')?>
+<?php $mobiles = $this->loadVisibleMobile($current, 20)?>
+<?php $total = $this->getVisibleMobileTotal()?>
+<?php $murl = '/mobile/item?cfrom=list&id='?>
+<!--信息排序ks-->
+<div class="filter_bar">
+    <ul class="sort_by">
+        <li <?php if ($morder == 'refreshed'):?>class="sort_c"<?php endif;?>>
+            <a class="shijian" href="?cfrom=sort_time&morder=refreshed">最新发布</a>
+        </li>
+        <li  <?php if ($morder == 'price'):?>class="sort_c"<?php endif;?>>
+            <a class="jiage" href="?cfrom=sort_price&morder=price">价格最低</a>
+        </li>
+        <div class="clear"></div>
+    </ul>
+    <div class="clear"></div>
+</div>
+<!--信息排序end-->
+<!--矩阵显示ks-->
+<div id="view_grid" class="view_grid" page="<?php echo $current?>">
+	<ul>
+    	<!--循环输出手机ks-->
+        <?php if ($mobiles):?>
+        <?php $customer = Factory::getView('customer/info')?>
+        <?php $customer_id = Factory::getSession('customer/id')?>
+        <?php foreach ($mobiles as $mobile):?>
+    	<li>
+        	<div class="mb_img_name">
+            	<a target="_blank" title="<?php echo $mobile['title']?>" href="<?php echo $murl . $mobile['id']?>">
+                	<img alt="<?php echo $mobile['title']?>" src="<?php echo $this->getThumbPicture($mobile['thumb'])?>" onerror="loadErrorImg(this);" />
+					<span title="<?php echo $mobile['title']?>">[<span class="red" style="display:inline;"><?php echo $mobile['region']?></span>]<?php echo $mobile['title']?></span>
+                </a>
+            </div>
+            <div class="price_seller">
+                <p class="price"><strong><?php echo $mobile['price']?></strong></p>
+                <p class="seller blue"><?php echo timeforcustomer($mobile['created_at'])?></p>
+                <div class="clear"></div>
+            </div>
+        </li>
+        <?php endforeach;?>
+        <?php endif;?>
+        <!--循环输出手机end-->
+    </ul>
+	<div class="clear"></div>
+	<div class="loading" style="width:220px;margin:5px auto;display:none;">
+		<img alt="正在加载中..." src="<?php echo $this->getImg('loading.gif')?>" />
+	</div>
+</div>
+<!--矩阵显示end-->
+<div class="list_buttom" style="<?php if (!$mobiles):?>display:block;<?php endif;?>"></div>
+<?php if ($total > 20):?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery(window).scroll(function () {
+		/*判断窗体高度与竖向滚动位移大小相加 是否 超过内容页高度*/
+		if ((jQuery(window).height() + jQuery(window).scrollTop()) >= jQuery('body').height()) {
+			loadVisibleMobileByGrid();
+		}
+	});
+});
+</script>
+<!--分页排序ks-->
+<?php $last = ceil($total / 20)?>
+<?php $last = $last ? $last : 1;?>
+<?php $purl = '/mobile/list?cfrom=manual_paginator&page='?>
+<div class="sort_fenye">
+    <div class="fenye">
+        <div class="fenye_r">
+        	<?php if ($current != '1'):?>
+        	<a class="first_page page_no" href="<?php echo $purl . '1'?>">首页</a>
+            <a class="pre_page page_no" href="<?php echo $purl . ($current - 1)?>">上一页</a>
+            <?php endif;?>
+            <?php if ($current != $last):?>
+            <a class="next_page" href="<?php echo $purl . ($current + 1)?>">下一页</a>
+            <a class="last_page" href="<?php echo $purl . $last?>">尾页</a>
+            <?php endif;?>
+            <div class="clear"></div>
+        </div>
+    	<div class="fenye_l" style="margin-right:20px;">
+        	<span>
+        		共有<strong class="red"><?php echo $total?></strong>件产品
+        	</span>
+            <span style="margin-left:10px;">
+            	<strong><span class="red"><?php echo $current?></span>/<?php echo $last?></strong>页
+            </span>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!--分页排序end-->
+<?php endif;?>

@@ -1,0 +1,156 @@
+<!--面包屑ks-->
+<?php $id = Factory::getRequest()->getParam('id')?>
+<?php $mobile = Factory::getView('mobile/item')->showInfo($id)?>
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+        <span class="jiantou">></span>
+		<a href="/mobile/list?cfrom=breadcrumb">闲置手机交易</a>
+		<span class="jiantou">></span>
+		<a href="javascript:void(0);"><?php echo $mobile['title']?></a>
+    </div>
+</div>
+<!--面包屑end-->
+<div class="base">
+	<?php echo $this->getChildHtml('base')?>
+</div>
+<div class="item_detail">
+    <div class="col_main">
+    	<!--左侧栏开关ks-->
+    	<div class="switch_bar" style="display:none;"></div>
+        <!--左侧栏开关end-->
+        <div class="main_wrap">
+            <?php echo $this->getChildHtml('detail_r')?>
+        </div>
+    </div>
+    <div class="col_sub">
+        <?php echo $this->getChildHtml('detail_l')?>
+    </div>
+    <div class="clear"></div>
+	<!--相关出售商家ks-->
+	<?php $stores = Factory::getView('store/list')->loadStoreListByMobileModel($mobile['model'])?>
+	<?php if ($stores):?>
+	<!--相关推荐ks-->
+	<div class="recommend">
+		<div class="title">
+			<a class="recom_tit" href="/mlib/item?id=<?php echo $mobile['model']?>&cfrom=mobile-recommend">商家相关出售</a>
+			<a class="recom_more" href="/mlib/item?id=<?php echo $mobile['model']?>&cfrom=mobile-recommend">更多商家出售记录</a>
+			<div class="clear"></div>
+		</div>
+		<div class="recom_bd">
+			<div id="store_box" class="recom_box">
+				<ul>
+					<?php foreach ($stores as $item):?>
+					<li v="<?php echo $item['model']?>">
+						<a href="/store/item/mobile-info?store=<?php echo $item['id']?>&model=<?php echo $item['model']?>&cfrom=mobile-recommend">
+							<img alt="<?php echo '[' . $item['region'] . ']' . $item['name']?>" src="/upload/thumbnail/<?php echo $item['customer_id']?>.jpg" onerror="loadErrorStoreThumbnail(this);" />
+							<span><?php echo '[' . $item['region'] . ']' . $item['name']?></span>
+						</a>
+						<div id="store_model_<?php echo $item['model']?>" class="recom_bd_price">
+							<p style="float:left;">新机：暂无出售</p>
+							<p style="float:right;">二手：暂无出售</p>
+							<div class="clear"></div>
+						</div>
+					</li>
+					<?php endforeach?>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	<?php endif?>
+	<!--相关出售商家end-->
+	<?php $quote = Factory::getView('mlib/item')->getModelQuote($mobile['model'])?>
+	<?php $recommends = Factory::getView('mlib/list')->loadRecommendModelList($mobile['model'], $quote, 5)?>
+	<!--相关推荐ks-->
+	<div class="recommend">
+		<div class="title">
+			<a class="recom_tit" href="/mlib/list?cfrom=mobile-recommend">同价位手机</a>
+			<a class="recom_more" href="/mlib/list?cfrom=mobile-recommend">更多手机</a>
+			<div class="clear"></div>
+		</div>
+		<div class="recom_bd">
+			<div id="recom_box" class="recom_box">
+				<ul>
+					<?php foreach ($recommends as $item):?>
+					<li v="<?php echo $item['id']?>">
+						<a href="/mlib/item?cfrom=mobile-recommend&id=<?php echo $item['id']?>">
+							<img alt="<?php echo $item['brand'] . ' ' . $item['model']?>" src="/upload/mlib/thumb/<?php echo $item['thumb']?>" onerror="loadErrorImg(this);" />
+							<span><?php echo $item['brand'] . '&nbsp;' . $item['model']?></span>
+						</a>
+						<div id="recom_<?php echo $item['id']?>" class="recom_bd_price">
+							<p style="float:left;">新机：暂无出售</p>
+							<p style="float:right;">二手：暂无出售</p>
+							<div class="clear"></div>
+						</div>
+					</li>
+					<?php endforeach?>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	jQuery(document).ready(function(){
+		//推荐手机报价
+		var mdata = new Array();
+		jQuery('#recom_box ul li').each(function(){
+			mdata.push(jQuery(this).attr('v'));
+		});
+		loadModelQuote(mdata);
+		//相关商家报价
+		var sdata = new Array();
+		jQuery('#store_box ul li').each(function(){
+			sdata.push(jQuery(this).attr('v'));
+		});
+		if (sdata) {
+			loadModelStorePrice(sdata);
+		}
+	});
+	function loadModelQuote(data)
+	{
+		jQuery.ajax({
+			type:'get',
+			data:{data:data},
+			dataType:'json',
+			url:'/mlib/list/load-model-quote',
+			success:function(data){
+				if (data != '0') {
+					jQuery.each(data, function(k, v){
+						if (v.news) {
+							jQuery('#recom_' + k + ' p:eq(0)').html('<span>新机：<span class="red">￥' + v.news + '</span></span>');
+						}
+						if (v.used) {
+							jQuery('#recom_' + k + ' p:eq(1)').html('<span>二手：<span class="red">￥' + v.used + '</span></span>');
+						}
+					});
+				}
+			},
+			error:function(){}
+		});
+	}
+	function loadModelStorePrice(data)
+	{
+		jQuery.ajax({
+			type:'get',
+			data:{ids:data},
+			dataType:'json',
+			url:'/store/list/load-model-store-quote',
+			success:function(data){
+				if (data != '0') {
+					jQuery.each(data, function(k, v){
+						if (v.news) {
+							jQuery('#store_model_' + k + ' p:eq(0)').html('<span>新机：<span class="red">￥' + v.news + '</span></span>');
+						}
+						if (v.used) {
+							jQuery('#store_model_' + k + ' p:eq(1)').html('<span>二手：<span class="red">￥' + v.used + '</span></span>');
+						}
+					});
+				}
+			},
+			error:function(){}
+		});
+	}
+	</script>
+</div>

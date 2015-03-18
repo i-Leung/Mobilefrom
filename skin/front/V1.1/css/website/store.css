@@ -1,0 +1,173 @@
+/*商家介绍整体样式ks*/
+.bread_crumb{
+	display:none;
+}
+body{
+	background: url(../../img/index_bg.jpg) no-repeat center 125px #C1DEEE !important;
+}
+.store_biz_layout, .store_customer_layout{
+	width:1000px;
+	margin-top:20px;
+	font-family:\5FAE\8F6F\96C5\9ED1;
+	background: #fff;
+	-webkit-box-shadow: 1px 1px 2px #959595;
+	-moz-box-shadow: 1px 1px 2px #959595;
+	box-shadow: 1px 1px 2px #959595;
+}
+.store_biz_title, .store_customer_title{
+	height:20px;
+	padding:20px;
+}
+.store_biz_content{
+	padding:0 20px 20px;
+}
+.store_biz_title h1, .store_customer_title h1{
+	line-height:20px;
+	float:left;
+}
+.store_biz_title a, .store_customer_title a{
+	display:block;
+	float:right;
+	height:40px;
+	line-height:40px;
+}
+/*商家介绍整体样式end*/
+/*进驻好处ks*/
+.s_b_q ul li, .s_c_q ul li{
+	line-height:30px;
+	font-size:16px;
+}
+.s_b_q{
+	background:url(../../img/store/trouble.png) no-repeat center right #fff;
+}
+.store_biz_link a, .store_customer_link a{
+	display:block;
+	background:url(../../img/store/btn_small.png) no-repeat;
+	width:190px;
+	height:41px;
+	color:white;
+	line-height:40px;
+	font-size:18px;
+	margin:0 auto;
+	text-align:center;
+	font-family:\5FAE\8F6F\96C5\9ED1;
+}
+.s_b_good ul li{
+	float:left;
+	width:220px;
+	margin-right:20px;
+}
+.s_b_good h1{
+	font-size:20px;
+	margin-bottom:10px;	
+}
+.s_b_good p{
+	font-size:14px;
+	color:#666666;
+	line-height:25px;
+}
+/*进驻好处end*/
+/*申请步骤ks*/
+.store_biz_step{
+	float:left;
+	width:220px;
+	height:250px;
+}
+.s_b_step1, .s_b_step2, .s_b_step3{
+	width:200px;
+	height:100px;
+	margin:0 auto;
+}
+.s_b_step1{
+	background:url(../../img/store/step1.png) no-repeat;
+}
+.s_b_step2{
+	background:url(../../img/store/step2.png) no-repeat;
+}
+.s_b_step3{
+	background:url(../../img/store/step3.png) no-repeat;
+}
+.store_biz_nstep{
+	background:url(../../img/store/nstep.png) no-repeat;
+	width:60px;
+	height:60px;
+	float:left;
+	margin:115px 42px 0;
+}
+.s_b_step_title{
+	text-align:center;
+	font-weight:bold;
+	font-size:14px;
+	margin:20px 0;
+}
+.s_b_step_content p{
+	text-align:center;
+	margin-bottom:10px;
+}
+/*申请步骤end*/
+/*常见问题ks*/
+.s_b_faq ul li{
+	margin:10px 0;
+}
+.s_b_faq_answer{
+	margin:10px 0;
+	background-color:#F6F6F6;
+	padding:10px 20px;
+	border:1px solid #E4E4E4;
+}
+.s_b_faq_answer li{
+	margin:0 !important;
+}
+/*常见问题end*/
+/*最新入驻商家ks*/
+.s_b_list ul li{
+	float:left;
+	width:150px;
+	margin: 0 5px;
+}
+.s_b_list ul li .sthumb{
+	width:150px;
+	height:150px;
+}
+.s_b_list ul li img{
+	width:150px;
+	height:150px;
+}
+.s_b_list ul li .sname{
+	width:150px;
+	height: 25px;
+	overflow:hidden;
+	line-height: 25px;
+	font-size: 14px;
+	text-align: center;
+}
+/*最新入驻商家end*/
+/*立即咨询ks*/
+.store_biz_consult{
+	margin-top:20px;
+	text-align:center;
+}
+.store_biz_consult a{
+	display:block;
+	background:url(../../img/store/btn_big.png) no-repeat;
+	width:230px;
+	height:60px;
+	color:white;
+	line-height:60px;
+	font-size:24px;
+	margin:0 auto;
+	font-family:\5FAE\8F6F\96C5\9ED1;
+}
+/*立即咨询end*/
+/*用户说明ks*/
+.store_customer_content{
+	padding:0 20px 20px;
+	font-size:16px;
+}
+.store_customer_content ul li{
+	margin:0 0 20px;
+}
+.store_customer_content ul li p{
+	margin:10px 0;
+}
+/*用户说明end*/

@@ -1,0 +1,247 @@
+/* CSS Document */
+.main{
+	margin-top:20px !important;
+}
+.content{
+	width:748px;
+	float:left;
+	border:1px #d4d4d4 solid;}
+.report_hd{
+	width:690px;
+	height:40px;
+	line-height:40px;
+	padding:10px 29px;
+	border-bottom:1px #d4d4d4 solid;
+	background:url(../../../img/report/report_hd_bg.png) repeat-x 0px 1px;}
+.report_hd h1{
+	float:left;
+	font-size:32px;
+	font-weight:normal;}
+.report_bd{
+	padding:20px 29px;}
+.report_bd .title{
+	font-size:14px;
+	height:20px;
+	line-height:20px;}
+.title_input{
+	width:668px;
+	height:24px;
+	line-height:24px;
+	padding:10px;
+	border:1px #ddd inset;
+	margin-top:10px;
+	font-size:14px;}
+.report_edit{
+	padding: 10px;
+	width:668px;
+	min-height:400px;
+	font-size:18px;
+	border:1px #ddd inset;
+	margin-top:10px;}
+.upload_img{
+	margin-top: 10px;}
+.upload_img span{
+	display:block;
+	height:30px;
+	line-height:30px;
+	float:left;}
+#upload_img_btn{
+	display:block;
+	width:85px;
+	height:30px;
+	float:left;
+	background:url(../../../img/report/upload_img.png) no-repeat;}
+#upload_img_btn:hover{
+	background:url(../../../img/report/upload_img.png) 0px -30px no-repeat;}
+.pack{
+	float: left;
+	width: 100px;
+}
+.pack-img img{
+	width: 88px;
+}
+.pack-link a{
+	font-size:12px;
+}
+.isThumb{
+	border: 1px solid red;
+}
+.progressWrapper {
+	width: 357px;
+	overflow: hidden;
+}
+.progressContainer {
+	margin: 5px;
+	padding: 4px;
+	border: solid 1px #E8E8E8;
+	background-color: #F7F7F7;
+	overflow: hidden;
+}
+/* Message */
+.message {
+	margin: 1em 0;
+	padding: 10px 20px;
+	border: solid 1px #FFDD99;
+	background-color: #FFFFCC;
+	overflow: hidden;
+}
+/* Complete */
+.progressName {
+	font-size: 8pt;
+	font-weight: 700;
+	color: #555;
+	width: 323px;
+	height: 14px;
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.progressBarInProgress,
+.progressBarComplete,
+.progressBarError {
+	font-size: 0;
+	width: 0%;
+	height: 2px;
+	background-color: blue;
+	margin-top: 2px;
+}
+.progressBarComplete {
+	width: 100%;
+	background-color: green;
+	visibility: hidden;
+}
+.progressBarError {
+	width: 100%;
+	background-color: red;
+	visibility: hidden;
+}
+.progressBarStatus {
+	margin-top: 2px;
+	width: 337px;
+	font-size: 7pt;
+	font-family: Arial;
+	text-align: left;
+	white-space: nowrap;
+}
+a.progressCancel {
+	font-size: 0;
+	display: block;
+	height: 14px;
+	width: 14px;
+	background-image: url(../images/cancelbutton.gif);
+	background-repeat: no-repeat;
+	background-position: -14px 0px;
+	float: right;
+}
+a.progressCancel:hover {
+	background-position: 0px 0px;
+}
+.report_btn{
+	padding-top:20px;}
+.report_btn button{
+	width:104px;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	font-size:16px;
+	border:none;}
+.report_btn .delete{
+	float:left;}
+.report_btn .preview{
+	float:right;}
+.report_btn .preview,.report_btn .delete{
+	background:url(../../../img/report/report_btn.png) 0px -50px;}
+.report_btn .preview:hover,.report_btn .delete:hover{
+	background:url(../../../img/report/report_btn.png) -114px -50px;}
+.report_btn .publish{
+	float:right;
+	margin-left:10px;
+	color:#fff;
+	background:url(../../../img/report/report_btn.png) 0px 0px;}
+.report_btn .publish:hover{
+	background:url(../../../img/report/report_btn.png) -114px 0px;}
+/*右侧栏ks*/
+.sidebar{
+	width:190px;
+	min-height:701px;
+	padding:29px;
+	border:1px #d4d4d4 solid;
+	border-left-color:white;
+	float:right;
+	background:#f3f3f3;}
+.sidebar .type{
+	height:30px;
+	line-height:30px;
+	margin-top:10px;
+	margin-bottom:20px;}
+.sidebar .type select{
+	width: 160px;
+	height: 30px;
+	line-height: 20px;
+	padding: 4px;
+	border: 1px inset #ccc;
+	vertical-align: middle;
+	color: #666;
+	margin-left:2px;}
+.sidebar p{
+	line-height:20px;}
+.input_item{
+	margin-top:20px;}
+.input_item i{
+	display:block;
+	width:24px;
+	height:30px;
+	background:url(../../../img/report/report_icon.png);
+	float:left;}
+.input_item .user{
+	background-position:0px 0px !important;}
+.input_item .qq{
+	background-position:0px -30px !important;}
+.input_item .mobile{
+	background-position:0px -60px !important;}
+.input_item .bjbr{
+	width:150px;
+	height:20px;
+	padding:4px;
+	border:1px #ccc inset;
+	float:right;}
+.tag_wrap{
+	width:150px;
+	padding:4px;
+	border:1px #ccc inset;
+	float:right;
+	background:#fff;}
+.tag_list{
+	display:none;}
+.tag_list p{
+	position:relative;
+	height:22px;
+	line-height:22px;
+	background:#399ad0;
+	color:#fff;
+	padding-left:5px;
+	padding-right:23px;
+	float:left;
+	margin-bottom:3px;
+	border-radius:2px;}
+.tag_list p:hover{
+	box-shadow:1px 1px 1px #ccc;}
+.tag_list p a{
+	display:block;
+	width:8px;
+	height:8px;
+	background:url(../../../img/report/delete.png) -4px -4px;
+	position:absolute;
+	right:6px;
+	top:7px;
+	cursor:pointer;}
+.iptwrap{
+	width:150px;
+	height:20px;}
+.iptwrap input{
+	width:150px;
+	height:20px;
+	line-height:20px;
+	border:none;
+	background:none;}
+/*右侧栏end*/

@@ -1,0 +1,62 @@
+<?php $id = Factory::getRequest()->getParam('id')?>
+<?php $range = Factory::getRequest()->getParam('range', null)?>
+<?php $page = Factory::getRequest()->getParam('p', 1)?>
+<?php $per = 50?>
+<!--筛选框ks-->
+<div class="tabs1_bd">
+	<!--操作历史ks-->
+	<div class="tabs1_item">
+		<!--筛选框ks-->
+		<div class="search_div">
+			<form action="/monitor/system_resource/operation" method="get">
+				<div class="search_div_item">
+					<select name="range">
+						<option value="0">全部</option>
+						<option value="1" <?php echo $range == '1' ? 'selected="selected"' : ''?>>24小时内</option>
+						<option value="2" <?php echo $range == '2' ? 'selected="selected"' : ''?>>72小时内</option>
+						<option value="3" <?php echo $range == '3' ? 'selected="selected"' : ''?>>一周内</option>
+						<option value="4" <?php echo $range == '4' ? 'selected="selected"' : ''?>>半个月内</option>
+						<option value="5" <?php echo $range == '5' ? 'selected="selected"' : ''?>>一个月内</option>
+					</select>
+					<input type="hidden" name="id" value="<?php echo $id?>" />
+					<button type="submit">筛选</button>
+				</div>
+				<div class="clear"></div>
+			</form>
+		</div>
+		<!--筛选框end-->
+		<?php $operation = $this->loadResourceOperationList($id, $range, $page, $per)?>
+		<div class="table1" entity="operation">
+			<table width="990">
+				<thead>
+					<tr>
+						<th width="610">操作人</th>
+						<th width="350">操作时间</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if ($operation):?>
+					<?php foreach ($operation as $item):?>
+					<tr>
+						<td><?php echo $item['username']?></td>
+						<td><?php echo date('Y-m-d H:i:s', $item['operated_at'])?></td>
+					</tr>
+					<?php endforeach?>
+					<?php else:?>
+					<tr>
+						<td colspan="2" style="text-align:center;">暂无相关后台操作记录</td>
+					</tr>
+					<?php endif?>
+				</tbody>
+			</table>
+		</div>
+		<!--分页ks-->
+		<?php $amount = $this->getResourceOperationTotal($id, $range)?>
+		<?php if ($amount > $per):?>
+		<?php $url = '/monitor/system_resource/operation?id=' . $id . '&range=' . $range . '&'?> 
+		<?php echo Factory::getView('page/paginator')->init($amount, $page, $per, $url, 'admin')->render();?>
+		<?php endif?>
+		<!--分页end-->
+	</div>
+	<!--操作历史end-->
+</div>

@@ -1,0 +1,149 @@
+<?php global $CStatic?>
+<?php $filter = Factory::getSession('pfilter')?>
+<?php $selected = $filter ? $this->translate($filter) : array()?>
+<?php $brands = Factory::getView('system/mlib')->loadBrandList()?>
+<?php $options = $this->loadAvailableFilterOption()?>
+<!--面包屑ks-->
+<div class="bread_crumb">
+	<div class="bread_crumb_wrap">
+    	当前位置：
+		<a href="/?cfrom=breadcrumb">机荒网</a>
+        <span class="jiantou">></span>
+		<a href="/purchase/list?cfrom=breadcrumb&filter=all">个人求购</a>
+		<?php if ($selected):?>
+		<span class="jiantou">></span>
+		<?php $end = end($selected)?>
+		<?php foreach ($selected as $value):?>
+		<a href="javascript:void(0);"><?php echo $value?></a>
+		<?php if ($end != $value):?>
+		<span class="jiantou">&nbsp;+&nbsp;</span>
+		<?php endif;?>
+		<?php endforeach;?>
+		<?php endif;?>
+    </div>
+</div>
+<!--面包屑end-->
+<!--您的选择ks-->
+<div class="y_choices" style="display:none;">
+	<div class="l grey"><span>共有<strong class="red">122</strong>条信息</span></div>
+    <div class="search_wp">
+        <input name="q" type="text" value="输入手机品牌或型号" placeholder="输入手机品牌或型号" />
+        <button type="button">搜索</button>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!--您的选择end-->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	/**
+	jQuery(window).scroll(function () {
+		if (jQuery(window).scrollTop() >= 420) {
+			//if (jQuery('.y_choices').length > 0) {
+			//	jQuery('.y_choices').css('position', 'fixed').css('top', '0');
+			//	jQuery('.filter_bar').css('position', 'fixed').css('top', '36px');
+			//} else {
+			//	jQuery('.filter_bar').css('position', 'fixed').css('top', '0');
+			//}
+			jQuery('.filter_bar').css('position', 'fixed').css('top', '0');
+		}else{
+			//jQuery('.y_choices').css('position', 'static');
+			jQuery('.filter_bar').css('position', 'static');
+		}
+	});
+	 */
+	jQuery('.brand_box li a').mouseover(function(){
+		if (jQuery(this).find('img').length > 0) {
+			jQuery(this).find('img').hide();
+			jQuery(this).find('span').show();
+		}
+	});
+	jQuery('.brand_box li a').mouseout(function(){
+		if (jQuery(this).find('img').length > 0) {
+			jQuery(this).find('img').show();
+			jQuery(this).find('span').hide();
+		}
+	});
+});
+//缺少品牌图片时处理方式
+function loadBrandLogoError(obj)
+{
+	jQuery(obj).parent().find('span').show();
+	jQuery(obj).remove();
+}
+//显示更多品牌
+function showMoreBrand(obj)
+{
+	if (jQuery('.brand_box').css('height') == '50px') {
+		jQuery(obj).addClass('more_brand_c');
+		jQuery('.brand_box').css('height', 'auto');
+	} else {
+		jQuery(obj).removeClass('more_brand_c');
+		jQuery('.brand_box').css('height', '50px');
+	}
+}
+//清空品牌选择
+function clearBrandSelected()
+{
+	window.location.href = '/purchase/list?cfrom=attr_selector&filter[1]=all';
+}
+</script>
+<!--属性筛选框ks-->
+<div class="attrs">
+	<dl class="attrs_brand">
+    	<dt>手机品牌：</dt>
+    	<dd>
+        	<div class="brand_box">
+            	<ul>
+					<?php if (isset($filter['1'])):?>
+                	<li class="brand_c">
+						<a href="/purchase/list?cfrom=brand&filter[1]=<?php echo $filter['1']?>">
+                        	<img src="<?php echo $this->getImg('brand2/' . $filter['1'] . '.jpg')?>" onerror="loadBrandLogoError(this);" />
+							<span style="display:none;"><?php echo $brands[$filter['1']]?></span>
+                        </a>
+                        <i onclick="clearBrandSelected();">x</i>
+                    </li>
+					<?php unset($options['1'][$filter['1']])?>
+					<?php endif?>
+					<?php foreach ($options['1'] as $value):?>
+					<?php 
+					if ($value == '15') {
+						$tmp = '15';
+						continue;
+					}
+					?>
+                	<li>
+						<a href="/purchase/list?cfrom=brand&filter[1]=<?php echo $value?>">
+                        	<img src="<?php echo $this->getImg('brand2/' . $value . '.jpg')?>" onerror="loadBrandLogoError(this);" />
+							<span style="display:none;"><?php echo $brands[$value]?></span>
+                        </a>
+                    </li>
+					<?php endforeach?>
+					<?php if (isset($tmp)):?>
+                	<li>
+						<a href="/purchase/list?cfrom=brand&filter[1]=15">
+							<span><?php echo $brands['15']?></span>
+                        </a>
+                    </li>
+					<?php endif?>
+                </ul>
+				<div class="clear"></div>
+            </div>
+			<span class="more_brand" onclick="showMoreBrand(this);">更多<i></i></span><!--点击更多时在此添加类more_brand_c-->
+            <div class="clear"></div>
+        </dd>
+    	<div class="clear"></div>
+    </dl>
+	<dl class="attrs_item">
+    	<dt>交易地区：</dt>
+    	<dd>
+            <a <?php if (!isset($filter['2'])):?>class="attrs_c"<?php endif;?> href="/purchase/list?cfrom=who&filter[2]=all">全部</a>
+			<?php ksort($options['2'])?>
+			<?php foreach ($options['2'] as $value):?>
+			<a <?php if ($filter['2'] == $value):?>class="attrs_c"<?php endif;?> href="/purchase/list?cfrom=who&filter[2]=<?php echo $value?>"><?php echo $CStatic['region'][$value]?></a>
+			<?php endforeach?>
+        </dd>
+    	<div class="clear"></div>
+    </dl>
+</div>
+<!--属性筛选框end-->

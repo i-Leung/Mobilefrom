@@ -1,0 +1,93 @@
+<?php $customer_id = Factory::getSession('customer/id')?>
+<?php $info = $this->getInfo($customer_id)?>
+<div class="index_l">
+    <p style="font-size:14px; line-height:30px;" class="blue">
+        <strong><?php echo $info['username']?>，您好！</strong>
+    </p>
+    <div class="jb_info">
+    	<div class="user_img">
+			<?php if (Factory::getSession('customer/group')):?>
+			<img src="http://mobilefrom-upload.stor.sinaapp.com/thumbnail/<?php echo $customer_id?>.jpg" onerror="loadErrorStoreThumbnail(this);" />
+			<?php else:?>
+			<img src="http://mobilefrom-upload.stor.sinaapp.com/thumbnail/<?php echo $customer_id?>.jpg" onerror="loadErrorThumbnail(this);" />
+			<?php endif?>
+            <a href="/customer/account/thumb?cfrom=uc_index">点击设置头像</a>
+        </div>
+        <table>
+            <tbody>
+                <tr>
+                    <td>用户性质：</td>
+                    <td class="grey"><?php echo $this->getGroupName($info['group'])?></td>
+                </tr>
+                <tr>
+                    <td>用户邮箱：</td>
+                    <td class="grey">
+						<?php echo $info['email']?>
+						<?php if ($info['group'] == '1' && $info['verified'] == '0'):?>
+                    	<span class="red" style="margin-left:10px;">尚未验证，
+                        	<a class="green" href="/customer/account/email-verify?cfrom=uc_index">立即验证</a>
+                        </span>
+						<?php endif?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>注册时间：</td>
+                    <td class="grey"><?php echo date('Y 年 m 月 d 日', $info['registered_at'])?></td>
+                </tr>
+                <tr>
+                    <td>登录次数：</td>
+                    <td class="grey"><?php echo $info['logon_times']?></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="clear"></div>
+    </div>
+    <div class="tongji_info">
+        <h3>信息统计</h3>
+        <ul>
+            <li>
+                未读信息：
+                <span class="red"><?php echo Factory::getView('customer/msg')->getNewMsgTotal($customer_id)?></span>
+            </li>
+            <li>
+                出售的手机：
+                <span class="red"><?php echo Factory::getView('mobile/list')->getMyMobileTotal($customer_id)?></span>
+            </li>
+            <li>
+                出售的平板：
+                <span class="red"><?php echo Factory::getView('tablet/list')->getMyTabletTotal($customer_id)?></span>
+            </li>
+        </ul>
+		<div class="clear"></div>
+    </div>
+	<?php if ($info['group'] == '1' && $info['verified'] == '0'):?>
+    <p style="margin-top:20px;">
+    	亲爱的用户，您的注册邮箱尚未验证，将不利于您找回密码。
+        <a class="green" href="/customer/account/email-verify?cfrom=uc_index">立即验证>></a>
+    </p>
+	<?php endif?>
+</div>
+<!--右侧栏ks-->
+<div class="index_r">
+	<div class="index_r_item">
+    	<h3>最新公告</h3>
+        <p style="text-indent: 2em;line-height: 30px;">
+        	机荒网，致力为您提供安全、快捷、高效的本地数码产品交易平台！
+        </p>
+    </div>
+    <!--购机小常识ks-->
+    
+	<div class="index_r_item" style="margin-top:20px;">
+    	<h3>手机交易要知道</h3>
+    	<ul>
+        	<li><a href="/website/helper/what-to-buy#faq1">什么是翻新机？</a></li>
+        	<li><a href="/website/helper/what-to-buy#faq2">什么是组装机、改装机？</a></li>
+        	<li><a href="/website/helper/what-to-buy#faq3">什么是高仿机？</a></li>
+        	<li><a href="/website/helper/how-to-buy#faq1">骗子一般长啥样？</a></li>
+        	<li><a href="/website/helper/how-to-buy#faq2">哪种交易方式容易中招？</a></li>
+        	<li><a href="/website/helper/how-to-buy#faq3">如何测试手机？</a></li>
+        </ul>
+    </div>
+    <!--购机小常识end-->
+</div>
+<!--右侧栏end-->

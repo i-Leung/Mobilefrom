@@ -1,0 +1,18 @@
+<?php $customer_id = Factory::getRequest()->getParam('id')?>
+<?php $info = $this->getInfo($customer_id)?>
+<div class="content_l">
+	<table>
+		<tr>
+			<th>账号名称：</th>
+			<td class="blue"><?php echo $info['username']?></td>
+		</tr>
+		<tr>
+			<th>账号性质：</th>
+			<td><?php echo $this->getGroupName($info['group'])?></td>
+		</tr>
+		<tr>
+			<th>注册时间：</th>
+			<td><?php echo timeforcustomer($info['registered_at'])?></td>
+		</tr>
+	</table>
+</div>

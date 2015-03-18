@@ -1,0 +1,14 @@
+.c_p_top{
+	padding: 10px 0 0;
+}
+.c_p_title, .c_p_content{
+	line-height:25px;
+	font-size:14px;
+}
+.c_p_title{
+	padding-top:20px;
+	color: #690;
+}
+.c_p_content{
+	text-indent:2em;
+}
